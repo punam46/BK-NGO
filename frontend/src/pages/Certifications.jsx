@@ -54,6 +54,13 @@ const Certifications = () => {
       color: "#e8eaf6"
     },
     {
+      title: "CSR-1 Registration",
+      subtitle: "Ministry of Corporate Affairs",
+      icon: <CheckCircle className="w-8 h-8 text-blue-500" />,
+      description: "Registered with the Ministry of Corporate Affairs for undertaking Corporate Social Responsibility (CSR) activities.",
+      color: "#e1f5fe"
+    },
+    {
       title: "NIC Registration",
       subtitle: "National Industrial Classification",
       icon: <Award className="w-8 h-8 text-amber-600" />,
@@ -64,10 +71,49 @@ const Certifications = () => {
 
   return (
     <div className="certifications-page">
-      <TornHeader 
-        title="Our Certifications" 
-        subtitle="Legal Compliance & Official Registrations"
-      />
+      <TornHeader>
+        <div style={{ 
+          height: '100%', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          color: '#fff',
+          textAlign: 'center',
+          padding: '0 20px'
+        }}>
+          <div style={{
+            background: 'rgba(255,255,255,0.2)',
+            padding: '6px 15px',
+            borderRadius: '50px',
+            fontSize: '0.8rem',
+            fontWeight: '700',
+            letterSpacing: '2px',
+            marginBottom: '1.5rem',
+            backdropFilter: 'blur(5px)',
+            border: '1px solid rgba(255,255,255,0.3)'
+          }}>
+            GOVERNMENT REGISTERED
+          </div>
+          <h1 style={{ 
+            fontSize: 'clamp(2.5rem, 8vw, 4rem)', 
+            fontWeight: '900', 
+            marginBottom: '0.5rem',
+            textShadow: '0 2px 10px rgba(0,0,0,0.1)'
+          }}>
+            Our Certifications
+          </h1>
+          <p style={{ 
+            fontSize: 'clamp(1rem, 2vw, 1.2rem)', 
+            opacity: 0.95,
+            fontWeight: '500',
+            letterSpacing: '1px',
+            textTransform: 'uppercase'
+          }}>
+            Legal Compliance & Official Registrations
+          </p>
+        </div>
+      </TornHeader>
       
       <section style={{ padding: '6rem 0', background: '#f8f9fa' }}>
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
