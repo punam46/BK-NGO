@@ -2,470 +2,597 @@ import React, { useState, useEffect, useRef } from 'react';
 import { renderText } from './Education';
 import bloodCampImg from '../assets/g16.jpeg';
 import socialWelfImg from '../assets/socialwelf.png';
+import { Heart, Users, Shield, BookOpen, Scale, Wrench, ArrowRight, MessageCircle } from 'lucide-react';
 
 const SocialWelfare = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isVisible, setIsVisible] = useState({});
+  const sectionRefs = useRef([]);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(prev => ({ ...prev, [entry.target.id]: true }));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    sectionRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      observer.disconnect();
+    };
   }, []);
 
-  // Auto-play logic
+  // Auto-play logic for slider
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide(prev => (prev + 1) % 6);
-    }, 5000); // Change slide every 5 seconds
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
-
-  // Animation Styles
-  const slideAnimationStyle = `
-    @keyframes slideFadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes imageZoom {
-      from { transform: scale(1.15); }
-      to { transform: scale(1); }
-    }
-    .active-slide-text {
-      animation: slideFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .active-slide-img {
-      animation: imageZoom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-  `;
-  const animations = `
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes reveal {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    @media (max-width: 992px) {
-      .methodology-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-      }
-    }
-    @media (max-width: 600px) {
-      .methodology-grid {
-        grid-template-columns: 1fr !important;
-      }
-      .initiative-card {
-        padding: 1.5rem !important;
-        gap: 2rem !important;
-      }
-      .initiative-card h3 {
-        font-size: 1.8rem !important;
-      }
-      .initiative-img-container {
-        height: 300px !important;
-      }
-    }
-  `;
 
   const welfareItems = [
     {
       title: "Social Awareness & Rights",
-      description: "BK Education and Welfare Society conducts extensive campaigns to raise awareness about critical social issues, including legal rights, gender equality, and environmental protection. By empowering community members with knowledge about government welfare schemes and constitutional rights, we enable them to make informed decisions for their families.",
-      icon: "📢",
-      image: "/social.png"
+      description: "Extensive campaigns to raise awareness about critical social issues, including legal rights and gender equality.",
+      icon: <Users className="w-8 h-8" />,
+      image: "/social.png",
+      color: "#3b82f6"
     },
     {
       title: "Community Welfare Services",
-      description: "BK Education and Welfare Society provides direct and immediate support for underprivileged families through systemic resource distribution. This includes food drives, winter clothing distributions, and providing essential household items to those in extreme need.",
-      icon: "🤝",
-      image: "/cominp.jpg"
+      description: "Direct and immediate support for underprivileged families through systemic resource distribution.",
+      icon: <Heart className="w-8 h-8" />,
+      image: "/cominp.jpg",
+      color: "#ef4444"
     },
     {
       title: "Social Security Schemes",
-      description: "We help community members navigate and access various government social security benefits, ensuring that those entitled to support—such as the elderly, widowed, or disabled—receive their rightful aid without administrative hurdles.",
-      icon: "🛡️",
-      image: "/community_services_bg_1776918702641.png"
+      description: "Navigating and accessing various government social security benefits for the elderly and disabled.",
+      icon: <Shield className="w-8 h-8" />,
+      image: "/community_services_bg_1776918702641.png",
+      color: "#10b981"
     },
     {
       title: "Women Empowerment",
-      description: "Focusing on self-reliance through vocational training and self-help groups. We empower women to become financially independent and lead their communities towards progressive social change.",
-      icon: "👩‍💼",
-      image: "/senior_counseling_bg_new_1776918822970.png"
+      description: "Focusing on self-reliance through vocational training and self-help groups.",
+      icon: <MessageCircle className="w-8 h-8" />,
+      image: "/senior_counseling_bg_new_1776918822970.png",
+      color: "#f59e0b"
     },
     {
       title: "Legal Aid Clinics",
-      description: "Providing free legal consultation and representation for marginalized individuals who cannot afford professional legal services, ensuring that justice is accessible to everyone regardless of their financial status.",
-      icon: "⚖️",
-      image: "/vocational_guidance_bg_1776918722666.png"
+      description: "Providing free legal consultation and representation for marginalized individuals.",
+      icon: <Scale className="w-8 h-8" />,
+      image: "/vocational_guidance_bg_1776918722666.png",
+      color: "#8b5cf6"
     },
     {
       title: "Youth Skills Development",
-      description: "Bridging the gap between education and employment by providing specialized skill training in modern trades, helping the youth from underprivileged backgrounds secure sustainable livelihoods.",
-      icon: "🛠️",
-      image: "/career_counseling_bg_new_1776918786013.png"
+      description: "Bridging the gap between education and employment with specialized skill training.",
+      icon: <Wrench className="w-8 h-8" />,
+      image: "/career_counseling_bg_new_1776918786013.png",
+      color: "#ec4899"
     }
   ];
 
   const methodology = [
-    { step: "01", title: "Identification", text: "Identifying families and individuals in dire need through grassroots surveys." },
-    { step: "02", title: "Direct Relief", text: "Providing immediate assistance including food, health support, and shelter." },
-    { step: "03", title: "Awareness", text: "Educating the community about their long-term rights and government benefits." },
-    { step: "04", title: "Empowerment", text: "Enabling self-sustenance through skill-building and continuous mentoring." }
+    { step: "01", title: "Identification", text: "Identifying families in dire need through grassroots surveys." },
+    { step: "02", title: "Direct Relief", text: "Immediate assistance including food, health support, and shelter." },
+    { step: "03", title: "Awareness", text: "Educating the community about their rights and government benefits." },
+    { step: "04", title: "Empowerment", text: "Self-sustenance through skill-building and continuous mentoring." }
   ];
 
+  const animations = `
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(2deg); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 152, 0, 0.2); }
+      50% { box-shadow: 0 0 40px rgba(255, 152, 0, 0.4); }
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes revealLine {
+      from { width: 0; }
+      to { width: 100px; }
+    }
+    .hover-lift {
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .hover-lift:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.12) !important;
+    }
+    .parallax-bg {
+      transition: transform 0.1s ease-out;
+    }
+    .stagger-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .stagger-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  `;
+
   return (
-    <div className="social-welfare-page" style={{ background: '#fff', minHeight: '100vh', paddingBottom: '6rem' }}>
+    <div className="social-welfare-page" style={{ background: '#fff', color: '#1a1a1a', fontFamily: "'Inter', sans-serif" }}>
       <style>{animations}</style>
 
-      {/* Philosophy/Intro Section */}
-      <section style={{ 
-        padding: '4rem 5% 2rem', 
-        textAlign: 'center', 
-        background: 'linear-gradient(135deg, #fff 0%, #f9f9f9 100%)',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <h2 style={{ 
-            fontSize: '1.2rem', 
-            color: 'var(--pratham-yellow)', 
+      {/* Modern Hero Section */}
+      <section 
+        id="hero"
+        ref={el => sectionRefs.current[0] = el}
+        style={{ 
+          minHeight: '90vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          padding: '100px 5%',
+          background: '#0a0a0a',
+          overflow: 'hidden'
+        }}
+      >
+        {/* Animated Background Elements */}
+        <div style={{
+          position: 'absolute',
+          top: '10%',
+          right: '5%',
+          width: '500px',
+          height: '500px',
+          background: 'radial-gradient(circle, rgba(255, 152, 0, 0.1) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+          animation: 'float 10s infinite ease-in-out'
+        }}></div>
+        <div style={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '5%',
+          width: '400px',
+          height: '400px',
+          background: 'radial-gradient(circle, rgba(33, 150, 243, 0.1) 0%, transparent 70%)',
+          filter: 'blur(50px)',
+          animation: 'float 8s infinite ease-in-out reverse'
+        }}></div>
+
+        <div style={{ 
+          maxWidth: '1200px', 
+          width: '100%',
+          position: 'relative', 
+          zIndex: 10,
+          textAlign: 'center'
+        }}>
+          <div className={`stagger-reveal ${isVisible.hero ? 'visible' : ''}`} style={{ transitionDelay: '0.1s' }}>
+            <span style={{
+              display: 'inline-block',
+              padding: '8px 20px',
+              background: 'rgba(255, 152, 0, 0.1)',
+              color: '#ff9800',
+              borderRadius: '50px',
+              fontSize: '0.9rem',
+              fontWeight: '700',
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+              marginBottom: '2rem',
+              border: '1px solid rgba(255, 152, 0, 0.2)'
+            }}>
+              Our Mission
+            </span>
+          </div>
+          
+          <h1 className={`stagger-reveal ${isVisible.hero ? 'visible' : ''}`} style={{ 
+            fontSize: 'clamp(3rem, 8vw, 6rem)', 
             fontWeight: '900', 
-            marginBottom: '1.5rem', 
-            textTransform: 'uppercase',
-            letterSpacing: '2px'
-          }}>
-            {renderText("BK Education and Welfare Society")}
-          </h2>
-          <h1 style={{ 
-            fontSize: '3.2rem', 
-            fontWeight: '900', 
-            color: '#1a1a1a', 
+            color: '#fff', 
             marginBottom: '2rem',
-            lineHeight: '1.2',
-            letterSpacing: '-2px'
+            lineHeight: '1',
+            letterSpacing: '-4px',
+            transitionDelay: '0.3s'
           }}>
-            Upholding Dignity, Empowering Lives.
+            Upholding <span style={{ color: '#ff9800' }}>Dignity,</span><br />
+            Empowering <span style={{ 
+              background: 'linear-gradient(to right, #fff, #888)', 
+              WebkitBackgroundClip: 'text', 
+              WebkitTextFillColor: 'transparent' 
+            }}>Lives.</span>
           </h1>
-          <p style={{ 
-            fontSize: '1.25rem', 
-            color: '#555', 
+
+          <p className={`stagger-reveal ${isVisible.hero ? 'visible' : ''}`} style={{ 
+            fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
+            color: '#aaa', 
             lineHeight: '1.6',
-            maxWidth: '700px',
-            margin: '0 auto'
+            maxWidth: '800px',
+            margin: '0 auto 3rem',
+            transitionDelay: '0.5s'
           }}>
-            Through direct intervention and systemic awareness, BK Education and Welfare Society ensures that no individual is left behind. Our social welfare initiatives are designed to provide both immediate relief and long-term security to the marginalized sections of society.
+            Through direct intervention and systemic awareness, BK Education and Welfare Society ensures that no individual is left behind in the journey of progress.
           </p>
+
+          <div className={`stagger-reveal ${isVisible.hero ? 'visible' : ''}`} style={{ transitionDelay: '0.7s' }}>
+            <button style={{
+              padding: '18px 45px',
+              background: '#ff9800',
+              color: '#000',
+              border: 'none',
+              borderRadius: '15px',
+              fontWeight: '800',
+              fontSize: '1.1rem',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 15px 30px rgba(255, 152, 0, 0.3)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05) translateY(-5px)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1) translateY(0)'}
+            >
+              Explore Initiatives
+            </button>
+          </div>
         </div>
       </section>
 
-
-      {/* Methodology Section */}
-      <section style={{ 
-        padding: '2rem 5% 6rem', 
-        background: '#fcfcfc',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-        {/* Watercolor Background Effect */}
-        <div style={{
-          position: 'absolute',
-          top: 0, left: 0, width: '100%', height: '100%',
-          backgroundImage: 'url("/yellow_watercolor_wash.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'hue-rotate(280deg) saturate(2) brightness(0.9)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
-          maskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
-          opacity: 0.25,
-          zIndex: 0,
-          pointerEvents: 'none'
-        }}></div>
-
-        <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1rem' }}>How We Create Change</h2>
-            <p style={{ color: '#666', fontSize: '1.1rem' }}>Our systematic approach to ensuring sustainable social welfare.</p>
+      {/* Core Pillars Section - The Grid */}
+      <section 
+        id="pillars"
+        ref={el => sectionRefs.current[1] = el}
+        style={{ padding: '8rem 5%', background: '#fff' }}
+      >
+        <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+            <h2 className={`stagger-reveal ${isVisible.pillars ? 'visible' : ''}`} style={{ 
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
+              fontWeight: '900', 
+              letterSpacing: '-2px',
+              marginBottom: '1rem'
+            }}>
+              Our Core Pillars
+            </h2>
+            <div className={`stagger-reveal ${isVisible.pillars ? 'visible' : ''}`} style={{ 
+              width: '80px', 
+              height: '6px', 
+              background: '#ff9800', 
+              margin: '0 auto 2rem',
+              borderRadius: '3px',
+              transitionDelay: '0.2s'
+            }}></div>
           </div>
-          <div className="methodology-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
-            {methodology.map((m, index) => (
-              <div key={index} style={{ 
-                textAlign: 'center', 
-                padding: '3rem 2rem',
-                background: '#e0f7fa',
-                borderRadius: '32px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.06)',
-                transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                cursor: 'pointer',
-                border: '1px solid #b2ebf2',
-                animation: `fadeInUp 0.8s ease forwards ${index * 0.2}s, float 4s ease-in-out infinite ${index * 0.5}s`,
-                opacity: 0,
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-15px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 30px 60px rgba(0, 188, 212, 0.2), 0 10px 20px rgba(0,0,0,0.05)';
-                e.currentTarget.style.background = '#b2ebf2';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.06)';
-                e.currentTarget.style.background = '#fce4ec';
-              }}
-              >
-                <div style={{ 
-                  fontSize: '4rem', 
-                  fontWeight: '900', 
-                  color: 'rgba(0, 188, 212, 0.1)', 
-                  marginBottom: '-3rem',
-                  transition: 'all 0.4s ease'
-                }}>{m.step}</div>
-                <h4 style={{ 
-                  fontSize: '1.4rem', 
-                  fontWeight: '800', 
-                  marginBottom: '1.2rem', 
+
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', 
+            gap: '2.5rem' 
+          }}>
+            {welfareItems.map((item, index) => (
+              <div 
+                key={index}
+                className={`hover-lift stagger-reveal ${isVisible.pillars ? 'visible' : ''}`}
+                style={{
+                  background: '#fff',
+                  borderRadius: '32px',
+                  padding: '2.5rem',
+                  border: '1px solid #f0f0f0',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1.5rem',
+                  transitionDelay: `${0.1 * index}s`,
                   position: 'relative',
-                  color: '#1a1a1a'
-                }}>{m.title}</h4>
-                <div style={{ 
-                  width: '40px', 
-                  height: '4px', 
-                  background: '#00bcd4', 
-                  margin: '0 auto 1.5rem',
-                  borderRadius: '2px'
-                }}></div>
-                <p style={{ color: '#555', fontSize: '1rem', lineHeight: '1.7', fontWeight: '500' }}>{m.text}</p>
+                  overflow: 'hidden'
+                }}
+              >
+                <div style={{
+                  width: '70px',
+                  height: '70px',
+                  borderRadius: '20px',
+                  background: `${item.color}15`,
+                  color: item.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  {item.icon}
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1rem' }}>{item.title}</h3>
+                  <p style={{ color: '#666', lineHeight: '1.7', fontSize: '1.05rem' }}>{item.description}</p>
+                </div>
+                <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px', color: item.color, fontWeight: '700', fontSize: '0.9rem', cursor: 'pointer' }}>
+                  LEARN MORE <ArrowRight size={16} />
+                </div>
+                
+                {/* Decorative background number */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: '-20px',
+                  right: '-10px',
+                  fontSize: '8rem',
+                  fontWeight: '900',
+                  color: 'rgba(0,0,0,0.02)',
+                  zIndex: 0,
+                  pointerEvents: 'none'
+                }}>
+                  0{index + 1}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Interactive Initiatives Slider */}
-      <section style={{ 
-        padding: '6rem 5%', 
-        background: '#fff',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
+      {/* Methodology Section - Interactive Flow */}
+      <section 
+        id="method"
+        ref={el => sectionRefs.current[2] = el}
+        style={{ 
+          padding: '8rem 5%', 
+          background: '#f8f9fa',
+          position: 'relative'
+        }}
+      >
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1rem' }}>Our Recent Initiatives</h2>
-            <p style={{ color: '#666', fontSize: '1.1rem' }}>Discover how we are making a direct impact on the ground.</p>
-          </div>
-
-          <div style={{ position: 'relative' }}>
-            {/* Slider Container */}
-            <div style={{ overflow: 'hidden' }}>
-              <div style={{ 
-                display: 'flex', 
-                transition: 'transform 0.4s cubic-bezier(0.65, 0, 0.35, 1)',
-                transform: `translateX(-${currentSlide * 100}%)`
-              }}>
-                {[
-                  {
-                    tag: "Life-Saving Initiatives",
-                    title: "BK Education and Welfare Society: Blood Donation Camp",
-                    desc: "Our society organizes regular blood donation camps to bridge the gap between supply and demand in local healthcare facilities. By mobilizing community members and volunteers, we ensure that life-saving blood is available for those in critical need, especially during emergencies.",
-                    desc2: "These camps are more than just donation drives; they are a testament to the collective spirit of the BK Education and Welfare Society. Every drop donated is a promise of hope.",
-                    img: bloodCampImg,
-                    color: "#d81b60"
-                  },
-                  {
-                    tag: "Environmental Stewardship",
-                    title: "Mountain Cleaning & Heritage Preservation: Ramshej Fort",
-                    desc: "Protecting our historical monuments and local ecosystems is a core pillar of our social work. Our volunteers regularly trek to the historic Ramshej Fort to conduct extensive cleaning drives, ensuring that this sacred heritage site remains free from plastic waste.",
-                    desc2: "Through these mountain cleaning initiatives, BK Education and Welfare Society promotes a culture of environmental responsibility and respect for our ancestors' legacy.",
-                    img: "/ramshej_cleaning.jpg",
-                    color: "#2e7d32"
-                  },
-                  {
-                    tag: "Social Justice & Equality",
-                    title: "Celebrating Equality: Dr. Babasaheb Ambedkar Jayanti",
-                    desc: "We honor the visionary leadership and legacy of Dr. Babasaheb Ambedkar by celebrating his birth anniversary with profound respect. Our society conducts educational programs and community dialogues that emphasize equality and justice.",
-                    desc2: "BK Education and Welfare Society reaffirms its commitment to empowering the marginalized and upholding the constitutional rights of every citizen.",
-                    img: "/ambedkar_jayanti.jpg",
-                    color: "#0d47a1"
-                  },
-                  {
-                    tag: "Essential Services",
-                    title: "Clean Water Access: Serving the Community",
-                    desc: "Ensuring access to clean drinking water is a fundamental human right. BK Education and Welfare Society regularly organizes water supply drives in underprivileged areas, especially during the harsh summer months, to prevent dehydration and support families in need.",
-                    desc2: "Our goal is to provide immediate relief while fostering awareness about water conservation and hygiene, ensuring that no individual has to struggle for this basic necessity.",
-                    img: "/water_supply_social.jpg",
-                    color: "#03a9f4"
-                  },
-                  {
-                    tag: "Social Protection",
-                    title: "Stop Child Marriage: Protecting Futures",
-                    desc: "BK Education and Welfare Society is dedicated to eradicating the practice of child marriage through grassroots awareness and community workshops. We work closely with families and local leaders to emphasize the importance of education and the health risks of early marriage.",
-                    desc2: "Ensuring every girl has the right to a childhood and a future of her choice is our priority. We empower girls with knowledge of their rights and provide support systems to keep them in school.",
-                    img: "/infant_marriage.jpg",
-                    color: "#673ab7"
-                  },
-                  {
-                    tag: "Safety Initiatives",
-                    title: "Personal Safety & Empowerment: Women & Children",
-                    desc: "Our 'Good Touch & Bad Touch' workshops empower children with the confidence to identify and report inappropriate behavior, creating a safer environment at home and school. We believe awareness is the first shield for our children.",
-                    desc2: "In addition, our Women Safety programs provide essential self-defense training and legal awareness. We are building a community where every woman and child feels secure, informed, and empowered to stand up for their safety.",
-                    img: "/women_safety.jpg",
-                    color: "#ffa000"
-                  }
-                ].map((item, i) => (
-                  <div key={i} style={{ 
-                    flex: '0 0 100%', 
-                    padding: '0 10px',
-                    opacity: currentSlide === i ? 1 : 0.4,
-                    transition: 'opacity 0.8s ease'
-                  }}>
-                    <style>{slideAnimationStyle}</style>
-                    <div className="initiative-card" style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: windowWidth < 768 ? '2rem' : '4rem', 
-                      flexWrap: 'wrap',
-                      background: '#fff',
-                      padding: windowWidth < 768 ? '1.5rem' : '3rem',
-                      borderRadius: '40px',
-                      boxShadow: currentSlide === i ? '0 40px 80px rgba(0,0,0,0.12)' : '0 10px 30px rgba(0,0,0,0.05)',
-                      transform: currentSlide === i ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
-                      transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-                      border: '1px solid #f0f0f0'
-                    }}>
-                      <div style={{ flex: '1', minWidth: windowWidth < 768 ? '100%' : '350px' }}>
-                        <h2 className={currentSlide === i ? 'active-slide-text' : ''} style={{ 
-                          fontSize: '1rem', 
-                          color: item.color, 
-                          fontWeight: '900', 
-                          marginBottom: '1rem', 
-                          textTransform: 'uppercase', 
-                          letterSpacing: '2px',
-                          animationDelay: '0.1s',
-                          opacity: currentSlide === i ? 1 : 0
-                        }}>{item.tag}</h2>
-                        <h3 className={currentSlide === i ? 'active-slide-text' : ''} style={{ 
-                          fontSize: windowWidth < 768 ? '1.8rem' : '2.5rem', 
-                          fontWeight: '900', 
-                          color: '#1a1a1a', 
-                          marginBottom: '1.5rem', 
-                          lineHeight: '1.2',
-                          animationDelay: '0.2s',
-                          opacity: currentSlide === i ? 1 : 0
-                        }}>{item.title}</h3>
-                        <p className={currentSlide === i ? 'active-slide-text' : ''} style={{ 
-                          fontSize: '1.1rem', 
-                          lineHeight: '1.8', 
-                          color: '#555', 
-                          textAlign: 'justify',
-                          animationDelay: '0.3s',
-                          opacity: currentSlide === i ? 1 : 0
-                        }}>{item.desc}<br /><br />{item.desc2}</p>
-                      </div>
-                      <div className="initiative-img-container" style={{ 
-                        flex: '1', 
-                        minWidth: windowWidth < 768 ? '100%' : '350px', 
-                        borderRadius: '30px', 
-                        overflow: 'hidden', 
-                        boxShadow: '0 30px 60px rgba(0,0,0,0.1)', 
-                        height: windowWidth < 768 ? '300px' : '450px',
-                        position: 'relative'
-                      }}>
-                        <img 
-                          src={item.img} 
-                          alt={item.title} 
-                          className={currentSlide === i ? 'active-slide-img' : ''}
-                          style={{ 
-                            width: '100%', 
-                            height: '100%', 
-                            objectFit: 'cover',
-                            transition: 'transform 1.2s ease'
-                          }} 
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
+          <div style={{ display: 'flex', gap: '4rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <div style={{ flex: '1', minWidth: '300px' }}>
+              <h2 className={`stagger-reveal ${isVisible.method ? 'visible' : ''}`} style={{ fontSize: '3rem', fontWeight: '900', marginBottom: '2rem', letterSpacing: '-1px' }}>
+                How We Create <br /><span style={{ color: '#ff9800' }}>Lasting Change</span>
+              </h2>
+              <p className={`stagger-reveal ${isVisible.method ? 'visible' : ''}`} style={{ fontSize: '1.15rem', color: '#666', lineHeight: '1.8', marginBottom: '2rem', transitionDelay: '0.2s' }}>
+                Our systematic approach to ensuring sustainable social welfare follows a proven four-step methodology that moves from immediate relief to total empowerment.
+              </p>
+              <div className={`stagger-reveal ${isVisible.method ? 'visible' : ''}`} style={{ transitionDelay: '0.4s' }}>
+                <img src={socialWelfImg} alt="Impact" style={{ width: '100%', borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} />
               </div>
             </div>
- 
-            {/* Navigation Controls */}
-            <div style={{ 
-              display: 'flex', 
-              gap: '15px', 
-              marginTop: '1rem',
-              justifyContent: 'center'
-            }}>
-              <button 
-                onClick={() => setCurrentSlide(prev => (prev - 1 + 6) % 6)}
-                style={{
-                  width: '55px',
-                  height: '55px',
-                  borderRadius: '18px',
-                  border: '1px solid #eee',
-                  background: '#fff',
-                  color: '#333',
-                  fontSize: '1.2rem',
-                  cursor: 'pointer',
-                  boxShadow: '0 10px 20px rgba(0,0,0,0.05)',
-                  transition: '0.3s',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--pratham-yellow)'; e.currentTarget.style.color = '#000'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#333'; }}
-              >&#10094;</button>
-              <button 
-                onClick={() => setCurrentSlide(prev => (prev + 1) % 6)}
-                style={{
-                  width: '55px',
-                  height: '55px',
-                  borderRadius: '18px',
-                  border: '1px solid #eee',
-                  background: '#fff',
-                  color: '#333',
-                  fontSize: '1.2rem',
-                  cursor: 'pointer',
-                  boxShadow: '0 10px 20px rgba(0,0,0,0.05)',
-                  transition: '0.3s',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--pratham-yellow)'; e.currentTarget.style.color = '#000'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#333'; }}
-              >&#10095;</button>
+
+            <div style={{ flex: '1', minWidth: '300px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              {methodology.map((m, index) => (
+                <div 
+                  key={index}
+                  className={`stagger-reveal ${isVisible.method ? 'visible' : ''}`}
+                  style={{ 
+                    display: 'flex', 
+                    gap: '1.5rem', 
+                    background: '#fff', 
+                    padding: '2rem', 
+                    borderRadius: '24px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.04)',
+                    border: '1px solid #eee',
+                    transitionDelay: `${0.2 * index}s`
+                  }}
+                >
+                  <div style={{ 
+                    fontSize: '2rem', 
+                    fontWeight: '900', 
+                    color: '#ff9800', 
+                    opacity: 0.3,
+                    minWidth: '50px'
+                  }}>{m.step}</div>
+                  <div>
+                    <h4 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.5rem' }}>{m.title}</h4>
+                    <p style={{ color: '#555', lineHeight: '1.6' }}>{m.text}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* Impact Stories Slider - Cinematic Style */}
+      <section 
+        id="impact"
+        ref={el => sectionRefs.current[3] = el}
+        style={{ 
+          padding: '10rem 0', 
+          background: '#0a0a0a', 
+          color: '#fff',
+          overflow: 'hidden'
+        }}
+      >
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 5%' }}>
+          <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
+            <h2 className={`stagger-reveal ${isVisible.impact ? 'visible' : ''}`} style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: '900', letterSpacing: '-2px' }}>
+              Stories of <span style={{ color: '#ff9800' }}>Real Impact</span>
+            </h2>
+          </div>
 
-      {/* New Social Welfare Banner Section */}
-      <section style={{
-        width: '100%',
-        padding: '1rem 5% 4rem',
-        background: '#fff'
-      }}>
-        <div style={{
-          width: '100%',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          overflow: 'hidden',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 95%)',
-          maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 95%)'
-        }}>
-          <img 
-            src={socialWelfImg} 
-            alt="Social Welfare" 
-            style={{ width: '100%', height: 'auto', display: 'block' }} 
-          />
+          <div style={{ position: 'relative' }}>
+            <div style={{ 
+              display: 'flex', 
+              transition: 'transform 1s cubic-bezier(0.16, 1, 0.3, 1)',
+              transform: `translateX(-${currentSlide * 100}%)`
+            }}>
+              {[
+                {
+                  tag: "Life-Saving",
+                  title: "Blood Donation Camp",
+                  desc: "Organizing regular blood donation camps to bridge the gap in local healthcare facilities. Every drop donated is a promise of hope.",
+                  img: bloodCampImg,
+                  color: "#ff9800"
+                },
+                {
+                  tag: "Environmental",
+                  title: "Ramshej Fort Preservation",
+                  desc: "Protecting our historical monuments and local ecosystems. Our volunteers ensure heritage sites remain waste-free.",
+                  img: "/ramshej_cleaning.jpg",
+                  color: "#4caf50"
+                },
+                {
+                  tag: "Social Justice",
+                  title: "Equality & Awareness",
+                  desc: "Celebrating Dr. Ambedkar's legacy through educational programs that emphasize equality and constitutional rights.",
+                  img: "/ambedkar_jayanti.jpg",
+                  color: "#2196f3"
+                },
+                {
+                  tag: "Essentials",
+                  title: "Clean Water Access",
+                  desc: "Regular water supply drives in underprivileged areas, ensuring that no individual struggles for this basic necessity.",
+                  img: "/water_supply_social.jpg",
+                  color: "#00bcd4"
+                },
+                {
+                  tag: "Protection",
+                  title: "Stop Child Marriage",
+                  desc: "Dedicated to eradicating the practice of child marriage through grassroots awareness and family workshops.",
+                  img: "/infant_marriage.jpg",
+                  color: "#9c27b0"
+                },
+                {
+                  tag: "Safety",
+                  title: "Empowerment Workshops",
+                  desc: "Empowering children and women with confidence and self-defense skills. Awareness is the first shield.",
+                  img: "/women_safety.jpg",
+                  color: "#f44336"
+                }
+              ].map((item, i) => (
+                <div key={i} style={{ 
+                  flex: '0 0 100%', 
+                  padding: '0 2rem',
+                  opacity: currentSlide === i ? 1 : 0.2,
+                  transition: 'opacity 1s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4rem',
+                  flexWrap: 'wrap-reverse'
+                }}>
+                  <div style={{ flex: '1.2', minWidth: '350px' }}>
+                    <div style={{ 
+                      color: item.color, 
+                      fontWeight: '800', 
+                      letterSpacing: '2px', 
+                      marginBottom: '1.5rem',
+                      textTransform: 'uppercase'
+                    }}>{item.tag}</div>
+                    <h3 style={{ 
+                      fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', 
+                      fontWeight: '900', 
+                      marginBottom: '2rem',
+                      lineHeight: '1',
+                      letterSpacing: '-3px'
+                    }}>{item.title}</h3>
+                    <p style={{ 
+                      fontSize: '1.4rem', 
+                      lineHeight: '1.6', 
+                      color: '#888',
+                      marginBottom: '3rem'
+                    }}>{item.desc}</p>
+                    <button style={{
+                      padding: '15px 35px',
+                      background: 'transparent',
+                      color: '#fff',
+                      border: `2px solid ${item.color}`,
+                      borderRadius: '12px',
+                      fontWeight: '700',
+                      cursor: 'pointer',
+                      transition: '0.3s'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = item.color; e.currentTarget.style.color = '#000'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff'; }}
+                    >
+                      READ FULL STORY
+                    </button>
+                  </div>
+                  <div style={{ 
+                    flex: '1', 
+                    minWidth: '350px',
+                    height: '600px',
+                    borderRadius: '40px',
+                    overflow: 'hidden',
+                    position: 'relative'
+                  }}>
+                    <img 
+                      src={item.img} 
+                      alt={item.title} 
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        transform: currentSlide === i ? 'scale(1)' : 'scale(1.2)',
+                        transition: 'transform 2s ease'
+                      }} 
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: 0, left: 0, width: '100%', height: '100%',
+                      background: 'linear-gradient(to right, #0a0a0a, transparent 40%)'
+                    }}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Premium Navigation */}
+            <div style={{ 
+              display: 'flex', 
+              gap: '20px', 
+              marginTop: '4rem',
+              justifyContent: 'center'
+            }}>
+              {Array.from({ length: 6 }).map((_, idx) => (
+                <button 
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  style={{
+                    width: currentSlide === idx ? '60px' : '15px',
+                    height: '6px',
+                    borderRadius: '10px',
+                    background: currentSlide === idx ? '#ff9800' : 'rgba(255,255,255,0.2)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.5s ease'
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer CTA */}
+      <section style={{ padding: '8rem 5%', textAlign: 'center', background: '#fff' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '3rem', fontWeight: '900', marginBottom: '2rem' }}>Ready to make a <span style={{ color: '#ff9800' }}>Difference?</span></h2>
+          <p style={{ fontSize: '1.2rem', color: '#666', marginBottom: '3rem', lineHeight: '1.8' }}>
+            Your support can help us expand our reach and provide more essential services to those in need. Join our network of volunteers or contribute to our causes.
+          </p>
+          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button style={{
+              padding: '18px 45px',
+              background: '#1a1a1a',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '15px',
+              fontWeight: '800',
+              cursor: 'pointer'
+            }}>Join as Volunteer</button>
+            <button style={{
+              padding: '18px 45px',
+              background: 'transparent',
+              color: '#1a1a1a',
+              border: '2px solid #1a1a1a',
+              borderRadius: '15px',
+              fontWeight: '800',
+              cursor: 'pointer'
+            }}>Donate Now</button>
+          </div>
         </div>
       </section>
     </div>
