@@ -1,0 +1,338 @@
+/* Media.css */
+
+.media-page {
+  min-height: 100vh;
+  background-color: #fcfcfc;
+  padding-bottom: 80px;
+  font-family: 'Inter', sans-serif;
+}
+
+.media-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/children.png");
+  background-size: cover;
+  background-position: center 10%;
+  padding: 140px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.media-hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.media-hero h1 span {
+  color: #FFC107;
+  font-family: 'Satisfy', cursive;
+  font-size: 4.5rem;
+  display: block;
+  margin-top: 5px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.media-hero p {
+  color: #ffffff;
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  opacity: 0.9;
+}
+
+.gallery-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.filter-bar {
+  background: white;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+  border: 1px solid #f1f5f9;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-btn {
+  padding: 10px 22px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-btn:hover {
+  background: #f8fafc;
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+}
+
+.filter-btn.active {
+  background: #e53935;
+  color: white;
+  border-color: #e53935;
+  box-shadow: 0 8px 20px rgba(229, 57, 53, 0.25);
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.media-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cardFadeIn 0.6s ease-out backwards;
+  border: 1px solid transparent;
+}
+
+.media-card.photo-only {
+  border: none;
+  background: transparent;
+}
+
+.media-card.photo-only:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+.card-image-box {
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.card-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s ease;
+}
+
+.media-card:hover .card-image-box img {
+  transform: scale(1.08);
+}
+
+.category-tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #e53935;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 5;
+  letter-spacing: 0.5px;
+}
+
+.card-content {
+  padding: 25px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-date {
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  transition: color 0.3s ease;
+}
+
+.media-card:hover .card-title {
+  color: #e53935;
+}
+
+.card-footer {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-link {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  text-decoration: none;
+}
+
+.arrow-icon {
+  width: 32px;
+  height: 32px;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #64748b;
+  transition: all 0.3s ease;
+}
+
+.media-card:hover .arrow-icon {
+  background: #e53935;
+  color: white;
+}
+
+/* Publications Section */
+.publications-section {
+  max-width: 1300px;
+  margin: 80px auto 0;
+  padding: 0 20px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-style: italic;
+  color: #1e293b;
+  white-space: nowrap;
+}
+
+.header-line {
+  height: 2px;
+  background: #e2e8f0;
+  flex-grow: 1;
+}
+
+.pub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.pub-card {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.pub-card:hover {
+  border-color: #e53935;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+}
+
+.pub-info-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pub-icon {
+  width: 56px;
+  height: 56px;
+  background: #1e293b;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.pub-card:hover .pub-icon {
+  background: #e53935;
+}
+
+.pub-text h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #1e293b;
+}
+
+.pub-text p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.download-btn-circle {
+  width: 44px;
+  height: 44px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.pub-card:hover .download-btn-circle {
+  background: #e53935;
+  color: white;
+  transform: scale(1.1);
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .media-hero h1 { font-size: 2.5rem; }
+  .pub-grid { grid-template-columns: 1fr; }
+}
