@@ -15,7 +15,7 @@ const Resources = () => {
       {/* Mini Hero */}
       <section className="page-hero" style={{
         height: '40vh',
-        background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/hero.png") center/cover',
+        background: 'linear-gradient(135deg, #1a1a1a 0%, #333333 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

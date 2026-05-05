@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ChevronDown, Menu, X } from 'lucide-react';
 
@@ -7,6 +7,14 @@ import logo from '../assets/logo.jpeg';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMobileSub, setActiveMobileSub] = useState(null); // Track which sub-menu is open on mobile
+  const [showBanner, setShowBanner] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowBanner(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => {
@@ -15,8 +23,9 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <div className="header-left">
+    <>
+      <header className="header">
+        <div className="header-left">
         <Link to="/" className="logo-link" onClick={closeMenu} style={{ 
           display: 'flex',
           alignItems: 'center',
@@ -42,6 +51,12 @@ const Header = () => {
             e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1), inset 0 -4px 0 rgba(0,0,0,0.1)';
           }}
           />
+          <div style={{ marginLeft: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }} className="desktop-only">
+            <span style={{ fontSize: '1.05rem', fontWeight: '800', color: '#1a1a1a', letterSpacing: '0.5px', lineHeight: '1.2' }}>
+              <span style={{ color: '#e53935' }}>BK</span> Educational
+            </span>
+            <span style={{ fontSize: '0.85rem', color: '#1a1a1a', fontWeight: '700', letterSpacing: '0.5px' }}>& Welfare Society</span>
+          </div>
         </Link>
       </div>
 
@@ -84,6 +99,8 @@ const Header = () => {
             <Link to="/programs/tribal-development" className="dropdown-item" onClick={closeMenu}>Tribal Development</Link>
             <Link to="/programs/disability-affair" className="dropdown-item" onClick={closeMenu}>Disability Affair</Link>
             <Link to="/programs/child-development" className="dropdown-item" onClick={closeMenu}>Child Development</Link>
+            <Link to="/programs/woman-empowerment" className="dropdown-item" onClick={closeMenu}>Woman Empowerment</Link>
+            <Link to="/programs/orphan-support" className="dropdown-item" onClick={closeMenu}>Orphan Support</Link>
 
             <Link to="/programs/rural-development" className="dropdown-item" onClick={closeMenu}>Rural Development</Link>
           </div>
@@ -105,9 +122,9 @@ const Header = () => {
         {/* Resources Dropdown */}
         <div className={`nav-item-dropdown ${activeMobileSub === 'resources' ? 'active-mobile' : ''}`}>
           <div className="nav-item-wrapper" onClick={() => setActiveMobileSub(activeMobileSub === 'resources' ? null : 'resources')}>
-            <NavLink to="/resources" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={() => closeMenu()}>
+            <span className="nav-item" style={{ cursor: 'pointer' }}>
               Resources <ChevronDown size={14} className="chevron" />
-            </NavLink>
+            </span>
           </div>
           <div className="dropdown-menu">
             <Link to="/photo-gallery" className="dropdown-item" onClick={closeMenu}>Photo Gallery</Link>
@@ -148,7 +165,9 @@ const Header = () => {
           <Link to="/donate" className="donate-btn" style={{ textDecoration: 'none', textAlign: 'center', background: '#e53935' }}>Donate Now</Link>
         </div>
       </div>
-    </header>
+      </header>
+      
+    </>
   );
 };
 

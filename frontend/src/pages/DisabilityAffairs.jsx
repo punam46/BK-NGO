@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { renderText } from './Education';
+import disabilityExamImg from '../assets/ai_disability_exam.png';
+import disabilitySkillsImg from '../assets/ai_disability_skills.png';
 
 const DisabilityAffairs = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -58,7 +60,7 @@ const DisabilityAffairs = () => {
 
       {/* Premium Hero Section */}
       <section style={{ 
-        padding: '6rem 5% 4rem', 
+        padding: '2rem 5% 4rem', 
         background: 'linear-gradient(to right, #f8f9fa 0%, #e9ecef 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -107,33 +109,33 @@ const DisabilityAffairs = () => {
           flex: '1', 
           position: 'relative', 
           minWidth: windowWidth < 768 ? '100%' : '400px', 
-          minHeight: windowWidth < 768 ? '350px' : '500px',
+          minHeight: windowWidth < 768 ? '450px' : '650px',
           marginTop: windowWidth < 768 ? '2rem' : '0'
         }}>
-          {/* Dotted Patterns */}
+          {/* Top-Left Dotted Pattern */}
           <div style={{
             position: 'absolute',
-            top: '10%',
-            right: '5%',
-            width: '150px',
-            height: '150px',
-            backgroundImage: 'radial-gradient(#e53935 2px, transparent 2px)',
+            top: '-20px',
+            left: '10%',
+            width: '120px',
+            height: '100px',
+            backgroundImage: 'radial-gradient(#ccc 2px, transparent 2px)',
             backgroundSize: '15px 15px',
             zIndex: 0,
-            opacity: 0.15,
-            borderRadius: '50%'
+            opacity: 0.5
           }} />
+
+          {/* Bottom-Right Dotted Pattern */}
           <div style={{
             position: 'absolute',
             bottom: '5%',
-            left: '15%',
-            width: '180px',
-            height: '180px',
-            backgroundImage: 'radial-gradient(#e53935 2px, transparent 2px)',
+            right: '5%',
+            width: '150px',
+            height: '120px',
+            backgroundImage: 'radial-gradient(#ccc 2px, transparent 2px)',
             backgroundSize: '15px 15px',
             zIndex: 0,
-            opacity: 0.15,
-            borderRadius: '50%'
+            opacity: 0.5
           }} />
 
           {/* Background Decorative Circle */}
@@ -144,66 +146,40 @@ const DisabilityAffairs = () => {
             transform: 'translate(-50%, -50%)',
             width: '120%',
             height: '120%',
-            background: 'radial-gradient(circle, rgba(229, 57, 53, 0.05) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(229, 57, 53, 0.03) 0%, transparent 70%)',
             zIndex: 0
           }} />
 
-          {/* Solid Red Circle */}
+          {/* Image 1 (Top Left) */}
           <div style={{
             position: 'absolute',
-            top: '15%',
-            left: '5%',
-            width: '180px',
-            height: '180px',
-            background: '#e53935',
-            borderRadius: '50%',
-            zIndex: 0,
-            opacity: 0.8,
-            animation: 'fadeInUp 1s ease both 0.4s'
-          }} />
-
-          {/* Solid Decorative Circle */}
-          <div style={{
-            position: 'absolute',
-            bottom: '5%',
-            right: '10%',
-            width: '250px',
-            height: '250px',
-            background: '#fff5f5',
-            borderRadius: '50%',
-            zIndex: 0,
-            border: '2px solid #ffcdd2',
-            animation: 'fadeInUp 1s ease both 0.6s'
-          }} />
-
-          {/* Image 1 (Left - Wheelchair training) */}
-          <div style={{
-            position: 'absolute',
-            top: '5%',
+            top: '0',
             left: '0',
-            width: '55%',
+            width: '65%',
             zIndex: 2,
             borderRadius: '40px',
             overflow: 'hidden',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
             animation: 'fadeInUp 1s ease both'
           }}>
-            <img src="/disability_affair.png" alt="Students" style={{ width: '100%', display: 'block' }} />
+            <img src={disabilityExamImg} alt="Exam Preparation" style={{ width: '100%', display: 'block' }} />
           </div>
 
-          {/* Image 2 (Right Overlapping - Skill Dev) */}
+          {/* Image 2 (Overlapping Circle) */}
           <div style={{
             position: 'absolute',
-            top: '25%',
+            top: '30%',
             right: '0',
-            width: '70%',
-            zIndex: 1,
-            borderRadius: '500px',
+            width: '60%',
+            aspectRatio: '1/1',
+            zIndex: 3,
+            borderRadius: '50%',
             overflow: 'hidden',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.2)',
-            animation: 'fadeInUp 1.2s ease both 0.2s'
+            boxShadow: '0 30px 60px rgba(0,0,0,0.2)',
+            animation: 'fadeInUp 1.2s ease both 0.2s',
+            border: '4px solid #fff' // Small border to separate them cleanly
           }}>
-            <img src="/skill_development_new.png" alt="Skill Development" style={{ width: '100%', display: 'block' }} />
+            <img src={disabilitySkillsImg} alt="Digital Skills" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
         </div>
       </section>
@@ -267,17 +243,19 @@ const DisabilityAffairs = () => {
       {/* Quote Section */}
       <section style={{ 
         padding: '6rem 5%', 
-        background: '#1a1a1a', 
-        color: '#fff',
-        textAlign: 'center'
+        background: 'linear-gradient(135deg, #fff5f5 0%, #ffebee 100%)', 
+        color: '#1a1a1a',
+        textAlign: 'center',
+        borderTop: '1px solid #e0e0e0',
+        borderBottom: '1px solid #e0e0e0'
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <span style={{ fontSize: '4rem', color: '#e53935', lineHeight: '1', display: 'block', marginBottom: '1rem' }}>&ldquo;</span>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: '800', marginBottom: '2rem', lineHeight: '1.4' }}>
+          <span style={{ fontSize: '5rem', color: '#e53935', lineHeight: '1', display: 'block', marginBottom: '0.5rem' }}>&ldquo;</span>
+          <h2 style={{ fontSize: '2.2rem', fontWeight: '800', marginBottom: '2rem', lineHeight: '1.4', color: '#2e3440' }}>
             Our mission is to create a world where every individual, regardless of their physical challenges, has the tools and confidence to achieve their dreams.
           </h2>
           <div style={{ width: '50px', height: '4px', background: '#e53935', margin: '0 auto 2rem' }}></div>
-          <p style={{ fontSize: '1rem', color: '#888', textTransform: 'uppercase', letterSpacing: '2px' }}>BK Education and Welfare Society</p>
+          <p style={{ fontSize: '1rem', color: '#555', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: '700' }}>BK Education and Welfare Society</p>
         </div>
       </section>
     </div>

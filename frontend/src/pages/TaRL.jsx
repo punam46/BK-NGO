@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TornHeader from '../components/TornHeader';
+import { Shield } from 'lucide-react';
 
 const TaRL = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,6 +30,13 @@ const TaRL = () => {
       author: "Dnyaneshwar Nikalje",
       role: "Yoga & Physical Wellness Trainer",
       img: "/D1.jpeg"
+    },
+    {
+      text: "Physical fitness and mental conditioning are the bedrock of a child's overall development. By integrating specialized training, we ensure that our students are not only academically proficient but also physically resilient and disciplined.",
+      author: "Nandkishor Ghuge",
+      role: "Senior Fitness & Conditioning Coach",
+      img: "/ghuge_sir.jpeg",
+      objectPosition: "top"
     }
   ];
 
@@ -42,10 +50,14 @@ const TaRL = () => {
 
   return (
     <div style={{ background: '#fff', minHeight: '100vh' }}>
-      <TornHeader 
-        height="600px" 
-        bgColor="linear-gradient(to right, #d34b07 30%, #f07030 100%)"
-      >
+      <section style={{ 
+        position: 'relative', 
+        width: '100%',
+        minHeight: '600px',
+        background: 'linear-gradient(to right, #d34b07 30%, #f07030 100%)',
+        display: 'flex',
+        alignItems: 'center'
+      }}>
         {/* White Backing for Image to keep faces light */}
         <div style={{
           position: 'absolute',
@@ -74,21 +86,25 @@ const TaRL = () => {
           zIndex: 0
         }}></div>
 
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', height: '100%', color: '#fff', position: 'relative', zIndex: 10, padding: windowWidth < 768 ? '0 5%' : '0' }}>
-          <div style={{ maxWidth: '650px', textAlign: 'left', paddingTop: windowWidth < 768 ? '4rem' : '2rem' }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 5%', display: 'flex', alignItems: 'center', height: '100%', color: '#fff', position: 'relative', zIndex: 10, padding: windowWidth < 768 ? '0 5%' : '0' }}>
+          <div style={{ maxWidth: '900px', textAlign: 'left', paddingTop: windowWidth < 768 ? '4rem' : '2rem', marginLeft: '0' }}>
             <h1 style={{ 
-              fontSize: windowWidth < 768 ? '2.5rem' : '4rem', 
+              fontSize: windowWidth < 768 ? '2.5rem' : '3.8rem', 
               fontWeight: '900', 
               marginBottom: '1.5rem', 
               lineHeight: 1.1, 
-              letterSpacing: '-1px'
+              letterSpacing: '-1px',
+              whiteSpace: windowWidth < 768 ? 'normal' : 'nowrap'
             }}>EDUCATIONAL SUPPORT</h1>
-            <p style={{ fontSize: windowWidth < 768 ? '1.1rem' : '1.5rem', opacity: 0.9, marginBottom: '3rem', maxWidth: '650px' }}>
+            <p style={{ fontSize: windowWidth < 768 ? '1.1rem' : '1.3rem', opacity: 0.9, marginBottom: '3rem', maxWidth: '800px', textAlign: 'justify', lineHeight: '1.6' }}>
               Formed with the foundational idea of "Education for all", focusing on foundational literacy and arithmetic skills for underprivileged children. We are dedicated to bridging the learning gap through innovative, community-driven models that ensure every child has the tools to unlock their full potential and build a brighter future.
+              <br /><br />
+              Our program implements the 'Teaching at the Right Level' (TaRL) methodology, which evaluates each child's current learning status rather than their grade level. By grouping children based on their actual abilities, we provide tailored instruction that accelerates progress in reading and mathematics, ensuring that no child is left behind in their educational journey.
             </p>
           </div>
         </div>
-      </TornHeader>
+
+      </section>
 
       {/* NEW: Foundational Learning Section */}
       <section style={{ 
@@ -154,6 +170,56 @@ const TaRL = () => {
               alt="Building Bright Futures" 
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Our Educational Philosophy (TaRL) Section */}
+      <section style={{ padding: '6rem 5%', background: '#fdfdfd' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'center' }}>
+          <div style={{ flex: '1', minWidth: '350px' }}>
+            <h2 style={{ 
+              fontSize: '2.8rem', 
+              fontWeight: '900', 
+              color: '#1a1a1a', 
+              marginBottom: '2rem',
+              fontFamily: "'Playfair Display', serif",
+              fontStyle: 'italic'
+            }}>
+              Our Educational <span style={{ color: '#ff8c42' }}>Philosophy</span>
+            </h2>
+            <p style={{ fontSize: '1.2rem', color: '#555', lineHeight: '1.8', marginBottom: '2rem' }}>
+              Traditional education systems often focus on completing the curriculum based on grade level, leaving many children behind if they haven't mastered basic concepts.
+            </p>
+            <div style={{ 
+              background: '#fffdf5', 
+              padding: '2.5rem', 
+              borderRadius: '24px', 
+              borderLeft: '8px solid #ff8c42',
+              boxShadow: '0 15px 35px rgba(255, 140, 66, 0.1)'
+            }}>
+              <p style={{ fontSize: '1.25rem', color: '#333', fontWeight: '700', marginBottom: '1.5rem', lineHeight: '1.6' }}>
+                <span style={{ color: '#ff8c42' }}>Teaching at Right Level (TaRL)</span> flips this approach. Instead of teaching to the grade, we teach to the child's actual learning level.
+              </p>
+              <p style={{ fontSize: '1.15rem', color: '#555', lineHeight: '1.7' }}>
+                Our <strong style={{ color: '#1a1a1a' }}>30-50 day learning cycles</strong> focus on building strong foundational skills in reading and basic arithmetic, ensuring no child is left behind.
+              </p>
+            </div>
+          </div>
+          <div style={{ flex: '0.8', minWidth: '350px' }}>
+            <div style={{ 
+              position: 'relative',
+              padding: '2.5rem',
+              background: '#fcfcf0',
+              borderRadius: '30px',
+              textAlign: 'center',
+              boxShadow: 'inset 0 0 40px rgba(0,0,0,0.02)'
+            }}>
+              <div style={{ fontSize: '4.5rem', fontWeight: '900', color: '#ff8c42', marginBottom: '0.5rem', fontFamily: "'Inter', sans-serif" }}>30-50</div>
+              <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#333', textTransform: 'uppercase', letterSpacing: '3px' }}>Day Cycles</div>
+              <div style={{ margin: '1.5rem auto', width: '50px', height: '4px', background: '#ff8c42', opacity: 0.3 }}></div>
+              <p style={{ color: '#666', fontStyle: 'italic', fontSize: '1.1rem' }}>Rapid progress through level-based grouping and activity-driven engagement.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -445,7 +511,8 @@ const TaRL = () => {
                         border: '5px solid #fff',
                         boxShadow: '0 10px 20px rgba(0,0,0,0.15)',
                         zIndex: 10,
-                        objectFit: 'cover'
+                        objectFit: 'cover',
+                        objectPosition: t.objectPosition || 'center'
                       }} />
 
                       <span style={{

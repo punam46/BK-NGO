@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, Filter, Heart, Calendar, MapPin, ChevronRight, Share2 } from 'lucide-react';
+import { Camera, Filter, Calendar, MapPin } from 'lucide-react';
 import g16 from '../assets/g16.jpeg';
 import g31 from '../assets/g31.jpeg';
 import g17 from '../assets/g17.jpeg';
@@ -16,6 +16,31 @@ import g27 from '../assets/g27.jpeg';
 import g28 from '../assets/g28.jpeg';
 import g29 from '../assets/g29.jpeg';
 import g30 from '../assets/g30.jpeg';
+import g32 from '../assets/g32.jpeg';
+import g33 from '../assets/g33.jpeg';
+import g34 from '../assets/g34.jpeg';
+import g35 from '../assets/g35.jpeg';
+import g36 from '../assets/g36.jpeg';
+import g37 from '../assets/g37.jpeg';
+import g38 from '../assets/g38.jpeg';
+import g39 from '../assets/g39.jpeg';
+import g40 from '../assets/g40.jpeg';
+import g41 from '../assets/g41.jpeg';
+import G42 from '../assets/G42.jpeg';
+import G43 from '../assets/G43.jpeg';
+import g5 from '../assets/g5.jpg';
+
+import G45 from '../assets/G45.jpeg';
+import G48 from '../assets/G48.jpeg';
+import G57 from '../assets/G57.jpeg';
+import G58 from '../assets/G58.jpeg';
+import G49 from '../assets/G49.jpeg';
+import G50 from '../assets/G50.jpeg';
+import G51 from '../assets/G51.jpeg';
+import G52 from '../assets/G52.jpeg';
+import G53 from '../assets/G53.jpeg';
+import G54 from '../assets/G54.jpeg';
+import G55 from '../assets/G55.jpeg';
 
 
 
@@ -42,6 +67,8 @@ const PhotoGallery = () => {
       date: 'April 2024',
       location: 'Community Hall'
     },
+
+
     {
       id: 3,
       src: g17,
@@ -153,10 +180,112 @@ const PhotoGallery = () => {
       title: 'Empowering Women through Self-Defense',
       date: 'July 2024',
       location: 'Community Hall'
-    }
+    },
+    {
+      id: 17,
+      src: g32,
+      category: 'SOCIAL WELFARE',
+      title: 'Community Support Program',
+      date: 'August 2024',
+      location: 'Local Center',
+      objectFit: 'contain'
+    },
+    {
+      id: 18,
+      src: g33,
+      category: 'EVENTS',
+      title: 'Annual Society Meet',
+      date: 'August 2024',
+      location: 'Headquarters',
+      objectFit: 'contain'
+    },
+    {
+      id: 19,
+      src: g34,
+      category: 'SOCIAL WELFARE',
+      title: 'Distribution Drive',
+      date: 'September 2024',
+      location: 'Rural Area',
+      objectFit: 'contain'
+    },
+    {
+      id: 20,
+      src: g35,
+      category: 'EVENTS',
+      title: 'Youth Leadership Workshop',
+      date: 'September 2024',
+      location: 'Education Center',
+      objectFit: 'contain'
+    },
+    {
+      id: 21,
+      src: g36,
+      category: 'SOCIAL WELFARE',
+      title: 'Health Awareness Session',
+      date: 'October 2024',
+      location: 'Community Hall',
+      objectFit: 'contain'
+    },
+    {
+      id: 22,
+      src: g37,
+      category: 'EVENTS',
+      title: 'Cultural Program Celebration',
+      date: 'October 2024',
+      location: 'Main Ground',
+      objectFit: 'contain'
+    },
+    {
+      id: 23,
+      src: g38,
+      category: 'SOCIAL WELFARE',
+      title: 'Skill Development Workshop',
+      date: 'November 2024',
+      location: 'Training Hub',
+      objectFit: 'contain'
+    },
+    {
+      id: 24,
+      src: g39,
+      category: 'EVENTS',
+      title: 'Volunteer Recognition Day',
+      date: 'December 2024',
+      location: 'Society Office',
+      objectFit: 'contain'
+    },
+    {
+      id: 25,
+      src: g40,
+      category: 'SOCIAL WELFARE',
+      title: 'Winter Relief Campaign',
+      date: 'December 2024',
+      location: 'Various Locations',
+      objectFit: 'contain'
+    },
+    {
+      id: 26,
+      src: g41,
+      category: 'EVENTS',
+      title: 'New Year Vision Planning',
+      date: 'January 2025',
+      location: 'Conference Hall',
+      objectFit: 'contain'
+    },
+    { id: 27, src: G42, category: 'SOCIAL WELFARE', title: 'Community Outreach Program', date: 'February 2025', location: 'Village Area', objectFit: 'cover' },
+    { id: 28, src: G43, category: 'SOCIAL WELFARE', title: 'Welfare Distribution Drive', date: 'February 2025', location: 'Rural District', objectFit: 'cover' },
 
-
-
+    { id: 30, src: G45, category: 'SOCIAL WELFARE', title: 'Grassroots Development', date: 'March 2025', location: 'Local Community', objectFit: 'cover' },
+    { id: 31, src: G57, category: 'SOCIAL WELFARE', title: 'Social Empowerment Workshop', date: 'March 2025', location: 'Training Center', objectFit: 'cover' },
+    { id: 33, src: G48, category: 'SOCIAL WELFARE', title: 'Relief and Support Camp', date: 'April 2025', location: 'Remote Area', objectFit: 'cover' },
+    { id: 34, src: G49, category: 'SOCIAL WELFARE', title: 'Sustained Welfare Mission', date: 'April 2025', location: 'Community Hub', objectFit: 'cover' },
+    { id: 35, src: G50, category: 'SOCIAL WELFARE', title: 'Direct Impact Initiative', date: 'April 2025', location: 'Rural Sector', objectFit: 'cover' },
+    { id: 36, src: G51, category: 'SOCIAL WELFARE', title: 'Local Welfare Outreach', date: 'May 2025', location: 'Village Cluster', objectFit: 'cover' },
+    { id: 37, src: G52, category: 'SOCIAL WELFARE', title: 'Community Assistance Drive', date: 'May 2025', location: 'Impact Center', objectFit: 'cover' },
+    { id: 38, src: G53, category: 'SOCIAL WELFARE', title: 'Welfare and Growth Program', date: 'May 2025', location: 'Rural District', objectFit: 'cover' },
+    { id: 39, src: G54, category: 'SOCIAL WELFARE', title: 'Social Progress Mission', date: 'June 2025', location: 'Local Area', objectFit: 'cover' },
+    { id: 40, src: G55, category: 'SOCIAL WELFARE', title: 'Community Support Expansion', date: 'June 2025', location: 'New Impact Zone', objectFit: 'cover' },
+    { id: 41, src: G58, category: 'SOCIAL WELFARE', title: 'Social Welfare Initiative', date: 'June 2025', location: 'Impact Hub', objectFit: 'cover' },
+    { id: 42, src: g5, category: 'EVENTS', title: 'Community Engagement Event', date: 'January 2025', location: 'Community Hall', objectFit: 'cover' },
   ];
 
 
@@ -165,11 +294,11 @@ const PhotoGallery = () => {
     : photos.filter(photo => photo.category === activeCategory);
 
   return (
-    <div style={{ background: '#fff', minHeight: '100vh', paddingTop: '80px' }}>
+    <div style={{ background: '#fff', minHeight: '100vh', paddingTop: '0' }}>
       {/* Premium Hero Section */}
       <section style={{
         position: 'relative',
-        padding: '8rem 5% 6rem',
+        padding: '3rem 5% 4rem',
         textAlign: 'center',
         background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
         overflow: 'hidden'
@@ -365,7 +494,7 @@ const PhotoGallery = () => {
                   style={{
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
+                    objectFit: photo.objectFit || 'cover',
                     transition: 'transform 0.7s ease'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
@@ -375,7 +504,7 @@ const PhotoGallery = () => {
                 {/* Category Tag Overlay */}
                 <div style={{
                   position: 'absolute',
-                  top: '25px',
+                  bottom: '25px',
                   left: '25px',
                   background: 'rgba(255,255,255,0.95)',
                   backdropFilter: 'blur(5px)',
@@ -390,26 +519,6 @@ const PhotoGallery = () => {
                   {photo.category}
                 </div>
 
-                {/* Quick Action Button */}
-                <button style={{
-                  position: 'absolute',
-                  top: '25px',
-                  right: '25px',
-                  width: '45px',
-                  height: '45px',
-                  borderRadius: '15px',
-                  background: 'rgba(255,255,255,0.95)',
-                  backdropFilter: 'blur(5px)',
-                  border: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#333',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <Share2 size={18} />
-                </button>
               </div>
 
               {/* Content Box */}
@@ -441,27 +550,6 @@ const PhotoGallery = () => {
                   {photo.title}
                 </h3>
 
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  paddingTop: '1.5rem',
-                  borderTop: '1px solid #f0f0f0'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    color: '#e53935',
-                    fontWeight: '800',
-                    fontSize: '0.9rem'
-                  }}>
-                    VIEW DETAILS <ChevronRight size={18} />
-                  </div>
-                  <div style={{ color: '#ccc' }}>
-                    <Heart size={20} />
-                  </div>
-                </div>
               </div>
             </div>
           ))}

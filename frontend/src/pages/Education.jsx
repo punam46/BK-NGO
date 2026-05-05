@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import sanakeImg from '../assets/sanake_school.png';
-import gurukulImg from '../assets/gurukul_school.png';
+import sanskarLogo from '../assets/sanskar.jpeg';
+import gurukulLogo from '../assets/gurukul.jpeg';
 
 export const renderText = (text) => {
   if (typeof text !== 'string') return text;
@@ -209,14 +210,16 @@ const Education = () => {
     {
       name: "SANSKAR ENGLISH MEDIUM SCHOOL",
       info: "Providing high-quality English medium education to students from all walks of life, bridging the educational divide.",
-      image: sanakeImg,
-      link: "https://www.bksanskar.in/"
+      image: sanskarLogo,
+      link: "https://www.bksanskar.in/",
+      isLogo: true
     },
     {
       name: "GURUKUL VIDYANIKETAN",
       info: "A traditional yet modern residential school focused on holistic development and foundational learning.",
-      image: gurukulImg,
-      link: "https://bkgurukul.in/"
+      image: gurukulLogo,
+      link: "https://bkgurukul.in/",
+      isLogo: true
     }
   ];
 
@@ -384,7 +387,7 @@ const Education = () => {
 
 
       {/* Our Schools Section */}
-      <section style={{ padding: '6rem 5%', background: '#fdfdfd' }}>
+      <section style={{ padding: '6rem 5%', background: '#f4f7fb' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{ fontSize: '2.8rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1rem' }}>
@@ -393,69 +396,189 @@ const Education = () => {
             <div style={{ width: '60px', height: '4px', background: 'var(--pratham-yellow)', margin: '0 auto' }}></div>
           </div>
 
+          <style>{`
+            .school-card-modern {
+              background: #ffffff;
+              border-radius: 24px;
+              padding: 3.5rem 2.5rem;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: flex-start;
+              border: 1px solid #eaeaea;
+              box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+              transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+              text-decoration: none;
+              height: 100%;
+              min-height: 450px;
+              position: relative;
+              overflow: hidden;
+            }
+            .school-card-modern::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 0;
+              background: #FFC107;
+              transition: height 0.4s ease;
+              z-index: 0;
+            }
+            .school-card-modern:hover {
+              transform: translateY(-12px);
+              box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+              border-color: #FFC107;
+            }
+            .school-card-modern:hover::before {
+              height: 6px;
+            }
+            .school-logo-container {
+              width: 160px;
+              height: 160px;
+              margin-bottom: 2.5rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+              z-index: 1;
+              background: #fff;
+              border-radius: 50%;
+              padding: 15px;
+              box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            }
+            .school-card-modern:hover .school-logo-container {
+              transform: scale(1.1) translateY(-5px);
+              box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            }
+            .school-logo-container img {
+              max-width: 100%;
+              max-height: 100%;
+              object-fit: contain;
+            }
+            .school-card-modern h3 {
+              color: #1a1a1a;
+              font-size: 1.6rem;
+              font-weight: 900;
+              margin-bottom: 1rem;
+              z-index: 1;
+              line-height: 1.3;
+            }
+            .school-card-modern p {
+              color: #666;
+              font-size: 1.05rem;
+              line-height: 1.7;
+              margin-bottom: 2.5rem;
+              z-index: 1;
+              flex-grow: 1;
+            }
+            .school-card-modern .visit-btn {
+              display: inline-block;
+              padding: 0.9rem 2.5rem;
+              background: #fdfdfd;
+              color: #333;
+              font-weight: 800;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              border-radius: 30px;
+              transition: all 0.3s ease;
+              z-index: 1;
+              border: 2px solid #eaeaea;
+            }
+            .school-card-modern:hover .visit-btn {
+              background: #FFC107;
+              border-color: #FFC107;
+              color: #1a1a1a;
+              transform: translateY(-3px);
+              box-shadow: 0 10px 20px rgba(255, 193, 7, 0.3);
+            }
+          `}</style>
+
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
             gap: '3rem' 
           }}>
             {schoolData.map((school, idx) => (
-              <a 
-                key={idx}
-                href={school.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="animated-school-card"
-                style={{ 
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  display: 'block',
-                  borderRadius: '24px',
-                  height: '450px',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-              >
-                <div 
-                  className="ken-burns-bg"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    backgroundImage: `url("${school.image}")`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    transition: 'all 0.8s ease'
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)'
-                }} />
-                
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  width: '100%',
-                  padding: '3rem 2rem 2rem',
-                  color: '#fff'
-                }}>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '0.8rem' }}>{school.name}</h3>
-                  <p style={{ fontSize: '1rem', opacity: 0.9, lineHeight: '1.5', marginBottom: '1.5rem' }}>{school.info}</p>
-                  <span style={{ 
-                    display: 'inline-block',
-                    padding: '0.6rem 1.5rem',
-                    background: 'var(--pratham-yellow)',
-                    color: '#000',
-                    fontWeight: '800',
-                    borderRadius: '8px',
-                    fontSize: '0.9rem',
-                    textTransform: 'uppercase'
-                  }}>
+              school.isLogo ? (
+                <a 
+                  key={idx}
+                  href={school.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="school-card-modern"
+                >
+                  <div className="school-logo-container">
+                    <img src={school.image} alt={school.name} />
+                  </div>
+                  
+                  <h3>{school.name}</h3>
+                  <p>{school.info}</p>
+                  
+                  <span className="visit-btn">
                     Visit Website
                   </span>
-                </div>
-              </a>
+                </a>
+              ) : (
+                <a 
+                  key={idx}
+                  href={school.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="animated-school-card"
+                  style={{ 
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    display: 'block',
+                    borderRadius: '24px',
+                    height: '450px',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <div 
+                    className="ken-burns-bg"
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      backgroundImage: `url("${school.image}")`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      transition: 'all 0.8s ease'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)'
+                  }} />
+                  
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    padding: '3rem 2rem 2rem',
+                    color: '#fff'
+                  }}>
+                    <h3 style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '0.8rem' }}>{school.name}</h3>
+                    <p style={{ fontSize: '1rem', opacity: 0.9, lineHeight: '1.5', marginBottom: '1.5rem' }}>{school.info}</p>
+                    <span style={{ 
+                      display: 'inline-block',
+                      padding: '0.6rem 1.5rem',
+                      background: 'var(--pratham-yellow)',
+                      color: '#000',
+                      fontWeight: '800',
+                      borderRadius: '8px',
+                      fontSize: '0.9rem',
+                      textTransform: 'uppercase'
+                    }}>
+                      Visit Website
+                    </span>
+                  </div>
+                </a>
+              )
             ))}
           </div>
         </div>
@@ -464,7 +587,7 @@ const Education = () => {
       {/* Testimonials Section */}
       <section style={{ 
         padding: '6rem 5%', 
-        background: 'linear-gradient(rgba(249, 249, 249, 0.8), rgba(249, 249, 249, 0.8)), url("/yellow_watercolor_wash.png") center/cover no-repeat',
+        background: 'linear-gradient(rgba(224, 242, 241, 0.85), rgba(224, 242, 241, 0.85)), url("/blue_watercolor_wash.png") center/cover no-repeat',
         textAlign: 'center' 
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>

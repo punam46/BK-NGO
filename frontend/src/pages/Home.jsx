@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import childrenStudying from '../assets/children_studying.png';
 import childrenExtremeLeft from '../assets/children_extreme_left.png';
 import skillDev from '../assets/skill dev.png';
+import seniorCitizenImg from '../assets/G42.jpeg';
+import bloodDonationImg from '../assets/g16.jpeg';
+import cleanWaterImg from '../assets/g25.jpeg';
+import socialWelfareImpactImg from '../assets/g18.jpeg';
+import socialWelfOriginal from '../assets/socialwelf.png';
 
 const Home = () => {
   const carouselRef = useRef(null);
@@ -33,11 +38,20 @@ const Home = () => {
       bgColor: "#fff"
     },
     {
+      title: "Rural Community Empowerment",
+      text: "Fostering sustainable growth and self-reliance in rural areas through community-driven initiatives.",
+      image: "/rural_women_empowerment.png",
+      layout: "magazine",
+      bgPosition: "center center",
+      bgSize: "cover",
+      bgColor: "#fff"
+    },
+    {
       title: "Skill Development",
       text: "Empowering communities through practical workshops and technical skills for a sustainable future.",
-      image: skillDev,
+      image: "/skill_development_new.png",
       layout: "magazine",
-      bgPosition: "center 40%",
+      bgPosition: "center center",
       bgSize: "cover",
       bgColor: "#fff"
     }
@@ -322,8 +336,8 @@ const Home = () => {
             }}
           >
 
-            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1 }}>
-              <img src="/education_card.png" alt="Education" style={{ width: '100%' }} />
+            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '280px', overflow: 'hidden', borderRadius: '12px' }}>
+              <img src="/education_card.png" alt="Education" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 0 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 0 ? 1 : undefined,
@@ -361,8 +375,8 @@ const Home = () => {
             }}
           >
 
-            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1 }}>
-              <img src="/social_welfare_real.png" alt="Social Work" style={{ width: '100%' }} />
+            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '280px', overflow: 'hidden', borderRadius: '12px' }}>
+              <img src={socialWelfOriginal} alt="Social Work" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 1 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 1 ? 1 : undefined,
@@ -400,8 +414,8 @@ const Home = () => {
             }}
           >
 
-            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1 }}>
-              <img src="/what_we_do_environment.png" alt="Environment" style={{ width: '100%' }} />
+            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '280px', overflow: 'hidden', borderRadius: '12px' }}>
+              <img src="/rural_community_hub.png" alt="Environment" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 2 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 2 ? 1 : undefined,
@@ -439,8 +453,8 @@ const Home = () => {
             }}
           >
 
-            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1 }}>
-              <img src="/what_we_do_pwd_exam.png" alt="Exam Prep" style={{ width: '100%' }} />
+            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '280px', overflow: 'hidden', borderRadius: '12px' }}>
+              <img src="/what_we_do_pwd_exam.png" alt="Exam Prep" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 3 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 3 ? 1 : undefined,
@@ -593,7 +607,7 @@ const Home = () => {
                 boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
               }}>
                 <div style={{ position: 'relative', height: '360px' }}>
-                  <img src="/social_welfare_real.png" alt="Social Welfare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={socialWelfareImpactImg} alt="Social Welfare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
                   <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>SOCIAL WELFARE</h4>
@@ -602,7 +616,7 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* New Impact Card: Community Improvement */}
+              {/* Impact Card: Clean Water Access */}
               <div 
                 className="impact-card" style={{
                 minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
@@ -613,11 +627,11 @@ const Home = () => {
                 boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
               }}>
                 <div style={{ position: 'relative', height: '360px' }}>
-                  <img src="/community_improvement.jpg" alt="Community Improvement" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={cleanWaterImg} alt="Clean Water Access" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>COMMUNITY IMPROVEMENT</h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Enhancing infrastructure and living standards in rural areas.</p>
+                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>CLEAN WATER ACCESS</h4>
+                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Ensuring safe and clean drinking water for rural communities.</p>
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </div>
@@ -665,6 +679,46 @@ const Home = () => {
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </div>
+
+              {/* Impact Card 5: Senior Citizen Welfare */}
+              <div 
+                className="impact-card" style={{
+                minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 420px',
+                background: '#fff',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+              }}>
+                <div style={{ position: 'relative', height: '360px' }}>
+                  <img src={seniorCitizenImg} alt="Senior Citizen Welfare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ padding: '2rem', textAlign: 'center' }}>
+                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>SENIOR CITIZEN WELFARE</h4>
+                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Enhancing the quality of life for our elders</p>
+                  <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
+                </div>
+              </div>
+
+              {/* Impact Card 6: Blood Donation Camps */}
+              <div 
+                className="impact-card" style={{
+                minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 420px',
+                background: '#fff',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+              }}>
+                <div style={{ position: 'relative', height: '360px' }}>
+                  <img src={bloodDonationImg} alt="Blood Donation Camps" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ padding: '2rem', textAlign: 'center' }}>
+                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>BLOOD DONATION CAMPS</h4>
+                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Saving lives through regular community drives</p>
+                  <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -695,28 +749,28 @@ const Home = () => {
           {/* Stat 1 */}
           <div className="stat-item">
             <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Activities in</h4>
-            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>26</div>
-            <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>states</p>
+            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>36</div>
+            <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>districts</p>
           </div>
 
           {/* Stat 2 */}
           <div className="stat-item">
             <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Children reached</h4>
-            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>8M</div>
+            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>10K</div>
             <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>through direct programs and <br/> government partnerships</p>
           </div>
 
           {/* Stat 3 */}
           <div className="stat-item">
             <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Social Welfare & Environmental Care</h4>
-            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>270K</div>
+            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>300+</div>
             <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>Impactful programs and <br/> rehabilitation projects</p>
           </div>
 
           {/* Stat 4 */}
           <div className="stat-item">
             <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Youth reached</h4>
-            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>124K</div>
+            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>1K+</div>
             <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>through vocational/non-<br/>vocational courses</p>
           </div>
         </div>

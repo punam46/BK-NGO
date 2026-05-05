@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { renderText } from './Education';
-import treePlantationImg from '../assets/r1.jpeg';
-import waterSupplyImg from '../assets/g25.jpeg';
+import treePlantationImg from '../assets/ai_reforestation.png';
+import waterSupplyImg from '../assets/ai_water.png';
+import ruralHeroImg from '../assets/ai_rural_hero.png';
+import agricultureImg from '../assets/ai_agriculture.png';
+import conservationImg from '../assets/ai_conservation_banner.png';
 
 const RuralDevelopment = () => {
   const animations = `
@@ -47,7 +50,7 @@ const RuralDevelopment = () => {
       description: "Empowering rural farmers with knowledge of modern, sustainable farming techniques that increase yield while preserving soil health and reducing chemical dependency.",
       details: ["Organic Farming Guidance", "Resource Management", "Farmer Workshops"],
       icon: "🌾",
-      image: "/what_we_do_environment.png"
+      image: agricultureImg
     }
   ];
 
@@ -123,7 +126,7 @@ const RuralDevelopment = () => {
           minWidth: '400px'
         }}>
           <img 
-            src="/rural_development.png" 
+            src={ruralHeroImg} 
             alt="Rural Development" 
             style={{ 
               width: '100%', 
@@ -184,11 +187,6 @@ const RuralDevelopment = () => {
               >
                 <div style={{ height: '300px', overflow: 'hidden', position: 'relative' }}>
                   <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <div style={{ 
-                    position: 'absolute', top: '20px', left: '20px', 
-                    background: 'var(--pratham-yellow)', padding: '0.8rem', 
-                    borderRadius: '15px', fontSize: '1.5rem', boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
-                  }}>{item.icon}</div>
                 </div>
                 <div style={{ padding: '2.5rem' }}>
                   <h3 style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '1.2rem', color: '#1a1a1a' }}>{item.title}</h3>
@@ -218,13 +216,13 @@ const RuralDevelopment = () => {
         position: 'relative',
         overflow: 'hidden'
       }}>
-        {/* Subtle Overlay Texture */}
+        {/* Background Image with Overlay */}
         <div style={{
           position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-          backgroundImage: 'url("/teal_watercolor_wash.png")',
+          backgroundImage: `linear-gradient(rgba(27, 94, 32, 0.8), rgba(27, 94, 32, 0.8)), url(${conservationImg})`,
           backgroundSize: 'cover',
-          opacity: 0.1,
-          mixBlendMode: 'overlay'
+          backgroundPosition: 'center',
+          zIndex: 0
         }}></div>
         
         <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
@@ -232,16 +230,6 @@ const RuralDevelopment = () => {
           <p style={{ fontSize: '1.2rem', opacity: 0.9, marginBottom: '3rem', lineHeight: '1.6' }}>
             At BK Education and Welfare Society, we believe that rural development and environmental stewardship go hand-in-hand. By restoring our greenery, we secure the livelihoods and health of our village communities.
           </p>
-          <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
-            <button style={{ 
-              padding: '1rem 2.5rem', background: 'var(--pratham-yellow)', 
-              color: '#000', border: 'none', borderRadius: '12px', 
-              fontWeight: '900', cursor: 'pointer', transition: '0.3s'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-            >Join Our Drive</button>
-          </div>
         </div>
       </section>
     </div>

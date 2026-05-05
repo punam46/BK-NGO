@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import aboutUsBanner from '../assets/about_us_hero_banner.png';
 import boysSmilingImg from '../assets/boys_smiling_red.png';
 import volunteersImg from '../assets/volunteers_smiling_faces.png';
+import ghugeImg from '../assets/ghuge sir.jpeg';
 import ThreeDCarousel from '../components/ThreeDCarousel';
 import { renderText } from './Education';
 
@@ -20,7 +21,8 @@ const About = () => {
   const teamMembers = [
     { img: "/bkphoto.jpeg", name: "Dr. Adv. Er. Bhagwan Nivrutti Elmame", role: "Bench Magistrate (Member) of the Child Welfare Committee", pos: "center" },
     { img: "/k1.jpeg", name: "Prof. Kishor Nivrutti Yelmame", role: "Founder President", pos: "right center" },
-    { img: "/D1.jpeg", name: "Dnyaneshwar Nikalje", role: "Yoga & Physical Wellness Trainer", pos: "top center" }
+    { img: "/D1.jpeg", name: "Dnyaneshwar Nikalje", role: "Yoga & Physical Wellness Trainer", pos: "top center" },
+    { img: ghugeImg, name: "Nandkishor Ghuge", role: "Senior Fitness & Conditioning Coach", pos: "top center" }
   ];
 
   const nextSlide = () => {
@@ -82,7 +84,7 @@ const About = () => {
               lineHeight: '1.7',
               maxWidth: '650px'
             }}>
-              BK Education and Welfare Society was founded in 2011 with the foundational idea of "Education for all". Since then, we have transformed this conviction into a powerful movement for social change, empowering India's youth and nurturing talent on the path to a brighter, more educated future.
+              <span style={{ color: '#e53935', fontWeight: 'bold' }}>BK</span> Education and Welfare Society was founded in 2011 with the foundational idea of "Education for all". Since then, we have transformed this conviction into a powerful movement for social change, empowering India's youth and nurturing talent on the path to a brighter, more educated future.
             </p>
           </div>
 
@@ -139,56 +141,6 @@ const About = () => {
             </div>
           </div>
 
-        </div>
-      </section>
-
-      {/* Our Educational Philosophy (TaRL) Section */}
-      <section style={{ padding: '6rem 5%', background: '#fff' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'center' }}>
-          <div style={{ flex: '1', minWidth: '350px' }}>
-            <h2 style={{ 
-              fontSize: '2.8rem', 
-              fontWeight: '900', 
-              color: '#1a1a1a', 
-              marginBottom: '2rem',
-              fontFamily: "'Playfair Display', serif",
-              fontStyle: 'italic'
-            }}>
-              Our Educational <span style={{ color: '#ff8c42' }}>Philosophy</span>
-            </h2>
-            <p style={{ fontSize: '1.2rem', color: '#555', lineHeight: '1.8', marginBottom: '2rem' }}>
-              Traditional education systems often focus on completing the curriculum based on grade level, leaving many children behind if they haven't mastered basic concepts.
-            </p>
-            <div style={{ 
-              background: '#fffdf5', 
-              padding: '2.5rem', 
-              borderRadius: '24px', 
-              borderLeft: '8px solid #ff8c42',
-              boxShadow: '0 15px 35px rgba(255, 140, 66, 0.1)'
-            }}>
-              <p style={{ fontSize: '1.25rem', color: '#333', fontWeight: '700', marginBottom: '1.5rem', lineHeight: '1.6' }}>
-                <span style={{ color: '#ff8c42' }}>Teaching at Right Level (TaRL)</span> flips this approach. Instead of teaching to the grade, we teach to the child's actual learning level.
-              </p>
-              <p style={{ fontSize: '1.15rem', color: '#555', lineHeight: '1.7' }}>
-                Our <strong style={{ color: '#1a1a1a' }}>30-50 day learning cycles</strong> focus on building strong foundational skills in reading and basic arithmetic, ensuring no child is left behind.
-              </p>
-            </div>
-          </div>
-          <div style={{ flex: '0.8', minWidth: '350px' }}>
-            <div style={{ 
-              position: 'relative',
-              padding: '2.5rem',
-              background: '#fcfcf0',
-              borderRadius: '30px',
-              textAlign: 'center',
-              boxShadow: 'inset 0 0 40px rgba(0,0,0,0.02)'
-            }}>
-              <div style={{ fontSize: '4.5rem', fontWeight: '900', color: '#ff8c42', marginBottom: '0.5rem', fontFamily: "'Inter', sans-serif" }}>30-50</div>
-              <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#333', textTransform: 'uppercase', letterSpacing: '3px' }}>Day Cycles</div>
-              <div style={{ margin: '1.5rem auto', width: '50px', height: '4px', background: '#ff8c42', opacity: 0.3 }}></div>
-              <p style={{ color: '#666', fontStyle: 'italic', fontSize: '1.1rem' }}>Rapid progress through level-based grouping and activity-driven engagement.</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -252,7 +204,7 @@ const About = () => {
                 <strong>Dr. Adv. Er. Bhagwan Nivrutti Elmame</strong> is a seasoned academician, legal professional, administrator, and media leader with more than two decades of rich experience in the fields of education, law, governance, and social development. His career reflects a unique blend of academic excellence, practical legal expertise, institutional leadership, and public service.
               </p>
               <p style={{ marginBottom: '1.2rem' }}>
-                He currently serves as the <strong>Chief Editor of BK Education and Welfare Society</strong>, where he actively contributes to responsible journalism, public awareness, and dissemination of knowledge on contemporary legal, social, and governance issues. In addition, he holds the position of <strong>Secretary of BK Education and Welfare Society</strong>, leading various initiatives aimed at promoting education, social justice, and community empowerment.
+                He currently serves as the <strong>Chief Editor of <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</strong>, where he actively contributes to responsible journalism, public awareness, and dissemination of knowledge on contemporary legal, social, and governance issues. In addition, he holds the position of <strong>Secretary of <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</strong>, leading various initiatives aimed at promoting education, social justice, and community empowerment.
               </p>
               <p>
                 Dr. Elmame is also entrusted with a significant quasi-judicial responsibility as a <strong>Bench Magistrate (Member)</strong> 
@@ -295,7 +247,7 @@ const About = () => {
           </div>
 
           <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', marginBottom: '1.5rem', color: '#1a1a1a', fontWeight: '800' }}>
-            <span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society (NGO)
+            <span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society (NGO) <span style={{ fontSize: '1rem', verticalAlign: 'middle', background: '#f5f5f5', padding: '4px 10px', borderRadius: '4px', border: '1px solid #ddd', color: '#666', fontWeight: '600' }}>Reg. No. F-12121</span>
           </h2>
           
           <div style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.15rem)', lineHeight: '1.8', color: '#444', textAlign: 'justify' }}>

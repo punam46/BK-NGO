@@ -1,32 +1,54 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import vTeachingImg from '../assets/volunteer_teaching.png';
+import vDistributionImg from '../assets/volunteer_distribution.png';
+import vPlanningImg from '../assets/volunteer_planning.png';
+import vPortraitImg from '../assets/volunteer_portrait.png';
+import actImg1 from '../assets/g5.jpg';
+import actImg2 from '../assets/g16.jpeg';
+import actImg3 from '../assets/g18.jpeg';
+import actImg4 from '../assets/g21.jpeg';
+import actImg5 from '../assets/g25.jpeg';
+import actImg6 from '../assets/g24.jpeg';
+import actImg7 from '../assets/g29.jpeg';
+import actImg8 from '../assets/g30.jpeg';
+import ghugeImg from '../assets/ghuge sir.jpeg';
+import nikaljeImg from '../assets/D1.jpeg';
 
 const GetInvolved = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = React.useState(0);
+  const formRef = React.useRef(null);
+
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const reviews = [
     {
-      name: "Aditya Singh",
-      img: "/volunteer_portrait_male_1777282848556.png",
+      name: "Dnyaneshwar Nikalje",
+      img: nikaljeImg,
       text: "Leading the BK Education and Welfare Society Financial Literacy Program was a transformative experience. Through this initiative, my team and I worked towards fostering financial awareness among children—the future of India."
     },
     {
-      name: "Nikkitha KJ",
-      img: "/volunteer_portrait_female_1777282868352.png",
+      name: "Nandkishor Ghuge",
+      img: ghugeImg,
       text: "Volunteering with BK has significantly changed me. I've become more open and interactive, which has contributed to my personal growth. Seeing the direct impact has reinforced my belief in taking small, consistent steps."
     },
     {
       name: "Rahul Verma",
-      img: "/volunteer_3_male_1777283139811.png",
+      img: vPortraitImg,
       text: "Working with the rural outreach team opened my eyes to the incredible potential in our villages. BK provides the perfect platform to channel your energy into real, measurable change. I've learned more about empathy here."
     },
     {
       name: "Sneha Patil",
-      img: "/volunteer_4_female_1777283157419.png",
+      img: vPortraitImg,
       text: "Being part of the women empowerment workshops has been the most rewarding part of my career. Witnessing the transition from hesitation to confidence in these women is priceless. BK doesn't just help; it empowers."
     },
     {
       name: "Karan Mehta",
-      img: "/volunteer_5_male_1777283176465.png",
+      img: vPortraitImg,
       text: "The energy at BK is infectious. Whether it's a blood donation camp or a child safety workshop, everyone is driven by a shared vision. I've made lifelong friends and found a community that truly cares."
     }
   ];
@@ -47,23 +69,23 @@ const GetInvolved = () => {
       <style>{animations}</style>
       {/* Mini Hero */}
       <section className="volunteer-hero" style={{
-        padding: '2rem 0 6rem',
+        padding: '2rem 0 3rem',
         background: '#fff',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
       }}>
-        <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px' }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <h1 style={{ 
-            fontSize: '4.8rem', 
+            fontSize: 'clamp(2rem, 4.5vw, 4rem)', 
             fontWeight: '800', 
             color: '#333', 
             marginBottom: '1rem',
             lineHeight: '1.1',
             letterSpacing: '-1px'
           }}>
-            Volunteers are our<br />
-            <span style={{ position: 'relative', display: 'inline-block' }}>
+            Volunteers are our{' '}
+            <span style={{ position: 'relative', display: 'inline-block', fontFamily: 'var(--font-script)', color: '#ffcc00', fontSize: '1.2em' }}>
               everyday heroes
               {/* Decorative yellow rays */}
               <div style={{
@@ -95,43 +117,24 @@ const GetInvolved = () => {
             fontSize: '1.4rem', 
             color: '#555', 
             lineHeight: '1.6', 
-            marginBottom: '4rem',
+            marginBottom: '0',
             maxWidth: '900px',
-            margin: '0 auto 4rem',
+            margin: '0 auto 0',
             fontWeight: '400'
           }}>
             10,555 volunteers. 1,264 interns. 20,74,526 volunteering hours generated.<br />
             13 states. 75,000 children reached through volunteers.
           </p>
           
-          <button style={{
-            background: '#ffcc00',
-            color: '#1a1a1a',
-            padding: '1.4rem 4rem',
-            fontSize: '1.3rem',
-            fontWeight: '700',
-            border: 'none',
-            borderRadius: '60px',
-            cursor: 'pointer',
-            boxShadow: '0 15px 35px rgba(255, 204, 0, 0.25)',
-            transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
-            e.currentTarget.style.boxShadow = '0 20px 45px rgba(255, 204, 0, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            e.currentTarget.style.boxShadow = '0 15px 35px rgba(255, 204, 0, 0.25)';
-          }}
-          >
-            Sign Up Now
-          </button>
         </div>
       </section>
 
       {/* Why Volunteer Section */}
-      <section style={{ padding: '6rem 0', background: '#fdfdfd', borderTop: '1px solid #eee' }}>
+      <section style={{ 
+        padding: '4rem 0', 
+        background: 'linear-gradient(rgba(240, 250, 248, 0.85), rgba(240, 250, 248, 0.85)), url("/teal_watercolor_wash.png") center/cover no-repeat', 
+        borderTop: '1px solid #eee' 
+      }}>
         <div className="container" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
           <h2 style={{ fontSize: '2.0rem', fontWeight: '800', color: '#1a1a1a', marginBottom: '2rem' }}>
             Why Volunteer With <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society?
@@ -161,9 +164,8 @@ const GetInvolved = () => {
       <section style={{ padding: '8rem 0', background: '#fff', overflow: 'hidden' }}>
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
-            <h2 style={{ fontSize: '3.5rem', fontWeight: '800', color: '#1a1a1a', lineHeight: '1.2' }}>
-              what <span style={{ color: '#ffcc00', fontFamily: 'var(--font-script)', fontSize: '4rem', fontWeight: '400' }}>our volunteers</span><br />
-              have to say
+            <h2 style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: '800', color: '#1a1a1a', lineHeight: '1.2' }}>
+              what <span style={{ color: '#ffcc00', fontFamily: 'var(--font-script)', fontSize: 'clamp(3rem, 8vw, 5.5rem)', fontWeight: '400' }}>our volunteers</span> have to say
             </h2>
           </div>
           
@@ -188,7 +190,7 @@ const GetInvolved = () => {
                 <img 
                   src={review.img} 
                   alt={review.name} 
-                  style={{ width: '180px', height: '180px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0, boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }} 
+                  style={{ width: '180px', height: '180px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top', flexShrink: 0, boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }} 
                 />
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: '1.1rem', color: '#555', lineHeight: '1.8', margin: 0 }}>
@@ -233,17 +235,16 @@ const GetInvolved = () => {
             </p>
           </div>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
             {[
-              { img: "/volunteers_teaching_1777283358114.png", title: "Teaching for Tomorrow" },
-              { img: "/volunteers_distribution_1777283377843.png", title: "Grassroots Support" },
-              { img: "/volunteers_meeting_1777283394214.png", title: "Impact Planning" }
-            ].map((item, idx) => (
+              actImg1, actImg2, actImg3, actImg4, 
+              actImg5, actImg6, actImg7, actImg8
+            ].map((imgSrc, idx) => (
               <div key={idx} style={{ 
                 position: 'relative', 
                 borderRadius: '16px', 
                 overflow: 'hidden', 
-                height: '300px',
+                height: '250px',
                 boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
                 transition: 'transform 0.3s ease',
                 cursor: 'pointer'
@@ -251,16 +252,7 @@ const GetInvolved = () => {
               onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ 
-                  position: 'absolute', 
-                  bottom: 0, left: 0, right: 0, 
-                  background: 'linear-gradient(transparent, rgba(0,0,0,0.8))',
-                  padding: '2rem 1.5rem',
-                  color: '#fff'
-                }}>
-                  <h4 style={{ fontSize: '1.4rem', fontWeight: '700', margin: 0 }}>{item.title}</h4>
-                </div>
+                <img src={imgSrc} alt={`Volunteer Action ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             ))}
           </div>
@@ -270,10 +262,23 @@ const GetInvolved = () => {
       {/* Ways to Help */}
       <section style={{ padding: '6rem 0', background: '#fff' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3rem' }}>
-
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+            gap: '3rem',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            justifyContent: 'center'
+          }}>
             {/* Volunteer */}
-            <div style={{ textAlign: 'center', padding: '2rem' }}>
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
+              style={{ textAlign: 'center', padding: '3rem 2rem', borderRadius: '16px', background: '#fff', border: '1px solid #f0f0f0' }}
+            >
               <div style={{ fontSize: '4rem', marginBottom: '1.5rem', color: 'var(--pratham-yellow)' }}>🙋‍♂️</div>
               <h2 style={{ fontSize: '1.8rem', marginBottom: '1.2rem' }}>Volunteer Your Time</h2>
               <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '2rem' }}>
@@ -286,43 +291,107 @@ const GetInvolved = () => {
                 border: 'none',
                 borderRadius: '4px',
                 cursor: 'pointer'
-              }}>Apply Now</button>
-            </div>
+              }}
+              onClick={scrollToForm}
+              >Apply Now</button>
+            </motion.div>
 
             {/* Support/Donate */}
-            <div style={{ textAlign: 'center', padding: '2rem', background: '#f9f9f9', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
+              style={{ textAlign: 'center', padding: '3rem 2rem', background: '#f9f9f9', borderRadius: '16px', border: '1px solid #eee' }}
+            >
               <div style={{ fontSize: '4rem', marginBottom: '1.5rem', color: '#e53935' }}>💰</div>
               <h2 style={{ fontSize: '1.8rem', marginBottom: '1.2rem' }}>Support Financially</h2>
               <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '2rem' }}>
                 Every contribution goes directly toward our educational and welfare programs. Help us reach more communities and transform lives through your generosity.
               </p>
-              <button style={{
-                background: '#e53935',
-                color: '#fff',
-                padding: '0.8rem 2rem',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}>Donate Now</button>
-            </div>
+              <button 
+                onClick={() => navigate('/donate')}
+                style={{
+                  background: '#e53935',
+                  color: '#fff',
+                  padding: '0.8rem 2rem',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}>Donate Now</button>
+            </motion.div>
 
-            {/* Partner */}
-            <div style={{ textAlign: 'center', padding: '2rem' }}>
-              <div style={{ fontSize: '4rem', marginBottom: '1.5rem', color: '#43a047' }}>🏢</div>
-              <h2 style={{ fontSize: '1.8rem', marginBottom: '1.2rem' }}>Corporate Partnership</h2>
-              <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '2rem' }}>
-                Join hands with us for CSR initiatives. We partner with organizations to create sustainable social impact through collaborative projects.
-              </p>
-              <button style={{
-                background: 'var(--pratham-black)',
-                color: '#fff',
-                padding: '0.8rem 2rem',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}>Partner With Us</button>
-            </div>
 
+
+          </div>
+        </div>
+      </section>
+
+      {/* Volunteer Application Form */}
+      <section ref={formRef} style={{ padding: '8rem 0', background: '#fcfcfc' }}>
+        <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
+          <div style={{ 
+            background: '#fff', 
+            padding: '4rem', 
+            borderRadius: '24px', 
+            boxShadow: '0 20px 60px rgba(0,0,0,0.08)',
+            border: '1px solid #f0f0f0'
+          }}>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem', textAlign: 'center' }}>Volunteer Application</h2>
+            <p style={{ textAlign: 'center', color: '#666', marginBottom: '3rem' }}>Join our mission to create lasting social change. Fill out the form below and we'll get back to you.</p>
+            
+            <form onSubmit={(e) => { e.preventDefault(); alert('Application submitted successfully!'); }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Full Name</label>
+                  <input type="text" placeholder="Enter your full name" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} required />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Email Address</label>
+                  <input type="email" placeholder="Enter your email" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} required />
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Phone Number</label>
+                  <input type="tel" placeholder="Enter your phone number" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} required />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Which field do you want to apply for?</label>
+                  <select style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem', background: '#fff' }} required>
+                    <option value="">Select a field</option>
+                    <option value="education">Education (Teaching)</option>
+                    <option value="social_welfare">Social Welfare</option>
+                    <option value="tribal">Tribal Development</option>
+                    <option value="health">Health & Nutrition</option>
+                    <option value="women_empowerment">Women Empowerment</option>
+                    <option value="orphan_support">Orphan Support</option>
+                    <option value="administration">Event & Admin Support</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '3rem' }}>
+                <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Tell us about your experience or passion</label>
+                <textarea placeholder="How can you contribute to our mission?" rows="4" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem', resize: 'vertical' }} required></textarea>
+              </div>
+
+              <div style={{ textAlign: 'center' }}>
+                <button type="submit" style={{ 
+                  background: 'var(--pratham-black)', 
+                  color: '#fff', 
+                  padding: '1.2rem 4rem', 
+                  fontSize: '1.1rem', 
+                  fontWeight: '700', 
+                  borderRadius: '12px', 
+                  border: 'none', 
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}>Submit Application</button>
+              </div>
+            </form>
           </div>
         </div>
       </section>
@@ -333,7 +402,7 @@ const GetInvolved = () => {
           <h2 style={{ fontSize: '2.5rem', fontFamily: 'serif', fontStyle: 'italic', marginBottom: '2rem' }}>
             "Service to others is the rent you pay for your room here on earth."
           </h2>
-          <p style={{ fontSize: '1.2rem', color: 'var(--pratham-yellow)', fontWeight: '600' }}>— Muhammad Ali</p>
+          <p style={{ fontSize: '1.2rem', color: 'var(--pratham-yellow)', fontWeight: '600' }}>— Dr. Adv. Er. Bhagwan Nivrutti Elmame</p>
         </div>
       </section>
     </div>

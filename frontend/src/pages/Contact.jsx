@@ -9,10 +9,27 @@ const Contact = () => {
     message: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Thank you for contacting us! We will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    try {
+      const response = await fetch('http://localhost:5000/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Thank you for contacting us! Your message has been saved.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Could not connect to the server.');
+    }
   };
 
   const handleChange = (e) => {
@@ -44,7 +61,7 @@ const Contact = () => {
       {/* Mini Hero */}
       <section className="page-hero" style={{ 
         height: '30vh', 
-        background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/vocational_hero.png") center/cover',
+        background: 'linear-gradient(135deg, #1a1a1a 0%, #333333 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
 
+const INDIAN_CITIES = [
+  "Agra", "Ahmedabad", "Ajmer", "Aligarh", "Amravati", "Amritsar", "Asansol", "Aurangabad", "Bangalore", 
+  "Bareilly", "Belgaum", "Bhavnagar", "Bhilai", "Bhiwandi", "Bhopal", "Bhubaneswar", "Bikaner", "Chandigarh", 
+  "Chennai", "Coimbatore", "Cuttack", "Dehradun", "Delhi", "Dhanbad", "Durgapur", "Erode", "Faridabad", 
+  "Firozabad", "Gandhinagar", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", "Gurgaon", "Guwahati", "Gwalior", 
+  "Hubli", "Hyderabad", "Indore", "Jabalpur", "Jaipur", "Jalandhar", "Jalgaon", "Jammu", "Jamnagar", "Jamshedpur", 
+  "Jhansi", "Jodhpur", "Kannur", "Kanpur", "Kochi", "Kolhapur", "Kolkata", "Kollam", "Kota", "Kozhikode", 
+  "Lucknow", "Ludhiana", "Madurai", "Malegaon", "Mangalore", "Meerut", "Moradabad", "Mumbai", "Mysore", 
+  "Nagpur", "Nanded", "Nashik", "Nellore", "Noida", "Patna", "Pondicherry", "Pune", "Raipur", "Rajahmundry", 
+  "Rajkot", "Ranchi", "Rourkela", "Salem", "Sangli", "Siliguri", "Solapur", "Srinagar", "Surat", "Thane", 
+  "Thiruvananthapuram", "Thrissur", "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Udaipur", "Ujjain", "Vadodara", 
+  "Varanasi", "Vasai-Virar", "Vellore", "Vijayawada", "Visakhapatnam", "Warangal", "Other"
+];
+
 const Donate = () => {
   const [showForm, setShowForm] = useState(false);
 
@@ -111,7 +125,7 @@ const Donate = () => {
                 <span style={{ fontSize: '1.2rem' }}>&gt;</span> DONATE TO
               </div>
               <h3 style={{ fontSize: '1.8rem', fontWeight: '600', marginBottom: '2.5rem', color: '#333' }}>
-                BK Education and Welfare Society
+                BK Education and Welfare Society <span style={{ fontSize: '1rem', background: '#eee', padding: '2px 8px', borderRadius: '4px', color: '#666' }}>Reg. No. F-12121</span>
               </h3>
 
               <form style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem 3rem' }}>
@@ -139,8 +153,11 @@ const Donate = () => {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <label style={{ width: '120px', fontWeight: '500' }}>City</label>
-                    <select style={inputStyle}>
-                      <option>City</option>
+                    <select style={inputStyle} defaultValue="">
+                      <option value="" disabled>Select City</option>
+                      {INDIAN_CITIES.map(city => (
+                        <option key={city} value={city}>{city}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -192,7 +209,7 @@ const Donate = () => {
                   </div>
 
                   <p style={{ color: '#555', fontSize: '0.95rem', marginBottom: '2rem', lineHeight: '1.5' }}>
-                    Your contributions are eligible for up to 50% tax benefit under Section 80G, as BK Education and Welfare Society is registered as a non-profit organization.
+                    Your contributions are eligible for up to 50% tax benefit under Section 80G, as BK Education and Welfare Society is registered as a non-profit organization (Reg. No. F-12121).
                   </p>
 
                   <div style={{ 
@@ -250,6 +267,7 @@ const Donate = () => {
           )}
         </div>
       </section>
+      <div style={{ padding: '2rem 0' }}></div>
     </div>
   );
 };

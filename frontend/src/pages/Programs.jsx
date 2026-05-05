@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import bloodCampImg from '../assets/g16.jpeg';
+import seniorWelfareImg from '../assets/G42.jpeg';
+import tribalHeroNew from '../assets/TRIBAL2.jpg';
+// Using the new tribal hero asset for consistency
+const tribalImg = tribalHeroNew;
 
 const renderText = (text) => {
   if (typeof text !== 'string') return text;
@@ -41,31 +45,35 @@ const ProgramCard = ({ program, index }) => {
     };
   }, []);
 
+  const isEven = index % 2 === 0;
+
   return (
     <div
       ref={cardRef}
       style={{
         display: 'flex',
-        flexDirection: window.innerWidth < 768 ? 'column' : 'row',
+        flexDirection: window.innerWidth < 992 ? 'column' : (isEven ? 'row' : 'row-reverse'),
         background: '#fff',
-        borderRadius: '0',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.05)',
+        borderRadius: '12px',
+        boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)',
         overflow: 'hidden',
-        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'all 0.4s ease',
         border: '1px solid #eee',
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-        animation: isVisible ? `fadeInUp 0.8s ease-out both` : 'none'
+        transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
+        position: 'relative',
+        margin: '2rem 0'
       }}
       className="program-horizontal-card program-card-hover"
     >
-      {/* Left side: Image */}
+
+      {/* Image Container */}
       <div style={{
-        flex: '0 0 40%',
-        minHeight: '350px',
+        flex: '0 0 50%',
+        minHeight: window.innerWidth < 768 ? '300px' : '450px',
         position: 'relative',
         overflow: 'hidden',
-        background: program.fit === 'contain' ? '#f9f9f9' : 'transparent'
+        background: program.fit === 'contain' ? '#fcfcfc' : 'transparent'
       }}>
         <img
           src={program.image}
@@ -75,70 +83,68 @@ const ProgramCard = ({ program, index }) => {
             height: '100%',
             objectFit: program.fit || 'cover',
             display: 'block',
-            transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-            padding: program.fit === 'contain' ? '2rem' : '0'
+            transition: 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            padding: program.fit === 'contain' ? '3rem' : '0'
           }}
         />
+        {/* Image Overlay Gradient */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: `linear-gradient(${isEven ? 'to right' : 'to left'}, transparent, rgba(255,255,255,0.05))`,
+          pointerEvents: 'none'
+        }}></div>
       </div>
 
-      {/* Right side: Content */}
+      {/* Content Container */}
       <div style={{
         flex: '1',
-        padding: '3rem',
+        padding: window.innerWidth < 768 ? '2.5rem' : '4rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        background: '#fff'
       }}>
         <div style={{
-          background: 'var(--pratham-yellow)',
-          padding: '0.6rem 1.2rem',
-          marginBottom: '1.5rem',
-          borderRadius: '0',
-          position: 'relative',
-          overflow: 'hidden',
-          animation: isVisible ? `revealFromLeft 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.4s both, float 4s ease-in-out infinite` : 'none'
+          display: 'inline-block',
+          background: program.color || 'var(--pratham-yellow)',
+          color: '#fff',
+          padding: '0.6rem 1.4rem',
+          marginBottom: '2rem',
+          borderRadius: '8px',
+          fontWeight: '900',
+          fontSize: '0.85rem',
+          textTransform: 'uppercase',
+          letterSpacing: '2px',
+          boxShadow: `0 10px 20px ${program.color}33`
         }}>
-          <div className="shimmer-box"></div>
-          <h3 style={{
-            fontSize: '1.5rem',
-            fontWeight: '800',
-            color: '#000',
-            margin: 0,
-            textTransform: 'uppercase',
-            position: 'relative',
-            zIndex: 1,
-            display: 'flex',
-            flexWrap: 'wrap'
-          }}>
-            {program.title.split('').map((char, charIndex) => (
-              <span
-                key={charIndex}
-                style={{
-                  display: 'inline-block',
-                  whiteSpace: char === ' ' ? 'pre' : 'normal',
-                  animation: isVisible ? `typewriter 0.3s ease-out ${0.6 + charIndex * 0.05}s both` : 'none'
-                }}
-              >
-                {char}
-              </span>
-            ))}
-          </h3>
+          {program.icon} {program.title}
         </div>
+
+        <h3 style={{
+          fontSize: window.innerWidth < 768 ? '1.8rem' : '2.5rem',
+          fontWeight: '900',
+          color: '#1a1a1a',
+          marginBottom: '1.5rem',
+          lineHeight: '1.2',
+          letterSpacing: '-1px'
+        }}>
+          {program.title}
+        </h3>
 
         {program.description.split('\n\n').map((paragraph, pIndex) => (
           <p key={pIndex} style={{
-            color: '#444',
+            color: '#555',
             lineHeight: '1.8',
             fontSize: '1.1rem',
             marginBottom: '1.5rem',
-            textAlign: 'justify',
-            opacity: isVisible ? 1 : 0,
-            transition: `opacity 0.8s ease-out ${0.8 + pIndex * 0.2}s`
+            textAlign: 'justify'
           }}>
             {renderText(paragraph)}
           </p>
         ))}
+
       </div>
     </div>
   );
@@ -167,8 +173,8 @@ const Programs = () => {
       100% { background-position: 200% 0; }
     }
     .program-card-hover:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.12) !important;
+      transform: translateY(-12px);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.15) !important;
     }
     .program-card-hover:hover img {
       transform: scale(1.1) rotate(1deg);
@@ -184,14 +190,22 @@ const Programs = () => {
   `;
 
   const programData = [
+    {
+      title: "Tribal Development",
+      description: "We are deeply committed to the upliftment of tribal communities. By respecting and preserving their cultural heritage, we provide modern educational and economic opportunities to foster self-reliance and inclusive growth.\\n\\nOur initiatives include mobile health clinics, women's self-help groups, and forest-based livelihood programs that respect traditional practices while providing paths to sustainable development.",
+      icon: "🏹",
+      color: "#795548",
+      image: tribalImg
+    },
+
 
 
     {
-      title: "Tribal Development",
-      description: "BK Education and Welfare Society is deeply committed to the upliftment of tribal communities by preserving their cultural heritage while providing modern educational and economic opportunities.\n\nKey Initiatives:\n• Mobile Health Clinics for remote hamlets\n• Tribal Women's Self-Help Groups (SHGs)\n• Forest-based livelihood support programs\n• Preservation of indigenous languages and arts\n• Vocational training in eco-friendly crafts",
-      icon: "🏹",
-      color: "#795548",
-      image: "/tribal_development.png"
+      title: "Senior Citizen Welfare",
+      description: "Dedicated to enhancing the quality of life for our seniors through comprehensive support systems, health check-ups, and social engagement activities. BK Education and Welfare Society provides a platform for senior citizens to live with dignity and respect, offering them medical assistance and a community where they can share their wisdom and experiences.\\n\\nWe organize regular wellness workshops and recreational outings, ensuring that our elders remain active and connected. By fostering intergenerational bonds, we create a society that values its heritage and cares for those who paved the path for our future.",
+      icon: "👴👵",
+      color: "#4caf50",
+      image: seniorWelfareImg
     },
     {
       title: "Disability Affair",
@@ -200,20 +214,22 @@ const Programs = () => {
       color: "#607d8b",
       image: "/disability_affair.png"
     },
-    {
-      title: "Child Development",
-      description: "Focusing on the holistic growth of children from underprivileged backgrounds through nutritional support, early childhood education, and creative engagement. We believe that a child's early years are the most critical for their cognitive and emotional development.\n\nOur initiatives include health check-up camps, distribution of nutritional kits, and setting up child-friendly learning centers where children can explore their talents in a safe and nurturing environment.",
-      icon: "👶",
-      color: "#4caf50",
-      image: "/child_development.png"
-    },
 
+
+
+    {
+      title: "Orphan Support",
+      description: "Providing a loving home, quality education, and comprehensive care for orphaned and abandoned children. BK Education and Welfare Society works to ensure that every child, regardless of their family circumstances, has access to a safe environment and the resources needed to build a bright future.\n\nOur support includes residential facilities, nutritional care, psychological counseling, and formal schooling. We aim to nurture these children into confident, self-reliant individuals who can lead meaningful lives and contribute positively to society.",
+      icon: "🏠👶",
+      color: "#ff5722",
+      image: "/orphan_support.png"
+    },
     {
       title: "Rural Development",
       description: "Transforming rural landscapes through sustainable agriculture practices, infrastructure improvements, and digital literacy. BK Education and Welfare Society works closely with village panchayats to implement water harvesting systems, solar energy solutions, and modern farming techniques.\n\nBy bridging the digital divide, we provide rural youth with access to online education and government services, ensuring that the benefits of progress reach the heart of our rural communities and reduce the need for distress migration to urban centers.",
       icon: "🚜",
       color: "#ffc107",
-      image: "/rural_development.png"
+      image: "/rural_community_hub.png"
     },
     {
       title: "Volunteer Programs",
@@ -255,22 +271,57 @@ const Programs = () => {
   return (
     <div className="programs-page">
       <style>{animations}</style>
-      {/* Mini Hero */}
+      {/* Simplified Hero Section with Torn Edge */}
       <section className="page-hero" style={{
-        height: '45vh',
-        background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/programs_hero.png") center/cover no-repeat',
+        minHeight: '35vh',
+        background: '#d34b07',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         color: '#fff',
         textAlign: 'center',
-        position: 'relative'
+        position: 'relative',
+        padding: '2rem 0 4rem'
       }}>
         <div className="container">
-          <h1 style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>{renderText("BK Education and Welfare Society")}</h1>
-          <p style={{ fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto' }}>
-            Diverse initiatives designed to empower individuals and uplift society.
-          </p>
+          <h1 style={{ 
+            fontSize: 'clamp(2.5rem, 8vw, 4rem)', 
+            fontWeight: '900',
+            margin: 0,
+            textTransform: 'uppercase',
+            letterSpacing: '2px'
+          }}>
+            Our Programs
+          </h1>
+          <div style={{ 
+            width: '60px', 
+            height: '4px', 
+            background: '#fff', 
+            margin: '1.5rem auto 0',
+            opacity: 0.6
+          }}></div>
+        </div>
+
+        {/* Torn Edge Effect */}
+        <div style={{
+          position: 'absolute',
+          bottom: '-1px',
+          left: 0,
+          width: '100%',
+          height: '60px',
+          zIndex: 10,
+          filter: 'drop-shadow(0 15px 15px rgba(0,0,0,0.15))'
+        }}>
+          <svg 
+            viewBox="0 0 1200 120" 
+            preserveAspectRatio="none" 
+            style={{ width: '100%', height: '100%', display: 'block' }}
+          >
+            <path 
+              d="M0,0 L1200,0 L1200,80 L1180,75 L1160,85 L1140,70 L1120,90 L1100,75 L1080,85 L1060,70 L1040,80 L1020,75 L1000,85 L980,70 L960,90 L940,75 L920,85 L900,70 L880,80 L860,75 L840,85 L820,70 L800,90 L780,75 L760,85 L740,70 L720,80 L700,75 L680,85 L660,70 L640,90 L620,75 L600,85 L580,70 L560,80 L540,75 L520,85 L500,70 L480,90 L460,75 L440,85 L420,70 L400,80 L380,75 L360,85 L340,70 L320,90 L300,75 L280,85 L260,70 L240,80 L220,75 L200,85 L180,70 L160,90 L140,75 L120,85 L100,70 L80,80 L60,75 L40,85 L20,70 L0,90 Z" 
+              fill="#f8f9fa" 
+            />
+          </svg>
         </div>
       </section>
 

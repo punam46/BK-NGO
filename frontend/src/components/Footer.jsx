@@ -11,6 +11,13 @@ const Footer = () => {
           <h3 className="footer-logo">
             <span style={{ color: '#e53935' }}>BK</span> EDUCATION AND WELFARE SOCIETY (NGO)
           </h3>
+          <p style={{ fontSize: '0.85rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '800', letterSpacing: '0.5px', color: '#fff' }}>
+            REGISTERED NO: F-12121
+          </p>
+          <div style={{ fontSize: '0.75rem', opacity: 0.7, marginBottom: '1.5rem', color: '#fff', fontWeight: '500' }}>
+            <div>REGISTRATION CERT NO: 27332222570P</div>
+            <div>ENROLMENT CERT NO: 99594678152P</div>
+          </div>
           <p className="footer-description">
             Dedicated to creating holistic community development through education, 
             social welfare, and environmental care. Together, we build a better tomorrow.
