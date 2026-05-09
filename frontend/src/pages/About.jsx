@@ -9,6 +9,7 @@ import ThreeDCarousel from '../components/ThreeDCarousel';
 import { renderText } from './Education';
 
 const About = () => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -18,9 +19,34 @@ const About = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const testimonials = [
+    {
+      name: "Rajesh Kumar",
+      role: "Bank PO Exam Topper",
+      quote: "The adaptive learning tools and one-on-one mentoring helped me crack the IBPS PO exam. I'm now serving as a probationary officer at a nationalized bank.",
+      image: "https://randomuser.me/api/portraits/men/32.jpg"
+    },
+    {
+      name: "Priya Sharma",
+      role: "Software Developer",
+      quote: "The vocational training program equipped me with modern web development skills. Today, I'm working remotely for a tech startup and mentoring others.",
+      image: "https://randomuser.me/api/portraits/women/44.jpg"
+    }
+  ];
+
+  const handlePrevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const handleNextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+
+
   const teamMembers = [
-    { img: "/bkphoto.jpeg", name: "Dr. Adv. Er. Bhagwan Nivrutti Elmame", role: "Bench Magistrate (Member) of the Child Welfare Committee", pos: "center" },
-    { img: "/k1.jpeg", name: "Prof. Kishor Nivrutti Yelmame", role: "Founder President", pos: "right center" },
+    { img: "/bkphoto.jpeg", name: "Dr. Adv. Er. Bhagwan Nivrutti Elmame", role: "Bench Magistrate (Member) of the Child Welfare Committee", pos: "top center" },
+    { img: "/k1.jpeg", name: "Prof. Kishor Nivrutti Yelmame", role: "Founder President", pos: "top center" },
     { img: "/D1.jpeg", name: "Dnyaneshwar Nikalje", role: "Yoga & Physical Wellness Trainer", pos: "top center" },
     { img: ghugeImg, name: "Nandkishor Ghuge", role: "Senior Fitness & Conditioning Coach", pos: "top center" }
   ];
@@ -33,15 +59,6 @@ const About = () => {
     setCurrentSlide((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
   };
 
-  const scroll = (direction) => {
-    if (carouselRef.current) {
-      const scrollAmount = 350;
-      carouselRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <div className="about-page">
@@ -112,25 +129,28 @@ const About = () => {
               zIndex: 0
             }} />
 
-            {/* Image 1 (Left) */}
+            {/* Image 1 (Left) - Modern Rectangle */}
             <div style={{
               position: 'absolute',
-              top: '5%',
+              top: '-90px',
               left: '0',
-              width: '60%',
+              width: '440px',
+              height: '480px',
               zIndex: 2,
-              borderRadius: '40px 40px 10px 40px',
+              borderRadius: '40px',
               overflow: 'hidden',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
+              boxShadow: '0 30px 60px rgba(0,0,0,0.2)',
+              border: '10px solid #fff'
             }}>
-              <img src={boysSmilingImg} alt="Students" style={{ width: '100%', display: 'block' }} />
+              <img src={boysSmilingImg} alt="Students" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
+
 
             {/* Image 2 (Right Overlapping) */}
             <div style={{
               position: 'absolute',
-              top: '15%',
-              right: '0',
+              top: '25%',
+              right: '-5%',
               width: '70%',
               zIndex: 1,
               borderRadius: '10px 40px 40px 40px',
@@ -167,7 +187,7 @@ const About = () => {
                 <img 
                   src="/bkphoto.jpeg" 
                   alt="Dr. Adv. Er. Bhagwan Nivrutti Elmame" 
-                  style={{ width: '100%', borderRadius: '12px 12px 0 0', display: 'block' }} 
+                  style={{ width: '100%', borderRadius: '12px 12px 0 0', display: 'block', objectFit: 'cover', objectPosition: 'top', height: '400px' }} 
                 />
                 <div style={{ padding: '1.5rem', textAlign: 'center' }}>
                   <h3 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#333', marginBottom: '0.3rem' }}>Dr. Adv. Er. Bhagwan Nivrutti Elmame</h3>
@@ -215,6 +235,7 @@ const About = () => {
           </div>
         </div>
       </section>
+
 
       {/* Introduction Section */}
       <section className="about-intro-section" style={{ 
@@ -322,9 +343,10 @@ const About = () => {
                   fontSize: '1.05rem', 
                   lineHeight: '1.8', 
                   color: 'rgba(255,255,255,0.95)',
-                  marginBottom: '2rem'
+                  marginBottom: '2rem',
+                  maxWidth: '500px'
                 }}>
-                  <span style={{ fontWeight: 'bold' }}><span style={{ color: '#fff' }}>BK</span> Educational and Welfare Society</span>'s leadership collective comprising of Regional and Functional Directors who provide strategic direction to organizational objectives.
+                  <span style={{ fontWeight: 'bold' }}><span style={{ color: '#fff' }}>BK</span> Educational and Welfare Society</span>'s leadership collective of Directors provides strategic direction to achieve our organizational objectives.
                 </p>
                 <div style={{ 
                   width: '100%', 
@@ -360,30 +382,47 @@ const About = () => {
                   }}>
                     <div style={{
                       width: '100%',
-                      height: '450px',
+                      height: '500px', // Increased height to accommodate circular layout
                       background: '#ffffff', 
-                      borderRadius: '24px',
+                      borderRadius: '32px',
                       overflow: 'hidden',
                       position: 'relative',
-                      boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-                      color: '#fff'
+                      boxShadow: '0 30px 60px rgba(0,0,0,0.12)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      padding: '3rem 2rem 2rem',
+                      color: '#1a1a1a'
                     }}>
-                      <img src={member.img} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: member.pos || 'center' }} />
-                      
-                      {/* Overlay for Text */}
-                      <div style={{ 
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        width: '100%',
-                        padding: '3rem 1.8rem 1.8rem',
-                        background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)',
-                        textAlign: 'left'
+                      {/* Rectangular Image Container */}
+                      <div style={{
+                        width: '260px',
+                        height: '320px',
+                        borderRadius: '32px',
+                        overflow: 'hidden',
+                        border: '6px solid #f8f9fa',
+                        boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
+                        marginBottom: '2rem',
+                        flexShrink: 0
                       }}>
-                        <h4 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '0.4rem', color: '#fff', lineHeight: '1.3' }}>{member.name}</h4>
-                        <p style={{ fontSize: '0.8rem', opacity: 0.9, fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#FFC107' }}>{member.role}</p>
+                        <img 
+                          src={member.img} 
+                          alt={member.name} 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: member.pos || 'center' }} 
+                        />
+                      </div>
+                      
+                      {/* Text content moved below the circular image */}
+                      <div style={{ 
+                        textAlign: 'center',
+                        zIndex: 2
+                      }}>
+                        <h4 style={{ fontSize: '1.4rem', fontWeight: '900', marginBottom: '0.6rem', color: '#1a1a1a', lineHeight: '1.3' }}>{member.name}</h4>
+                        <div style={{ width: '40px', height: '3px', background: '#e53935', margin: '0.5rem auto 1rem' }}></div>
+                        <p style={{ fontSize: '0.85rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#e53935', lineHeight: '1.4' }}>{member.role}</p>
                       </div>
                     </div>
+
                   </div>
                 ))}
               </div>

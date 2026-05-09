@@ -7,7 +7,9 @@ import seniorCitizenImg from '../assets/G42.jpeg';
 import bloodDonationImg from '../assets/g16.jpeg';
 import cleanWaterImg from '../assets/g25.jpeg';
 import socialWelfareImpactImg from '../assets/g18.jpeg';
-import socialWelfOriginal from '../assets/socialwelf.png';
+import socialWelfOriginal from '../assets/G42.jpeg';
+import bkLogo from '../assets/logo.jpeg';
+import g5 from '../assets/g5.jpg';
 
 const Home = () => {
   const carouselRef = useRef(null);
@@ -16,7 +18,30 @@ const Home = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isSeparatorVisible, setIsSeparatorVisible] = useState(false);
   const [isWhatWeDoVisible, setIsWhatWeDoVisible] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeWwdCard, setActiveWwdCard] = useState(null);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const { current } = carouselRef;
+      if (current) {
+        // If we've reached the end, scroll back to the start
+        if (Math.ceil(current.scrollLeft + current.offsetWidth) >= current.scrollWidth - 5) {
+          current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          const scrollAmount = windowWidth < 768 ? current.offsetWidth : current.offsetWidth / 3;
+          current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [windowWidth]);
 
   const heroSlides = [
     {
@@ -24,7 +49,7 @@ const Home = () => {
       text: "Conducting self-defense training and legal awareness workshops to ensure a secure and empowered future for every woman.",
       image: "/women_safety_hero.jpg",
       layout: "magazine",
-      bgPosition: "center 20%",
+      bgPosition: "center",
       bgSize: "cover",
       bgColor: "#fff"
     },
@@ -42,7 +67,7 @@ const Home = () => {
       text: "Fostering sustainable growth and self-reliance in rural areas through community-driven initiatives.",
       image: "/rural_women_empowerment.png",
       layout: "magazine",
-      bgPosition: "center center",
+      bgPosition: "center",
       bgSize: "cover",
       bgColor: "#fff"
     },
@@ -51,7 +76,7 @@ const Home = () => {
       text: "Empowering communities through practical workshops and technical skills for a sustainable future.",
       image: "/skill_development_new.png",
       layout: "magazine",
-      bgPosition: "center center",
+      bgPosition: "center",
       bgSize: "cover",
       bgColor: "#fff"
     }
@@ -139,7 +164,7 @@ const Home = () => {
 
   const scroll = (direction) => {
     if (carouselRef.current) {
-      const cardWidth = carouselRef.current.firstElementChild?.offsetWidth || 420;
+      const cardWidth = carouselRef.current.firstElementChild?.offsetWidth || 580;
       const scrollAmount = direction === 'next' ? cardWidth + 20 : -(cardWidth + 20);
       carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
@@ -190,7 +215,7 @@ const Home = () => {
         style={{ 
           backgroundImage: 'url("/watercolor_children_group.png")',
           width: '100%',
-          minHeight: '650px',
+          minHeight: '400px',
           height: 'auto',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -211,7 +236,7 @@ const Home = () => {
           left: 0,
           width: '100%',
           height: '240px',
-          backgroundImage: 'url("/blue_watercolor_wash.png")',
+          background: '#e0f2fe',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -250,9 +275,7 @@ const Home = () => {
             <p style={{ marginBottom: '1.2rem' }}>
               Our unique <strong>"One Village One Reporter"</strong> system generates meaningful employment at the village, Tehsil, and district levels. Our weekly newsletter provides essential updates on current affairs, great personalities, and general knowledge for rural communities and students preparing for competitive exams, including listings for all government and public sector vacancies.
             </p>
-            <p>
-              We prioritize environmental conservation and public health through active campaigns for tree plantation and dedicated programs for drinking water supply, fostering a healthier and more sustainable society for all.
-            </p>
+
           </div>
         </div>
       </section>
@@ -336,8 +359,8 @@ const Home = () => {
             }}
           >
 
-            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '280px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src="/education_card.png" alt="Education" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
+              <img src="/education_card.png" alt="Education" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 0 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 0 ? 1 : undefined,
@@ -349,7 +372,7 @@ const Home = () => {
                 <div className="org-name"><span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</div>
               </div>
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1 }}>Education</h3>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1, minHeight: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Education</h3>
             <div style={{ width: '25px', height: '3px', background: '#00BFA5', margin: '0 auto', position: 'relative', zIndex: 1 }}></div>
           </div>
 
@@ -375,8 +398,8 @@ const Home = () => {
             }}
           >
 
-            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '280px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src={socialWelfOriginal} alt="Social Work" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
+              <img src={socialWelfOriginal} alt="Social Work" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 1 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 1 ? 1 : undefined,
@@ -388,7 +411,7 @@ const Home = () => {
                 <div className="org-name"><span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</div>
               </div>
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1 }}>Social Welfare</h3>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1, minHeight: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Social Welfare</h3>
             <div style={{ width: '25px', height: '3px', background: '#00BFA5', margin: '0 auto', position: 'relative', zIndex: 1 }}></div>
           </div>
 
@@ -414,8 +437,8 @@ const Home = () => {
             }}
           >
 
-            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '280px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src="/rural_community_hub.png" alt="Environment" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
+              <img src="/rural_community_hub.png" alt="Environment" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 2 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 2 ? 1 : undefined,
@@ -427,7 +450,7 @@ const Home = () => {
                 <div className="org-name"><span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</div>
               </div>
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1 }}>Environmental Care</h3>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1, minHeight: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Environmental Care</h3>
             <div style={{ width: '25px', height: '3px', background: '#00BFA5', margin: '0 auto', position: 'relative', zIndex: 1 }}></div>
           </div>
 
@@ -453,8 +476,8 @@ const Home = () => {
             }}
           >
 
-            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '280px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src="/what_we_do_pwd_exam.png" alt="Exam Prep" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
+              <img src="/what_we_do_pwd_exam.png" alt="Exam Prep" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 3 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 3 ? 1 : undefined,
@@ -466,11 +489,13 @@ const Home = () => {
                 <div className="org-name"><span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</div>
               </div>
             </div>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1 }}>Competitive Exam Prep (PwD)</h3>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1, minHeight: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Competitive Exam Prep (PwD)</h3>
             <div style={{ width: '25px', height: '3px', background: '#00BFA5', margin: '0 auto', position: 'relative', zIndex: 1 }}></div>
           </div>
         </div>
       </section>
+
+
 
       {/* Help Children Today Section */}
       <section className="help-section" style={{ 
@@ -492,8 +517,9 @@ const Home = () => {
 
         <div className="help-grid-container" style={{ 
           display: 'grid', 
+          gridTemplateColumns: windowWidth < 1100 ? '1fr' : '30% 70%',
           alignItems: 'center', 
-          gap: '4rem',
+          gap: windowWidth < 1100 ? '2rem' : '4rem',
           maxWidth: '1600px',
           margin: '0 auto',
           position: 'relative',
@@ -508,7 +534,16 @@ const Home = () => {
               fontWeight: '800',
               marginBottom: '2rem'
             }}>
-              How do you want to <span style={{ color: '#ffd54f', fontFamily: '"Dancing Script", cursive' }}>help society</span> <br/>
+              How do you want to <span style={{ 
+                color: '#ffd54f', 
+                fontFamily: '"Dancing Script", cursive',
+                fontSize: windowWidth < 768 ? '3rem' : '4.5rem',
+                fontWeight: '700',
+                display: 'inline-block',
+                margin: '0.5rem 0',
+                letterSpacing: '2px', // Make it broader
+                textShadow: '0.8px 0.8px 0px #ffd54f, -0.8px -0.8px 0px #ffd54f'
+              }}>help society</span> <br/>
               today?
             </h2>
             <p style={{ 
@@ -524,64 +559,35 @@ const Home = () => {
           </div>
 
           {/* Right Column: Carousel */}
-          <div style={{ position: 'relative', minHeight: '500px' }}>
-            <div className="carousel-nav" style={{
-              position: 'absolute',
-              left: '-25px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              zIndex: 10,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem'
-            }}>
-              <button 
-                onClick={() => scroll('prev')}
-                style={{ 
-                  width: '50px', height: '50px', borderRadius: '50%', 
-                  background: '#fff', border: 'none', boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
-                  cursor: 'pointer', fontSize: '1.2rem', transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.target.style.background = '#ffd54f'}
-                onMouseLeave={(e) => e.target.style.background = '#fff'}
-              >←</button>
-              <button 
-                onClick={() => scroll('next')}
-                style={{ 
-                  width: '50px', height: '50px', borderRadius: '50%', 
-                  background: '#fff', border: 'none', boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
-                  cursor: 'pointer', fontSize: '1.2rem', transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.target.style.background = '#ffd54f'}
-                onMouseLeave={(e) => e.target.style.background = '#fff'}
-              >→</button>
-            </div>
+          <div style={{ position: 'relative', minHeight: windowWidth < 768 ? 'auto' : '500px', width: '100%', overflow: 'visible' }}>
             
             <div 
               ref={carouselRef}
               className="impact-carousel" style={{
               display: 'flex',
-              gap: '2rem',
-              overflowX: 'auto', /* Allow scrolling */
+              gap: '1.5rem',
+              overflowX: 'scroll', /* Force scroll */
               paddingBottom: '2rem',
               width: '100%',
               scrollBehavior: 'smooth',
+              WebkitOverflowScrolling: 'touch',
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
               minWidth: 0,
-              paddingLeft: '10px'
+              paddingLeft: '5%',
+              paddingRight: '5%'
             }}>
               {/* Impact Card 1 */}
               <div 
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 420px',
+                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                 background: '#fff',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
               }}>
-                <div style={{ position: 'relative', height: '360px' }}>
+                <div style={{ position: 'relative', height: '300px' }}>
                   <img src="/impact_education_1776673692428.png" alt="Education" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{ 
                     position: 'absolute', top: '20px', right: '0', background: '#ffd54f',
@@ -590,8 +596,8 @@ const Home = () => {
                   }}>SAVE TAX</div>
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>SUPPORT CHILDREN'S EDUCATION</h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Help them stay in school</p>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '0.8rem', letterSpacing: '1px' }}>SUPPORT CHILDREN'S EDUCATION</h4>
+                  <p style={{ color: '#666', fontSize: '1.05rem' }}>Help them stay in school</p>
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </div>
@@ -599,19 +605,19 @@ const Home = () => {
               {/* Impact Card 2: Social Welfare */}
               <div 
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 420px',
+                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                 background: '#fff',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
               }}>
-                <div style={{ position: 'relative', height: '360px' }}>
+                <div style={{ position: 'relative', height: '300px' }}>
                   <img src={socialWelfareImpactImg} alt="Social Welfare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>SOCIAL WELFARE</h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Empowering communities for a better tomorrow</p>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '0.8rem', letterSpacing: '1px' }}>SOCIAL WELFARE</h4>
+                  <p style={{ color: '#666', fontSize: '1.05rem' }}>Empowering communities for a better tomorrow</p>
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </div>
@@ -619,19 +625,19 @@ const Home = () => {
               {/* Impact Card: Clean Water Access */}
               <div 
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 420px',
+                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                 background: '#fff',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
               }}>
-                <div style={{ position: 'relative', height: '360px' }}>
+                <div style={{ position: 'relative', height: '300px' }}>
                   <img src={cleanWaterImg} alt="Clean Water Access" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>CLEAN WATER ACCESS</h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Ensuring safe and clean drinking water for rural communities.</p>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '0.8rem', letterSpacing: '1px' }}>CLEAN WATER ACCESS</h4>
+                  <p style={{ color: '#666', fontSize: '1.05rem' }}>Ensuring safe and clean drinking water for rural communities.</p>
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </div>
@@ -640,8 +646,8 @@ const Home = () => {
               <Link 
                 to="/donate"
                 className="impact-card" style={{
-                minWidth: '420px',
-                flex: '0 0 420px',
+                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                 background: '#fff',
                 borderRadius: '16px',
                 overflow: 'hidden',
@@ -650,12 +656,12 @@ const Home = () => {
                 color: 'inherit',
                 display: 'block'
               }}>
-                <div style={{ position: 'relative', height: '360px' }}>
-                  <img src="/ashram_donate.jpg" alt="Ashram School" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'relative', height: '300px' }}>
+                  <img src={g5} alt="Ashram School" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>DONATE TO AN ASHRAM SCHOOL</h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Support holistic education and traditional learning for rural youth</p>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '0.8rem', letterSpacing: '1px' }}>DONATE TO AN ASHRAM SCHOOL</h4>
+                  <p style={{ color: '#666', fontSize: '1.05rem' }}>Support holistic education and traditional learning for rural youth</p>
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </Link>
@@ -663,19 +669,19 @@ const Home = () => {
               {/* Impact Card 4 */}
               <div 
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 420px',
+                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                 background: '#fff',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
               }}>
-                <div style={{ position: 'relative', height: '360px' }}>
+                <div style={{ position: 'relative', height: '300px' }}>
                   <img src="/healthcare_all.jpg" alt="Healthcare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>HEALTHCARE FOR ALL</h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Building a healthier society together</p>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '0.8rem', letterSpacing: '1px' }}>HEALTHCARE FOR ALL</h4>
+                  <p style={{ color: '#666', fontSize: '1.05rem' }}>Building a healthier society together</p>
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </div>
@@ -683,19 +689,19 @@ const Home = () => {
               {/* Impact Card 5: Senior Citizen Welfare */}
               <div 
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 420px',
+                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                 background: '#fff',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
               }}>
-                <div style={{ position: 'relative', height: '360px' }}>
+                <div style={{ position: 'relative', height: '300px' }}>
                   <img src={seniorCitizenImg} alt="Senior Citizen Welfare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>SENIOR CITIZEN WELFARE</h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Enhancing the quality of life for our elders</p>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '0.8rem', letterSpacing: '1px' }}>SENIOR CITIZEN WELFARE</h4>
+                  <p style={{ color: '#666', fontSize: '1.05rem' }}>Enhancing the quality of life for our elders</p>
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </div>
@@ -703,19 +709,19 @@ const Home = () => {
               {/* Impact Card 6: Blood Donation Camps */}
               <div 
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : '420px',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 420px',
+                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                 background: '#fff',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
               }}>
-                <div style={{ position: 'relative', height: '360px' }}>
+                <div style={{ position: 'relative', height: '300px' }}>
                   <img src={bloodDonationImg} alt="Blood Donation Camps" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '0.5rem', letterSpacing: '1px' }}>BLOOD DONATION CAMPS</h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem' }}>Saving lives through regular community drives</p>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '0.8rem', letterSpacing: '1px' }}>BLOOD DONATION CAMPS</h4>
+                  <p style={{ color: '#666', fontSize: '1.05rem' }}>Saving lives through regular community drives</p>
                   <div style={{ width: '100%', height: '8px', background: '#ffd54f', marginTop: '1.5rem', borderRadius: '0 0 16px 16px', position: 'absolute', bottom: 0, left: 0 }}></div>
                 </div>
               </div>
@@ -725,72 +731,66 @@ const Home = () => {
       </section>
 
       {/* Stats Impact Section */}
-      <section className="stats-impact-section" style={{
-        padding: '3rem 4% 5rem',
-        backgroundImage: 'url("/blue_watercolor_wash.png")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        textAlign: 'center',
-        marginBottom: '-120px', /* Overlap with banner */
-        marginTop: '0', /* Re-introduce clear gap as requested */
+      {/* Integrated Stats & Photo Banner Section */}
+      <section className="integrated-banner-section" style={{
         position: 'relative',
-        zIndex: 2,
-        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)',
-        maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)'
+        width: '100%',
+        marginTop: '0',
+        zIndex: 5
       }}>
-        <div className="stats-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '3rem',
-          maxWidth: '1200px',
-          margin: '0 auto 5rem'
-        }}>
-          {/* Stat 1 */}
-          <div className="stat-item">
-            <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Activities in</h4>
-            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>36</div>
-            <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>districts</p>
-          </div>
-
-          {/* Stat 2 */}
-          <div className="stat-item">
-            <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Children reached</h4>
-            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>10K</div>
-            <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>through direct programs and <br/> government partnerships</p>
-          </div>
-
-          {/* Stat 3 */}
-          <div className="stat-item">
-            <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Social Welfare & Environmental Care</h4>
-            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>300+</div>
-            <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>Impactful programs and <br/> rehabilitation projects</p>
-          </div>
-
-          {/* Stat 4 */}
-          <div className="stat-item">
-            <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Youth reached</h4>
-            <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>1K+</div>
-            <p style={{ marginTop: '1rem', color: '#444', fontWeight: '600' }}>through vocational/non-<br/>vocational courses</p>
-          </div>
-        </div>
-
-        {/* Group Photo Banner with Fade Effect */}
         <div className="group-photo-banner" style={{
           width: '100%',
-          height: '600px',
-          backgroundImage: 'linear-gradient(to bottom, transparent 0%, transparent 15%, rgba(255,255,255,0) 85%, rgba(255,255,255,1) 100%), url("/main_impact_banner.jpg")',
+          minHeight: '800px',
+          backgroundImage: 'linear-gradient(to bottom, #e0f2fe 0%, rgba(255, 255, 255, 0.2) 50%, #ffffff 100%), url("/main_impact_banner.jpg")',
           backgroundSize: 'cover',
-          backgroundPosition: 'center 10%',
+          backgroundPosition: 'center 15%',
           backgroundRepeat: 'no-repeat',
-          marginTop: '-6rem', /* Deeper overlap for better mixing */
-          position: 'relative',
-          zIndex: 1,
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%), linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-          WebkitMaskComposite: 'source-in',
-          maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%), linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
-          maskComposite: 'intersect'
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '1.5rem 4% 0',
+          position: 'relative'
         }}>
+          {/* Stats Overlay */}
+          <div className="stats-grid" style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '3rem',
+            maxWidth: '1200px',
+            width: '100%',
+            margin: '0 auto 4rem',
+            textAlign: 'center',
+            zIndex: 10
+          }}>
+            {/* Stat 1 */}
+            <div className="stat-item">
+              <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Activities in</h4>
+              <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>36</div>
+              <p style={{ marginTop: '1rem', color: '#000', fontWeight: '600' }}>districts</p>
+            </div>
+
+            {/* Stat 2 */}
+            <div className="stat-item">
+              <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Children reached</h4>
+              <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>10K</div>
+              <p style={{ marginTop: '1rem', color: '#000', fontWeight: '600' }}>through direct programs and <br/> government partnerships</p>
+            </div>
+
+            {/* Stat 3 */}
+            <div className="stat-item">
+              <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Social Welfare & Environmental Care</h4>
+              <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>300+</div>
+              <p style={{ marginTop: '1rem', color: '#000', fontWeight: '600' }}>Impactful programs and <br/> rehabilitation projects</p>
+            </div>
+
+            {/* Stat 4 */}
+            <div className="stat-item">
+              <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Youth reached</h4>
+              <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>1K+</div>
+              <p style={{ marginTop: '1rem', color: '#000', fontWeight: '600' }}>through vocational/non-<br/>vocational courses</p>
+            </div>
+          </div>
+
           {/* Yellow Logo Overlay */}
           <div style={{
             position: 'absolute',
@@ -803,7 +803,8 @@ const Home = () => {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: '4px',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
+            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+            zIndex: 10
           }}>
             <div style={{
               width: '30px',

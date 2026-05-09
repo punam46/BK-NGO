@@ -6,6 +6,7 @@ import './index.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import FloatingDonate from './components/FloatingDonate';
 
 // Pages
 import Home from './pages/Home';
@@ -27,6 +28,7 @@ import ChildDevelopment from './pages/ChildDevelopment';
 import TribalDevelopment from './pages/TribalDevelopment';
 import WomanEmpowerment from './pages/WomanEmpowerment';
 import OrphanSupport from './pages/OrphanSupport';
+import Terms from './pages/Terms';
 
 
 function App() {
@@ -57,6 +59,7 @@ function App() {
             <Route path="/photo-gallery" element={<PhotoGallery />} />
             <Route path="/certifications" element={<Certifications />} />
             <Route path="/donate" element={<Donate />} />
+            <Route path="/terms" element={<Terms />} />
 
           </Routes>
         </main>

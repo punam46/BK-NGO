@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import vTeachingImg from '../assets/volunteer_teaching.png';
 import vDistributionImg from '../assets/volunteer_distribution.png';
 import vPlanningImg from '../assets/volunteer_planning.png';
@@ -13,6 +14,23 @@ import actImg5 from '../assets/g25.jpeg';
 import actImg6 from '../assets/g24.jpeg';
 import actImg7 from '../assets/g29.jpeg';
 import actImg8 from '../assets/g30.jpeg';
+import actImg9 from '../assets/g33.jpeg';
+import g42 from '../assets/G42.jpeg';
+import g43 from '../assets/G43.jpeg';
+import g45 from '../assets/G45.jpeg';
+import g46 from '../assets/G46.jpeg';
+import g47 from '../assets/G47.jpeg';
+import g48 from '../assets/G48.jpeg';
+import g49 from '../assets/G49.jpeg';
+import g50 from '../assets/G50.jpeg';
+import g51 from '../assets/G51.jpeg';
+import g52 from '../assets/G52.jpeg';
+import g53 from '../assets/G53.jpeg';
+import g54 from '../assets/G54.jpeg';
+import g55 from '../assets/G55.jpeg';
+import g56 from '../assets/G56.jpeg';
+import g57 from '../assets/G57.jpeg';
+import g58 from '../assets/G58.jpeg';
 import ghugeImg from '../assets/ghuge sir.jpeg';
 import nikaljeImg from '../assets/D1.jpeg';
 
@@ -125,6 +143,57 @@ const GetInvolved = () => {
             10,555 volunteers. 1,264 interns. 20,74,526 volunteering hours generated.<br />
             13 states. 75,000 children reached through volunteers.
           </p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            style={{ display: 'flex', gap: '2rem', alignItems: 'center', justifyContent: 'center', marginTop: '3rem' }}
+          >
+            <motion.button 
+              whileHover={{ y: -4, boxShadow: '0 12px 0 #c2410c, 0 20px 40px rgba(249,115,22,0.4)' }}
+              whileTap={{ y: 8, boxShadow: '0 0px 0 #c2410c, 0 5px 10px rgba(249,115,22,0.2)' }}
+              onClick={scrollToForm}
+              style={{ 
+                background: 'linear-gradient(to bottom, #fb923c, #f97316)', 
+                color: '#fff', 
+                padding: '1.2rem 2.8rem', 
+                borderRadius: '20px', 
+                border: 'none', 
+                fontWeight: 900, 
+                cursor: 'pointer',
+                boxShadow: '0 8px 0 #c2410c, 0 15px 30px rgba(249,115,22,0.3)',
+                transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
+                fontSize: '1.1rem',
+                letterSpacing: '0.5px'
+              }}
+            >
+              Start Your Journey
+            </motion.button>
+            
+            <motion.button 
+              whileHover={{ y: -4, boxShadow: '0 10px 0 #e5e5e5, 0 15px 30px rgba(0,0,0,0.05)' }}
+              whileTap={{ y: 6, boxShadow: '0 0px 0 #e5e5e5' }}
+              style={{ 
+                background: '#fff', 
+                border: '2px solid #f0f0f0', 
+                color: '#1a1a1a', 
+                padding: '1.1rem 2.2rem',
+                borderRadius: '20px',
+                fontWeight: 900, 
+                cursor: 'pointer', 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '12px',
+                boxShadow: '0 6px 0 #e5e5e5, 0 10px 20px rgba(0,0,0,0.03)',
+                transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
+                fontSize: '1rem'
+              }}
+            >
+              Learn More <ArrowRight size={20} color="#f97316" />
+            </motion.button>
+          </motion.div>
           
         </div>
       </section>
@@ -238,7 +307,10 @@ const GetInvolved = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
             {[
               actImg1, actImg2, actImg3, actImg4, 
-              actImg5, actImg6, actImg7, actImg8
+              actImg5, actImg6, actImg7, actImg8,
+              actImg9, g42, g43, g45, g46, g47,
+              g48, g49, g50, g51, g52, g53,
+              g54, g55, g56, g57, g58
             ].map((imgSrc, idx) => (
               <div key={idx} style={{ 
                 position: 'relative', 

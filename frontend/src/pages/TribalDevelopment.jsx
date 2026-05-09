@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { renderText } from './Education';
 
 import tribalImpact from '../assets/tribla1.jpg';
@@ -15,6 +16,100 @@ const TribalDevelopment = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Animated Counter Component
+  const AnimatedCounter = ({ value, duration = 2000 }) => {
+    const [count, setCount] = useState(0);
+    const countRef = useRef(null);
+    const [hasStarted, setHasStarted] = useState(false);
+
+    // Extract the numerical part (e.g., "2,500" from "2,500+")
+    const endValue = parseInt(value.replace(/,/g, '').replace(/\+/g, ''));
+    const isPlus = value.includes('+');
+
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setHasStarted(true);
+          }
+        },
+        { threshold: 0.1 }
+      );
+
+      if (countRef.current) {
+        observer.observe(countRef.current);
+      }
+
+      return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+      if (!hasStarted) return;
+
+      let startTime = null;
+      const animate = (currentTime) => {
+        if (!startTime) startTime = currentTime;
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        setCount(Math.floor(progress * endValue));
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      requestAnimationFrame(animate);
+    }, [hasStarted, endValue, duration]);
+
+    return (
+      <span ref={countRef}>
+        {count.toLocaleString()}{isPlus ? '+' : ''}
+      </span>
+    );
+  };
+
+  // 3D Card Component with mouse tracking
+  const Interactive3DCard = ({ children, intensity = 15, scale = 1.05 }) => {
+    const cardRef = useRef(null);
+    const [transform, setTransform] = useState('');
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseMove = (e) => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -intensity;
+      const rotateY = ((x - centerX) / centerX) * intensity;
+      setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${isHovered ? scale : 1})`);
+    };
+
+    const handleMouseLeave = () => {
+      setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+      setIsHovered(false);
+    };
+
+    const handleMouseEnter = () => setIsHovered(true);
+
+    return (
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          transform,
+          transformStyle: 'preserve-3d',
+          transition: 'transform 0.1s ease-out',
+          willChange: 'transform',
+          height: '100%'
+        }}
+      >
+        {children}
+      </div>
+    );
+  };
+
   const animations = `
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(40px); }
@@ -24,11 +119,16 @@ const TribalDevelopment = () => {
 
   const initiatives = [
     {
-      title: "Mobile Health Clinics",
-      description: "Delivering essential healthcare services, preventive care, and maternal health support directly to remote tribal hamlets.",
-      details: ["Weekly Medical Camps", "Maternal Care", "Vaccination Drives"],
-      icon: "🏥",
-      image: tribalImpact
+      title: "Free Tribal Education",
+      description: "Breaking barriers by providing 100% free quality education, learning kits, and digital tools to students from remote tribal hamlets.",
+      details: ["Zero-Fee Schooling", "Free Learning Kits", "Digital Literacy"],
+      icon: "🎓",
+    },
+    {
+      title: "Residential Facilities",
+      description: "Safe, supportive, and hygienic hostel facilities for students to ensure they can pursue education without long-distance travel hurdles.",
+      details: ["Safe Hostels", "Nutritional Support", "Safe Environment"],
+      icon: "🏢",
     },
     {
       title: "Women's Self-Help Groups",
@@ -36,20 +136,14 @@ const TribalDevelopment = () => {
       details: ["Micro-Finance", "Handicraft Training", "Leadership Workshops"],
       icon: "👥",
     },
-    {
-      title: "Forest-Based Livelihoods",
-      description: "Promoting sustainable harvesting and value addition to Non-Timber Forest Products (NTFP) to boost local tribal economy.",
-      details: ["Sustainable Farming", "Market Linkages", "Organic Processing"],
-      icon: "🌳",
-    },
 
   ];
 
   const stats = [
-    { number: "50+", label: "Remote Villages Reached" },
-    { number: "10,000+", label: "Tribal Families Supported" },
-    { number: "120", label: "Self-Help Groups Formed" },
-    { number: "5,000+", label: "Youth Trained in Crafts" }
+    { number: "2,500+", label: "Students Educated Free" },
+    { number: "50+", label: "Tribal Hamlets Supported" },
+    { number: "15+", label: "Safe Hostels Built" },
+    { number: "10,000+", label: "Healthy Meals Served" }
   ];
 
   return (
@@ -94,7 +188,7 @@ const TribalDevelopment = () => {
             maxWidth: '600px',
             marginBottom: '3rem'
           }}>
-            We are deeply committed to the upliftment of tribal communities. By respecting and preserving their cultural heritage, we provide modern educational and economic opportunities to foster self-reliance and inclusive growth.
+            At BK Education and Welfare Society, we believe that education is the ultimate equalizer. We provide <strong>100% free education, residential facilities, and nutritional support</strong> to tribal students, ensuring they have the foundation to build a prosperous future.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <div style={{ borderLeft: '4px solid #795548', paddingLeft: '1.5rem' }}>
@@ -148,7 +242,7 @@ const TribalDevelopment = () => {
             boxShadow: '0 40px 80px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.1)',
             animation: 'fadeInUp 1s ease both'
           }}>
-            <img src={tribalHeroNew} alt="Tribal Development Hero" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            <img src={tribalHeroNew} alt="Tribal Development Hero" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
           </div>
 
           {/* Secondary Floating Image */}
@@ -175,10 +269,18 @@ const TribalDevelopment = () => {
       <section style={{ padding: '4rem 5%', background: '#795548', color: '#fff' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', textAlign: 'center' }}>
           {stats.map((stat, index) => (
-            <div key={index}>
-              <h3 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '0.5rem', color: '#e8dbd1' }}>{stat.number}</h3>
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <h3 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '0.5rem', color: '#e8dbd1' }}>
+                <AnimatedCounter value={stat.number} />
+              </h3>
               <p style={{ fontSize: '1.1rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>{stat.label}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -187,7 +289,21 @@ const TribalDevelopment = () => {
       <section style={{ padding: '8rem 5% 6rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-            <h2 style={{ fontSize: '2.8rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1.5rem' }}>Core Development Areas</h2>
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              style={{ 
+                fontSize: '2.8rem', 
+                fontWeight: '900', 
+                color: '#795548', 
+                marginBottom: '1.5rem',
+                textShadow: '1px 1px 0px #ccc, 2px 2px 0px #bbb, 3px 3px 0px #aaa, 4px 4px 0px #999, 5px 5px 10px rgba(0,0,0,0.1)'
+              }}
+            >
+              Core Development Areas
+            </motion.h2>
             <p style={{ fontSize: '1.1rem', color: '#666', maxWidth: '800px', margin: '0 auto' }}>
               Our multifaceted approach ensures comprehensive development for tribal communities, from healthcare access to economic independence.
             </p>
@@ -195,57 +311,69 @@ const TribalDevelopment = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem' }}>
             {initiatives.map((item, index) => (
-              <div key={index} style={{
-                background: '#fff',
-                borderRadius: '32px',
-                padding: '3rem 2.5rem',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)',
-                border: '1px solid #f0f0f0',
-                transition: 'all 0.4s ease',
-                textAlign: 'center'
-              }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-10px)';
-                  e.currentTarget.style.borderColor = '#795548';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = '#f0f0f0';
-                }}
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
               >
-                {item.image ? (
+                <Interactive3DCard intensity={10} scale={1.03}>
                   <div style={{
-                    width: '100%',
-                    height: '200px',
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    marginBottom: '1.5rem'
-                  }}>
-                    <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    background: '#fff',
+                    borderRadius: '32px',
+                    padding: '3rem 2.5rem',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)',
+                    border: '1px solid #f0f0f0',
+                    transition: 'border-color 0.4s ease',
+                    textAlign: 'center',
+                    height: '100%',
+                    transformStyle: 'preserve-3d'
+                  }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#795548';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#f0f0f0';
+                    }}
+                  >
+                    {item.image ? (
+                      <div style={{
+                        width: '100%',
+                        height: '200px',
+                        borderRadius: '20px',
+                        overflow: 'hidden',
+                        marginBottom: '1.5rem',
+                        transform: 'translateZ(20px)'
+                      }}>
+                        <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      </div>
+                    ) : (
+                      <div style={{
+                        fontSize: '3rem',
+                        marginBottom: '1.5rem',
+                        display: 'inline-block',
+                        background: '#f3ede8',
+                        width: '80px',
+                        height: '80px',
+                        lineHeight: '80px',
+                        borderRadius: '20px',
+                        transform: 'translateZ(30px)'
+                      }}>{item.icon}</div>
+                    )}
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.2rem', color: '#1a1a1a', transform: 'translateZ(25px)' }}>{item.title}</h3>
+                    <p style={{ color: '#666', lineHeight: '1.7', marginBottom: '2rem', transform: 'translateZ(15px)' }}>{item.description}</p>
+                    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '8px', transform: 'translateZ(10px)' }}>
+                      {item.details.map((detail, idx) => (
+                        <span key={idx} style={{
+                          fontSize: '0.8rem', fontWeight: '700', color: '#795548',
+                          background: '#f3ede8', padding: '0.4rem 1rem', borderRadius: '15px'
+                        }}>{detail}</span>
+                      ))}
+                    </div>
                   </div>
-                ) : (
-                  <div style={{
-                    fontSize: '3rem',
-                    marginBottom: '1.5rem',
-                    display: 'inline-block',
-                    background: '#f3ede8',
-                    width: '80px',
-                    height: '80px',
-                    lineHeight: '80px',
-                    borderRadius: '20px'
-                  }}>{item.icon}</div>
-                )}
-                <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.2rem', color: '#1a1a1a' }}>{item.title}</h3>
-                <p style={{ color: '#666', lineHeight: '1.7', marginBottom: '2rem' }}>{item.description}</p>
-                <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '8px' }}>
-                  {item.details.map((detail, idx) => (
-                    <span key={idx} style={{
-                      fontSize: '0.8rem', fontWeight: '700', color: '#795548',
-                      background: '#f3ede8', padding: '0.4rem 1rem', borderRadius: '15px'
-                    }}>{detail}</span>
-                  ))}
-                </div>
-              </div>
+                </Interactive3DCard>
+              </motion.div>
             ))}
           </div>
         </div>

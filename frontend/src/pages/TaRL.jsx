@@ -248,7 +248,7 @@ const TaRL = () => {
       {/* Unified Blue Narrative Section (Philosophy + Impact) */}
       <section style={{ 
         padding: '8rem 4%', 
-        background: 'url("/blue_watercolor_wash.png") center/cover no-repeat fixed',
+        background: '#e0f2fe',
         position: 'relative', 
         zIndex: 20,
         maskImage: 'linear-gradient(to bottom, transparent, black 150px)',

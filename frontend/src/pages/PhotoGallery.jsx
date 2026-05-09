@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Camera, Filter, Calendar, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Camera, Filter, Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import g16 from '../assets/g16.jpeg';
 import g31 from '../assets/g31.jpeg';
 import g17 from '../assets/g17.jpeg';
@@ -41,12 +42,28 @@ import G52 from '../assets/G52.jpeg';
 import G53 from '../assets/G53.jpeg';
 import G54 from '../assets/G54.jpeg';
 import G55 from '../assets/G55.jpeg';
+import G47 from '../assets/G47.jpeg';
 
 
 
 
 const PhotoGallery = () => {
   const [activeCategory, setActiveCategory] = useState('ALL');
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+  const scrollRef = React.useRef(null);
+
+  const scroll = (direction) => {
+    const { current } = scrollRef;
+    if (current) {
+      const scrollAmount = windowWidth < 768 ? 320 : 500;
+      current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+
 
   const categories = ['ALL', 'BLOOD DONATION', 'ENVIRONMENT', 'SOCIAL WELFARE', 'WOMEN EMPOWERMENT', 'EVENTS'];
 
@@ -55,7 +72,7 @@ const PhotoGallery = () => {
       id: 1,
       src: g16,
       category: 'BLOOD DONATION',
-      title: 'Blood Donation Program - Drive 1',
+      title: '',
       date: 'March 2024',
       location: 'Main Center'
     },
@@ -284,6 +301,7 @@ const PhotoGallery = () => {
     { id: 38, src: G53, category: 'SOCIAL WELFARE', title: 'Welfare and Growth Program', date: 'May 2025', location: 'Rural District', objectFit: 'cover' },
     { id: 39, src: G54, category: 'SOCIAL WELFARE', title: 'Social Progress Mission', date: 'June 2025', location: 'Local Area', objectFit: 'cover' },
     { id: 40, src: G55, category: 'SOCIAL WELFARE', title: 'Community Support Expansion', date: 'June 2025', location: 'New Impact Zone', objectFit: 'cover' },
+    { id: 43, src: G47, category: 'SOCIAL WELFARE', title: 'Grassroots Community Support', date: 'June 2025', location: 'Rural District', objectFit: 'cover' },
     { id: 41, src: G58, category: 'SOCIAL WELFARE', title: 'Social Welfare Initiative', date: 'June 2025', location: 'Impact Hub', objectFit: 'cover' },
     { id: 42, src: g5, category: 'EVENTS', title: 'Community Engagement Event', date: 'January 2025', location: 'Community Hall', objectFit: 'cover' },
   ];
@@ -292,6 +310,35 @@ const PhotoGallery = () => {
   const filteredPhotos = activeCategory === 'ALL'
     ? photos
     : photos.filter(photo => photo.category === activeCategory);
+
+  React.useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+
+    let animationFrameId;
+    const scrollContainer = scrollRef.current;
+
+    const continuousScroll = () => {
+      if (scrollContainer) {
+        // Constant slow scroll
+        scrollContainer.scrollLeft += 1.5; 
+        
+        // Reset to start when reaching the end
+        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
+          scrollContainer.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(continuousScroll);
+    };
+
+    // Start continuous scroll
+    animationFrameId = requestAnimationFrame(continuousScroll);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [filteredPhotos, windowWidth]);
 
   return (
     <div style={{ background: '#fff', minHeight: '100vh', paddingTop: '0' }}>
@@ -451,20 +498,96 @@ const PhotoGallery = () => {
       </section>
 
       {/* Dynamic Photo Grid */}
-      <section style={{ padding: '5rem 5% 8rem' }}>
+      <section style={{ padding: '5rem 0 8rem', position: 'relative', overflow: 'hidden' }}>
+        {/* Navigation Arrows */}
         <div style={{
-          maxWidth: '1300px',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
-          gap: '2.5rem'
+          position: 'absolute',
+          top: '50%',
+          left: '2%',
+          transform: 'translateY(-50%)',
+          zIndex: 10,
+          display: windowWidth < 768 ? 'none' : 'block'
         }}>
-          {filteredPhotos.map((photo) => (
+          <button
+            onClick={() => scroll('left')}
+            style={{
+              background: '#fff',
+              border: 'none',
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+              cursor: 'pointer',
+              color: '#111',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <ChevronLeft size={30} />
+          </button>
+        </div>
+
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          right: '2%',
+          transform: 'translateY(-50%)',
+          zIndex: 10,
+          display: windowWidth < 768 ? 'none' : 'block'
+        }}>
+          <button
+            onClick={() => scroll('right')}
+            style={{
+              background: '#fff',
+              border: 'none',
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+              cursor: 'pointer',
+              color: '#111',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <ChevronRight size={30} />
+          </button>
+        </div>
+
+        <div 
+          ref={scrollRef}
+          style={{
+          display: 'flex',
+          gap: '2.5rem',
+          overflowX: 'auto',
+          padding: '2rem 5% 4rem',
+          // scrollSnapType removed for continuous flow
+          scrollbarWidth: 'none', // Hide scrollbar for Firefox
+          msOverflowStyle: 'none', // Hide scrollbar for IE/Edge
+          WebkitOverflowScrolling: 'touch'
+        }}>
+          <style>
+            {`
+              div::-webkit-scrollbar {
+                display: none; /* Hide scrollbar for Chrome/Safari */
+              }
+            `}
+          </style>
+          {filteredPhotos.map((photo, index) => (
             <div
-              key={photo.id}
+              key={`${photo.id}-${index}`}
               style={{
                 group: 'photo-card',
                 position: 'relative',
+                minWidth: windowWidth < 768 ? '280px' : '360px',
                 background: '#fff',
                 borderRadius: '32px',
                 overflow: 'hidden',
@@ -484,7 +607,7 @@ const PhotoGallery = () => {
             >
               {/* Image Container */}
               <div style={{
-                height: '480px',
+                height: '420px',
                 position: 'relative',
                 overflow: 'hidden'
               }}>
@@ -500,56 +623,6 @@ const PhotoGallery = () => {
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                   onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                 />
-
-                {/* Category Tag Overlay */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: '25px',
-                  left: '25px',
-                  background: 'rgba(255,255,255,0.95)',
-                  backdropFilter: 'blur(5px)',
-                  color: '#e53935',
-                  padding: '8px 18px',
-                  borderRadius: '12px',
-                  fontSize: '0.7rem',
-                  fontWeight: '900',
-                  letterSpacing: '0.5px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                }}>
-                  {photo.category}
-                </div>
-
-              </div>
-
-              {/* Content Box */}
-              <div style={{ padding: '2.5rem' }}>
-                <div style={{
-                  display: 'flex',
-                  gap: '15px',
-                  fontSize: '0.85rem',
-                  color: '#888',
-                  marginBottom: '1rem',
-                  fontWeight: '600'
-                }}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <Calendar size={14} /> {photo.date}
-                  </span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <MapPin size={14} /> {photo.location}
-                  </span>
-                </div>
-
-                <h3 style={{
-                  fontSize: '1.6rem',
-                  fontWeight: '800',
-                  lineHeight: '1.3',
-                  color: '#1a1a1a',
-                  marginBottom: '1.5rem',
-                  letterSpacing: '-0.5px'
-                }}>
-                  {photo.title}
-                </h3>
-
               </div>
             </div>
           ))}
@@ -585,33 +658,41 @@ const PhotoGallery = () => {
             Our gallery is a testament to what we can achieve together. Join our volunteer network or support our initiatives to help us create more impactful moments.
           </p>
           <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button style={{
-              padding: '18px 45px',
-              background: '#e53935',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '16px',
-              fontWeight: '800',
-              fontSize: '1rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 15px 30px rgba(229, 57, 53, 0.3)'
-            }}>
+            <Link 
+              to="/involved"
+              style={{
+                padding: '18px 45px',
+                background: '#e53935',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '16px',
+                fontWeight: '800',
+                fontSize: '1rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 15px 30px rgba(229, 57, 53, 0.3)',
+                textDecoration: 'none'
+              }}
+            >
               BECOME A VOLUNTEER
-            </button>
-            <button style={{
-              padding: '18px 45px',
-              background: 'transparent',
-              color: '#fff',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: '16px',
-              fontWeight: '800',
-              fontSize: '1rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}>
+            </Link>
+            <Link 
+              to="/donate"
+              style={{
+                padding: '18px 45px',
+                background: 'transparent',
+                color: '#fff',
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '16px',
+                fontWeight: '800',
+                fontSize: '1rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                textDecoration: 'none'
+              }}
+            >
               DONATE NOW
-            </button>
+            </Link>
           </div>
         </div>
       </section>

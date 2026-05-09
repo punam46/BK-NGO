@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const INDIAN_CITIES = [
   "Agra", "Ahmedabad", "Ajmer", "Aligarh", "Amravati", "Amritsar", "Asansol", "Aurangabad", "Bangalore", 
@@ -14,12 +16,111 @@ const INDIAN_CITIES = [
   "Varanasi", "Vasai-Virar", "Vellore", "Vijayawada", "Visakhapatnam", "Warangal", "Other"
 ];
 
+const INDIAN_STATES = [
+  "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", 
+  "Chhattisgarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Goa", "Gujarat", "Haryana", 
+  "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Ladakh", "Lakshadweep", 
+  "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", 
+  "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
+];
+
 const Donate = () => {
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobile: '',
+    address: '',
+    pincode: '',
+    amount: 500,
+    panNumber: '',
+    aadharNumber: '',
+    city: '',
+    state: '',
+    country: 'India'
+  });
+
+  React.useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const initPayment = (data) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: data.amount,
+      currency: data.currency,
+      name: "BK Education and Welfare Society",
+      description: "Donation for Social Welfare",
+      image: "/favicon.svg",
+      order_id: data.id,
+      handler: async (response) => {
+        try {
+          const verifyUrl = `${import.meta.env.VITE_API_URL}/payment/verify`;
+          const { data: verifyData } = await axios.post(verifyUrl, response);
+          alert(verifyData.message);
+          setShowForm(false);
+        } catch (error) {
+          console.error(error);
+          alert("Payment verification failed");
+        }
+      },
+      prefill: {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        contact: formData.mobile,
+      },
+      notes: {
+        address: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.country}`,
+      },
+      theme: {
+        color: "#e53935",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
+  const handleDonate = async (e) => {
+    e.preventDefault();
+    if (!agreedToTerms) {
+      alert("Please agree to the Terms and Conditions.");
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const orderUrl = `${import.meta.env.VITE_API_URL}/payment/order`;
+      const { data } = await axios.post(orderUrl, { amount: formData.amount });
+      initPayment(data);
+    } catch (error) {
+      console.error(error);
+      alert("Error creating order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const responsiveInputGroup = {
+    display: 'flex',
+    flexDirection: windowWidth < 768 ? 'column' : 'row',
+    alignItems: windowWidth < 768 ? 'flex-start' : 'center',
+    gap: windowWidth < 768 ? '0.5rem' : '1.5rem',
+    width: '100%'
+  };
 
   return (
     <div className="donate-page" style={{ paddingTop: '85px' }}>
-      <section className="donate-hero" style={{ padding: '0 5%', textAlign: 'center', background: '#fff' }}>
+      <section className="donate-hero" style={{ padding: '0 5% 6rem', textAlign: 'center', background: '#fff' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h1 style={{
             fontSize: 'clamp(2rem, 5vw, 4.5rem)',
@@ -55,50 +156,29 @@ const Donate = () => {
 
               <h2 style={{
                 fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                color: '#f57c00', // Deep orange
+                color: '#f57c00',
                 marginBottom: '1.5rem',
                 fontWeight: '500'
               }}>
                 Your support can change lives
               </h2>
 
-              <p style={{
-                fontSize: '1.25rem',
-                lineHeight: '1.6',
-                color: '#333',
-                marginBottom: '3rem'
-              }}>
-                Together, we can transform lives by empowering millions of children and laying the foundation for lifelong learning. By promoting environmental sustainability and opening doors to education and employment opportunities, we break barriers. And by equipping youth with skills and knowledge, we empower them to reach heights of future.
-              </p>
-
-              <div style={{
-                marginTop: '2rem',
-                padding: '3rem',
-                background: '#f8f9fa',
-                borderRadius: '12px',
-                border: '1px solid #eee',
-                textAlign: 'center'
-              }}>
-                <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Make a Difference Today</h3>
-                <p style={{ marginBottom: '2rem', fontSize: '1.1rem' }}>Support our initiatives by donating today.</p>
-
-                <button 
-                  className="donate-btn" 
-                  onClick={() => setShowForm(true)}
-                  style={{
-                    padding: '1.2rem 4rem',
-                    fontSize: '1.2rem',
-                    background: '#e53935',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    fontWeight: '700'
-                  }}
-                >
-                  DONATE NOW
-                </button>
-              </div>
+              <button 
+                className="donate-btn" 
+                onClick={() => setShowForm(true)}
+                style={{
+                  padding: '1.2rem 4rem',
+                  fontSize: '1.2rem',
+                  background: '#e53935',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: '700'
+                }}
+              >
+                DONATE NOW
+              </button>
             </div>
           )}
 
@@ -107,179 +187,132 @@ const Donate = () => {
               maxWidth: '1000px', 
               margin: '3rem auto', 
               background: '#f9f9f9', 
-              padding: '3rem', 
+              padding: windowWidth < 768 ? '1.5rem' : '3rem', 
               borderRadius: '12px',
               textAlign: 'left',
               boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
             }}>
-              <div style={{ 
-                background: '#FFB300', 
-                color: '#000', 
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                padding: '0.8rem 1.5rem', 
-                fontWeight: '800',
-                marginBottom: '1.5rem',
-                gap: '10px'
-              }}>
-                <span style={{ fontSize: '1.2rem' }}>&gt;</span> DONATE TO
-              </div>
-              <h3 style={{ fontSize: '1.8rem', fontWeight: '600', marginBottom: '2.5rem', color: '#333' }}>
-                BK Education and Welfare Society <span style={{ fontSize: '1rem', background: '#eee', padding: '2px 8px', borderRadius: '4px', color: '#666' }}>Reg. No. F-12121</span>
+              <h3 style={{ fontSize: windowWidth < 768 ? '1.4rem' : '1.8rem', fontWeight: '600', marginBottom: '2.5rem', color: '#333', textAlign: 'center' }}>
+                BK Education and Welfare Society
               </h3>
 
-              <form style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem 3rem' }}>
-                {/* Left Column */}
+              <form onSubmit={handleDonate} style={{ 
+                display: 'grid', 
+                gridTemplateColumns: windowWidth < 768 ? '1fr' : '1fr 1fr', 
+                gap: '2rem 3rem' 
+              }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '120px', fontWeight: '500' }}>First name *</label>
-                    <input type="text" placeholder="First name as per PAN card for receipt" style={inputStyle} />
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>First name *</label>
+                    <input name="firstName" type="text" required onChange={handleChange} style={inputStyle} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '120px', fontWeight: '500' }}>Last name *</label>
-                    <input type="text" placeholder="Last name as per PAN card for receipt" style={inputStyle} />
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Last name *</label>
+                    <input name="lastName" type="text" required onChange={handleChange} style={inputStyle} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '120px', fontWeight: '500' }}>Email *</label>
-                    <input type="email" placeholder="We'll send your donation receipt here" style={inputStyle} />
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Email *</label>
+                    <input name="email" type="email" required onChange={handleChange} style={inputStyle} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '120px', fontWeight: '500' }}>Country</label>
-                    <input type="text" value="India" readOnly style={{ ...inputStyle, background: '#f5f5f5', cursor: 'default' }} />
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>City *</label>
+                    <select name="city" required onChange={handleChange} style={inputStyle}>
+                      <option value="">Select City</option>
+                      {INDIAN_CITIES.map(city => <option key={city} value={city}>{city}</option>)}
+                    </select>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '120px', fontWeight: '500' }}>State</label>
-                    <input type="text" value="Maharashtra" readOnly style={{ ...inputStyle, background: '#f5f5f5', cursor: 'default' }} />
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '120px', fontWeight: '500' }}>City</label>
-                    <select style={inputStyle} defaultValue="">
-                      <option value="" disabled>Select City</option>
-                      {INDIAN_CITIES.map(city => (
-                        <option key={city} value={city}>{city}</option>
-                      ))}
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>State *</label>
+                    <select name="state" required onChange={handleChange} style={inputStyle}>
+                      <option value="">Select State</option>
+                      {INDIAN_STATES.map(state => <option key={state} value={state}>{state}</option>)}
                     </select>
                   </div>
                 </div>
 
-                {/* Right Column */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '150px', fontWeight: '500' }}>Mobile Number *</label>
-                    <input type="text" placeholder="10-digit number, no country code needed" style={inputStyle} />
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Mobile Number *</label>
+                    <input name="mobile" type="text" required onChange={handleChange} style={inputStyle} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '150px', fontWeight: '500' }}>Address *</label>
-                    <input type="text" style={inputStyle} />
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Aadhar Number *</label>
+                    <input name="aadharNumber" type="text" required onChange={handleChange} style={inputStyle} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '150px', fontWeight: '500' }}>Pincode</label>
-                    <input type="text" style={inputStyle} />
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>PAN Number *</label>
+                    <input name="panNumber" type="text" required onChange={handleChange} style={inputStyle} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '150px', fontWeight: '500' }}>Amount (INR)</label>
-                    <div style={{ display: 'flex', flex: 1, border: '1px solid #ddd', borderRadius: '4px', overflow: 'hidden' }}>
-                      <span style={{ padding: '0.8rem 1rem', background: '#eee', color: '#666' }}>₹</span>
-                      <input type="number" defaultValue="500" style={{ border: 'none', padding: '0.8rem', flex: 1, outline: 'none' }} />
-                    </div>
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Amount (INR) *</label>
+                    <input name="amount" type="number" min="1" required value={formData.amount} onChange={handleChange} style={inputStyle} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '150px', fontWeight: '500' }}>PAN Number *</label>
-                    <input type="text" placeholder="Required for 80G tax exemption in India" style={inputStyle} />
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <label style={{ width: '150px', fontWeight: '500' }}>Aadhar Number *</label>
-                    <input type="text" placeholder="12-digit Aadhar number" style={inputStyle} />
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Country *</label>
+                    <input name="country" type="text" required value={formData.country} onChange={handleChange} style={inputStyle} />
                   </div>
                 </div>
 
-                {/* Consent Section */}
-                <div style={{ gridColumn: 'span 2', marginTop: '1rem' }}>
-                  <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-                    <input type="checkbox" style={{ width: '18px', height: '18px', marginTop: '4px' }} />
-                    <label style={{ color: '#555', fontSize: '0.95rem' }}>
-                      By submitting this form I agree to the website's <a href="#" style={{ color: '#0066cc', textDecoration: 'none' }}>Terms and Conditions</a> and consent to the storage of my information.
-                    </label>
+                <div style={{ gridColumn: windowWidth < 768 ? 'span 1' : 'span 2' }}>
+                  <div style={responsiveInputGroup}>
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Address *</label>
+                    <input name="address" type="text" required onChange={handleChange} style={inputStyle} />
                   </div>
-                  <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-                    <input type="checkbox" style={{ width: '18px', height: '18px', marginTop: '4px' }} />
-                    <label style={{ color: '#555', fontSize: '0.95rem' }}>
-                      I agree to let BK Education and Welfare Society contact me by text or email about my donations, campaigns, and updates.
-                    </label>
-                  </div>
+                </div>
 
-                  <p style={{ color: '#555', fontSize: '0.95rem', marginBottom: '2rem', lineHeight: '1.5' }}>
-                    Your contributions are eligible for up to 50% tax benefit under Section 80G, as BK Education and Welfare Society is registered as a non-profit organization (Reg. No. F-12121).
-                  </p>
+                <div style={{ gridColumn: windowWidth < 768 ? 'span 1' : 'span 2', marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', cursor: 'pointer', fontSize: '0.9rem', color: '#444' }}>
+                    <input 
+                      type="checkbox" 
+                      required
+                      checked={agreedToTerms} 
+                      onChange={(e) => setAgreedToTerms(e.target.checked)} 
+                      style={{ marginTop: '3px' }}
+                    />
+                    <span>By submitting this form I agree to the website's <Link to="/terms" style={{ color: '#e53935' }}>Terms and Conditions</Link> and consent to the storage of my information.</span>
+                  </label>
 
-                  <div style={{ 
-                    background: '#FFFDE7', 
-                    padding: '2rem', 
-                    textAlign: 'center', 
-                    marginBottom: '2rem',
-                    borderRadius: '8px'
-                  }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '1rem', alignItems: 'center', opacity: 0.8 }}>
-                      <span style={{ fontWeight: '800', color: '#0055a4', fontSize: '1.2rem' }}>RuPay<span style={{ color: '#f37021' }}>▶</span></span>
-                      <span style={{ fontWeight: '800', color: '#333', fontSize: '1.2rem' }}>UPI<span style={{ color: '#f37021' }}>▶</span></span>
-                      <span style={{ fontWeight: '800', color: '#1a1f71', fontSize: '1.4rem' }}>VISA</span>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#eb001b', marginRight: '-8px' }}></div>
-                        <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#ff5f00', opacity: 0.8 }}></div>
-                      </div>
-                    </div>
-                    <p style={{ color: '#666', fontWeight: '500' }}>We accept all major payment methods</p>
-                  </div>
+                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', cursor: 'pointer', fontSize: '0.9rem', color: '#444' }}>
+                    <input 
+                      type="checkbox" 
+                      style={{ marginTop: '3px' }}
+                    />
+                    <span>I agree to let BK Education and Welfare Society contact me by text or email about my donations, campaigns, and updates.</span>
+                  </label>
+                </div>
 
-                  <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
-                    <button type="submit" style={{
-                      padding: '1.2rem 4rem',
-                      background: '#e57373', // Slightly muted red to match image
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      fontWeight: '700',
-                      fontSize: '1.2rem',
-                      boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
-                    }}>
-                      DONATE NOW
-                    </button>
-                  </div>
-                  <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-                    <button 
-                      type="button" 
-                      onClick={() => setShowForm(false)}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        color: '#888',
-                        cursor: 'pointer',
-                        textDecoration: 'underline'
-                      }}
-                    >
-                      Back to information
-                    </button>
-                  </div>
+                <div style={{ gridColumn: windowWidth < 768 ? 'span 1' : 'span 2', marginTop: '2rem', textAlign: 'center' }}>
+                  <button type="submit" disabled={loading} style={submitBtnStyle}>
+                    {loading ? 'Processing...' : 'CONFIRM DONATION'}
+                  </button>
+                  <button type="button" onClick={() => setShowForm(false)} style={backBtnStyle}>
+                    Back to information
+                  </button>
                 </div>
               </form>
             </div>
           )}
         </div>
       </section>
-      <div style={{ padding: '2rem 0' }}></div>
     </div>
   );
 };
 
-const inputStyle = {
-  flex: 1,
-  padding: '0.8rem 1rem',
-  border: '1px solid #ddd',
-  borderRadius: '4px',
-  fontSize: '0.95rem',
-  outline: 'none',
-  background: '#fff'
+const labelStyle = { width: '150px', fontWeight: '500', fontSize: '0.95rem' };
+const labelMobileStyle = { width: '100%', fontWeight: '600', fontSize: '0.9rem', color: '#444' };
+const inputStyle = { width: '100%', padding: '0.8rem 1rem', border: '1px solid #ddd', borderRadius: '4px', fontSize: '1rem' };
+const submitBtnStyle = {
+  padding: '1.2rem 4rem',
+  background: '#e53935',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '8px',
+  cursor: 'pointer',
+  fontWeight: '700',
+  fontSize: '1.2rem',
+  width: '100%',
+  maxWidth: '400px'
 };
+const backBtnStyle = { background: 'none', border: 'none', color: '#888', cursor: 'pointer', textDecoration: 'underline', marginTop: '1rem', display: 'block', width: '100%' };
 
 export default Donate;
