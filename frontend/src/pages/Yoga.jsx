@@ -290,20 +290,31 @@ const Yoga = () => {
                 }}
               >
                 {item.gif && (
-                  <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '100%', opacity: 1 }}>
-                    <img src={item.gif} alt="Yoga animation" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ 
+                    position: 'absolute', 
+                    bottom: 0, 
+                    right: '-10px', 
+                    width: '180px', 
+                    height: '80%', 
+                    opacity: 1,
+                    zIndex: 0
+                  }}>
+                    <img src={item.gif} alt="Yoga animation" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                 )}
                 <span style={{ 
                   fontSize: '4rem', 
                   fontWeight: '900', 
-                  color: 'rgba(212, 175, 55, 0.15)', 
+                  color: 'rgba(212, 175, 55, 0.1)', 
                   position: 'absolute', 
                   top: '10px', 
-                  right: '20px' 
+                  right: '20px',
+                  zIndex: 0
                 }}>{item.step}</span>
-                <h3 style={{ fontSize: '1.6rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1rem', position: 'relative', zIndex: 1 }}>{item.title}</h3>
-                <p style={{ color: '#555', lineHeight: '1.6', fontSize: '1rem', position: 'relative', zIndex: 1 }}>{item.desc}</p>
+                <div style={{ position: 'relative', zIndex: 1, maxWidth: '65%' }}>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1rem' }}>{item.title}</h3>
+                  <p style={{ color: '#555', lineHeight: '1.6', fontSize: '1rem' }}>{item.desc}</p>
+                </div>
                 <div style={{ 
                   width: '40px', height: '4px', background: '#d4af37', 
                   borderRadius: '2px', marginTop: '2rem', position: 'relative', zIndex: 1
