@@ -75,29 +75,7 @@ const Yoga = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
 
-  const initiatives = [
-    {
-      title: "Mindfulness & Meditation",
-      description: "We bring the ancient wisdom of meditation to rural communities, helping individuals manage stress, improve focus, and find inner peace.",
-      details: ["Guided Meditation", "Stress Management", "Mental Clarity"],
-      icon: <Wind size={32} color="#d4af37" />,
-      image: yogaMeditationImg
-    },
-    {
-      title: "Community Yoga Sessions",
-      description: "Our weekly yoga classes in villages promote physical health, flexibility, and a sense of togetherness. Wellness is a collective journey.",
-      details: ["Village Workshops", "Physical Wellness", "Social Connection"],
-      icon: <Users size={32} color="#d4af37" />,
-      image: yogaCommunityImg
-    },
-    {
-      title: "Holistic Health Education",
-      description: "Educating rural families about the importance of breathing techniques, balanced diet, and natural lifestyle choices.",
-      details: ["Pranayama Practice", "Natural Living", "Health Awareness"],
-      icon: <Heart size={32} color="#d4af37" />,
-      image: yogaHeroImg
-    }
-  ];
+
 
   return (
     <div className="yoga-page" style={{ background: '#fff', color: '#1a1a1a', minHeight: '100vh', overflowX: 'hidden' }}>
@@ -198,48 +176,7 @@ const Yoga = () => {
         </motion.div>
       </section>
 
-      {/* Interactive Wellness Journey */}
-      <section style={{ padding: '10rem 5%', position: 'relative' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '4rem' }}>
-            {initiatives.map((item, index) => (
-              <InteractiveCard key={index} style={{ height: '100%' }}>
-                <div style={{
-                  background: '#fff',
-                  borderRadius: '40px',
-                  padding: '3rem',
-                  height: '100%',
-                  border: '1px solid #eee',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  boxShadow: '0 15px 45px rgba(0,0,0,0.05)'
-                }}>
-                  <div style={{ position: 'absolute', top: '-20px', right: '-20px', opacity: 0.05 }}>
-                    {item.icon}
-                  </div>
-                  <div>
-                    <div style={{ marginBottom: '2rem' }}>{item.icon}</div>
-                    <h3 style={{ fontSize: '2rem', fontWeight: '900', marginBottom: '1.5rem', color: '#1a1a1a' }}>{item.title}</h3>
-                    <p style={{ fontSize: '1.1rem', color: '#666', lineHeight: '1.7', marginBottom: '2.5rem' }}>{item.description}</p>
-                  </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                    {item.details.map((detail, idx) => (
-                      <span key={idx} style={{ 
-                        background: 'rgba(212, 175, 55, 0.05)', color: '#d4af37', 
-                        padding: '0.5rem 1.2rem', borderRadius: '30px', 
-                        fontSize: '0.85rem', fontWeight: '800', border: '1px solid rgba(212, 175, 55, 0.1)' 
-                      }}>{detail}</span>
-                    ))}
-                  </div>
-                </div>
-              </InteractiveCard>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Mastering the Basics - Yoga Steps Section */}
       <section style={{ padding: '8rem 5%', background: '#fff' }}>
