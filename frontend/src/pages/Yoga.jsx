@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { renderText } from './Education';
 import yogaHeroImg from '../assets/yoga_hero.png';
 import yogaMeditationImg from '../assets/yoga_meditation.png';
@@ -65,6 +66,7 @@ const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
 const Yoga = () => {
   const [activeVideo, setActiveVideo] = useState(null);
   const [phase, setPhase] = useState('Inhale');
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
@@ -482,20 +484,22 @@ const Yoga = () => {
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', padding: '0 20px' }}>
           <h2 style={{ fontSize: '4rem', fontWeight: '900', marginBottom: '2rem', color: '#1a1a1a' }}>Start Your Journey Today.</h2>
           <p style={{ fontSize: '1.4rem', color: '#555', marginBottom: '3rem', fontWeight: '400' }}>Join our mission to bring wellness to every corner of rural India.</p>
-          <button style={{
-            background: '#d4af37',
-            color: '#fff',
-            padding: '1.5rem 4rem',
-            fontSize: '1.2rem',
-            fontWeight: '900',
-            border: 'none',
-            borderRadius: '50px',
-            cursor: 'pointer',
-            boxShadow: '0 15px 35px rgba(212, 175, 55, 0.3)',
-            transition: 'transform 0.3s ease'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          <button 
+            onClick={() => navigate('/involved')}
+            style={{
+              background: '#d4af37',
+              color: '#fff',
+              padding: '1.5rem 4rem',
+              fontSize: '1.2rem',
+              fontWeight: '900',
+              border: 'none',
+              borderRadius: '50px',
+              cursor: 'pointer',
+              boxShadow: '0 15px 35px rgba(212, 175, 55, 0.3)',
+              transition: 'transform 0.3s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
           >
             BECOME A VOLUNTEER
           </button>
