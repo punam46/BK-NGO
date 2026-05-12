@@ -119,13 +119,31 @@ const Yoga = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = (e.clientX - rect.left) / rect.width - 0.5;
+              const y = (e.clientY - rect.top) / rect.height - 0.5;
+              e.currentTarget.style.transform = `perspective(1000px) rotateY(${x * 20}deg) rotateX(${-y * 20}deg) scale(1.05)`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)`;
+            }}
             style={{ 
               fontSize: 'clamp(3.5rem, 10vw, 7rem)', 
               fontWeight: '900', 
               lineHeight: '0.9',
               marginBottom: '3rem',
               letterSpacing: '-2px',
-              color: '#1a1a1a'
+              color: '#1a1a1a',
+              transition: 'transform 0.1s ease-out',
+              cursor: 'default',
+              textShadow: `
+                1px 1px 0px #ccc,
+                2px 2px 0px #ccc,
+                3px 3px 0px #ccc,
+                4px 4px 0px #ccc,
+                5px 5px 15px rgba(0,0,0,0.1)
+              `
             }}>
             Breathe. <span style={{ color: '#d4af37' }}>Heal.</span> Grow.
           </motion.h1>
