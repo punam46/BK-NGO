@@ -1,25 +1,61 @@
 import Volunteer from '../models/Volunteer.js';
+import sendEmail from '../utils/sendEmail.js';
 
 // @desc    Submit volunteer registration
 // @route   POST /api/volunteers
 // @access  Public
 export const registerVolunteer = async (req, res) => {
-  const { name, email, skills, interests, availability } = req.body;
+  const { name, email, phone, field, message, skills, interests, availability } = req.body;
 
-  if (!name || !email || !skills) {
+  if (!name || !email || !phone || !field || !message) {
     res.status(400);
-    throw new Error('Please include name, email, and skills');
+    throw new Error('Please include name, email, phone, field and message');
   }
 
   const volunteer = await Volunteer.create({
     name,
     email,
+    phone,
+    field,
+    message,
     skills,
     interests,
     availability,
   });
 
   if (volunteer) {
+    // Send Email Notification
+    try {
+      await sendEmail({
+        email: email,
+        subject: `New Volunteer Application: ${name}`,
+        message: `New volunteer application from ${name} (${email}) for field ${field}.`,
+        data: {
+          applicant_name: name,
+          applicant_email: email,
+          applicant_phone: phone,
+          interested_field: field,
+          skills: skills || 'N/A',
+          message: message
+        },
+        html: `
+          <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+            <h2 style="color: #2196f3;">New Volunteer Application</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Interested Field:</strong> ${field}</p>
+            <p><strong>Skills:</strong> ${skills || 'N/A'}</p>
+            <hr />
+            <p><strong>Message:</strong></p>
+            <p>${message}</p>
+          </div>
+        `
+      });
+    } catch (err) {
+      console.error('Email sending failed:', err);
+    }
+
     res.status(201).json({
       _id: volunteer._id,
       name: volunteer.name,

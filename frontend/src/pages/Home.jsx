@@ -10,6 +10,7 @@ import socialWelfareImpactImg from '../assets/g18.jpeg';
 import socialWelfOriginal from '../assets/G42.jpeg';
 import bkLogo from '../assets/logo.jpeg';
 import g5 from '../assets/g5.jpg';
+import womenEmpowermentImg from '../assets/Women-Empowerment.webp';
 
 const Home = () => {
   const carouselRef = useRef(null);
@@ -47,11 +48,11 @@ const Home = () => {
     {
       title: "Women Safety & Empowerment",
       text: "Conducting self-defense training and legal awareness workshops to ensure a secure and empowered future for every woman.",
-      image: "/women_safety_hero.jpg",
+      image: womenEmpowermentImg,
       layout: "magazine",
-      bgPosition: "center",
+      bgPosition: "15% 10%",
       bgSize: "cover",
-      bgColor: "#fff"
+      bgColor: "#f0f9ff"
     },
     {
       title: "Every Smile Tells a Story of Hope",
@@ -176,7 +177,7 @@ const Home = () => {
       <section
         className={`hero hero-${heroSlides[activeSlide].layout}`}
         style={{ 
-          backgroundImage: `url("${heroSlides[activeSlide].image}")`,
+          backgroundImage: heroSlides[activeSlide].image ? `url("${heroSlides[activeSlide].image}")` : 'none',
           backgroundPosition: heroSlides[activeSlide].bgPosition,
           backgroundSize: heroSlides[activeSlide].bgSize,
           backgroundRepeat: 'no-repeat',

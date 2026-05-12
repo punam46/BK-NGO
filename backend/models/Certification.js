@@ -6,10 +6,19 @@ const certificationSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a title'],
     },
+    subtitle: {
+      type: String,
+    },
     organization: {
       type: String,
     },
     idNumber: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    src: {
       type: String,
     },
     validity: {

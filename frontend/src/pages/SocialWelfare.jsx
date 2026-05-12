@@ -133,14 +133,33 @@ const SocialWelfare = () => {
     }
   ];
 
+  const [dynamicEvents, setDynamicEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState(featuredEvents);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/successful-programs');
+        const data = await response.json();
+        setDynamicEvents(data);
+        // Combine static and dynamic events, showing dynamic ones first
+        setAllEvents([...data, ...featuredEvents]);
+      } catch (error) {
+        console.error('Error fetching successful programs:', error);
+      }
+    };
+    fetchEvents();
+  }, []);
+
   const [activeEvent, setActiveEvent] = useState(0);
 
   useEffect(() => {
+    if (allEvents.length === 0) return;
     const timer = setInterval(() => {
-      setActiveEvent(prev => (prev === featuredEvents.length - 1 ? 0 : prev + 1));
+      setActiveEvent(prev => (prev === allEvents.length - 1 ? 0 : prev + 1));
     }, 5000);
     return () => clearInterval(timer);
-  }, [featuredEvents.length]);
+  }, [allEvents.length]);
 
   const sliderImages = [
     g5, g16, g18, g22, g25, g55, g54, g52, socialWelfImg,
@@ -236,7 +255,14 @@ const SocialWelfare = () => {
         position: 'relative',
         overflow: 'visible'
       }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '4rem' }}>
+        <div style={{ 
+          maxWidth: '1400px', 
+          margin: '0 auto', 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          alignItems: 'center', 
+          gap: '6rem' 
+        }}>
           <div style={{ flex: '0.8', minWidth: '320px' }}>
             <motion.span 
               initial={{ opacity: 0, x: -20 }}
@@ -317,15 +343,15 @@ const SocialWelfare = () => {
               </motion.button>
             </motion.div>
           </div>
-
+ 
           {/* Right Content: Vertical 'Single Window' Slider - 3D Effect Fixed */}
           <div style={{ 
-            flex: '0.75', 
+            flex: '0.85', 
             position: 'relative', 
-            height: '450px', 
+            height: '600px', 
             display: windowWidth < 1024 ? 'none' : 'flex',
             justifyContent: 'center',
-            marginRight: '3rem',
+            marginLeft: '4rem',
             perspective: '2000px',
             zIndex: 1
           }}>
@@ -345,10 +371,10 @@ const SocialWelfare = () => {
                 height: '100%', 
                 position: 'relative',
                 background: '#fff',
-                borderRadius: '32px',
-                boxShadow: '30px 40px 80px rgba(0,0,0,0.15)',
+                borderRadius: '40px',
+                boxShadow: '40px 50px 100px rgba(0,0,0,0.18)',
                 border: '1px solid #f0f0f0',
-                padding: '1rem',
+                padding: '1.2rem',
                 transformStyle: 'preserve-3d'
               }}
             >
@@ -357,64 +383,64 @@ const SocialWelfare = () => {
                 width: '100%', 
                 height: '100%', 
                 position: 'relative', 
-                borderRadius: '20px', 
+                borderRadius: '28px', 
                 overflow: 'hidden',
                 background: '#fcfcfc',
                 transform: 'translateZ(10px)',
                 zIndex: 1
               }}>
                 <motion.div 
-                  animate={{ y: [0, -4000] }}
-                  transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-                  style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+                  animate={{ y: [0, -6000] }}
+                  transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+                  style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}
                 >
-                  {[...verticalImages1, ...verticalImages2, ...verticalImages1, ...verticalImages2, ...verticalImages1, ...verticalImages2].map((img, i) => (
+                  {[...verticalImages1, ...verticalImages2, ...verticalImages1, ...verticalImages2, ...verticalImages1, ...verticalImages2, ...verticalImages1, ...verticalImages2].map((img, i) => (
                     <div key={i} style={{ 
                       width: '100%', 
-                      height: '380px', 
+                      height: '530px', 
                       flexShrink: 0,
-                      borderRadius: '16px', 
+                      borderRadius: '20px', 
                       overflow: 'hidden',
-                      boxShadow: '0 8px 25px rgba(0,0,0,0.04)'
+                      boxShadow: '0 12px 30px rgba(0,0,0,0.06)'
                     }}>
                       <img src={img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Impact" />
                     </div>
                   ))}
                 </motion.div>
-
+ 
                 {/* Glassmorphism Overlays */}
                 <div style={{
-                  position: 'absolute', top: 0, left: 0, width: '100%', height: '80px',
+                  position: 'absolute', top: 0, left: 0, width: '100%', height: '120px',
                   background: 'linear-gradient(to bottom, #fff 15%, transparent 100%)',
                   zIndex: 5
                 }}></div>
                 <div style={{
-                  position: 'absolute', bottom: 0, left: 0, width: '100%', height: '80px',
+                  position: 'absolute', bottom: 0, left: 0, width: '100%', height: '120px',
                   background: 'linear-gradient(to top, #fff 15%, transparent 100%)',
                   zIndex: 5
                 }}></div>
               </div>
             </motion.div>
-
+ 
             {/* Floating Badges - Moved OUTSIDE the 3D wrapper to prevent clipping */}
             <motion.div 
-              animate={{ y: [0, -15, 0] }}
+              animate={{ y: [0, -20, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               style={{ 
-                position: 'absolute', top: '10%', right: '-25%', background: '#fff', 
-                padding: '1rem 2rem', borderRadius: '24px', boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
-                display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 1000,
+                position: 'absolute', top: '5%', right: '-30%', background: '#fff', 
+                padding: '1.2rem 2.4rem', borderRadius: '24px', boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
+                display: 'flex', alignItems: 'center', gap: '1.2rem', zIndex: 1000,
                 border: '1px solid #f0f0f0',
                 whiteSpace: 'nowrap'
               }}
             >
-              <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 12px #10b981' }}></div>
-              <span style={{ fontWeight: 900, fontSize: '0.85rem', color: '#1a1a1a', letterSpacing: '0.5px' }}>Active Impact</span>
+              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 15px #10b981' }}></div>
+              <span style={{ fontWeight: 900, fontSize: '1rem', color: '#1a1a1a', letterSpacing: '0.5px' }}>Active Impact</span>
             </motion.div>
-
+ 
             <motion.div 
               animate={{ 
-                y: [0, 15, 0],
+                y: [0, 20, 0],
                 scale: [1, 1.05, 1],
                 boxShadow: [
                   '0 25px 50px rgba(249,115,22,0.5)',
@@ -428,16 +454,16 @@ const SocialWelfare = () => {
                 ease: "easeInOut" 
               }}
               style={{ 
-                position: 'absolute', top: '80%', left: '-25%', background: '#f97316', 
-                padding: '2.6rem 2.5rem', borderRadius: '24px', boxShadow: '0 25px 50px rgba(249,115,22,0.5)',
-                display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 1000, color: '#fff',
+                position: 'absolute', top: '85%', left: '-30%', background: '#f97316', 
+                padding: '3rem 2.8rem', borderRadius: '28px', boxShadow: '0 25px 50px rgba(249,115,22,0.5)',
+                display: 'flex', alignItems: 'center', gap: '1.2rem', zIndex: 1000, color: '#fff',
                 whiteSpace: 'nowrap'
               }}
             >
-              <ShieldCheck size={26} />
+              <ShieldCheck size={30} />
               <span style={{ 
                 fontWeight: 900, 
-                fontSize: '1rem', 
+                fontSize: '1.1rem', 
                 letterSpacing: '1px', 
                 lineHeight: '1.1',
                 textAlign: 'left'
@@ -783,10 +809,45 @@ const SocialWelfare = () => {
       </section>
 
       {/* ===== FEATURED INITIATIVES SLIDER ===== */}
-      <section style={{ padding: '8rem 5% 2rem', background: '#fff' }}>
+      <section style={{ padding: '8rem 5% 4rem', background: '#fff' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-
-
+          
+          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              style={{ color: '#f97316', fontWeight: 800, letterSpacing: '3px', fontSize: '1rem', textTransform: 'uppercase' }}
+            >
+              DRIVING REAL CHANGE
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              style={{ 
+                fontSize: '4rem', 
+                fontWeight: 900, 
+                marginTop: '1.5rem',
+                color: '#1a1a1a',
+                letterSpacing: '-2px',
+                textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5'
+              }}
+            >
+              Our Successful <span style={{ color: '#f97316' }}>Programs</span>
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              style={{ fontSize: '1.25rem', color: '#666', maxWidth: '800px', margin: '1.5rem auto 0', lineHeight: 1.8 }}
+            >
+              Explore our core initiatives that have transformed thousands of lives across the region through dedicated volunteer work and community support.
+            </motion.p>
+          </div>
+ 
           <div style={{ position: 'relative' }}>
             <AnimatePresence mode="wait">
               <motion.div 
@@ -804,7 +865,7 @@ const SocialWelfare = () => {
                 }}
               >
                 <div style={{ flex: '1', minWidth: '320px' }}>
-                  <span style={{ background: '#f97316', color: '#fff', padding: '8px 20px', borderRadius: '50px', fontSize: '0.8rem', fontWeight: 900, letterSpacing: '1px' }}>{featuredEvents[activeEvent].tag}</span>
+                  <span style={{ background: '#f97316', color: '#fff', padding: '8px 20px', borderRadius: '50px', fontSize: '0.8rem', fontWeight: 900, letterSpacing: '1px' }}>{allEvents[activeEvent]?.tag}</span>
                   <h2 style={{ 
                     fontSize: '3.5rem', 
                     fontWeight: 900, 
@@ -812,9 +873,9 @@ const SocialWelfare = () => {
                     color: '#1a1a1a', 
                     letterSpacing: '-1.5px',
                     textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5'
-                  }}>{featuredEvents[activeEvent].title}</h2>
+                  }}>{allEvents[activeEvent]?.title}</h2>
                   <p style={{ color: '#666', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '3rem' }}>
-                    {featuredEvents[activeEvent].desc}
+                    {allEvents[activeEvent]?.desc}
                   </p>
                   
                   <motion.button 
@@ -840,13 +901,13 @@ const SocialWelfare = () => {
                     border: '1px solid #f0f0f0'
                   }}>
                     <img 
-                      src={featuredEvents[activeEvent].img} 
+                      src={allEvents[activeEvent]?.img} 
                       style={{ 
                         width: '100%', 
                         height: '500px', 
                         borderRadius: '35px', 
                         objectFit: 'cover', 
-                        objectPosition: featuredEvents[activeEvent].objectPosition || 'center',
+                        objectPosition: allEvents[activeEvent]?.objectPosition || 'center',
                         display: 'block' 
                       }} 
                       alt="Featured Event" 
@@ -860,7 +921,11 @@ const SocialWelfare = () => {
                         justifyContent: 'center', color: '#f97316', boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
                         border: '1px solid #f0f0f0'
                       }}>
-                      {featuredEvents[activeEvent].icon}
+                      {typeof allEvents[activeEvent]?.icon === 'string' && allEvents[activeEvent]?.icon.startsWith('http') ? (
+                        <img src={allEvents[activeEvent].icon} style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+                      ) : (
+                        allEvents[activeEvent]?.icon
+                      )}
                     </motion.div>
                   </div>
                 </div>
@@ -872,7 +937,7 @@ const SocialWelfare = () => {
               <motion.button 
                 whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setActiveEvent(prev => (prev === 0 ? featuredEvents.length - 1 : prev - 1))}
+                onClick={() => setActiveEvent(prev => (prev === 0 ? allEvents.length - 1 : prev - 1))}
                 style={{ 
                   width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
@@ -884,7 +949,7 @@ const SocialWelfare = () => {
               <motion.button 
                 whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setActiveEvent(prev => (prev === featuredEvents.length - 1 ? 0 : prev + 1))}
+                onClick={() => setActiveEvent(prev => (prev === allEvents.length - 1 ? 0 : prev + 1))}
                 style={{ 
                   width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',

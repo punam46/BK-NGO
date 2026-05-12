@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Heart, Users, HandHeart } from 'lucide-react';
+import { useMotionValue, useTransform, useSpring } from 'framer-motion';
 import vTeachingImg from '../assets/volunteer_teaching.png';
 import vDistributionImg from '../assets/volunteer_distribution.png';
 import vPlanningImg from '../assets/volunteer_planning.png';
@@ -19,20 +20,71 @@ import g42 from '../assets/G42.jpeg';
 import g43 from '../assets/G43.jpeg';
 import g45 from '../assets/G45.jpeg';
 import g46 from '../assets/G46.jpeg';
-import g47 from '../assets/G47.jpeg';
 import g48 from '../assets/G48.jpeg';
 import g49 from '../assets/G49.jpeg';
 import g50 from '../assets/G50.jpeg';
 import g51 from '../assets/G51.jpeg';
 import g52 from '../assets/G52.jpeg';
-import g53 from '../assets/G53.jpeg';
 import g54 from '../assets/G54.jpeg';
 import g55 from '../assets/G55.jpeg';
 import g56 from '../assets/G56.jpeg';
-import g57 from '../assets/G57.jpeg';
-import g58 from '../assets/G58.jpeg';
 import ghugeImg from '../assets/ghuge sir.jpeg';
 import nikaljeImg from '../assets/D1.jpeg';
+
+const InteractiveCard = ({ children, style, onClick, hoverColor = '#111' }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        ...style,
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+        boxShadow: '10px 10px 0px #111',
+        border: '2px solid #111'
+      }}
+      whileHover={{ 
+        scale: 1.05,
+        y: -15,
+        boxShadow: `20px 20px 0px #111`
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="interactive-card"
+      onClick={onClick}
+    >
+      <div style={{ transform: "translateZ(50px)", height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {children}
+      </div>
+    </motion.div>
+  );
+};
 
 const GetInvolved = () => {
   const navigate = useNavigate();
@@ -81,6 +133,44 @@ const GetInvolved = () => {
       100% { transform: translateY(0); }
     }
   `;
+
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    phone: '',
+    field: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'phone' && value !== '' && !/^\d+$/.test(value)) return;
+    if (name === 'phone' && value.length > 10) return;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/api/volunteers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Application submitted successfully!');
+        setFormData({ name: '', email: '', phone: '', field: '', message: '' });
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Could not send application. Please check your connection.');
+    }
+  };
 
   return (
     <div className="involved-page">
@@ -152,18 +242,18 @@ const GetInvolved = () => {
             style={{ display: 'flex', gap: '2rem', alignItems: 'center', justifyContent: 'center', marginTop: '3rem' }}
           >
             <motion.button 
-              whileHover={{ y: -4, boxShadow: '0 12px 0 #c2410c, 0 20px 40px rgba(249,115,22,0.4)' }}
-              whileTap={{ y: 8, boxShadow: '0 0px 0 #c2410c, 0 5px 10px rgba(249,115,22,0.2)' }}
+              whileHover={{ y: -4, boxShadow: '0 12px 0 #b91c1c, 0 20px 40px rgba(229,57,53,0.4)' }}
+              whileTap={{ y: 8, boxShadow: '0 0px 0 #b91c1c, 0 5px 10px rgba(229,57,53,0.2)' }}
               onClick={scrollToForm}
               style={{ 
-                background: 'linear-gradient(to bottom, #fb923c, #f97316)', 
+                background: 'linear-gradient(to bottom, #ef4444, #e53935)', 
                 color: '#fff', 
                 padding: '1.2rem 2.8rem', 
                 borderRadius: '20px', 
                 border: 'none', 
                 fontWeight: 900, 
                 cursor: 'pointer',
-                boxShadow: '0 8px 0 #c2410c, 0 15px 30px rgba(249,115,22,0.3)',
+                boxShadow: '0 8px 0 #b91c1c, 0 15px 30px rgba(229,57,53,0.3)',
                 transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
                 fontSize: '1.1rem',
                 letterSpacing: '0.5px'
@@ -191,7 +281,7 @@ const GetInvolved = () => {
                 fontSize: '1rem'
               }}
             >
-              Learn More <ArrowRight size={20} color="#f97316" />
+              Learn More <ArrowRight size={20} color="#e53935" />
             </motion.button>
           </motion.div>
           
@@ -200,9 +290,9 @@ const GetInvolved = () => {
 
       {/* Why Volunteer Section */}
       <section style={{ 
-        padding: '4rem 0', 
-        background: 'linear-gradient(rgba(240, 250, 248, 0.85), rgba(240, 250, 248, 0.85)), url("/teal_watercolor_wash.png") center/cover no-repeat', 
-        borderTop: '1px solid #eee' 
+        padding: '6rem 0', 
+        background: 'linear-gradient(rgba(255, 252, 240, 0.95), rgba(255, 252, 240, 0.95)), url("/gold_watercolor_wash.png") center/cover no-repeat', 
+        borderTop: '1px solid #f0f0f0' 
       }}>
         <div className="container" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
           <h2 style={{ fontSize: '2.0rem', fontWeight: '800', color: '#1a1a1a', marginBottom: '2rem' }}>
@@ -296,8 +386,14 @@ const GetInvolved = () => {
       <section style={{ padding: '6rem 0', background: '#f8f9fa' }}>
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontSize: '2.8rem', fontWeight: '800', color: '#1a1a1a' }}>
-              Our Volunteers in Action
+            <h2 style={{ 
+              fontSize: '3.5rem', 
+              fontWeight: '900', 
+              color: '#1a1a1a',
+              textShadow: '2px 2px 0px #ddd, 4px 4px 0px #eee',
+              letterSpacing: '-1px'
+            }}>
+              Our <span style={{ color: '#ffcc00' }}>Volunteers</span> in Action
             </h2>
             <p style={{ fontSize: '1.2rem', color: '#666', marginTop: '1rem' }}>
               Catch a glimpse of the incredible work our volunteers do on the ground every day.
@@ -308,9 +404,9 @@ const GetInvolved = () => {
             {[
               actImg1, actImg2, actImg3, actImg4, 
               actImg5, actImg6, actImg7, actImg8,
-              actImg9, g42, g43, g45, g46, g47,
-              g48, g49, g50, g51, g52, g53,
-              g54, g55, g56, g57, g58
+              actImg9, g42, g43, g45, g46,
+              g48, g49, g50, g51, g52,
+              g54, g55, g56
             ].map((imgSrc, idx) => (
               <div key={idx} style={{ 
                 position: 'relative', 
@@ -332,70 +428,120 @@ const GetInvolved = () => {
       </section>
 
       {/* Ways to Help */}
-      <section style={{ padding: '6rem 0', background: '#fff' }}>
+      <section style={{ padding: '8rem 0', background: '#fff', perspective: '1000px' }}>
         <div className="container">
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-            gap: '3rem',
-            maxWidth: '1000px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 450px))', 
+            gap: '4rem',
+            maxWidth: '1200px',
             margin: '0 auto',
             justifyContent: 'center'
           }}>
-            {/* Volunteer */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
-              style={{ textAlign: 'center', padding: '3rem 2rem', borderRadius: '16px', background: '#fff', border: '1px solid #f0f0f0' }}
-            >
-              <div style={{ fontSize: '4rem', marginBottom: '1.5rem', color: 'var(--pratham-yellow)' }}>🙋‍♂️</div>
-              <h2 style={{ fontSize: '1.8rem', marginBottom: '1.2rem' }}>Volunteer Your Time</h2>
-              <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '2rem' }}>
-                Share your skills and passion with us. Whether you can teach, help with administration, or organize events, your time makes a massive difference.
-              </p>
-              <button style={{
-                background: 'var(--pratham-black)',
-                color: '#fff',
-                padding: '0.8rem 2rem',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
+            {/* Volunteer Card */}
+            <InteractiveCard 
+              hoverColor="#ffcc00"
+              style={{ 
+                background: '#ffffff',
+                padding: '4rem 3rem',
+                borderRadius: '32px',
+                border: '1px solid #f0f0f0',
+                boxShadow: '0 15px 45px rgba(0,0,0,0.05)',
+                textAlign: 'center',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden'
               }}
               onClick={scrollToForm}
-              >Apply Now</button>
-            </motion.div>
-
-            {/* Support/Donate */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
-              style={{ textAlign: 'center', padding: '3rem 2rem', background: '#f9f9f9', borderRadius: '16px', border: '1px solid #eee' }}
             >
-              <div style={{ fontSize: '4rem', marginBottom: '1.5rem', color: '#e53935' }}>💰</div>
-              <h2 style={{ fontSize: '1.8rem', marginBottom: '1.2rem' }}>Support Financially</h2>
-              <p style={{ color: '#666', lineHeight: '1.8', marginBottom: '2rem' }}>
+              <div style={{ 
+                fontSize: '5rem', 
+                marginBottom: '2rem',
+                filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))'
+              }}>🙋‍♂️</div>
+              
+              <h2 style={{ 
+                fontSize: '2.2rem', 
+                fontWeight: '900', 
+                marginBottom: '1.5rem',
+                color: '#1a1a1a',
+                letterSpacing: '-1px'
+              }}>Volunteer Your Time</h2>
+              
+              <p style={{ 
+                color: '#666', 
+                lineHeight: '1.8', 
+                marginBottom: '3rem',
+                fontSize: '1.05rem'
+              }}>
+                Share your skills and passion with us. Whether you can teach, help with administration, or organize events, your time makes a massive difference.
+              </p>
+              
+              <button style={{
+                background: '#111',
+                color: '#fff',
+                padding: '1.2rem 3rem',
+                border: 'none',
+                borderRadius: '16px',
+                fontWeight: '800',
+                fontSize: '1rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+              }}>Apply Now</button>
+            </InteractiveCard>
+
+            {/* Support Card */}
+            <InteractiveCard 
+              hoverColor="#e53935"
+              style={{ 
+                background: '#ffffff',
+                padding: '4rem 3rem',
+                borderRadius: '32px',
+                border: '1px solid #f0f0f0',
+                boxShadow: '0 15px 45px rgba(0,0,0,0.05)',
+                textAlign: 'center',
+                cursor: 'pointer',
+                position: 'relative'
+              }}
+              onClick={() => navigate('/donate')}
+            >
+              <div style={{ 
+                fontSize: '5rem', 
+                marginBottom: '2rem',
+                filter: 'drop-shadow(0 10px 20px rgba(229,57,53,0.15))'
+              }}>💰</div>
+              
+              <h2 style={{ 
+                fontSize: '2.2rem', 
+                fontWeight: '900', 
+                marginBottom: '1.5rem',
+                color: '#1a1a1a',
+                letterSpacing: '-1px'
+              }}>Support Financially</h2>
+              
+              <p style={{ 
+                color: '#666', 
+                lineHeight: '1.8', 
+                marginBottom: '3rem',
+                fontSize: '1.05rem'
+              }}>
                 Every contribution goes directly toward our educational and welfare programs. Help us reach more communities and transform lives through your generosity.
               </p>
-              <button 
-                onClick={() => navigate('/donate')}
-                style={{
-                  background: '#e53935',
-                  color: '#fff',
-                  padding: '0.8rem 2rem',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}>Donate Now</button>
-            </motion.div>
-
-
-
+              
+              <button style={{
+                background: '#e53935',
+                color: '#fff',
+                padding: '1.2rem 3rem',
+                border: 'none',
+                borderRadius: '16px',
+                fontWeight: '800',
+                fontSize: '1rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 10px 20px rgba(229,57,53,0.2)'
+              }}>Donate Now</button>
+            </InteractiveCard>
           </div>
         </div>
       </section>
@@ -404,35 +550,83 @@ const GetInvolved = () => {
       <section ref={formRef} style={{ padding: '8rem 0', background: '#fcfcfc' }}>
         <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ 
-            background: '#fff', 
-            padding: '4rem', 
-            borderRadius: '24px', 
-            boxShadow: '0 20px 60px rgba(0,0,0,0.08)',
-            border: '1px solid #f0f0f0'
+            background: '#fff3e0', 
+            color: '#e65100', 
+            padding: '1rem', 
+            borderRadius: '12px', 
+            marginBottom: '2rem', 
+            fontSize: '1.2rem', 
+            fontWeight: '700',
+            border: '1px solid #ffe0b2',
+            textAlign: 'center'
           }}>
+            ✨ You will be officially certified with <span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society and receive a certificate for your contribution!
+          </div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            style={{ 
+              background: '#fff', 
+              padding: '4rem', 
+              borderRadius: '24px', 
+              boxShadow: '15px 15px 0px #111',
+              border: '2px solid #111'
+            }}
+          >
             <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem', textAlign: 'center' }}>Volunteer Application</h2>
             <p style={{ textAlign: 'center', color: '#666', marginBottom: '3rem' }}>Join our mission to create lasting social change. Fill out the form below and we'll get back to you.</p>
             
-            <form onSubmit={(e) => { e.preventDefault(); alert('Application submitted successfully!'); }}>
+            <form onSubmit={handleSubmit}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                   <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Full Name</label>
-                  <input type="text" placeholder="Enter your full name" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} required />
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter your full name" 
+                    style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} 
+                    required 
+                  />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                   <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Email Address</label>
-                  <input type="email" placeholder="Enter your email" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} required />
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Enter your email" 
+                    style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} 
+                    required 
+                  />
                 </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                  <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Phone Number</label>
-                  <input type="tel" placeholder="Enter your phone number" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} required />
-                </div>
+                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                   <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Phone Number</label>
+                   <input 
+                     type="tel" 
+                     name="phone"
+                     value={formData.phone}
+                     onChange={handleChange}
+                     placeholder="10-digit number" 
+                     style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem' }} 
+                     required 
+                   />
+                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                   <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Which field do you want to apply for?</label>
-                  <select style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem', background: '#fff' }} required>
+                  <select 
+                    name="field"
+                    value={formData.field}
+                    onChange={handleChange}
+                    style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem', background: '#fff' }} 
+                    required
+                  >
                     <option value="">Select a field</option>
                     <option value="education">Education (Teaching)</option>
                     <option value="social_welfare">Social Welfare</option>
@@ -447,7 +641,15 @@ const GetInvolved = () => {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginBottom: '3rem' }}>
                 <label style={{ fontWeight: '700', fontSize: '0.9rem', color: '#333' }}>Tell us about your experience or passion</label>
-                <textarea placeholder="How can you contribute to our mission?" rows="4" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem', resize: 'vertical' }} required></textarea>
+                <textarea 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="How can you contribute to our mission?" 
+                  rows="4" 
+                  style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none', fontSize: '1rem', resize: 'vertical' }} 
+                  required
+                ></textarea>
               </div>
 
               <div style={{ textAlign: 'center' }}>
@@ -464,7 +666,7 @@ const GetInvolved = () => {
                 }}>Submit Application</button>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </section>
 

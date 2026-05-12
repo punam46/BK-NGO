@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, X, Calendar, Tag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const MediaPublications = () => {
   const [activeFilter, setActiveFilter] = useState('ALL');
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [dynamicPubs, setDynamicPubs] = useState([]);
+
+  useEffect(() => {
+    const fetchPubs = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/publications');
+        const data = await response.json();
+        if (data && data.length > 0) setDynamicPubs(data);
+      } catch (err) { console.error(err); }
+    };
+    fetchPubs();
+  }, []);
 
   const categories = ['ALL', 'EVENTS', 'EDUCATION', 'HEALTHCARE', 'WORKSHOPS', 'IMPACT'];
 
-  const publications = [
+  const staticPublications = [
     { 
       id: 1, 
       src: '/r1.jpeg', 
@@ -97,15 +109,9 @@ const MediaPublications = () => {
       date: 'May 2023',
       fullContent: 'Our "Catch-up" learning programs are designed for students who have fallen behind due to socioeconomic challenges, helping them return to their age-appropriate grade levels.'
     },
-    { 
-      id: 12, 
-      src: '/r14.jpeg', 
-      tag: 'WORKSHOPS', 
-      title: 'Creative Arts & Skills Workshop', 
-      date: 'April 2023',
-      fullContent: 'Fostering creativity as a tool for expression: our arts workshop brought together children from diverse backgrounds to learn painting, pottery, and music.'
-    },
   ];
+
+  const publications = [...dynamicPubs, ...staticPublications];
 
   const filteredItems = activeFilter === 'ALL' 
     ? publications 

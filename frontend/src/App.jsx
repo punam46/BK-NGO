@@ -29,9 +29,18 @@ import TribalDevelopment from './pages/TribalDevelopment';
 import WomanEmpowerment from './pages/WomanEmpowerment';
 import OrphanSupport from './pages/OrphanSupport';
 import Terms from './pages/Terms';
+import Admin from './pages/Admin';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
+  React.useEffect(() => {
+    // Increment view count on mount (one per visit/refresh)
+    fetch('http://localhost:5000/api/views/increment', { method: 'POST' })
+      .catch(err => console.error('Error incrementing views:', err));
+  }, []);
+
   return (
     <Router>
       <ScrollToTop />
@@ -60,6 +69,12 @@ function App() {
             <Route path="/certifications" element={<Certifications />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            } />
 
           </Routes>
         </main>

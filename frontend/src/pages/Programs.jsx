@@ -107,7 +107,6 @@ const ProgramCard = ({ program, index }) => {
         background: '#fff'
       }}>
         <div style={{
-          display: 'inline-block',
           background: program.color || 'var(--pratham-yellow)',
           color: '#fff',
           padding: '0.6rem 1.4rem',
@@ -117,9 +116,22 @@ const ProgramCard = ({ program, index }) => {
           fontSize: '0.85rem',
           textTransform: 'uppercase',
           letterSpacing: '2px',
-          boxShadow: `0 10px 20px ${program.color}33`
+          boxShadow: `0 10px 20px ${program.color}33`,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          width: 'fit-content'
         }}>
-          {program.icon} {program.title}
+          {program.icon && (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {program.icon.startsWith('http') ? (
+                <img src={program.icon} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain', borderRadius: '4px' }} />
+              ) : (
+                <span style={{ fontSize: '1.2rem' }}>{program.icon}</span>
+              )}
+            </div>
+          )}
+          <span>{program.title}</span>
         </div>
 
         <h3 style={{
@@ -151,6 +163,26 @@ const ProgramCard = ({ program, index }) => {
 };
 
 const Programs = () => {
+  const [dynamicPrograms, setDynamicPrograms] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDynamicPrograms = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/programs');
+        if (response.ok) {
+          const data = await response.json();
+          setDynamicPrograms(data);
+        }
+      } catch (error) {
+        console.error('Error fetching programs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDynamicPrograms();
+  }, []);
+
   const animations = `
     @keyframes typewriter {
       from { opacity: 0; transform: translateY(10px); }
@@ -265,6 +297,14 @@ const Programs = () => {
       icon: "🏫",
       color: "#8e24aa",
       image: "/ashram_custom.jpg"
+    },
+    {
+      title: "Media & Publications",
+      description: "Keep up with the latest news, press releases, and impact stories from BK Education and Welfare Society. Our publications offer a transparent look into our ongoing projects, success stories, and the transformative work we are doing across various sectors.\n\nFrom seminar coverage to field reports on rural development, our media archive serves as a record of our journey and a testament to the community's support. Explore our detailed articles to see how your contributions are making a real-world difference.",
+      icon: "📰",
+      color: "#607d8b",
+      image: "/r1.jpeg",
+      link: "/programs/media"
     }
   ];
 
@@ -329,8 +369,8 @@ const Programs = () => {
       <section style={{ padding: '6rem 0', background: '#f8f9fa' }}>
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
-            {programData.map((program, index) => (
-              <ProgramCard key={index} program={program} index={index} />
+            {[...dynamicPrograms, ...programData].map((program, index) => (
+              <ProgramCard key={program._id || index} program={program} index={index} />
             ))}
           </div>
         </div>

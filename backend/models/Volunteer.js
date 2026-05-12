@@ -10,9 +10,20 @@ const volunteerSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add an email'],
     },
+    phone: {
+      type: String,
+      required: [true, 'Please add a phone number'],
+    },
+    field: {
+      type: String,
+      required: [true, 'Please select a field'],
+    },
+    message: {
+      type: String,
+      required: [true, 'Please add a message'],
+    },
     skills: {
       type: String,
-      required: [true, 'Please add your skills'],
     },
     interests: {
       type: String,

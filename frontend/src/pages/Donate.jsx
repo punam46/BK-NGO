@@ -51,7 +51,14 @@ const Donate = () => {
   }, []);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if ((name === 'mobile' || name === 'aadharNumber') && value !== '' && !/^\d+$/.test(value)) {
+      return;
+    }
+    if (name === 'mobile' && value.length > 10) return;
+    if (name === 'aadharNumber' && value.length > 12) return;
+    
+    setFormData({ ...formData, [name]: value });
   };
 
   const initPayment = (data) => {
@@ -231,14 +238,14 @@ const Donate = () => {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  <div style={responsiveInputGroup}>
-                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Mobile Number *</label>
-                    <input name="mobile" type="text" required onChange={handleChange} style={inputStyle} />
-                  </div>
-                  <div style={responsiveInputGroup}>
-                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Aadhar Number *</label>
-                    <input name="aadharNumber" type="text" required onChange={handleChange} style={inputStyle} />
-                  </div>
+                   <div style={responsiveInputGroup}>
+                     <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Mobile Number *</label>
+                     <input name="mobile" type="text" placeholder="10-digit number" value={formData.mobile} required onChange={handleChange} style={inputStyle} />
+                   </div>
+                   <div style={responsiveInputGroup}>
+                     <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Aadhar Number *</label>
+                     <input name="aadharNumber" type="text" placeholder="12-digit number" value={formData.aadharNumber} required onChange={handleChange} style={inputStyle} />
+                   </div>
                   <div style={responsiveInputGroup}>
                     <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>PAN Number *</label>
                     <input name="panNumber" type="text" required onChange={handleChange} style={inputStyle} />

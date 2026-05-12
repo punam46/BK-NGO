@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-react';
 
 const Footer = () => {
+  const [views, setViews] = React.useState(0);
+
+  React.useEffect(() => {
+    fetch('http://localhost:5000/api/views')
+      .then(res => res.json())
+      .then(data => setViews(data.count))
+      .catch(err => console.error('Error fetching views:', err));
+  }, []);
+
   return (
     <footer className="main-footer">
       <div className="footer-container">
@@ -89,7 +98,7 @@ const Footer = () => {
             gap: '10px'
           }}>
             <span style={{ color: '#ccc', fontSize: '0.9rem' }}>Total Website Views:</span>
-            <span style={{ color: '#ffd54f', fontWeight: '800', letterSpacing: '1px' }}>124,567</span>
+            <span style={{ color: '#ffd54f', fontWeight: '800', letterSpacing: '1px' }}>{views.toLocaleString()}</span>
           </div>
           <div className="footer-bottom-links">
             <a href="#">Privacy Policy</a>

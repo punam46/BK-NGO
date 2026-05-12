@@ -5,12 +5,15 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    mobile: '',
     subject: '',
-    message: ''
+    message: '',
+    _subject: 'New Contact Form Submission'
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submission started...', formData);
     try {
       const response = await fetch('http://localhost:5000/api/contacts', {
         method: 'POST',
@@ -20,20 +23,26 @@ const Contact = () => {
         body: JSON.stringify(formData),
       });
 
+      console.log('Response received:', response.status);
       if (response.ok) {
-        alert('Thank you for contacting us! Your message has been saved.');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        alert('Thank you for contacting us! Your message has been sent successfully.');
+        setFormData({ name: '', email: '', subject: '', message: '', _subject: 'New Contact Form Submission' });
       } else {
+        const errorData = await response.json();
+        console.error('Server error:', errorData);
         alert('Something went wrong. Please try again.');
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('Could not connect to the server.');
+      console.error('Fetch error:', error);
+      alert('Could not send the message. Please check your internet connection.');
     }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'mobile' && value !== '' && !/^\d+$/.test(value)) return;
+    if (name === 'mobile' && value.length > 10) return;
+    setFormData({ ...formData, [name]: value });
   };
 
   const animations = `
@@ -212,6 +221,11 @@ const Contact = () => {
           >
             <h3 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '1.8rem', color: '#1a1a1a' }}>Send a Message</h3>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+              <input 
+                type="hidden" 
+                name="_subject" 
+                value={`${formData.name} wants to connect with you about an BK educational and welfare society`} 
+              />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                 <label style={{ fontWeight: '700', color: '#333', fontSize: '0.95rem' }}>Full Name</label>
                 <input 
@@ -241,6 +255,27 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="name@example.com" 
+                  style={{ 
+                    padding: '0.9rem', 
+                    border: '2px solid #eee', 
+                    borderRadius: '14px',
+                    fontSize: '0.95rem',
+                    transition: 'all 0.3s ease',
+                    outline: 'none'
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = 'var(--pratham-yellow)'}
+                  onBlur={(e) => e.target.style.borderColor = '#eee'}
+                  required
+                />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                <label style={{ fontWeight: '700', color: '#333', fontSize: '0.95rem' }}>Mobile Number</label>
+                <input 
+                  type="text" 
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  placeholder="10-digit number" 
                   style={{ 
                     padding: '0.9rem', 
                     border: '2px solid #eee', 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { renderText } from './Education';
 
+import womenEmpowermentImg from '../assets/Women-Empowerment.webp';
+
 const WomanEmpowerment = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -9,10 +11,16 @@ const WomanEmpowerment = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
   const animations = `
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+      40% { transform: translateY(-10px) translateX(-50%); }
+      60% { transform: translateY(-5px) translateX(-50%); }
     }
   `;
 
@@ -41,100 +49,39 @@ const WomanEmpowerment = () => {
     <div className="woman-empowerment-page" style={{ background: '#fff', minHeight: '100vh' }}>
       <style>{animations}</style>
 
-      {/* Premium Hero Section */}
+      {/* Immersive Hero Section */}
       <section style={{
-        padding: '2rem 5% 4rem',
-        background: 'linear-gradient(to right, #fce4ec 0%, #f8bbd0 100%)',
+        height: '85vh',
+        width: '100%',
+        position: 'relative',
         display: 'flex',
         alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '4rem',
-        minHeight: '70vh'
+        justifyContent: 'center',
+        backgroundImage: `url(${womenEmpowermentImg})`,
+        backgroundColor: '#f0f9ff',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center 10%',
+        backgroundRepeat: 'no-repeat',
+        overflow: 'hidden'
       }}>
-        <div style={{ flex: '1.2', minWidth: '350px' }}>
-          <h2 style={{
-            fontSize: '1.1rem',
-            color: '#e91e63',
-            fontWeight: '900',
-            marginBottom: '1.5rem',
-            letterSpacing: '2px',
-            textTransform: 'uppercase'
-          }}>
-            {renderText("BK Education and Welfare Society")}
-          </h2>
-          <h1 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-            fontWeight: '900',
-            color: '#1a1a1a',
-            lineHeight: '1.1',
-            marginBottom: '2rem'
-          }}>
-            Empowering Women. <br />
-            <span style={{ color: '#e91e63' }}>Transforming</span> Communities.
-          </h1>
-          <p style={{
-            fontSize: '1.2rem',
-            color: '#555',
-            lineHeight: '1.6',
-            maxWidth: '600px',
-            marginBottom: '3rem'
-          }}>
-            We believe that empowering a woman empowers an entire generation. Our programs aim to foster independence, ensure safety, and build leadership among women in rural and urban areas alike.
-          </p>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
-            <div style={{ borderLeft: '4px solid #e91e63', paddingLeft: '1.5rem' }}>
-              <h4 style={{ fontSize: '1.5rem', margin: 0, fontWeight: '800' }}>Equal Opportunities</h4>
-              <p style={{ margin: 0, color: '#666' }}>Building a balanced society</p>
-            </div>
-          </div>
-        </div>
+        {/* Content removed to make background clearly visible as requested */}
+        <div style={{ position: 'relative', zIndex: 10 }}></div>
+
+        {/* Decorative Scroll Indicator */}
         <div style={{
-          flex: '1',
-          position: 'relative',
-          minWidth: windowWidth < 768 ? '100%' : '400px',
-          minHeight: windowWidth < 768 ? '450px' : '550px',
-          marginTop: windowWidth < 768 ? '2rem' : '0'
+          position: 'absolute',
+          bottom: '40px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          animation: 'bounce 2s infinite',
+          zIndex: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '10px'
         }}>
-          {/* Top-Left Dotted Pattern */}
-          <div style={{
-            position: 'absolute',
-            top: '-20px',
-            left: '10%',
-            width: '120px',
-            height: '100px',
-            backgroundImage: 'radial-gradient(#ccc 2px, transparent 2px)',
-            backgroundSize: '15px 15px',
-            zIndex: 0,
-            opacity: 0.5
-          }} />
-
-          {/* Background Decorative Circle */}
-          <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '120%',
-            height: '120%',
-            background: 'radial-gradient(circle, rgba(233, 30, 99, 0.05) 0%, transparent 70%)',
-            zIndex: 0
-          }} />
-
-          {/* Image */}
-          <div style={{
-            position: 'absolute',
-            top: '5%',
-            left: '0',
-            width: '100%',
-            height: '90%',
-            zIndex: 2,
-            borderRadius: '40px',
-            overflow: 'hidden',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-            animation: 'fadeInUp 1s ease both'
-          }}>
-            <img src="/woman_empowerment.png" alt="Women Empowerment" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-          </div>
+          <span style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '2px', color: '#fff' }}>Explore</span>
+          <div style={{ width: '2px', height: '40px', background: 'linear-gradient(to bottom, #fff, transparent)' }}></div>
         </div>
       </section>
 

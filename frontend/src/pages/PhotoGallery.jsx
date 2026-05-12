@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Filter, Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Camera, Filter, Calendar, MapPin } from 'lucide-react';
 import g16 from '../assets/g16.jpeg';
 import g31 from '../assets/g31.jpeg';
 import g17 from '../assets/g17.jpeg';
@@ -33,41 +33,39 @@ import g5 from '../assets/g5.jpg';
 
 import G45 from '../assets/G45.jpeg';
 import G48 from '../assets/G48.jpeg';
-import G57 from '../assets/G57.jpeg';
-import G58 from '../assets/G58.jpeg';
 import G49 from '../assets/G49.jpeg';
 import G50 from '../assets/G50.jpeg';
 import G51 from '../assets/G51.jpeg';
 import G52 from '../assets/G52.jpeg';
-import G53 from '../assets/G53.jpeg';
 import G54 from '../assets/G54.jpeg';
 import G55 from '../assets/G55.jpeg';
-import G47 from '../assets/G47.jpeg';
 
 
 
 
 const PhotoGallery = () => {
   const [activeCategory, setActiveCategory] = useState('ALL');
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-  const scrollRef = React.useRef(null);
+  const [dynamicPhotos, setDynamicPhotos] = useState([]);
 
-  const scroll = (direction) => {
-    const { current } = scrollRef;
-    if (current) {
-      const scrollAmount = windowWidth < 768 ? 320 : 500;
-      current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/photos');
+        const data = await response.json();
+        if (data && data.length > 0) {
+          setDynamicPhotos(data);
+        }
+      } catch (error) {
+        console.error('Error fetching dynamic photos:', error);
+      }
+    };
+    fetchPhotos();
+  }, []);
 
   const categories = ['ALL', 'BLOOD DONATION', 'ENVIRONMENT', 'SOCIAL WELFARE', 'WOMEN EMPOWERMENT', 'EVENTS'];
 
-  const photos = [
+
+  const staticPhotos = [
     {
       id: 1,
       src: g16,
@@ -292,53 +290,25 @@ const PhotoGallery = () => {
     { id: 28, src: G43, category: 'SOCIAL WELFARE', title: 'Welfare Distribution Drive', date: 'February 2025', location: 'Rural District', objectFit: 'cover' },
 
     { id: 30, src: G45, category: 'SOCIAL WELFARE', title: 'Grassroots Development', date: 'March 2025', location: 'Local Community', objectFit: 'cover' },
-    { id: 31, src: G57, category: 'SOCIAL WELFARE', title: 'Social Empowerment Workshop', date: 'March 2025', location: 'Training Center', objectFit: 'cover' },
     { id: 33, src: G48, category: 'SOCIAL WELFARE', title: 'Relief and Support Camp', date: 'April 2025', location: 'Remote Area', objectFit: 'cover' },
     { id: 34, src: G49, category: 'SOCIAL WELFARE', title: 'Sustained Welfare Mission', date: 'April 2025', location: 'Community Hub', objectFit: 'cover' },
     { id: 35, src: G50, category: 'SOCIAL WELFARE', title: 'Direct Impact Initiative', date: 'April 2025', location: 'Rural Sector', objectFit: 'cover' },
     { id: 36, src: G51, category: 'SOCIAL WELFARE', title: 'Local Welfare Outreach', date: 'May 2025', location: 'Village Cluster', objectFit: 'cover' },
     { id: 37, src: G52, category: 'SOCIAL WELFARE', title: 'Community Assistance Drive', date: 'May 2025', location: 'Impact Center', objectFit: 'cover' },
-    { id: 38, src: G53, category: 'SOCIAL WELFARE', title: 'Welfare and Growth Program', date: 'May 2025', location: 'Rural District', objectFit: 'cover' },
     { id: 39, src: G54, category: 'SOCIAL WELFARE', title: 'Social Progress Mission', date: 'June 2025', location: 'Local Area', objectFit: 'cover' },
     { id: 40, src: G55, category: 'SOCIAL WELFARE', title: 'Community Support Expansion', date: 'June 2025', location: 'New Impact Zone', objectFit: 'cover' },
-    { id: 43, src: G47, category: 'SOCIAL WELFARE', title: 'Grassroots Community Support', date: 'June 2025', location: 'Rural District', objectFit: 'cover' },
-    { id: 41, src: G58, category: 'SOCIAL WELFARE', title: 'Social Welfare Initiative', date: 'June 2025', location: 'Impact Hub', objectFit: 'cover' },
     { id: 42, src: g5, category: 'EVENTS', title: 'Community Engagement Event', date: 'January 2025', location: 'Community Hall', objectFit: 'cover' },
   ];
+
+  const photos = [...dynamicPhotos, ...staticPhotos];
 
 
   const filteredPhotos = activeCategory === 'ALL'
     ? photos
     : photos.filter(photo => photo.category === activeCategory);
 
-  React.useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
+  // No special effects needed for the grid layout
 
-    let animationFrameId;
-    const scrollContainer = scrollRef.current;
-
-    const continuousScroll = () => {
-      if (scrollContainer) {
-        // Constant slow scroll
-        scrollContainer.scrollLeft += 1.5; 
-        
-        // Reset to start when reaching the end
-        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
-          scrollContainer.scrollLeft = 0;
-        }
-      }
-      animationFrameId = requestAnimationFrame(continuousScroll);
-    };
-
-    // Start continuous scroll
-    animationFrameId = requestAnimationFrame(continuousScroll);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [filteredPhotos, windowWidth]);
 
   return (
     <div style={{ background: '#fff', minHeight: '100vh', paddingTop: '0' }}>
@@ -498,103 +468,29 @@ const PhotoGallery = () => {
       </section>
 
       {/* Dynamic Photo Grid */}
-      <section style={{ padding: '5rem 0 8rem', position: 'relative', overflow: 'hidden' }}>
-        {/* Navigation Arrows */}
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '2%',
-          transform: 'translateY(-50%)',
-          zIndex: 10,
-          display: windowWidth < 768 ? 'none' : 'block'
-        }}>
-          <button
-            onClick={() => scroll('left')}
-            style={{
-              background: '#fff',
-              border: 'none',
-              width: '60px',
-              height: '60px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
-              cursor: 'pointer',
-              color: '#111',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-          >
-            <ChevronLeft size={30} />
-          </button>
-        </div>
-
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          right: '2%',
-          transform: 'translateY(-50%)',
-          zIndex: 10,
-          display: windowWidth < 768 ? 'none' : 'block'
-        }}>
-          <button
-            onClick={() => scroll('right')}
-            style={{
-              background: '#fff',
-              border: 'none',
-              width: '60px',
-              height: '60px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
-              cursor: 'pointer',
-              color: '#111',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-          >
-            <ChevronRight size={30} />
-          </button>
-        </div>
-
+      <section style={{ padding: '4rem 0 8rem', position: 'relative' }}>
         <div 
-          ref={scrollRef}
           style={{
-          display: 'flex',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
           gap: '2.5rem',
-          overflowX: 'auto',
-          padding: '2rem 5% 4rem',
-          // scrollSnapType removed for continuous flow
-          scrollbarWidth: 'none', // Hide scrollbar for Firefox
-          msOverflowStyle: 'none', // Hide scrollbar for IE/Edge
-          WebkitOverflowScrolling: 'touch'
+          padding: '0 5%',
+          maxWidth: '1400px',
+          margin: '0 auto'
         }}>
-          <style>
-            {`
-              div::-webkit-scrollbar {
-                display: none; /* Hide scrollbar for Chrome/Safari */
-              }
-            `}
-          </style>
           {filteredPhotos.map((photo, index) => (
             <div
               key={`${photo.id}-${index}`}
               style={{
-                group: 'photo-card',
                 position: 'relative',
-                minWidth: windowWidth < 768 ? '280px' : '360px',
                 background: '#fff',
                 borderRadius: '32px',
                 overflow: 'hidden',
                 boxShadow: '0 15px 45px rgba(0,0,0,0.06)',
                 transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer',
-                border: '1px solid #f5f5f5'
+                border: '1px solid #f5f5f5',
+                height: '420px'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-15px)';
@@ -607,7 +503,7 @@ const PhotoGallery = () => {
             >
               {/* Image Container */}
               <div style={{
-                height: '420px',
+                height: '100%',
                 position: 'relative',
                 overflow: 'hidden'
               }}>
@@ -623,6 +519,40 @@ const PhotoGallery = () => {
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                   onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                 />
+                
+                {/* Subtle Overlay on Hover */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)',
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  padding: '2rem'
+                }}
+                className="card-overlay"
+                onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = 0}
+                >
+                  <span style={{ 
+                    color: '#e53935', 
+                    fontSize: '0.75rem', 
+                    fontWeight: '800', 
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.5rem'
+                  }}>
+                    {photo.category}
+                  </span>
+                  <h3 style={{ color: '#fff', fontSize: '1.2rem', fontWeight: '700', margin: 0 }}>
+                    {photo.title || 'Community Impact'}
+                  </h3>
+                </div>
               </div>
             </div>
           ))}

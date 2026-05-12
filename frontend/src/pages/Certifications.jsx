@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TornHeader from '../components/TornHeader';
 import { FileText, Award, Shield, CheckCircle } from 'lucide-react';
 import RegistrationStripe from '../components/RegistrationStripe';
@@ -13,7 +13,20 @@ import c8Logo from '../assets/c8.png';
 
 const Certifications = () => {
   const navigate = useNavigate();
-  const certs = [
+  const [dynamicCerts, setDynamicCerts] = useState([]);
+
+  useEffect(() => {
+    const fetchCerts = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/certifications');
+        const data = await response.json();
+        if (data && data.length > 0) setDynamicCerts(data);
+      } catch (err) { console.error(err); }
+    };
+    fetchCerts();
+  }, []);
+
+  const staticCerts = [
     {
       title: "Societies Registration Act, 1860",
       subtitle: "Registration Certificate",
@@ -78,6 +91,8 @@ const Certifications = () => {
       color: "#fff8e1"
     }
   ];
+
+  const certs = [...dynamicCerts, ...staticCerts];
 
   return (
     <div className="certifications-page">
@@ -154,19 +169,19 @@ const Certifications = () => {
                 className="hover-lift"
                 style={{
                   background: '#fff',
-                  padding: '3rem 2.5rem',
+                  padding: '2.5rem',
                   borderRadius: '24px',
                   boxShadow: '0 15px 35px rgba(0,0,0,0.05)',
                   border: '1px solid #eee',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '2rem'
+                  gap: '1.5rem'
                 }}
               >
-                {cert.image ? (
+                {(cert.src || cert.image) && (
                   <div style={{
                     width: '100%',
-                    height: '180px',
+                    height: '200px',
                     background: '#fcfcfc',
                     borderRadius: '20px',
                     display: 'flex',
@@ -176,32 +191,29 @@ const Certifications = () => {
                     border: '1px solid #f0f0f0',
                     padding: '1.5rem'
                   }}>
-                    <img src={cert.image} alt={cert.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                  </div>
-                ) : (
-                  <div style={{
-                    width: '80px',
-                    height: '80px',
-                    background: cert.color,
-                    borderRadius: '20px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '1rem'
-                  }}>
-                    {cert.icon}
+                    <img src={cert.src || cert.image} alt={cert.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                 )}
                 <div>
-                  <h4 style={{ fontSize: '0.9rem', color: '#d34b07', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '0.75rem' }}>
+                  <h4 style={{ fontSize: '0.85rem', color: '#d34b07', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '0.75rem' }}>
                     {cert.subtitle}
                   </h4>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1.2rem' }}>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1rem' }}>
                     {cert.title}
                   </h3>
-                  <p style={{ color: '#555', lineHeight: '1.7', fontSize: '1.05rem' }}>
+                  <p style={{ color: '#666', lineHeight: '1.7', fontSize: '1rem', marginBottom: '1.5rem' }}>
                     {cert.description}
                   </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', color: '#888', borderTop: '1px solid #f0f0f0', paddingTop: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <Shield size={14} />
+                      <span><strong>Issuer:</strong> {cert.organization}</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <CheckCircle size={14} />
+                      <span><strong>ID:</strong> {cert.idNumber}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
