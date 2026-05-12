@@ -11,6 +11,7 @@ import enjoyGif from '../assets/enjoy.gif';
 import creativityGif from '../assets/Creativity Comes From Within.gif';
 import breathingGif from '../assets/Deep Breathing Meditation Animation.gif';
 import yogaPosesVideo from '../assets/8AqW8zd7U12z6SeJJ9.webm';
+import stretchingVideo from '../assets/dz3qitg2SOA5SlunJ3.webm';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -276,7 +277,8 @@ const Yoga = () => {
                 title: "Cool Down / Stretching", 
                 desc: "Gently release tension and improve flexibility through slow, mindful stretches.",
                 color: "#fff",
-                gif: creativityGif
+                gif: stretchingVideo,
+                isVideo: true
               },
               { 
                 step: "05", 
