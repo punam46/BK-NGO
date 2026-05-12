@@ -12,6 +12,7 @@ import creativityGif from '../assets/Creativity Comes From Within.gif';
 import breathingGif from '../assets/Deep Breathing Meditation Animation.gif';
 import yogaPosesVideo from '../assets/8AqW8zd7U12z6SeJJ9.webm';
 import stretchingVideo from '../assets/dz3qitg2SOA5SlunJ3.webm';
+import meditationVideo from '../assets/1Me8VR7912RO2k1Jeu.webm';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -292,7 +293,8 @@ const Yoga = () => {
                 title: "Meditation", 
                 desc: "Cultivate awareness and mental clarity through focused silence and inner stillness.",
                 color: "#fff",
-                gif: yogaGiphy
+                gif: meditationVideo,
+                isVideo: true
               }
             ].map((item, idx) => (
               <motion.div 
