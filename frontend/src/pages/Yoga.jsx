@@ -314,45 +314,7 @@ const Yoga = () => {
         </div>
       </section>
 
-      {/* Authentic Instructor Section */}
-      <section style={{ padding: '8rem 5%', background: '#fcfcfc' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '5rem', alignItems: 'center' }}>
-          <div style={{ flex: '1', minWidth: '300px' }}>
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              style={{ position: 'relative' }}>
-              <div style={{ 
-                position: 'absolute', inset: '-20px', border: '2px solid #d4af37', 
-                borderRadius: '40px', opacity: 0.2, zIndex: 0 
-              }} />
-              <img 
-                src={yogaInstructorImg} 
-                alt="Instructor" 
-                style={{ 
-                  width: '100%', borderRadius: '40px', 
-                  position: 'relative', zIndex: 1, boxShadow: '0 30px 60px rgba(0,0,0,0.1)' 
-                }} 
-              />
-            </motion.div>
-          </div>
-          <div style={{ flex: '1.5', minWidth: '300px' }}>
-            <h2 style={{ fontSize: '3rem', fontWeight: '900', marginBottom: '2rem', color: '#d4af37' }}>Authentic Guidance.</h2>
-            <p style={{ fontSize: '1.2rem', color: '#555', lineHeight: '1.8', marginBottom: '2.5rem' }}>
-              Our programs are led by certified practitioners who understand the unique needs of rural communities. We combine traditional techniques with a modern understanding of health to ensure every participant gets the best out of every session.
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-              <div>
-                <h4 style={{ color: '#d4af37', fontWeight: '900', fontSize: '1.5rem', marginBottom: '0.5rem' }}>15+</h4>
-                <p style={{ color: '#888', fontSize: '0.9rem' }}>Certified Trainers</p>
-              </div>
-              <div>
-                <h4 style={{ color: '#d4af37', fontWeight: '900', fontSize: '1.5rem', marginBottom: '0.5rem' }}>100+</h4>
-                <p style={{ color: '#888', fontSize: '0.9rem' }}>Village Workshops</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
 
 
