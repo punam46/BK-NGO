@@ -94,7 +94,7 @@ const Yoga = () => {
         <motion.div style={{ 
           position: 'absolute', 
           top: 0, left: 0, width: '100%', height: '120%',
-          backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0.2), #fff), url(${yogaHeroImg})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0), rgba(255, 255, 255, 0.8), rgba(212, 175, 55, 0.05)), url(${yogaHeroImg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           y: backgroundY,
@@ -176,7 +176,17 @@ const Yoga = () => {
 
 
       {/* Mastering the Basics - Yoga Steps Section */}
-      <section style={{ padding: '8rem 5%', background: '#fff' }}>
+      <section style={{ 
+        padding: '4rem 5% 8rem', 
+        background: `
+          radial-gradient(circle at 5% 15%, rgba(212, 175, 55, 0.12) 0%, transparent 35%),
+          radial-gradient(circle at 95% 85%, rgba(13, 148, 136, 0.08) 0%, transparent 35%),
+          radial-gradient(circle at 85% 20%, rgba(244, 63, 94, 0.05) 0%, transparent 30%),
+          radial-gradient(circle at 15% 75%, rgba(59, 130, 246, 0.04) 0%, transparent 30%),
+          #fff
+        `,
+        position: 'relative'
+      }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
             <h2 style={{ fontSize: '3.5rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1.5rem' }}>Mastering the <span style={{ color: '#d4af37' }}>Basics</span></h2>
