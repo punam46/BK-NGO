@@ -108,7 +108,7 @@ const Yoga = () => {
             transition={{ duration: 0.8 }}
             style={{ 
               fontSize: '1.2rem', 
-              color: '#d4af37', 
+              color: '#1a1a1a', 
               fontWeight: '900', 
               letterSpacing: '5px', 
               textTransform: 'uppercase',
