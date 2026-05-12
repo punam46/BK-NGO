@@ -343,18 +343,45 @@ const Yoga = () => {
               position: 'relative',
               boxShadow: '0 20px 50px rgba(0,0,0,0.03)'
             }}>
+              {/* Animated Lotus Petals */}
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  animate={{
+                    scale: phase === 'Inhale' ? [1, 1.4, 1.3] : [1.3, 0.8, 1],
+                    rotate: [i * 45, i * 45 + 10, i * 45],
+                    opacity: phase === 'Inhale' ? 0.4 : 0.1
+                  }}
+                  transition={{ 
+                    duration: phase === 'Inhale' ? 4 : 4, 
+                    ease: "easeInOut" 
+                  }}
+                  style={{
+                    width: '120px',
+                    height: '120px',
+                    background: `linear-gradient(45deg, #d4af37, #fdfcf0)`,
+                    borderRadius: '40% 60% 40% 60% / 40% 40% 60% 60%',
+                    position: 'absolute',
+                    transformOrigin: 'center center',
+                    filter: 'blur(2px)',
+                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.1)'
+                  }}
+                />
+              ))}
+
+              {/* Core Pulse */}
               <motion.div
                 animate={{
-                  scale: phase === 'Inhale' ? 1.5 : 1,
-                  opacity: phase === 'Inhale' ? 0.4 : 0.1
+                  scale: phase === 'Inhale' ? 1.8 : 1,
+                  opacity: phase === 'Inhale' ? 0.3 : 0.1
                 }}
                 transition={{ duration: 4, ease: "easeInOut" }}
                 style={{
-                  width: '100px',
-                  height: '100px',
-                  background: '#d4af37',
+                  width: '150px',
+                  height: '150px',
+                  background: 'radial-gradient(circle, #d4af37, transparent)',
                   borderRadius: '50%',
-                  filter: 'blur(30px)',
+                  filter: 'blur(40px)',
                   position: 'absolute'
                 }}
               />
