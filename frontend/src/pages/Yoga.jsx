@@ -388,9 +388,39 @@ const Yoga = () => {
         marginTop: '-50px',
         position: 'relative',
         zIndex: 2,
-        textAlign: 'center'
+        textAlign: 'center',
+        overflow: 'hidden'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '4rem' }}>
+        {/* Floating Bubbles Animation */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -100, 0],
+              x: [0, Math.random() * 50 - 25, 0],
+              opacity: [0.1, 0.3, 0.1]
+            }}
+            transition={{
+              duration: 10 + Math.random() * 10,
+              repeat: Infinity,
+              delay: i * 2,
+              ease: "easeInOut"
+            }}
+            style={{
+              position: 'absolute',
+              width: `${Math.random() * 200 + 100}px`,
+              height: `${Math.random() * 200 + 100}px`,
+              background: i % 2 === 0 ? '#d4af37' : '#fff',
+              borderRadius: '50%',
+              filter: 'blur(60px)',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              zIndex: 0
+            }}
+          />
+        ))}
+
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '4rem' }}>
           {[
             { label: 'Participants', value: '5k+', color: '#e9ecef' },
             { label: 'Villages Reached', value: '50+', color: '#dee2e6' },
