@@ -179,8 +179,8 @@ const Admin = () => {
           <p style={{ fontSize: '0.85rem', color: '#888' }}>BK Educational Society</p>
         </div>
 
-        <SidebarItem id="programs" icon={Zap} label="Core Programs" />
-        <SidebarItem id="successfulPrograms" icon={HandHeart} label="Social Welfare" />
+        <SidebarItem id="programs" icon={Zap} label="Our Programs" />
+        <SidebarItem id="successfulPrograms" icon={HandHeart} label="Successful Programs" />
         <SidebarItem id="photos" icon={Image} label="Gallery Management" />
         <SidebarItem id="certifications" icon={Settings} label="Certifications" />
         <SidebarItem id="publications" icon={Tag} label="Media & News" />
