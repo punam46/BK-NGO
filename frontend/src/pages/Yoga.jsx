@@ -310,9 +310,9 @@ const Yoga = () => {
                   <div style={{ 
                     position: 'absolute', 
                     bottom: 0, 
-                    right: '-10px', 
-                    width: '180px', 
-                    height: '80%', 
+                    right: '-20px', 
+                    width: '240px', 
+                    height: '95%', 
                     opacity: 1,
                     zIndex: 0
                   }}>
