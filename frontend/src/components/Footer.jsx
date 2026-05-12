@@ -102,6 +102,7 @@ const Footer = () => {
             <span style={{ color: '#ffd54f', fontWeight: '800', letterSpacing: '1px' }}>{views.toLocaleString()}</span>
           </div>
           <div className="footer-bottom-links">
+            <a href="/login" style={{ color: 'rgba(255,255,255,0.3)' }}>Admin Panel</a>
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>
           </div>

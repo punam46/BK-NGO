@@ -179,8 +179,8 @@ const Admin = () => {
           <p style={{ fontSize: '0.85rem', color: '#888' }}>BK Educational Society</p>
         </div>
 
-        <SidebarItem id="programs" icon={HandHeart} label="Our Programs" />
-        <SidebarItem id="successfulPrograms" icon={Zap} label="Social Welfare" />
+        <SidebarItem id="programs" icon={Zap} label="Core Programs" />
+        <SidebarItem id="successfulPrograms" icon={HandHeart} label="Social Welfare" />
         <SidebarItem id="photos" icon={Image} label="Gallery Management" />
         <SidebarItem id="certifications" icon={Settings} label="Certifications" />
         <SidebarItem id="publications" icon={Tag} label="Media & News" />
@@ -510,33 +510,30 @@ const Admin = () => {
               )}
               {modalType === 'successful-program' && (
                 <>
-                  <input type="text" placeholder="Success Story Title" defaultValue={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} required />
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label style={{ fontSize: '0.85rem', fontWeight: '700', color: '#666' }}>Program Icon (Image Upload)</label>
-                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                      <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'icon')} style={{ flex: 1, fontSize: '0.8rem' }} />
+                  <input type="text" placeholder="Success Story Title (e.g. Life-Saving Blood Camps)" defaultValue={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} required />
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <label style={{ fontSize: '0.85rem', fontWeight: '700', color: '#666' }}>Program Icon</label>
+                      <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'icon')} style={{ fontSize: '0.8rem' }} />
                     </div>
-                    {formData.icon && formData.icon.startsWith('http') && (
-                      <p style={{ fontSize: '0.75rem', color: '#4caf50', margin: 0 }}>✓ Icon uploaded</p>
-                    )}
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label style={{ fontSize: '0.85rem', fontWeight: '700', color: '#666' }}>Featured Image</label>
-                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                      <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'img')} style={{ flex: 1, padding: '0.5rem' }} />
-                      <select 
-                        defaultValue={formData.objectPosition || 'center'} 
-                        onChange={(e) => setFormData({...formData, objectPosition: e.target.value})}
-                        style={{ padding: '0.5rem', borderRadius: '8px', border: '1px solid #ddd' }}
-                      >
-                        <option value="top">Top</option>
-                        <option value="center">Center</option>
-                        <option value="bottom">Bottom</option>
-                      </select>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <label style={{ fontSize: '0.85rem', fontWeight: '700', color: '#666' }}>Featured Image</label>
+                      <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'img')} style={{ fontSize: '0.8rem' }} />
                     </div>
                   </div>
-                  <input type="text" placeholder="Tag (e.g. BLOOD DONATION)" defaultValue={formData.tag} onChange={(e) => setFormData({...formData, tag: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} />
-                  <textarea placeholder="Success Story Description" defaultValue={formData.desc} onChange={(e) => setFormData({...formData, desc: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', minHeight: '120px' }} required />
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <input type="text" placeholder="Tag (e.g. BLOOD DONATION)" defaultValue={formData.tag} onChange={(e) => setFormData({...formData, tag: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} />
+                    <select 
+                      defaultValue={formData.objectPosition || 'center'} 
+                      onChange={(e) => setFormData({...formData, objectPosition: e.target.value})}
+                      style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }}
+                    >
+                      <option value="top">Image Align: Top</option>
+                      <option value="center">Image Align: Center</option>
+                      <option value="bottom">Image Align: Bottom</option>
+                    </select>
+                  </div>
+                  <textarea placeholder="Success Story Description (Full Content)" defaultValue={formData.desc} onChange={(e) => setFormData({...formData, desc: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', minHeight: '150px' }} required />
                 </>
               )}
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
