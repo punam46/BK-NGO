@@ -354,54 +354,7 @@ const Yoga = () => {
         </div>
       </section>
 
-      {/* Session Schedule Section */}
-      <section style={{ padding: '8rem 5%', background: '#fff' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-            <div style={{ 
-              display: 'inline-flex', alignItems: 'center', gap: '10px', 
-              background: 'rgba(212, 175, 55, 0.05)', padding: '0.8rem 1.5rem', 
-              borderRadius: '50px', border: '1px solid rgba(212, 175, 55, 0.1)',
-              marginBottom: '2rem'
-            }}>
-              <Award size={20} color="#d4af37" />
-              <span style={{ color: '#d4af37', fontWeight: '900', fontSize: '0.9rem', letterSpacing: '1px' }}>CERTIFIED WELLNESS PROGRAM</span>
-            </div>
-            <h2 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '1.5rem', color: '#1a1a1a' }}>Weekly Session Schedule</h2>
-            <p style={{ color: '#666', fontSize: '1.1rem' }}>Join us at our local community centers for guided practice.</p>
-          </div>
 
-          <div style={{ display: 'grid', gap: '1.5rem' }}>
-            {[
-              { day: 'Monday', time: '06:00 AM - 07:30 AM', focus: 'Surya Namaskar & Energizing Flow' },
-              { day: 'Wednesday', time: '05:30 PM - 07:00 PM', focus: 'Deep Relaxation & Pranayama' },
-              { day: 'Friday', time: '06:00 AM - 07:30 AM', focus: 'Asana Alignment & Strength' },
-              { day: 'Sunday', time: '07:00 AM - 09:00 AM', focus: 'Community Meditation & Satsang' }
-            ].map((session, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ x: 20, background: '#fcfcfc' }}
-                style={{ 
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
-                  padding: '2rem 3rem', background: '#fff', borderRadius: '20px',
-                  border: '1px solid #eee', cursor: 'default',
-                  boxShadow: '0 5px 15px rgba(0,0,0,0.02)'
-                }}>
-                <div>
-                  <h4 style={{ color: '#d4af37', fontWeight: '900', fontSize: '1.2rem', marginBottom: '0.5rem' }}>{session.day}</h4>
-                  <p style={{ color: '#555', margin: 0 }}>{session.focus}</p>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#888' }}>
-                    <Zap size={16} />
-                    <span>{session.time}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Interactive Breathing Tool */}
       <section style={{ padding: '10rem 5%', background: 'linear-gradient(to bottom, #fff, #fcfcfc)', textAlign: 'center' }}>
