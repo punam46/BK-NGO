@@ -416,74 +416,7 @@ const Yoga = () => {
         </div>
       </section>
 
-      {/* Yoga in Action - Interactive Video Section */}
-      <section style={{ padding: '8rem 5%', background: '#fff', position: 'relative' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '4rem', color: '#1a1a1a' }}>Yoga in <span style={{ color: '#d4af37' }}>Action</span></h2>
-          
-          <motion.div 
-            whileHover={{ scale: 1.02 }}
-            onClick={() => setActiveVideo('nQwO5gABZIs')}
-            style={{
-              width: '100%',
-              maxWidth: '900px',
-              margin: '0 auto',
-              aspectRatio: '16/9',
-              borderRadius: '40px',
-              overflow: 'hidden',
-              position: 'relative',
-              cursor: 'pointer',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
-              border: '2px solid rgba(212, 175, 55, 0.1)'
-            }}
-          >
-            <img 
-              src={yogaBannerImg} 
-              alt="Video Preview" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9 }} 
-            />
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'rgba(255,255,255,0.1)',
-              transition: 'background 0.3s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0)'}
-            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-            >
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  background: '#d4af37',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 15px 35px rgba(212, 175, 55, 0.4)'
-                }}
-              >
-                <Play size={40} fill="#fff" color="#fff" />
-              </motion.div>
-            </div>
-            <div style={{
-              position: 'absolute',
-              bottom: '40px',
-              left: '40px',
-              textAlign: 'left',
-              zIndex: 1
-            }}>
-              <h3 style={{ fontSize: '1.8rem', fontWeight: '900', color: '#fff', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>Watch Our Rural Mission</h3>
-              <p style={{ color: '#fff', margin: '10px 0 0', fontWeight: '500', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>Experience the transformation in remote villages.</p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* Final Serenity Section */}
       <section style={{ 
