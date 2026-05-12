@@ -129,7 +129,7 @@ const Yoga = () => {
   return (
     <div className="yoga-page" style={{ background: '#0a0a0a', color: '#fff', minHeight: '100vh', overflowX: 'hidden' }}>
       
-      {/* Immersive Parallax Hero Section */}
+      {/* Immersive Video Background Hero Section */}
       <section style={{ 
         height: '100vh', 
         position: 'relative', 
@@ -138,17 +138,39 @@ const Yoga = () => {
         justifyContent: 'center',
         overflow: 'hidden'
       }}>
-        <motion.div style={{ 
-          position: 'absolute', 
-          top: 0, left: 0, width: '100%', height: '120%',
-          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), #0a0a0a), url(${yogaHeroImg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          y: backgroundY,
+        {/* Background Video */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
           zIndex: 0
-        }} />
+        }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-serene-woman-practicing-yoga-outdoors-in-the-mountains-42612-large.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Overlay Gradient for contrast */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.5), #0a0a0a)',
+            zIndex: 1
+          }} />
+        </div>
         
-        <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '900px', padding: '0 20px' }}>
+        <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', maxWidth: '900px', padding: '0 20px' }}>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -186,33 +208,9 @@ const Yoga = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            style={{ fontSize: '1.4rem', color: '#ccc', lineHeight: '1.6', fontWeight: '300', marginBottom: '3rem' }}>
+            style={{ fontSize: '1.4rem', color: '#ccc', lineHeight: '1.6', fontWeight: '300' }}>
             Empowering rural India through the ancient science of Yoga and holistic wellness.
           </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            onClick={() => setActiveVideo('nQwO5gABZIs')}
-            style={{
-              background: 'rgba(255, 204, 0, 0.1)',
-              color: '#ffcc00',
-              padding: '1.2rem 2.5rem',
-              borderRadius: '50px',
-              border: '2px solid #ffcc00',
-              fontSize: '1rem',
-              fontWeight: '900',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              margin: '0 auto',
-              transition: 'all 0.3s ease'
-            }}
-            whileHover={{ background: '#ffcc00', color: '#000', scale: 1.05 }}
-          >
-            <Play size={20} fill="currentColor" /> WATCH IMPACT
-          </motion.button>
         </div>
 
         {/* Scroll Indicator */}
