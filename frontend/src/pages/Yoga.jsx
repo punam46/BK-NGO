@@ -383,7 +383,7 @@ const Yoga = () => {
       {/* Impact Stats Banner */}
       <section style={{ 
         padding: '10rem 5%', 
-        background: '#fff9f5',
+        background: '#f8f9fa',
         borderRadius: '100px 100px 0 0',
         marginTop: '-50px',
         position: 'relative',
@@ -392,9 +392,9 @@ const Yoga = () => {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '4rem' }}>
           {[
-            { label: 'Participants', value: '5k+', color: '#ffe4d6' },
-            { label: 'Villages Reached', value: '50+', color: '#e0f2f1' },
-            { label: 'Community Support', value: '24/7', color: '#fff3e0' }
+            { label: 'Participants', value: '5k+', color: '#e9ecef' },
+            { label: 'Villages Reached', value: '50+', color: '#dee2e6' },
+            { label: 'Community Support', value: '24/7', color: '#ced4da' }
           ].map((stat, i) => (
             <div key={i} style={{ position: 'relative', minWidth: '200px' }}>
               <motion.div
