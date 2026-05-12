@@ -161,30 +161,7 @@ const Yoga = () => {
             style={{ fontSize: '1.4rem', color: '#555', lineHeight: '1.6', fontWeight: '400', marginBottom: '3rem' }}>
             Empowering rural India through the ancient science of Yoga and holistic wellness.
           </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            onClick={() => setActiveVideo('nQwO5gABZIs')}
-            style={{
-              background: 'rgba(212, 175, 55, 0.1)',
-              color: '#d4af37',
-              padding: '1.2rem 2.5rem',
-              borderRadius: '50px',
-              border: '2px solid #d4af37',
-              fontSize: '1rem',
-              fontWeight: '900',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              margin: '0 auto',
-              transition: 'all 0.3s ease'
-            }}
-            whileHover={{ background: '#d4af37', color: '#fff', scale: 1.05 }}
-          >
-            <Play size={20} fill="currentColor" /> WATCH IMPACT
-          </motion.button>
+
         </div>
 
         {/* Scroll Indicator */}
