@@ -9,6 +9,7 @@ import yogaInstructorImg from '../assets/yoga_instructor.png';
 import yogaGiphy from '../assets/Yoga.gif';
 import enjoyGif from '../assets/enjoy.gif';
 import creativityGif from '../assets/Creativity Comes From Within.gif';
+import breathingGif from '../assets/Deep Breathing Meditation Animation.gif';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -259,7 +260,7 @@ const Yoga = () => {
                 title: "Breathing exercises", 
                 desc: "Focus on rhythmic breathing to calm the nervous system and increase lung capacity.",
                 color: "#fff",
-                gif: enjoyGif
+                gif: breathingGif
               },
               { 
                 step: "03", 
