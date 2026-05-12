@@ -382,45 +382,51 @@ const Yoga = () => {
 
       {/* Impact Stats Banner */}
       <section style={{ 
-        padding: '8rem 5%', 
-        background: `
-          radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
-          radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 40%),
-          #fff
-        `,
-        color: '#1a1a1a',
-        borderTop: '1px solid rgba(212, 175, 55, 0.1)',
-        borderBottom: '1px solid rgba(212, 175, 55, 0.1)'
+        padding: '10rem 5%', 
+        background: '#fff9f5',
+        borderRadius: '100px 100px 0 0',
+        marginTop: '-50px',
+        position: 'relative',
+        zIndex: 2,
+        textAlign: 'center'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '4rem' }}>
           {[
-            { label: 'Participants', value: '5k+' },
-            { label: 'Villages Reached', value: '50+' },
-            { label: 'Community Support', value: '24/7' }
+            { label: 'Participants', value: '5k+', color: '#ffe4d6' },
+            { label: 'Villages Reached', value: '50+', color: '#e0f2f1' },
+            { label: 'Community Support', value: '24/7', color: '#fff3e0' }
           ].map((stat, i) => (
-            <InteractiveCard key={i} style={{ minWidth: '250px' }}>
-              <div style={{ 
-                textAlign: 'center', 
-                padding: '3rem', 
-                background: '#fff', 
-                borderRadius: '30px',
-                boxShadow: '0 15px 35px rgba(0,0,0,0.03)',
-                border: '1px solid rgba(212, 175, 55, 0.05)',
-                transform: 'translateZ(50px)',
-                transformStyle: 'preserve-3d'
-              }}>
-                <h3 style={{ fontSize: '4.5rem', fontWeight: '900', margin: 0, color: '#d4af37', transform: 'translateZ(40px)' }}>{stat.value}</h3>
+            <div key={i} style={{ position: 'relative', minWidth: '200px' }}>
+              <motion.div
+                animate={{
+                  borderRadius: ["30% 70% 70% 30% / 30% 30% 70% 70%", "50% 50% 33% 67% / 55% 27% 73% 45%", "30% 70% 70% 30% / 30% 30% 70% 70%"],
+                  rotate: [0, 90, 0]
+                }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '180px',
+                  height: '180px',
+                  background: stat.color,
+                  zIndex: 0,
+                  opacity: 0.6,
+                  filter: 'blur(20px)'
+                }}
+              />
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <h3 style={{ fontSize: '4.5rem', fontWeight: '900', margin: 0, color: '#1a1a1a', letterSpacing: '-2px' }}>{stat.value}</h3>
                 <p style={{ 
-                  fontSize: '1rem', 
-                  fontWeight: '700', 
-                  textTransform: 'uppercase', 
-                  letterSpacing: '2px', 
-                  color: '#888',
-                  marginTop: '1rem',
-                  transform: 'translateZ(20px)'
+                  fontSize: '1.1rem', 
+                  fontWeight: '600', 
+                  textTransform: 'capitalize', 
+                  color: '#555',
+                  marginTop: '0.5rem'
                 }}>{stat.label}</p>
               </div>
-            </InteractiveCard>
+            </div>
           ))}
         </div>
       </section>
