@@ -177,7 +177,7 @@ const Yoga = () => {
 
       {/* Mastering the Basics - Yoga Steps Section */}
       <section style={{ 
-        padding: '4rem 5% 8rem', 
+        padding: '4rem 5% 0', 
         background: `
           radial-gradient(circle at 5% 15%, rgba(212, 175, 55, 0.12) 0%, transparent 35%),
           radial-gradient(circle at 95% 85%, rgba(13, 148, 136, 0.08) 0%, transparent 35%),
@@ -307,7 +307,7 @@ const Yoga = () => {
           viewport={{ once: true }}
           style={{ 
             width: '100%',
-            marginTop: '8rem',
+            marginTop: '0',
             overflow: 'hidden'
           }}
         >
@@ -324,7 +324,7 @@ const Yoga = () => {
 
 
       {/* Interactive Breathing Tool */}
-      <section style={{ padding: '10rem 5%', background: 'linear-gradient(to bottom, #fff, #fcfcfc)', textAlign: 'center' }}>
+      <section style={{ padding: '4rem 5% 10rem', background: 'linear-gradient(to bottom, #fff, #fcfcfc)', textAlign: 'center' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '3rem', fontWeight: '900', marginBottom: '2rem', color: '#1a1a1a' }}>Take a Moment.</h2>
           <p style={{ fontSize: '1.2rem', color: '#666', marginBottom: '5rem' }}>Stress relief is just a few breaths away. Try our guided breathing rhythm.</p>
