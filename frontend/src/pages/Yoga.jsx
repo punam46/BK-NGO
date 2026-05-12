@@ -270,13 +270,20 @@ const Yoga = () => {
               },
               { 
                 step: "04", 
+                title: "Cool Down / Stretching", 
+                desc: "Gently release tension and improve flexibility through slow, mindful stretches.",
+                color: "#fff",
+                gif: creativityGif
+              },
+              { 
+                step: "05", 
                 title: "Relaxation", 
                 desc: "Allow your body to recover and integrate the energy generated during the practice.",
                 color: "#fff",
                 gif: enjoyGif
               },
               { 
-                step: "05", 
+                step: "06", 
                 title: "Meditation", 
                 desc: "Cultivate awareness and mental clarity through focused silence and inner stillness.",
                 color: "#fff",
