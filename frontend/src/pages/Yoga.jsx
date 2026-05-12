@@ -290,7 +290,7 @@ const Yoga = () => {
                 }}
               >
                 {item.gif && (
-                  <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '100%', opacity: 0.15 }}>
+                  <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '100%', opacity: 1 }}>
                     <img src={item.gif} alt="Yoga animation" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                 )}
