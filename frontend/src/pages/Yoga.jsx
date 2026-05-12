@@ -13,6 +13,7 @@ import breathingGif from '../assets/Deep Breathing Meditation Animation.gif';
 import yogaPosesVideo from '../assets/8AqW8zd7U12z6SeJJ9.webm';
 import stretchingVideo from '../assets/dz3qitg2SOA5SlunJ3.webm';
 import meditationVideo from '../assets/1Me8VR7912RO2k1Jeu.webm';
+import relaxationVideo from '../assets/0neAdz31x259D4a8LW.webm';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -223,7 +224,8 @@ const Yoga = () => {
                 title: "Relaxation", 
                 desc: "Allow your body to recover and integrate the energy generated during the practice.",
                 color: "#fff",
-                gif: enjoyGif
+                gif: relaxationVideo,
+                isVideo: true
               },
               { 
                 step: "06", 
