@@ -55,7 +55,16 @@ const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
 
 const Yoga = () => {
   const [activeVideo, setActiveVideo] = useState(null);
+  const [phase, setPhase] = useState('Inhale');
   const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPhase(prev => prev === 'Inhale' ? 'Exhale' : 'Inhale');
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
 
