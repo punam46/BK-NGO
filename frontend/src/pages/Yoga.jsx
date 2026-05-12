@@ -6,6 +6,7 @@ import yogaMeditationImg from '../assets/yoga_meditation.png';
 import yogaCommunityImg from '../assets/yoga_community.png';
 import yogaBannerImg from '../assets/yoga_banner.png';
 import yogaInstructorImg from '../assets/yoga_instructor.png';
+import yogaGiphy from '../assets/giphy.gif';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -248,25 +249,26 @@ const Yoga = () => {
                 step: "01", 
                 title: "Deep Breathing (Pranayama)", 
                 desc: "Start with calm, rhythmic breathing to focus your mind and oxygenate your body.",
-                color: "#fdf8e1"
+                color: "#fff"
               },
               { 
                 step: "02", 
                 title: "Warm-up (Sukshma Vyayama)", 
                 desc: "Gently rotate your joints and stretch your muscles to prepare for deeper asanas.",
-                color: "#fdf8e1"
+                color: "#fff",
+                gif: yogaGiphy
               },
               { 
                 step: "03", 
                 title: "Sun Salutation (Surya Namaskar)", 
                 desc: "Perform this dynamic sequence of 12 postures to build strength and flexibility.",
-                color: "#fdf8e1"
+                color: "#fff"
               },
               { 
                 step: "04", 
                 title: "Final Relaxation (Shavasana)", 
                 desc: "Lie still and let your body absorb the benefits of the practice through total stillness.",
-                color: "#fdf8e1"
+                color: "#fff"
               }
             ].map((item, idx) => (
               <motion.div 
@@ -276,15 +278,21 @@ const Yoga = () => {
                   background: item.color,
                   padding: '3rem 2rem',
                   borderRadius: '30px',
-                  border: '1px solid rgba(212, 175, 55, 0.1)',
+                  border: '1px solid #eee',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
                 }}
               >
+                {item.gif && (
+                  <div style={{ position: 'absolute', top: 0, right: 0, width: '120px', height: '100%', opacity: 0.15 }}>
+                    <img src={item.gif} alt="Yoga animation" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                )}
                 <span style={{ 
                   fontSize: '4rem', 
                   fontWeight: '900', 
-                  color: 'rgba(212, 175, 55, 0.1)', 
+                  color: 'rgba(212, 175, 55, 0.15)', 
                   position: 'absolute', 
                   top: '10px', 
                   right: '20px' 
@@ -293,7 +301,7 @@ const Yoga = () => {
                 <p style={{ color: '#555', lineHeight: '1.6', fontSize: '1rem', position: 'relative', zIndex: 1 }}>{item.desc}</p>
                 <div style={{ 
                   width: '40px', height: '4px', background: '#d4af37', 
-                  borderRadius: '2px', marginTop: '2rem' 
+                  borderRadius: '2px', marginTop: '2rem', position: 'relative', zIndex: 1
                 }} />
               </motion.div>
             ))}
