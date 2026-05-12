@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const SuccessfulProgramSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -10,4 +10,6 @@ const SuccessfulProgramSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('SuccessfulProgram', SuccessfulProgramSchema);
+const SuccessfulProgram = mongoose.model('SuccessfulProgram', SuccessfulProgramSchema);
+
+export default SuccessfulProgram;

@@ -28,6 +28,7 @@ import ChildDevelopment from './pages/ChildDevelopment';
 import TribalDevelopment from './pages/TribalDevelopment';
 import WomanEmpowerment from './pages/WomanEmpowerment';
 import OrphanSupport from './pages/OrphanSupport';
+import Yoga from './pages/Yoga';
 import Terms from './pages/Terms';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
@@ -63,7 +64,8 @@ function App() {
             <Route path="/programs/child-development" element={<ChildDevelopment />} />
             <Route path="/programs/woman-empowerment" element={<WomanEmpowerment />} />
             <Route path="/programs/orphan-support" element={<OrphanSupport />} />
-            <Route path="/programs/rural-development" element={<RuralDevelopment />} />
+             <Route path="/programs/rural-development" element={<RuralDevelopment />} />
+            <Route path="/programs/yoga" element={<Yoga />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/photo-gallery" element={<PhotoGallery />} />
             <Route path="/certifications" element={<Certifications />} />

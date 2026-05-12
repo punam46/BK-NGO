@@ -119,6 +119,7 @@ const Header = () => {
               <Link to="/programs/orphan-support" className="dropdown-item" onClick={closeMenu}>Orphan Support</Link>
               <Link to="/programs/rural-development" className="dropdown-item" onClick={closeMenu}>Rural Development</Link>
               <Link to="/programs/disability-affair" className="dropdown-item" onClick={closeMenu}>Disability Affairs</Link>
+              <Link to="/programs/yoga" className="dropdown-item" onClick={closeMenu}>Yoga</Link>
             </div>
           </div>
 

@@ -223,6 +223,14 @@ const Programs = () => {
 
   const programData = [
     {
+      title: "Yoga & Wellness",
+      description: "Promoting physical health and mental serenity through structured yoga and meditation programs for all age groups in rural areas.\n\nOur initiatives focus on teaching traditional asanas, breathing techniques (pranayama), and mindfulness practices to help individuals manage stress, improve flexibility, and foster a holistic approach to well-being. We believe that a healthy body and a calm mind are the foundations for a prosperous community.",
+      icon: "🧘‍♂️",
+      color: "#009688",
+      image: "/yoga_hero.png",
+      link: "/programs/yoga"
+    },
+    {
       title: "Tribal Development",
       description: "We are deeply committed to the upliftment of tribal communities. By respecting and preserving their cultural heritage, we provide modern educational and economic opportunities to foster self-reliance and inclusive growth.\\n\\nOur initiatives include mobile health clinics, women's self-help groups, and forest-based livelihood programs that respect traditional practices while providing paths to sustainable development.",
       icon: "🏹",
