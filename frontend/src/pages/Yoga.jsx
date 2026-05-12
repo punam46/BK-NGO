@@ -51,50 +51,7 @@ const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
   );
 };
 
-const BreathingCircle = () => {
-  const [phase, setPhase] = useState('Inhale');
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPhase(prev => prev === 'Inhale' ? 'Exhale' : 'Inhale');
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
 
-  return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      padding: '3rem',
-      background: 'rgba(255, 255, 255, 0.05)',
-      borderRadius: '50%',
-      width: '300px',
-      height: '300px',
-      border: '1px solid rgba(255, 204, 0, 0.2)',
-      position: 'relative'
-    }}>
-      <motion.div
-        animate={{
-          scale: phase === 'Inhale' ? 1.5 : 1,
-          opacity: phase === 'Inhale' ? 0.8 : 0.3
-        }}
-        transition={{ duration: 4, ease: "easeInOut" }}
-        style={{
-          width: '100px',
-          height: '100px',
-          background: '#ffcc00',
-          borderRadius: '50%',
-          filter: 'blur(30px)',
-          position: 'absolute'
-        }}
-      />
-      <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#ffcc00', zIndex: 1, margin: 0 }}>{phase}</h3>
-      <p style={{ fontSize: '0.9rem', color: '#ccc', zIndex: 1, marginTop: '10px' }}>Follow the rhythm</p>
-    </div>
-  );
-};
 
 const Yoga = () => {
   const [activeVideo, setActiveVideo] = useState(null);
@@ -536,13 +493,13 @@ const Yoga = () => {
             style={{
               position: 'fixed',
               inset: 0,
-              background: 'rgba(0,0,0,0.95)',
+              background: 'rgba(255,255,255,0.9)',
               zIndex: 10000,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               padding: '20px',
-              backdropFilter: 'blur(10px)'
+              backdropFilter: 'blur(15px)'
             }}
           >
             <motion.div
@@ -554,12 +511,12 @@ const Yoga = () => {
                 width: '100%',
                 maxWidth: '1000px',
                 aspectRatio: '16/9',
-                background: '#000',
+                background: '#fff',
                 borderRadius: '30px',
                 overflow: 'hidden',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+                boxShadow: '0 40px 100px rgba(0,0,0,0.1)',
                 position: 'relative',
-                border: '1px solid rgba(255, 204, 0, 0.3)'
+                border: '1px solid rgba(212, 175, 55, 0.2)'
               }}
             >
               <button
