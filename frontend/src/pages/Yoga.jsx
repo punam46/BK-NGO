@@ -324,7 +324,15 @@ const Yoga = () => {
 
 
       {/* Holistic Wellness Philosophy Section */}
-      <section style={{ padding: '8rem 5%', background: '#fff', textAlign: 'center' }}>
+      <section style={{ 
+        padding: '8rem 5%', 
+        background: `
+          radial-gradient(circle at 15% 25%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+          radial-gradient(circle at 85% 75%, rgba(13, 148, 136, 0.04) 0%, transparent 40%),
+          #fff
+        `,
+        textAlign: 'center' 
+      }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '1.5rem', color: '#1a1a1a' }}>Holistic <span style={{ color: '#d4af37' }}>Impact</span></h2>
           <p style={{ color: '#666', fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto 5rem' }}>Our mission goes beyond physical exercise. We aim to transform lives through a comprehensive approach to wellness.</p>
@@ -347,23 +355,26 @@ const Yoga = () => {
                 desc: "Reconnect with your inner self through guided meditation and mindfulness practices rooted in ancient wisdom."
               }
             ].map((item, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -15 }}
-                style={{
-                  padding: '4rem 3rem',
-                  background: '#fff',
-                  borderRadius: '30px',
-                  border: '1px solid #eee',
-                  textAlign: 'center',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.02)',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
-                <h3 style={{ fontSize: '1.8rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1.5rem' }}>{item.title}</h3>
-                <p style={{ color: '#666', lineHeight: '1.8', fontSize: '1.1rem' }}>{item.desc}</p>
-              </motion.div>
+              <InteractiveCard key={i} style={{ height: '100%' }}>
+                <div
+                  style={{
+                    padding: '4rem 3rem',
+                    background: '#fff',
+                    borderRadius: '30px',
+                    border: '1px solid #eee',
+                    textAlign: 'center',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.02)',
+                    transition: 'all 0.3s ease',
+                    height: '100%',
+                    transform: 'translateZ(50px)',
+                    transformStyle: 'preserve-3d'
+                  }}
+                >
+                  <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center', transform: 'translateZ(30px)' }}>{item.icon}</div>
+                  <h3 style={{ fontSize: '1.8rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1.5rem', transform: 'translateZ(40px)' }}>{item.title}</h3>
+                  <p style={{ color: '#666', lineHeight: '1.8', fontSize: '1.1rem', transform: 'translateZ(20px)' }}>{item.desc}</p>
+                </div>
+              </InteractiveCard>
             ))}
           </div>
         </div>
