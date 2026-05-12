@@ -249,31 +249,38 @@ const Yoga = () => {
             {[
               { 
                 step: "01", 
-                title: "Deep Breathing (Pranayama)", 
-                desc: "Start with calm, rhythmic breathing to focus your mind and oxygenate your body.",
-                color: "#fff",
-                gif: enjoyGif
-              },
-              { 
-                step: "02", 
-                title: "Warm-up (Sukshma Vyayama)", 
+                title: "Warm-up", 
                 desc: "Gently rotate your joints and stretch your muscles to prepare for deeper asanas.",
                 color: "#fff",
                 gif: yogaGiphy
               },
               { 
+                step: "02", 
+                title: "Breathing exercises", 
+                desc: "Focus on rhythmic breathing to calm the nervous system and increase lung capacity.",
+                color: "#fff",
+                gif: enjoyGif
+              },
+              { 
                 step: "03", 
-                title: "Sun Salutation (Surya Namaskar)", 
-                desc: "Perform this dynamic sequence of 12 postures to build strength and flexibility.",
+                title: "Yoga poses (Asanas)", 
+                desc: "Practice physical postures to improve balance, strength, and inner flexibility.",
                 color: "#fff",
                 gif: creativityGif
               },
               { 
                 step: "04", 
-                title: "Final Relaxation (Shavasana)", 
-                desc: "Lie still and let your body absorb the benefits of the practice through total stillness.",
+                title: "Relaxation", 
+                desc: "Allow your body to recover and integrate the energy generated during the practice.",
                 color: "#fff",
                 gif: enjoyGif
+              },
+              { 
+                step: "05", 
+                title: "Meditation", 
+                desc: "Cultivate awareness and mental clarity through focused silence and inner stillness.",
+                color: "#fff",
+                gif: yogaGiphy
               }
             ].map((item, idx) => (
               <motion.div 
