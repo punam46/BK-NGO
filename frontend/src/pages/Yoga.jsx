@@ -381,20 +381,47 @@ const Yoga = () => {
       </section>
 
       {/* Impact Stats Banner */}
-      <section style={{ padding: '6rem 5%', background: '#d4af37', color: '#fff' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '3rem' }}>
-          <div style={{ textAlign: 'center' }}>
-            <h3 style={{ fontSize: '4rem', fontWeight: '900', margin: 0 }}>5k+</h3>
-            <p style={{ fontSize: '1rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.9 }}>Participants</p>
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <h3 style={{ fontSize: '4rem', fontWeight: '900', margin: 0 }}>50+</h3>
-            <p style={{ fontSize: '1rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.9 }}>Villages Reached</p>
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <h3 style={{ fontSize: '4rem', fontWeight: '900', margin: 0 }}>24/7</h3>
-            <p style={{ fontSize: '1rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.9 }}>Community Support</p>
-          </div>
+      <section style={{ 
+        padding: '8rem 5%', 
+        background: `
+          radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+          radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 40%),
+          #fff
+        `,
+        color: '#1a1a1a',
+        borderTop: '1px solid rgba(212, 175, 55, 0.1)',
+        borderBottom: '1px solid rgba(212, 175, 55, 0.1)'
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '4rem' }}>
+          {[
+            { label: 'Participants', value: '5k+' },
+            { label: 'Villages Reached', value: '50+' },
+            { label: 'Community Support', value: '24/7' }
+          ].map((stat, i) => (
+            <InteractiveCard key={i} style={{ minWidth: '250px' }}>
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '3rem', 
+                background: '#fff', 
+                borderRadius: '30px',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.03)',
+                border: '1px solid rgba(212, 175, 55, 0.05)',
+                transform: 'translateZ(50px)',
+                transformStyle: 'preserve-3d'
+              }}>
+                <h3 style={{ fontSize: '4.5rem', fontWeight: '900', margin: 0, color: '#d4af37', transform: 'translateZ(40px)' }}>{stat.value}</h3>
+                <p style={{ 
+                  fontSize: '1rem', 
+                  fontWeight: '700', 
+                  textTransform: 'uppercase', 
+                  letterSpacing: '2px', 
+                  color: '#888',
+                  marginTop: '1rem',
+                  transform: 'translateZ(20px)'
+                }}>{stat.label}</p>
+              </div>
+            </InteractiveCard>
+          ))}
         </div>
       </section>
 
