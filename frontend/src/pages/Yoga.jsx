@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import { renderText } from './Education';
-import yogaHeroImg from '../assets/ChatGPT Image May 12, 2026, 04_36_55 PM.png';
+import yogaHeroImg from '../assets/yoga_hero.png';
 import yogaMeditationImg from '../assets/yoga_meditation.png';
 import yogaCommunityImg from '../assets/yoga_community.png';
 import yogaBannerImg from '../assets/yoga_banner.png';
@@ -14,6 +14,7 @@ import yogaPosesVideo from '../assets/8AqW8zd7U12z6SeJJ9.webm';
 import stretchingVideo from '../assets/dz3qitg2SOA5SlunJ3.webm';
 import meditationVideo from '../assets/1Me8VR7912RO2k1Jeu.webm';
 import relaxationVideo from '../assets/0neAdz31x259D4a8LW.webm';
+import yogaBasicsFooterImg from '../assets/ChatGPT Image May 12, 2026, 04_36_55 PM.png';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -311,6 +312,25 @@ const Yoga = () => {
               </motion.div>
             ))}
           </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            style={{ 
+              marginTop: '8rem',
+              borderRadius: '40px',
+              overflow: 'hidden',
+              boxShadow: '0 30px 60px rgba(0,0,0,0.1)',
+              border: '1px solid rgba(212, 175, 55, 0.1)'
+            }}
+          >
+            <img 
+              src={yogaBasicsFooterImg} 
+              alt="Yoga Practice" 
+              style={{ width: '100%', height: 'auto', display: 'block' }} 
+            />
+          </motion.div>
         </div>
       </section>
 
