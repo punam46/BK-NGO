@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import bloodCampImg from '../assets/g16.jpeg';
 import seniorWelfareImg from '../assets/G42.jpeg';
 import tribalHeroNew from '../assets/TRIBAL2.jpg';
+import yogaHeroImg from '../assets/yoga_hero.png';
 // Using the new tribal hero asset for consistency
 const tribalImg = tribalHeroNew;
 
@@ -227,7 +228,7 @@ const Programs = () => {
       description: "Promoting physical health and mental serenity through structured yoga and meditation programs for all age groups in rural areas.\n\nOur initiatives focus on teaching traditional asanas, breathing techniques (pranayama), and mindfulness practices to help individuals manage stress, improve flexibility, and foster a holistic approach to well-being. We believe that a healthy body and a calm mind are the foundations for a prosperous community.",
       icon: "🧘‍♂️",
       color: "#009688",
-      image: "/yoga_hero.png",
+      image: yogaHeroImg,
       link: "/programs/yoga"
     },
     {
