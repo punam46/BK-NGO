@@ -7,6 +7,8 @@ import yogaCommunityImg from '../assets/yoga_community.png';
 import yogaBannerImg from '../assets/yoga_banner.png';
 import yogaInstructorImg from '../assets/yoga_instructor.png';
 import yogaGiphy from '../assets/giphy.gif';
+import enjoyGif from '../assets/enjoy.gif';
+import creativityGif from '../assets/Creativity Comes From Within.gif';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -249,7 +251,8 @@ const Yoga = () => {
                 step: "01", 
                 title: "Deep Breathing (Pranayama)", 
                 desc: "Start with calm, rhythmic breathing to focus your mind and oxygenate your body.",
-                color: "#fff"
+                color: "#fff",
+                gif: enjoyGif
               },
               { 
                 step: "02", 
@@ -262,13 +265,15 @@ const Yoga = () => {
                 step: "03", 
                 title: "Sun Salutation (Surya Namaskar)", 
                 desc: "Perform this dynamic sequence of 12 postures to build strength and flexibility.",
-                color: "#fff"
+                color: "#fff",
+                gif: creativityGif
               },
               { 
                 step: "04", 
                 title: "Final Relaxation (Shavasana)", 
                 desc: "Lie still and let your body absorb the benefits of the practice through total stillness.",
-                color: "#fff"
+                color: "#fff",
+                gif: enjoyGif
               }
             ].map((item, idx) => (
               <motion.div 
