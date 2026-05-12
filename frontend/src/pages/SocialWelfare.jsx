@@ -134,21 +134,32 @@ const SocialWelfare = () => {
   ];
 
   const [dynamicEvents, setDynamicEvents] = useState([]);
+  const [dynamicVolunteerImages, setDynamicVolunteerImages] = useState([]);
   const [allEvents, setAllEvents] = useState(featuredEvents);
+  const [allVolunteerImages, setAllVolunteerImages] = useState([]);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/successful-programs');
-        const data = await response.json();
-        setDynamicEvents(data);
-        // Combine static and dynamic events, showing dynamic ones first
-        setAllEvents([...data, ...featuredEvents]);
+        const [eventsRes, imagesRes] = await Promise.all([
+          fetch('http://localhost:5000/api/successful-programs'),
+          fetch('http://localhost:5000/api/volunteer-action-images')
+        ]);
+        
+        const eventsData = await eventsRes.json();
+        const imagesData = await imagesRes.json();
+        
+        setDynamicEvents(eventsData);
+        setAllEvents([...eventsData, ...featuredEvents]);
+        
+        const dynamicSrcs = imagesData.map(img => img.src);
+        setDynamicVolunteerImages(dynamicSrcs);
+        setAllVolunteerImages([...dynamicSrcs, ...volunteerImages]);
       } catch (error) {
-        console.error('Error fetching successful programs:', error);
+        console.error('Error fetching social welfare data:', error);
       }
     };
-    fetchEvents();
+    fetchData();
   }, []);
 
   const [activeEvent, setActiveEvent] = useState(0);
@@ -992,7 +1003,7 @@ const SocialWelfare = () => {
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             style={{ display: 'flex', gap: '2rem', paddingLeft: '2rem' }}
           >
-            {[...volunteerImages, ...volunteerImages].map((img, idx) => (
+            {[...allVolunteerImages, ...allVolunteerImages].map((img, idx) => (
               <motion.div 
                 key={idx}
                 whileHover={{ y: -15, scale: 1.02 }}

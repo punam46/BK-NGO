@@ -9,7 +9,8 @@ const Admin = () => {
     certifications: [], 
     publications: [],
     programs: [],
-    successfulPrograms: [] 
+    successfulPrograms: [],
+    volunteerActionImages: [] 
   });
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -21,21 +22,23 @@ const Admin = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [photosRes, certsRes, pubsRes, programsRes, successRes] = await Promise.all([
+      const [res1, res2, res3, res4, res5, res6] = await Promise.all([
         fetch('http://localhost:5000/api/photos'),
         fetch('http://localhost:5000/api/certifications'),
         fetch('http://localhost:5000/api/publications'),
         fetch('http://localhost:5000/api/programs'),
-        fetch('http://localhost:5000/api/successful-programs')
+        fetch('http://localhost:5000/api/successful-programs'),
+        fetch('http://localhost:5000/api/volunteer-action-images')
       ]);
 
-      const photos = await photosRes.json();
-      const certifications = await certsRes.json();
-      const publications = await pubsRes.json();
-      const programs = await programsRes.json();
-      const successfulPrograms = await successRes.json();
+      const photos = await res1.json();
+      const certifications = await res2.json();
+      const publications = await res3.json();
+      const programs = await res4.json();
+      const successfulPrograms = await res5.json();
+      const volunteerActionImages = await res6.json();
 
-      setData({ photos, certifications, publications, programs, successfulPrograms });
+      setData({ photos, certifications, publications, programs, successfulPrograms, volunteerActionImages });
     } catch (error) {
       console.error('Error fetching admin data:', error);
     } finally {
@@ -56,6 +59,7 @@ const Admin = () => {
     if (type === 'pub') endpoint = `http://localhost:5000/api/publications/${id}`;
     if (type === 'program') endpoint = `http://localhost:5000/api/programs/${id}`;
     if (type === 'successful-program') endpoint = `http://localhost:5000/api/successful-programs/${id}`;
+    if (type === 'volunteer-action-image') endpoint = `http://localhost:5000/api/volunteer-action-images/${id}`;
 
     try {
       const response = await fetch(endpoint, { method: 'DELETE' });
@@ -112,6 +116,7 @@ const Admin = () => {
     if (modalType === 'pub') endpoint = 'http://localhost:5000/api/publications';
     if (modalType === 'program') endpoint = 'http://localhost:5000/api/programs';
     if (modalType === 'successful-program') endpoint = 'http://localhost:5000/api/successful-programs';
+    if (modalType === 'volunteer-action-image') endpoint = 'http://localhost:5000/api/volunteer-action-images';
 
     if (isEditing) {
       endpoint = `${endpoint}/${editId}`;
@@ -181,6 +186,7 @@ const Admin = () => {
 
         <SidebarItem id="programs" icon={Zap} label="Our Programs" />
         <SidebarItem id="successfulPrograms" icon={HandHeart} label="Successful Programs" />
+        <SidebarItem id="volunteerActionImages" icon={Users} label="Volunteers in Action" />
         <SidebarItem id="photos" icon={Image} label="Gallery Management" />
         <SidebarItem id="certifications" icon={Settings} label="Certifications" />
         <SidebarItem id="publications" icon={Tag} label="Media & News" />
@@ -426,7 +432,36 @@ const Admin = () => {
                 </div>
               </div>
             )}
-          </motion.div>
+            {activeTab === 'volunteerActionImages' && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '2rem' }}>
+                {data.volunteerActionImages.map((image) => (
+                  <div key={image._id} style={{ 
+                    background: '#fff', 
+                    borderRadius: '16px', 
+                    overflow: 'hidden', 
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)' 
+                  }}>
+                    <img src={image.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+                    <div style={{ padding: '1.5rem', display: 'flex', justifyContent: 'flex-end', gap: '15px' }}>
+                      <button onClick={() => handleDelete(image._id, 'volunteer-action-image')} style={{ color: '#e53935', border: 'none', background: 'transparent', cursor: 'pointer' }}><Trash2 size={24} /></button>
+                    </div>
+                  </div>
+                ))}
+                <div 
+                  onClick={() => { setModalType('volunteer-action-image'); setShowModal(true); setFormData({}); setIsEditing(false); }}
+                  style={{ 
+                    border: '2px dashed #ddd', 
+                    borderRadius: '16px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    minHeight: '240px',
+                    cursor: 'pointer'
+                  }}>
+                  <p style={{ color: '#888', fontWeight: '700' }}>+ Add Action Photo</p>
+                </div>
+              </div>
+            )}
         )}
       </main>
 
@@ -534,6 +569,15 @@ const Admin = () => {
                     </select>
                   </div>
                   <textarea placeholder="Success Story Description (Full Content)" defaultValue={formData.desc} onChange={(e) => setFormData({...formData, desc: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', minHeight: '150px' }} required />
+                </>
+              )}
+              {modalType === 'volunteer-action-image' && (
+                <>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <label style={{ fontSize: '0.85rem', fontWeight: '700', color: '#666' }}>Upload Action Photo</label>
+                    <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'src')} style={{ padding: '0.5rem' }} required />
+                  </div>
+                  <input type="text" placeholder="Alt Text (Optional)" defaultValue={formData.alt} onChange={(e) => setFormData({...formData, alt: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} />
                 </>
               )}
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>

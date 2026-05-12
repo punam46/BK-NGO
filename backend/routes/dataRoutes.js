@@ -1,9 +1,9 @@
 import express from 'express';
 import { 
-  getPrograms, getPhotos, getCertifications, getPublications, getSuccessfulPrograms,
-  createPhoto, createCertification, createPublication, createProgram, createSuccessfulProgram,
-  deletePhoto, deleteCertification, deletePublication, deleteProgram, deleteSuccessfulProgram,
-  updatePhoto, updateCertification, updatePublication, updateProgram, updateSuccessfulProgram,
+  getPrograms, getPhotos, getCertifications, getPublications, getSuccessfulPrograms, getVolunteerActionImages,
+  createPhoto, createCertification, createPublication, createProgram, createSuccessfulProgram, createVolunteerActionImage,
+  deletePhoto, deleteCertification, deletePublication, deleteProgram, deleteSuccessfulProgram, deleteVolunteerActionImage,
+  updatePhoto, updateCertification, updatePublication, updateProgram, updateSuccessfulProgram, updateVolunteerActionImage,
   getViews, incrementViews
 } from '../controllers/dataController.js';
 
@@ -46,5 +46,12 @@ router.route('/successful-programs')
 router.route('/successful-programs/:id')
   .delete(deleteSuccessfulProgram)
   .put(updateSuccessfulProgram);
+
+router.route('/volunteer-action-images')
+  .get(getVolunteerActionImages)
+  .post(createVolunteerActionImage);
+router.route('/volunteer-action-images/:id')
+  .delete(deleteVolunteerActionImage)
+  .put(updateVolunteerActionImage);
 
 export default router;

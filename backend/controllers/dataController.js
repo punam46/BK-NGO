@@ -3,6 +3,7 @@ import Photo from '../models/Photo.js';
 import Certification from '../models/Certification.js';
 import Publication from '../models/Publication.js';
 import SuccessfulProgram from '../models/SuccessfulProgram.js';
+import VolunteerActionImage from '../models/VolunteerActionImage.js';
 import Counter from '../models/Counter.js';
 import Visitor from '../models/Visitor.js';
 
@@ -67,6 +68,11 @@ export const getSuccessfulPrograms = async (req, res) => {
   const programs = await SuccessfulProgram.find({}).sort({ createdAt: -1 });
   res.json(programs);
 };
+// @desc    Get all volunteer action images
+export const getVolunteerActionImages = async (req, res) => {
+  const images = await VolunteerActionImage.find({}).sort({ createdAt: -1 });
+  res.json(images);
+};
 
 // CREATE FUNCTIONS
 export const createPhoto = async (req, res) => {
@@ -92,6 +98,10 @@ export const createProgram = async (req, res) => {
 export const createSuccessfulProgram = async (req, res) => {
   const program = await SuccessfulProgram.create(req.body);
   res.status(201).json(program);
+};
+export const createVolunteerActionImage = async (req, res) => {
+  const image = await VolunteerActionImage.create(req.body);
+  res.status(201).json(image);
 };
 
 // DELETE FUNCTIONS
@@ -119,6 +129,10 @@ export const deleteSuccessfulProgram = async (req, res) => {
   await SuccessfulProgram.findByIdAndDelete(req.params.id);
   res.json({ message: 'Successful Program removed' });
 };
+export const deleteVolunteerActionImage = async (req, res) => {
+  await VolunteerActionImage.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Volunteer action image removed' });
+};
 
 // UPDATE FUNCTIONS (Generic for now)
 export const updatePhoto = async (req, res) => {
@@ -144,4 +158,8 @@ export const updateProgram = async (req, res) => {
 export const updateSuccessfulProgram = async (req, res) => {
   const program = await SuccessfulProgram.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.json(program);
+};
+export const updateVolunteerActionImage = async (req, res) => {
+  const image = await VolunteerActionImage.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(image);
 };
