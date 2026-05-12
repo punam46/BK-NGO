@@ -10,6 +10,7 @@ import yogaGiphy from '../assets/Yoga.gif';
 import enjoyGif from '../assets/enjoy.gif';
 import creativityGif from '../assets/Creativity Comes From Within.gif';
 import breathingGif from '../assets/Deep Breathing Meditation Animation.gif';
+import yogaPosesVideo from '../assets/8AqW8zd7U12z6SeJJ9.webm';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -267,7 +268,8 @@ const Yoga = () => {
                 title: "Yoga poses (Asanas)", 
                 desc: "Practice physical postures to improve balance, strength, and inner flexibility.",
                 color: "#fff",
-                gif: creativityGif
+                gif: yogaPosesVideo,
+                isVideo: true
               },
               { 
                 step: "04", 
@@ -314,7 +316,18 @@ const Yoga = () => {
                     opacity: 1,
                     zIndex: 0
                   }}>
-                    <img src={item.gif} alt="Yoga animation" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    {item.isVideo ? (
+                      <video 
+                        src={item.gif} 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline 
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                      />
+                    ) : (
+                      <img src={item.gif} alt="Yoga animation" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    )}
                   </div>
                 )}
                 <span style={{ 
