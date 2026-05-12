@@ -312,26 +312,24 @@ const Yoga = () => {
               </motion.div>
             ))}
           </div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{ 
-              marginTop: '8rem',
-              borderRadius: '40px',
-              overflow: 'hidden',
-              boxShadow: '0 30px 60px rgba(0,0,0,0.1)',
-              border: '1px solid rgba(212, 175, 55, 0.1)'
-            }}
-          >
-            <img 
-              src={yogaBasicsFooterImg} 
-              alt="Yoga Practice" 
-              style={{ width: '100%', height: 'auto', display: 'block' }} 
-            />
-          </motion.div>
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          style={{ 
+            width: '100%',
+            marginTop: '8rem',
+            overflow: 'hidden'
+          }}
+        >
+          <img 
+            src={yogaBasicsFooterImg} 
+            alt="Yoga Practice" 
+            style={{ width: '100%', height: 'auto', display: 'block' }} 
+          />
+        </motion.div>
       </section>
 
 
