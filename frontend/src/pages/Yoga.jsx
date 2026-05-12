@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import { renderText } from './Education';
 import yogaHeroImg from '../assets/yoga_hero.png';
 import yogaMeditationImg from '../assets/yoga_meditation.png';
 import yogaCommunityImg from '../assets/yoga_community.png';
 import yogaBannerImg from '../assets/yoga_banner.png';
 import yogaInstructorImg from '../assets/yoga_instructor.png';
-import { Leaf, Wind, Heart, Zap, Award, Users } from 'lucide-react';
+import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
   const x = useMotionValue(0);
@@ -97,6 +97,7 @@ const BreathingCircle = () => {
 };
 
 const Yoga = () => {
+  const [activeVideo, setActiveVideo] = useState(null);
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
@@ -185,9 +186,33 @@ const Yoga = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            style={{ fontSize: '1.4rem', color: '#ccc', lineHeight: '1.6', fontWeight: '300' }}>
+            style={{ fontSize: '1.4rem', color: '#ccc', lineHeight: '1.6', fontWeight: '300', marginBottom: '3rem' }}>
             Empowering rural India through the ancient science of Yoga and holistic wellness.
           </motion.p>
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            onClick={() => setActiveVideo('nQwO5gABZIs')}
+            style={{
+              background: 'rgba(255, 204, 0, 0.1)',
+              color: '#ffcc00',
+              padding: '1.2rem 2.5rem',
+              borderRadius: '50px',
+              border: '2px solid #ffcc00',
+              fontSize: '1rem',
+              fontWeight: '900',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              margin: '0 auto',
+              transition: 'all 0.3s ease'
+            }}
+            whileHover={{ background: '#ffcc00', color: '#000', scale: 1.05 }}
+          >
+            <Play size={20} fill="currentColor" /> WATCH IMPACT
+          </motion.button>
         </div>
 
         {/* Scroll Indicator */}
@@ -358,6 +383,74 @@ const Yoga = () => {
         </div>
       </section>
 
+      {/* Yoga in Action - Interactive Video Section */}
+      <section style={{ padding: '8rem 5%', background: '#0a0a0a', position: 'relative' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '4rem', color: '#fff' }}>Yoga in <span style={{ color: '#ffcc00' }}>Action</span></h2>
+          
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            onClick={() => setActiveVideo('nQwO5gABZIs')}
+            style={{
+              width: '100%',
+              maxWidth: '900px',
+              margin: '0 auto',
+              aspectRatio: '16/9',
+              borderRadius: '40px',
+              overflow: 'hidden',
+              position: 'relative',
+              cursor: 'pointer',
+              boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
+              border: '2px solid rgba(255, 204, 0, 0.2)'
+            }}
+          >
+            <img 
+              src={yogaBannerImg} 
+              alt="Video Preview" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.7 }} 
+            />
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(0,0,0,0.3)',
+              transition: 'background 0.3s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.1)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.3)'}
+            >
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  background: '#ffcc00',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 0 50px rgba(255, 204, 0, 0.4)'
+                }}
+              >
+                <Play size={40} fill="#000" color="#000" />
+              </motion.div>
+            </div>
+            <div style={{
+              position: 'absolute',
+              bottom: '40px',
+              left: '40px',
+              textAlign: 'left'
+            }}>
+              <h3 style={{ fontSize: '1.8rem', fontWeight: '900', color: '#fff', margin: 0 }}>Watch Our Rural Mission</h3>
+              <p style={{ color: '#ccc', margin: '10px 0 0' }}>Experience the transformation in remote villages.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Final Serenity Section */}
       <section style={{ 
         height: '80vh', 
@@ -396,6 +489,79 @@ const Yoga = () => {
           </button>
         </div>
       </section>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {activeVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveVideo(null)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,0.95)',
+              zIndex: 10000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px',
+              backdropFilter: 'blur(10px)'
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                width: '100%',
+                maxWidth: '1000px',
+                aspectRatio: '16/9',
+                background: '#000',
+                borderRadius: '30px',
+                overflow: 'hidden',
+                boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+                position: 'relative',
+                border: '1px solid rgba(255, 204, 0, 0.3)'
+              }}
+            >
+              <button
+                onClick={() => setActiveVideo(null)}
+                style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  background: 'rgba(255,204,0,0.9)',
+                  border: 'none',
+                  color: '#000',
+                  width: '45px',
+                  height: '45px',
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  zIndex: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 10px 20px rgba(0,0,0,0.3)'
+                }}
+              >
+                <X size={24} />
+              </button>
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
