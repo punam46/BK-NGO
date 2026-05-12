@@ -6,7 +6,7 @@ import yogaMeditationImg from '../assets/yoga_meditation.png';
 import yogaCommunityImg from '../assets/yoga_community.png';
 import yogaBannerImg from '../assets/yoga_banner.png';
 import yogaInstructorImg from '../assets/yoga_instructor.png';
-import yogaGiphy from '../assets/giphy.gif';
+import yogaGiphy from '../assets/Yoga.gif';
 import enjoyGif from '../assets/enjoy.gif';
 import creativityGif from '../assets/Creativity Comes From Within.gif';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
