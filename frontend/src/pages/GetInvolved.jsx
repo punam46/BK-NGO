@@ -141,6 +141,7 @@ const GetInvolved = () => {
     field: '',
     message: ''
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -151,6 +152,7 @@ const GetInvolved = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch('http://localhost:5000/api/volunteers', {
         method: 'POST',
@@ -164,11 +166,14 @@ const GetInvolved = () => {
         alert('Application submitted successfully!');
         setFormData({ name: '', email: '', phone: '', field: '', message: '' });
       } else {
-        alert('Something went wrong. Please try again.');
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message || 'Something went wrong. Please try again.'}`);
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Could not send application. Please check your connection.');
+      alert('Could not send application. Please ensure the backend server is running on port 5000.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -653,17 +658,24 @@ const GetInvolved = () => {
               </div>
 
               <div style={{ textAlign: 'center' }}>
-                <button type="submit" style={{ 
-                  background: 'var(--pratham-black)', 
-                  color: '#fff', 
-                  padding: '1.2rem 4rem', 
-                  fontSize: '1.1rem', 
-                  fontWeight: '700', 
-                  borderRadius: '12px', 
-                  border: 'none', 
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}>Submit Application</button>
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  style={{ 
+                    background: loading ? '#666' : 'var(--pratham-black)', 
+                    color: '#fff', 
+                    padding: '1.2rem 4rem', 
+                    fontSize: '1.1rem', 
+                    fontWeight: '700', 
+                    borderRadius: '12px', 
+                    border: 'none', 
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    opacity: loading ? 0.7 : 1
+                  }}
+                >
+                  {loading ? 'Sending...' : 'Submit Application'}
+                </button>
               </div>
             </form>
           </motion.div>
