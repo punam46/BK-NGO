@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import { renderText } from './Education';
-import yogaHeroImg from '../assets/yoga_hero.png';
+import yogaHeroImg from '../assets/ChatGPT Image May 12, 2026, 04_36_55 PM.png';
 import yogaMeditationImg from '../assets/yoga_meditation.png';
 import yogaCommunityImg from '../assets/yoga_community.png';
 import yogaBannerImg from '../assets/yoga_banner.png';
