@@ -323,71 +323,48 @@ const Yoga = () => {
 
 
 
-      {/* Interactive Breathing Tool */}
-      <section style={{ padding: '4rem 5% 10rem', background: 'linear-gradient(to bottom, #fff, #fcfcfc)', textAlign: 'center' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '3rem', fontWeight: '900', marginBottom: '2rem', color: '#1a1a1a' }}>Take a Moment.</h2>
-          <p style={{ fontSize: '1.2rem', color: '#666', marginBottom: '5rem' }}>Stress relief is just a few breaths away. Try our guided breathing rhythm.</p>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              padding: '3rem',
-              background: '#fff',
-              borderRadius: '50%',
-              width: '300px',
-              height: '300px',
-              border: '1px solid rgba(212, 175, 55, 0.1)',
-              position: 'relative',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.03)'
-            }}>
-              {/* Animated Lotus Petals */}
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  animate={{
-                    scale: phase === 'Inhale' ? [1, 1.4, 1.3] : [1.3, 0.8, 1],
-                    rotate: [i * 45, i * 45 + 10, i * 45],
-                    opacity: phase === 'Inhale' ? 0.4 : 0.1
-                  }}
-                  transition={{ 
-                    duration: phase === 'Inhale' ? 4 : 4, 
-                    ease: "easeInOut" 
-                  }}
-                  style={{
-                    width: '120px',
-                    height: '120px',
-                    background: `linear-gradient(45deg, #d4af37, #fdfcf0)`,
-                    borderRadius: '40% 60% 40% 60% / 40% 40% 60% 60%',
-                    position: 'absolute',
-                    transformOrigin: 'center center',
-                    filter: 'blur(2px)',
-                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.1)'
-                  }}
-                />
-              ))}
-
-              {/* Core Pulse */}
+      {/* Holistic Wellness Philosophy Section */}
+      <section style={{ padding: '8rem 5%', background: '#fff', textAlign: 'center' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '1.5rem', color: '#1a1a1a' }}>Holistic <span style={{ color: '#d4af37' }}>Impact</span></h2>
+          <p style={{ color: '#666', fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto 5rem' }}>Our mission goes beyond physical exercise. We aim to transform lives through a comprehensive approach to wellness.</p>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
+            {[
+              {
+                icon: <Heart size={40} color="#d4af37" />,
+                title: "Physical Vitality",
+                desc: "Improve strength, flexibility, and immunity through traditional asanas tailored for all ages and fitness levels."
+              },
+              {
+                icon: <Wind size={40} color="#d4af37" />,
+                title: "Mental Clarity",
+                desc: "Reduce stress and anxiety with powerful pranayama techniques that bring immediate calm and focus to the mind."
+              },
+              {
+                icon: <Leaf size={40} color="#d4af37" />,
+                title: "Spiritual Growth",
+                desc: "Reconnect with your inner self through guided meditation and mindfulness practices rooted in ancient wisdom."
+              }
+            ].map((item, i) => (
               <motion.div
-                animate={{
-                  scale: phase === 'Inhale' ? 1.8 : 1,
-                  opacity: phase === 'Inhale' ? 0.3 : 0.1
-                }}
-                transition={{ duration: 4, ease: "easeInOut" }}
+                key={i}
+                whileHover={{ y: -15 }}
                 style={{
-                  width: '150px',
-                  height: '150px',
-                  background: 'radial-gradient(circle, #d4af37, transparent)',
-                  borderRadius: '50%',
-                  filter: 'blur(40px)',
-                  position: 'absolute'
+                  padding: '4rem 3rem',
+                  background: '#fff',
+                  borderRadius: '30px',
+                  border: '1px solid #eee',
+                  textAlign: 'center',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.02)',
+                  transition: 'all 0.3s ease'
                 }}
-              />
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: '#d4af37', zIndex: 1, margin: 0 }}>{phase}</h3>
-              <p style={{ fontSize: '0.9rem', color: '#888', zIndex: 1, marginTop: '10px' }}>Follow the rhythm</p>
-            </div>
+              >
+                <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
+                <h3 style={{ fontSize: '1.8rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1.5rem' }}>{item.title}</h3>
+                <p style={{ color: '#666', lineHeight: '1.8', fontSize: '1.1rem' }}>{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
