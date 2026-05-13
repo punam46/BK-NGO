@@ -218,7 +218,7 @@ const Admin = () => {
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, marginLeft: '280px', padding: '3rem' }}>
+      <main style={{ flex: 1, marginLeft: '360px', padding: '4rem 3rem' }}>
         <header style={{ marginBottom: '3rem' }}>
           <h1 style={{ fontSize: '2.5rem', fontWeight: '800', textTransform: 'capitalize' }}>
             {activeTab.replace(/([A-Z])/g, ' $1')}
@@ -514,13 +514,16 @@ const Admin = () => {
               )}
               {modalType === 'pub' && (
                 <>
-                  <input type="text" placeholder="Title" onChange={(e) => setFormData({...formData, title: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} required />
+                  <input type="text" placeholder="Title" defaultValue={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} required />
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <input type="text" placeholder="Tag (e.g. IMPACT)" defaultValue={formData.tag} onChange={(e) => setFormData({...formData, tag: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} required />
+                    <input type="text" placeholder="Date (e.g. March 2024)" defaultValue={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} required />
+                  </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <label style={{ fontSize: '0.85rem', fontWeight: '700', color: '#666' }}>Upload Featured Image</label>
-                    <input type="file" accept="image/*" onChange={handleFileUpload} style={{ padding: '0.5rem' }} required />
+                    <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'src')} style={{ padding: '0.5rem' }} />
                   </div>
-                  <input type="text" placeholder="Tag (e.g. IMPACT)" onChange={(e) => setFormData({...formData, tag: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd' }} required />
-                  <textarea placeholder="Content" onChange={(e) => setFormData({...formData, fullContent: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', minHeight: '100px' }} required />
+                  <textarea placeholder="Content" defaultValue={formData.fullContent} onChange={(e) => setFormData({...formData, fullContent: e.target.value})} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', minHeight: '150px' }} required />
                 </>
               )}
               {modalType === 'program' && (

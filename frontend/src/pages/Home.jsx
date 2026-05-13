@@ -11,6 +11,8 @@ import socialWelfOriginal from '../assets/G42.jpeg';
 import bkLogo from '../assets/logo.jpeg';
 import g5 from '../assets/g5.jpg';
 import womenEmpowermentImg from '../assets/Women-Empowerment.webp';
+import newSmileImg from '../assets/6636163.jpg';
+import socialWelfareImg from '../assets/socialwelf.png';
 
 const Home = () => {
   const carouselRef = useRef(null);
@@ -48,11 +50,11 @@ const Home = () => {
     {
       title: "Women Safety & Empowerment",
       text: "Conducting self-defense training and legal awareness workshops to ensure a secure and empowered future for every woman.",
-      image: womenEmpowermentImg,
+      image: newSmileImg,
       layout: "magazine",
-      bgPosition: "15% 10%",
-      bgSize: "cover",
-      bgColor: "#f0f9ff"
+      bgPosition: "left center",
+      bgSize: "contain",
+      bgColor: "#9b4b45"
     },
     {
       title: "Every Smile Tells a Story of Hope",
@@ -216,7 +218,7 @@ const Home = () => {
         style={{ 
           backgroundImage: 'url("/watercolor_children_group.png")',
           width: '100%',
-          minHeight: '400px',
+          minHeight: '900px',
           height: 'auto',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -237,7 +239,7 @@ const Home = () => {
           left: 0,
           width: '100%',
           height: '240px',
-          background: '#e0f2fe',
+          background: 'linear-gradient(to bottom, transparent, #e0f2fe)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -332,9 +334,11 @@ const Home = () => {
 
         <div className="container" style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
-          gap: '2.5rem',
-          padding: '0 4%',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+          gap: '2rem',
+          padding: '0 2%',
+          maxWidth: '1600px',
+          margin: '0 auto',
           position: 'relative',
           zIndex: 5
         }}>
@@ -351,7 +355,7 @@ const Home = () => {
               borderRadius: '16px', 
               textAlign: 'center', 
               padding: '2.5rem 2rem',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.06)',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05)',
               transition: 'all 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
               position: 'relative',
               overflow: 'hidden',
@@ -390,7 +394,7 @@ const Home = () => {
               borderRadius: '16px', 
               textAlign: 'center', 
               padding: '2.5rem 2rem',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.06)',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05)',
               transition: 'all 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
               position: 'relative',
               overflow: 'hidden',
@@ -400,7 +404,7 @@ const Home = () => {
           >
 
             <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src={socialWelfOriginal} alt="Social Work" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <img src={socialWelfareImg} alt="Social Work" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 1 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 1 ? 1 : undefined,
@@ -429,7 +433,7 @@ const Home = () => {
               borderRadius: '16px', 
               textAlign: 'center', 
               padding: '2.5rem 2rem',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.06)',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05)',
               transition: 'all 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
               position: 'relative',
               overflow: 'hidden',
@@ -468,7 +472,7 @@ const Home = () => {
               borderRadius: '16px', 
               textAlign: 'center', 
               padding: '2.5rem 2rem',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.06)',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05)',
               transition: 'all 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
               position: 'relative',
               overflow: 'hidden',

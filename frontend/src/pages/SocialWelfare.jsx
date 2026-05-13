@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Users, 
-  Heart, 
-  ShieldCheck, 
-  Search, 
-  Zap, 
-  Activity, 
-  BarChart3, 
+import {
+  Users,
+  Heart,
+  ShieldCheck,
+  Search,
+  Zap,
+  Activity,
+  BarChart3,
   ArrowRight,
   MapPin,
   Droplets,
@@ -133,10 +133,15 @@ const SocialWelfare = () => {
     }
   ];
 
+  const volunteerImages = [
+    g18, g32, socialWelfImg, g54, g55, g16, g5,
+    g17, g19, g20, g21, g25, g29, g30, G45, G50, G51, g52
+  ];
+
   const [dynamicEvents, setDynamicEvents] = useState([]);
   const [dynamicVolunteerImages, setDynamicVolunteerImages] = useState([]);
   const [allEvents, setAllEvents] = useState(featuredEvents);
-  const [allVolunteerImages, setAllVolunteerImages] = useState([]);
+  const [allVolunteerImages, setAllVolunteerImages] = useState(volunteerImages);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -145,13 +150,13 @@ const SocialWelfare = () => {
           fetch('http://localhost:5000/api/successful-programs'),
           fetch('http://localhost:5000/api/volunteer-action-images')
         ]);
-        
+
         const eventsData = await eventsRes.json();
         const imagesData = await imagesRes.json();
-        
+
         setDynamicEvents(eventsData);
         setAllEvents([...eventsData, ...featuredEvents]);
-        
+
         const dynamicSrcs = imagesData.map(img => img.src);
         setDynamicVolunteerImages(dynamicSrcs);
         setAllVolunteerImages([...dynamicSrcs, ...volunteerImages]);
@@ -163,6 +168,27 @@ const SocialWelfare = () => {
   }, []);
 
   const [activeEvent, setActiveEvent] = useState(0);
+  const [activeReviewSlide, setActiveReviewSlide] = useState(0);
+
+  const welfareReviews = [
+    {
+      quote: "The vocational courses offered by BK Education and Welfare Society are practical and industry-relevant. I gained the skills needed to start my own small enterprise right after completing my training.",
+      author: "Vikram Mehta",
+      role: "Vocational Training Graduate"
+    },
+    {
+      quote: "The senior support program has been a blessing. They don't just provide food; they provide companionship and care that we often miss in our later years.",
+      author: "Savitri Devi",
+      role: "Senior Program Beneficiary"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveReviewSlide((prev) => (prev + 1) % welfareReviews.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (allEvents.length === 0) return;
@@ -177,10 +203,6 @@ const SocialWelfare = () => {
     g5, g16, g18, g22, g25, g55, g54, g52, socialWelfImg // Duplicate for seamless loop
   ];
 
-  const volunteerImages = [
-    g18, g32, socialWelfImg, g54, g55, g16, g5, 
-    g17, g19, g20, g21, g25, g29, g30, G45, G50, G51, g52
-  ];
 
   const stats = [
     { label: "Lives Impacted", value: "50k+", icon: <Heart className="w-6 h-6" /> },
@@ -257,45 +279,45 @@ const SocialWelfare = () => {
 
   return (
     <div className="sw-page" style={{ background: '#fff9f2', minHeight: '100vh', overflowX: 'hidden' }} ref={containerRef}>
-      
+
       {/* ===== Hero Section ===== */}
       {/* ===== Hero Section ===== */}
-      <section style={{ 
-        padding: '1rem 5% 4rem', 
+      <section style={{
+        padding: '1rem 5% 4rem',
         background: '#fff',
         position: 'relative',
         overflow: 'visible'
       }}>
-        <div style={{ 
-          maxWidth: '1400px', 
-          margin: '0 auto', 
-          display: 'flex', 
-          flexWrap: 'wrap', 
-          alignItems: 'center', 
-          gap: '6rem' 
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          gap: '6rem'
         }}>
           <div style={{ flex: '0.8', minWidth: '320px' }}>
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               style={{ color: '#666', fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', display: 'block', marginBottom: '1.5rem' }}
             >
               • SOCIAL IMPACT DIRECT
             </motion.span>
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', fontWeight: 900, color: '#1a1a1a', lineHeight: 1, marginBottom: '2.5rem', letterSpacing: '-2px' }}
             >
               Upholding <br />
-              <span style={{ 
+              <span style={{
                 color: '#f97316',
                 textShadow: '0 1px 0 #c2410c, 0 2px 0 #c2410c, 0 3px 0 #c2410c, 0 4px 0 #c2410c, 0 10px 20px rgba(0,0,0,0.1)'
               }}>Dignity</span>, <br />
               Empowering <br /> Lives.
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -303,23 +325,23 @@ const SocialWelfare = () => {
             >
               Dedicated to human rights, legal aid, and social welfare across India. We believe every citizen deserves a life of respect and security.
             </motion.p>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}
             >
-              <motion.button 
+              <motion.button
                 whileHover={{ y: -4, boxShadow: '0 12px 0 #c2410c, 0 20px 40px rgba(249,115,22,0.4)' }}
                 whileTap={{ y: 8, boxShadow: '0 0px 0 #c2410c, 0 5px 10px rgba(249,115,22,0.2)' }}
                 onClick={() => navigate('/involved')}
-                style={{ 
-                  background: 'linear-gradient(to bottom, #fb923c, #f97316)', 
-                  color: '#fff', 
-                  padding: '1.2rem 2.8rem', 
-                  borderRadius: '20px', 
-                  border: 'none', 
-                  fontWeight: 900, 
+                style={{
+                  background: 'linear-gradient(to bottom, #fb923c, #f97316)',
+                  color: '#fff',
+                  padding: '1.2rem 2.8rem',
+                  borderRadius: '20px',
+                  border: 'none',
+                  fontWeight: 900,
                   cursor: 'pointer',
                   boxShadow: '0 8px 0 #c2410c, 0 15px 30px rgba(249,115,22,0.3)',
                   transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
@@ -330,20 +352,20 @@ const SocialWelfare = () => {
               >
                 Join Our Mission
               </motion.button>
-              
-              <motion.button 
+
+              <motion.button
                 whileHover={{ y: -4, boxShadow: '0 10px 0 #e5e5e5, 0 15px 30px rgba(0,0,0,0.05)' }}
                 whileTap={{ y: 6, boxShadow: '0 0px 0 #e5e5e5' }}
-                style={{ 
-                  background: '#fff', 
-                  border: '2px solid #f0f0f0', 
-                  color: '#1a1a1a', 
+                style={{
+                  background: '#fff',
+                  border: '2px solid #f0f0f0',
+                  color: '#1a1a1a',
                   padding: '1.1rem 2.2rem',
                   borderRadius: '20px',
-                  fontWeight: 900, 
-                  cursor: 'pointer', 
-                  display: 'flex', 
-                  alignItems: 'center', 
+                  fontWeight: 900,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
                   gap: '12px',
                   boxShadow: '0 6px 0 #e5e5e5, 0 10px 20px rgba(0,0,0,0.03)',
                   transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
@@ -353,92 +375,69 @@ const SocialWelfare = () => {
                 Learn More <ArrowRight size={20} color="#f97316" />
               </motion.button>
             </motion.div>
-          </div>
- 
-          {/* Right Content: Vertical 'Single Window' Slider - 3D Effect Fixed */}
-          <div style={{ 
-            flex: '0.85', 
-            position: 'relative', 
-            height: '600px', 
+          </div>          {/* Right Content: 3D Three-Circle Design */}
+          <div style={{
+            flex: '1.2',
+            position: 'relative',
+            height: '650px',
             display: windowWidth < 1024 ? 'none' : 'flex',
+            alignItems: 'center',
             justifyContent: 'center',
-            marginLeft: '4rem',
             perspective: '2000px',
             zIndex: 1
           }}>
-            {/* 3D Wrapper */}
-            <motion.div 
-              animate={{ 
-                rotateY: [3, -3, 3],
-                rotateX: [1, -1, 1]
-              }}
-              transition={{ 
-                duration: 8, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-              style={{ 
-                width: '100%', 
-                height: '100%', 
-                position: 'relative',
-                background: '#fff',
-                borderRadius: '40px',
-                boxShadow: '40px 50px 100px rgba(0,0,0,0.18)',
-                border: '1px solid #f0f0f0',
-                padding: '1.2rem',
-                transformStyle: 'preserve-3d'
-              }}
-            >
-              {/* Inner Marquee Container */}
-              <div style={{ 
-                width: '100%', 
-                height: '100%', 
-                position: 'relative', 
-                borderRadius: '28px', 
-                overflow: 'hidden',
-                background: '#fcfcfc',
-                transform: 'translateZ(10px)',
-                zIndex: 1
-              }}>
-                <motion.div 
-                  animate={{ y: [0, -6000] }}
-                  transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-                  style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}
-                >
-                  {[...verticalImages1, ...verticalImages2, ...verticalImages1, ...verticalImages2, ...verticalImages1, ...verticalImages2, ...verticalImages1, ...verticalImages2].map((img, i) => (
-                    <div key={i} style={{ 
-                      width: '100%', 
-                      height: '530px', 
+            <div style={{
+              width: '650px',
+              height: '550px',
+              borderRadius: '48px',
+              overflow: 'hidden',
+              border: '15px solid #fff',
+              boxShadow: '0 40px 100px rgba(0,0,0,0.2)',
+              position: 'relative',
+              background: '#fff'
+            }}>
+              <motion.div
+                animate={{ y: [0, -2500] }} // Adjust based on content height
+                transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '25px',
+                  padding: '25px'
+                }}
+              >
+                {[...sliderImages, ...sliderImages].map((img, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      width: '100%',
+                      height: '350px',
                       flexShrink: 0,
-                      borderRadius: '20px', 
+                      borderRadius: '32px',
                       overflow: 'hidden',
-                      boxShadow: '0 12px 30px rgba(0,0,0,0.06)'
-                    }}>
-                      <img src={img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Impact" />
-                    </div>
-                  ))}
-                </motion.div>
- 
-                {/* Glassmorphism Overlays */}
-                <div style={{
-                  position: 'absolute', top: 0, left: 0, width: '100%', height: '120px',
-                  background: 'linear-gradient(to bottom, #fff 15%, transparent 100%)',
-                  zIndex: 5
-                }}></div>
-                <div style={{
-                  position: 'absolute', bottom: 0, left: 0, width: '100%', height: '120px',
-                  background: 'linear-gradient(to top, #fff 15%, transparent 100%)',
-                  zIndex: 5
-                }}></div>
-              </div>
-            </motion.div>
- 
-            {/* Floating Badges - Moved OUTSIDE the 3D wrapper to prevent clipping */}
-            <motion.div 
+                      boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                      border: '1px solid #f0f0f0'
+                    }}
+                  >
+                    <img
+                      src={img}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      alt="Welfare Impact"
+                    />
+                  </div>
+                ))}
+              </motion.div>
+              {/* Fade overlays for smooth entry/exit */}
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100px', background: 'linear-gradient(to bottom, #fff, transparent)', zIndex: 2 }} />
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '100px', background: 'linear-gradient(to top, #fff, transparent)', zIndex: 2 }} />
+            </div>
+
+            {/* Floating Badges */}
+            <motion.div
               animate={{ y: [0, -20, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              style={{ 
-                position: 'absolute', top: '5%', right: '-30%', background: '#fff', 
+              style={{
+                position: 'absolute', top: '10%', right: '-10%', background: '#fff',
                 padding: '1.2rem 2.4rem', borderRadius: '24px', boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
                 display: 'flex', alignItems: 'center', gap: '1.2rem', zIndex: 1000,
                 border: '1px solid #f0f0f0',
@@ -446,639 +445,699 @@ const SocialWelfare = () => {
               }}
             >
               <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 15px #10b981' }}></div>
-              <span style={{ fontWeight: 900, fontSize: '1rem', color: '#1a1a1a', letterSpacing: '0.5px' }}>Active Impact</span>
+              <span style={{ fontWeight: 900, fontSize: '1rem', color: '#1a1a1a' }}>Direct Impact</span>
             </motion.div>
- 
-            <motion.div 
-              animate={{ 
-                y: [0, 20, 0],
-                scale: [1, 1.05, 1],
-                boxShadow: [
-                  '0 25px 50px rgba(249,115,22,0.5)',
-                  '0 35px 70px rgba(249,115,22,0.7)',
-                  '0 25px 50px rgba(249,115,22,0.5)'
-                ]
-              }}
-              transition={{ 
-                duration: 5, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-              style={{ 
-                position: 'absolute', top: '85%', left: '-30%', background: '#f97316', 
-                padding: '3rem 2.8rem', borderRadius: '28px', boxShadow: '0 25px 50px rgba(249,115,22,0.5)',
+
+            <motion.div
+              animate={{ y: [0, 20, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              style={{
+                position: 'absolute', bottom: '5%', left: '-5%', background: '#f97316',
+                padding: '1.5rem 2.5rem', borderRadius: '24px', boxShadow: '0 25px 50px rgba(249,115,22,0.4)',
                 display: 'flex', alignItems: 'center', gap: '1.2rem', zIndex: 1000, color: '#fff',
                 whiteSpace: 'nowrap'
               }}
             >
-              <ShieldCheck size={30} />
-              <span style={{ 
-                fontWeight: 900, 
-                fontSize: '1.1rem', 
-                letterSpacing: '1px', 
-                lineHeight: '1.1',
-                textAlign: 'left'
-              }}>
-                CERTIFIED <br /> NGO
-              </span>
+              <ShieldCheck size={24} />
+              <span style={{ fontWeight: 900, fontSize: '1rem' }}>CERTIFIED NGO</span>
             </motion.div>
+    </div>
+        </div >
+      </section >
+
+
+  <section style={{ padding: '4rem 5%', background: '#fff' }}>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem' }}>
+      {stats.map((stat, i) => (
+        <motion.div
+          key={i}
+          whileHover={{ y: -15, boxShadow: '0 20px 40px rgba(249,115,22,0.12)' }}
+          style={{
+            background: '#fff',
+            padding: '3rem 2rem',
+            borderRadius: '32px',
+            textAlign: 'center',
+            boxShadow: '0 12px 0 #fff7ed, 0 20px 40px rgba(0,0,0,0.03)',
+            border: '1px solid #ffedd5',
+            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            position: 'relative'
+          }}
+        >
+          <div style={{
+            width: '60px',
+            height: '60px',
+            background: '#fff7ed',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#f97316',
+            margin: '0 auto 1.5rem',
+            boxShadow: '0 10px 20px rgba(249,115,22,0.1)'
+          }}>
+            {stat.icon}
           </div>
-        </div>
-      </section>
+          <h3 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#1a1a1a', margin: '0 0 0.5rem 0' }}>{stat.value}</h3>
+          <p style={{ margin: 0, color: '#f97316', fontWeight: 800, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>{stat.label}</p>
+        </motion.div>
+      ))}
+    </div>
+  </section>
 
-      {/* ===== IMPACT STATS ===== */}
-      <section style={{ padding: '4rem 5%', background: '#fff' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem' }}>
-          {stats.map((stat, i) => (
-            <motion.div 
-              key={i}
-              whileHover={{ y: -15, boxShadow: '0 20px 40px rgba(249,115,22,0.12)' }}
-              style={{ 
-                background: '#fff', 
-                padding: '3rem 2rem', 
-                borderRadius: '32px', 
-                textAlign: 'center', 
-                boxShadow: '0 12px 0 #fff7ed, 0 20px 40px rgba(0,0,0,0.03)',
-                border: '1px solid #ffedd5',
-                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                position: 'relative'
-              }}
-            >
-              <div style={{ 
-                width: '60px', 
-                height: '60px', 
-                background: '#fff7ed', 
-                borderRadius: '16px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                color: '#f97316', 
-                margin: '0 auto 1.5rem',
-                boxShadow: '0 10px 20px rgba(249,115,22,0.1)'
-              }}>
-                {stat.icon}
-              </div>
-              <h3 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#1a1a1a', margin: '0 0 0.5rem 0' }}>{stat.value}</h3>
-              <p style={{ margin: 0, color: '#f97316', fontWeight: 800, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>{stat.label}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+{/* ===== OUR JOURNEY TIMELINE ===== */ }
+<section className="journey-section" style={{ padding: '0.5rem 0', background: '#fff' }}>
+  <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 5%' }}>
 
-      {/* ===== OUR JOURNEY TIMELINE ===== */}
-      <section className="journey-section" style={{ padding: '0.5rem 0', background: '#fff' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 5%' }}>
-          
-          <motion.div 
-            animate={{ 
-              y: [0, -8, 0],
-              rotateX: [0, 5, 0],
-              rotateY: [0, 5, 0]
-            }}
-            transition={{ 
-              duration: 4, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            style={{ 
-              display: 'inline-block', 
-              padding: '12px 32px', 
-              background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)', 
-              color: '#fff', 
-              borderRadius: '16px', 
-              fontSize: '1rem', 
-              fontWeight: 900, 
-              letterSpacing: '3px', 
-              marginBottom: '2rem',
-              position: 'relative',
-              left: '50%',
-              marginLeft: '-100px', // Half of approx width to center since we use position absolute-ish logic or just flex
-              boxShadow: '0 15px 35px rgba(249,115,22,0.4), inset 0 -4px 0 rgba(0,0,0,0.2)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              perspective: '1000px',
-              transformStyle: 'preserve-3d',
-              cursor: 'default'
-            }}
-          >
-            OUR JOURNEY
-          </motion.div>
+    <motion.div
+      animate={{
+        y: [0, -8, 0],
+        rotateX: [0, 5, 0],
+        rotateY: [0, 5, 0]
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+      style={{
+        display: 'inline-block',
+        padding: '12px 32px',
+        background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+        color: '#fff',
+        borderRadius: '16px',
+        fontSize: '1rem',
+        fontWeight: 900,
+        letterSpacing: '3px',
+        marginBottom: '2rem',
+        position: 'relative',
+        left: '50%',
+        marginLeft: '-100px', // Half of approx width to center since we use position absolute-ish logic or just flex
+        boxShadow: '0 15px 35px rgba(249,115,22,0.4), inset 0 -4px 0 rgba(0,0,0,0.2)',
+        border: '1px solid rgba(255,255,255,0.1)',
+        perspective: '1000px',
+        transformStyle: 'preserve-3d',
+        cursor: 'default'
+      }}
+    >
+      OUR JOURNEY
+    </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative' }}
-          >
-            <h2 style={{ 
-              fontSize: '3.5rem', 
-              fontWeight: 900, 
-              marginBottom: '1.5rem',
-              color: '#1a1a1a',
-              textShadow: '1px 1px 0px #ccc, 2px 2px 0px #bbb, 3px 3px 0px #aaa, 4px 4px 0px #999, 5px 5px 10px rgba(0,0,0,0.2)'
-            }}>
-              Social Welfare Milestones
-            </h2>
-            <p style={{ fontSize: '1.2rem', color: '#555', maxWidth: '800px', margin: '0 auto', lineHeight: '1.6' }}>
-              From initial community surveys to becoming a leading force in regional social security, track our evolution through the years.
-            </p>
-          </motion.div>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative' }}
+    >
+      <h2 style={{
+        fontSize: '3.5rem',
+        fontWeight: 900,
+        marginBottom: '1.5rem',
+        color: '#1a1a1a',
+        textShadow: '1px 1px 0px #ccc, 2px 2px 0px #bbb, 3px 3px 0px #aaa, 4px 4px 0px #999, 5px 5px 10px rgba(0,0,0,0.2)'
+      }}>
+        Social Welfare Milestones
+      </h2>
+      <p style={{ fontSize: '1.2rem', color: '#555', maxWidth: '800px', margin: '0 auto', lineHeight: '1.6' }}>
+        From initial community surveys to becoming a leading force in regional social security, track our evolution through the years.
+      </p>
+    </motion.div>
 
-          {/* Visual Timeline */}
-          <div 
-            ref={journeyRef}
-            className="hide-scrollbar" 
-            style={{ 
-              position: 'relative', 
-              padding: '12rem 0', 
-              overflowX: 'auto', 
-              msOverflowStyle: 'none', 
-              scrollbarWidth: 'none',
-              scrollBehavior: 'smooth'
-            }}
-          >
-            <style>{`
+    {/* Visual Timeline */}
+    <div
+      ref={journeyRef}
+      className="hide-scrollbar"
+      style={{
+        position: 'relative',
+        padding: '12rem 0',
+        overflowX: 'auto',
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+        scrollBehavior: 'smooth'
+      }}
+    >
+      <style>{`
               .hide-scrollbar::-webkit-scrollbar {
                 display: none;
               }
             `}</style>
-            {/* Horizontal Main Line */}
-            <div style={{ 
-              position: 'absolute', 
-              top: '50%', 
-              left: 0, 
-              width: journeyMilestones.length * 250 + 'px', 
-              height: '4px', 
-              background: 'linear-gradient(90deg, #ffedd5 0%, #f97316 50%, #ffedd5 100%)',
-              zIndex: 1
-            }} />
+      {/* Horizontal Main Line */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: 0,
+        width: journeyMilestones.length * 250 + 'px',
+        height: '4px',
+        background: 'linear-gradient(90deg, #ffedd5 0%, #f97316 50%, #ffedd5 100%)',
+        zIndex: 1
+      }} />
 
-            <div style={{ 
-              display: 'flex', 
-              gap: '0',
-              position: 'relative', 
-              zIndex: 2,
-              width: 'max-content'
-            }}>
-              {journeyMilestones.map((milestone, i) => (
-                <div key={i} style={{ width: '250px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  
-                  {/* Text Section (Above or Below) */}
-                  <motion.div 
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    style={{ 
-                      position: 'absolute', 
-                      [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 40px)', 
-                      left: 'calc(50% + 10px)', 
-                      width: '220px',
-                      textAlign: 'left'
-                    }}
-                  >
-                    <p style={{ fontSize: '1.05rem', color: '#555', lineHeight: '1.5', fontWeight: '600' }}>
-                      {milestone.text}
-                    </p>
-                  </motion.div>
-
-                  {/* Vertical Connector Line (Animated) */}
-                  <motion.div 
-                    initial={{ scaleY: 0, originY: milestone.pos === 'above' ? 1 : 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0 }}
-                    style={{ 
-                      position: 'absolute', 
-                      [milestone.pos === 'above' ? 'bottom' : 'top']: '50%', 
-                      left: '50%', 
-                      width: '3px', 
-                      height: '60px', 
-                      background: 'linear-gradient(to ' + (milestone.pos === 'above' ? 'bottom' : 'top') + ', #f97316, transparent)', 
-                      transform: 'translateX(-50%)' 
-                    }} />
-
-                  {/* Milestone Node (Circle) */}
-                  <motion.div 
-                    whileHover={{ scale: 1.3 }}
-                    style={{ 
-                      width: '45px', 
-                      height: '45px', 
-                      background: milestone.color, 
-                      borderRadius: '50%', 
-                      border: '6px solid #fff', 
-                      boxShadow: `0 0 20px ${milestone.color}66`, 
-                      zIndex: 5,
-                      cursor: 'pointer'
-                    }} 
-                  />
-
-                  {/* Optional Image */}
-                  {milestone.img && (
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.9, y: milestone.pos === 'above' ? -10 : 10 }}
-                      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.8 }}
-                      style={{ 
-                        position: 'absolute', 
-                        [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 40px)', 
-                        left: 'calc(50% + 10px)', 
-                        width: '200px', 
-                        height: '150px', 
-                        borderRadius: '24px', 
-                        overflow: 'hidden', 
-                        boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
-                        border: '1px solid #ffedd5'
-                      }}>
-                      <img src={milestone.img} alt={milestone.year} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-                    </motion.div>
-                  )}
-                </div>
-              ))}
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== PILLARS SECTION ===== */}
-      <section style={{ padding: '10rem 5% 6rem', background: '#fffcf8' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
-            <span style={{ color: '#f97316', fontWeight: 800, letterSpacing: '2px', fontSize: '0.9rem' }}>STRATEGIC FRAMEWORK</span>
-            <h2 style={{ fontSize: '3.5rem', fontWeight: 900, marginTop: '1rem' }}>Pillars of Transformation</h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem' }}>
-            {pillars.map((item, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -15 }}
-                transition={{ delay: i * 0.1 }}
-                style={{ 
-                  background: 'radial-gradient(circle at 10% 10%, rgba(16, 185, 129, 0.03) 0%, transparent 50%), radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.03) 0%, transparent 50%), #fff', 
-                  padding: '4rem 3rem', 
-                  borderRadius: '40px', 
-                  boxShadow: '0 15px 0 #fff7ed, 0 30px 60px rgba(249,115,22,0.12)', 
-                  textAlign: 'center',
-                  border: '1px solid #ffedd5',
-                  transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                  overflow: 'hidden',
-                  position: 'relative'
-                }}
-              >
-                {/* Watercolor effect blobs */}
-                <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: '150px', height: '150px', background: 'rgba(16, 185, 129, 0.04)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-                <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '150px', height: '150px', background: 'rgba(16, 185, 129, 0.04)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-                <div style={{ 
-                  width: '80px', 
-                  height: '80px', 
-                  background: '#fff7ed', 
-                  borderRadius: '20px', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  color: '#f97316', 
-                  margin: '0 auto 2.5rem',
-                  boxShadow: '0 15px 30px rgba(249,115,22,0.12)'
-                }}>
-                  {React.cloneElement(item.icon, { size: 32 })}
-                </div>
-                <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1.5rem' }}>{item.title}</h3>
-                <p style={{ color: '#666', lineHeight: 1.7, margin: '0 auto', fontSize: '1.1rem' }}>{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== OPERATIONAL RIGOR ===== */}
-      <section style={{ 
-        padding: '8rem 5%', 
-        background: '#0a0a0b', 
-        color: '#fff',
-        backgroundImage: 'radial-gradient(rgba(255,255,255,0.05) 1px, transparent 0)',
-        backgroundSize: '40px 40px',
-        position: 'relative'
+      <div style={{
+        display: 'flex',
+        gap: '0',
+        position: 'relative',
+        zIndex: 2,
+        width: 'max-content'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
-            <h2 style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '1.5rem' }}>Operational Rigor</h2>
-            <p style={{ color: '#666', fontSize: '1.2rem' }}>Our systematic approach to sustainable social impact</p>
-          </div>
+        {journeyMilestones.map((milestone, i) => (
+          <div key={i} style={{ width: '250px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
-            gap: '4rem',
-            position: 'relative'
-          }}>
-            {/* Connection Line */}
-            <div style={{ 
-              position: 'absolute', 
-              top: '40px', 
-              left: '10%', 
-              right: '10%', 
-              height: '2px', 
-              background: 'linear-gradient(90deg, transparent, rgba(249,115,22,0.3), transparent)', 
-              zIndex: 0,
-              display: 'none', // Shown on desktop
-              '@media (min-width: 1024px)': { display: 'block' }
-            }}></div>
-
-            {operationalSteps.map((step, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}
-              >
-                <div style={{ 
-                  width: '80px', height: '80px', 
-                  background: 'radial-gradient(circle at center, #fff 0%, #f97316 40%, #ea580c 100%)', 
-                  borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.8rem', fontWeight: 900, margin: '0 auto 2.5rem',
-                  boxShadow: '0 0 40px rgba(249,115,22,0.6), inset 0 0 15px rgba(255,255,255,0.8)',
-                  color: '#fff',
-                  transform: 'rotate(0deg)',
-                  border: '2px solid rgba(255,255,255,0.2)'
-                }}>
-                  {step.num}
-                </div>
-                <h4 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: '#fff' }}>{step.title}</h4>
-                <p style={{ color: '#aaa', lineHeight: 1.6 }}>{step.text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== FEATURED INITIATIVES SLIDER ===== */}
-      <section style={{ padding: '8rem 5% 4rem', background: '#fff' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          
-          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-            <motion.span 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            {/* Text Section (Above or Below) */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              style={{ color: '#f97316', fontWeight: 800, letterSpacing: '3px', fontSize: '1rem', textTransform: 'uppercase' }}
-            >
-              DRIVING REAL CHANGE
-            </motion.span>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              style={{ 
-                fontSize: '4rem', 
-                fontWeight: 900, 
-                marginTop: '1.5rem',
-                color: '#1a1a1a',
-                letterSpacing: '-2px',
-                textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5'
+              transition={{ duration: 0.6, delay: 0.5 }}
+              style={{
+                position: 'absolute',
+                [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 40px)',
+                left: 'calc(50% + 10px)',
+                width: '220px',
+                textAlign: 'left'
               }}
             >
-              Our Successful <span style={{ color: '#f97316' }}>Programs</span>
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              <p style={{ fontSize: '1.05rem', color: '#555', lineHeight: '1.5', fontWeight: '600' }}>
+                {milestone.text}
+              </p>
+            </motion.div>
+
+            {/* Vertical Connector Line (Animated) */}
+            <motion.div
+              initial={{ scaleY: 0, originY: milestone.pos === 'above' ? 1 : 0 }}
+              whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              style={{ fontSize: '1.25rem', color: '#666', maxWidth: '800px', margin: '1.5rem auto 0', lineHeight: 1.8 }}
-            >
-              Explore our core initiatives that have transformed thousands of lives across the region through dedicated volunteer work and community support.
-            </motion.p>
-          </div>
- 
-          <div style={{ position: 'relative' }}>
-            <AnimatePresence mode="wait">
-              <motion.div 
-                key={activeEvent}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.5, ease: "circOut" }}
-                style={{ 
-                  background: '#fff', borderRadius: '48px', padding: '5rem',
-                  display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '5rem',
-                  boxShadow: '0 20px 0 #fff7ed, 0 40px 80px rgba(0,0,0,0.05)',
-                  border: '1px solid #ffedd5',
-                  position: 'relative'
-                }}
-              >
-                <div style={{ flex: '1', minWidth: '320px' }}>
-                  <span style={{ background: '#f97316', color: '#fff', padding: '8px 20px', borderRadius: '50px', fontSize: '0.8rem', fontWeight: 900, letterSpacing: '1px' }}>{allEvents[activeEvent]?.tag}</span>
-                  <h2 style={{ 
-                    fontSize: '3.5rem', 
-                    fontWeight: 900, 
-                    margin: '2rem 0 1.5rem', 
-                    color: '#1a1a1a', 
-                    letterSpacing: '-1.5px',
-                    textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5'
-                  }}>{allEvents[activeEvent]?.title}</h2>
-                  <p style={{ color: '#666', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '3rem' }}>
-                    {allEvents[activeEvent]?.desc}
-                  </p>
-                  
-                  <motion.button 
-                    whileHover={{ y: -4, boxShadow: '0 12px 0 #c2410c, 0 20px 40px rgba(249,115,22,0.4)' }}
-                    whileTap={{ y: 8, boxShadow: '0 0px 0 #c2410c, 0 5px 10px rgba(249,115,22,0.2)' }}
-                    onClick={() => navigate('/involved')}
-                    style={{ 
-                      background: 'linear-gradient(to bottom, #fb923c, #f97316)', 
-                      color: '#fff', padding: '1.2rem 3rem', 
-                      borderRadius: '20px', border: 'none', fontWeight: 900, cursor: 'pointer',
-                      boxShadow: '0 8px 0 #c2410c, 0 15px 30px rgba(249,115,22,0.3)',
-                      transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
-                      fontSize: '1.1rem'
-                    }}
-                  >
-                    Support this Initiative
-                  </motion.button>
-                </div>
-                <div style={{ flex: '1.4', minWidth: '320px' }}>
-                  <div style={{ 
-                    background: '#fff', borderRadius: '40px', padding: '0.5rem', 
-                    boxShadow: '0 30px 60px rgba(0,0,0,0.08)', position: 'relative',
-                    border: '1px solid #f0f0f0'
-                  }}>
-                    <img 
-                      src={allEvents[activeEvent]?.img} 
-                      style={{ 
-                        width: '100%', 
-                        height: '500px', 
-                        borderRadius: '35px', 
-                        objectFit: 'cover', 
-                        objectPosition: allEvents[activeEvent]?.objectPosition || 'center',
-                        display: 'block' 
-                      }} 
-                      alt="Featured Event" 
-                    />
-                    <motion.div 
-                      animate={{ y: [0, -15, 0] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      style={{ 
-                        position: 'absolute', top: '-30px', right: '-30px', width: '90px', height: '90px',
-                        background: '#fff', borderRadius: '28px', display: 'flex', alignItems: 'center',
-                        justifyContent: 'center', color: '#f97316', boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
-                        border: '1px solid #f0f0f0'
-                      }}>
-                      {typeof allEvents[activeEvent]?.icon === 'string' && allEvents[activeEvent]?.icon.startsWith('http') ? (
-                        <img src={allEvents[activeEvent].icon} style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
-                      ) : (
-                        allEvents[activeEvent]?.icon
-                      )}
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+              transition={{ duration: 0.5, delay: 0 }}
+              style={{
+                position: 'absolute',
+                [milestone.pos === 'above' ? 'bottom' : 'top']: '50%',
+                left: '50%',
+                width: '3px',
+                height: '60px',
+                background: 'linear-gradient(to ' + (milestone.pos === 'above' ? 'bottom' : 'top') + ', #f97316, transparent)',
+                transform: 'translateX(-50%)'
+              }} />
 
-            {/* Navigation Arrows */}
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '4rem' }}>
-              <motion.button 
-                whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setActiveEvent(prev => (prev === 0 ? allEvents.length - 1 : prev - 1))}
-                style={{ 
-                  width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-                  boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
-                }}
-              >
-                <ArrowRight size={24} style={{ transform: 'rotate(180deg)' }} />
-              </motion.button>
-              <motion.button 
-                whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setActiveEvent(prev => (prev === allEvents.length - 1 ? 0 : prev + 1))}
-                style={{ 
-                  width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-                  boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
-                }}
-              >
-                <ArrowRight size={24} />
-              </motion.button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== VOLUNTEER WORK GALLERY ===== */}
-      <section style={{ padding: '6rem 0 2rem', background: '#fff', overflow: 'hidden' }}>
-        <div style={{ padding: '0 5%', marginBottom: '4rem' }}>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{ 
-              fontSize: '4.5rem', 
-              fontWeight: 900, 
-              textAlign: 'center', 
-              marginBottom: '1.5rem', 
-              letterSpacing: '-2px',
-              textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5, 0 10px 20px rgba(0,0,0,0.05)'
-            }}
-          >
-            Our <span style={{ color: '#f97316' }}>Volunteers</span> in Action
-          </motion.h2>
-          <p style={{ textAlign: 'center', color: '#666', fontSize: '1.25rem', maxWidth: '800px', margin: '0 auto', lineHeight: 1.8 }}>
-            A glimpse into the dedicated efforts of our ground teams across various social welfare initiatives. Every moment captured represents a life touched and a community strengthened.
-          </p>
-        </div>
-
-        <div style={{ position: 'relative', display: 'flex', gap: '2rem' }}>
-          <motion.div 
-            animate={{ x: ['0%', '-50%'] }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            style={{ display: 'flex', gap: '2rem', paddingLeft: '2rem' }}
-          >
-            {[...allVolunteerImages, ...allVolunteerImages].map((img, idx) => (
-              <motion.div 
-                key={idx}
-                whileHover={{ y: -15, scale: 1.02 }}
-                style={{ 
-                  flexShrink: 0, width: '450px', height: '320px', 
-                  borderRadius: '32px', overflow: 'hidden', 
-                  boxShadow: '0 30px 60px rgba(0,0,0,0.1)',
-                  border: '1px solid #f0f0f0',
-                  background: '#fff'
-                }}
-              >
-                <img 
-                  src={img} 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover',
-                    objectPosition: 'center'
-                  }} 
-                  alt="Volunteer Work" 
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ===== NEWSLETTER ===== */}
-      <section style={{ padding: '0rem 5% 8rem', background: '#fff' }}>
-        <div style={{ 
-          maxWidth: '1200px', margin: '0 auto', background: '#fff', 
-          borderRadius: '48px', padding: '6rem 2rem', textAlign: 'center',
-          boxShadow: '0 40px 100px rgba(0,0,0,0.03)', border: '1px solid #f5f5f5'
-        }}>
-          <h2 style={{ 
-            fontSize: '3rem', 
-            fontWeight: 900, 
-            marginBottom: '1.5rem',
-            textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5, 0 10px 20px rgba(0,0,0,0.05)'
-          }}>Stay Updated with Our Work</h2>
-          <p style={{ color: '#888', fontSize: '1.2rem', marginBottom: '4rem', maxWidth: '600px', margin: '0 auto 4rem' }}>
-            Subscribe to our monthly newsletter to receive updates on our programs and opportunities to volunteer.
-          </p>
-          <div style={{ 
-            maxWidth: '600px', margin: '0 auto', display: 'flex', gap: '1rem', 
-            background: '#f8f9fa', padding: '8px', borderRadius: '20px',
-            border: '1px solid #eee'
-          }}>
-            <input 
-              type="email" 
-              placeholder="Enter your email address" 
-              style={{ flex: 1, background: 'none', border: 'none', padding: '0 1.5rem', outline: 'none', fontSize: '1rem' }}
+            {/* Milestone Node (Circle) */}
+            <motion.div
+              whileHover={{ scale: 1.3 }}
+              style={{
+                width: '45px',
+                height: '45px',
+                background: milestone.color,
+                borderRadius: '50%',
+                border: '6px solid #fff',
+                boxShadow: `0 0 20px ${milestone.color}66`,
+                zIndex: 5,
+                cursor: 'pointer'
+              }}
             />
-            <motion.button 
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 4 }}
+
+            {/* Optional Image */}
+            {milestone.img && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: milestone.pos === 'above' ? -10 : 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                style={{
+                  position: 'absolute',
+                  [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 40px)',
+                  left: 'calc(50% + 10px)',
+                  width: '200px',
+                  height: '150px',
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
+                  border: '1px solid #ffedd5'
+                }}>
+                <img src={milestone.img} alt={milestone.year} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+              </motion.div>
+            )}
+          </div>
+        ))}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* ===== PILLARS SECTION ===== */ }
+<section style={{ padding: '10rem 5% 6rem', background: '#fffcf8' }}>
+  <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
+      <span style={{ color: '#f97316', fontWeight: 800, letterSpacing: '2px', fontSize: '0.9rem' }}>STRATEGIC FRAMEWORK</span>
+      <h2 style={{ fontSize: '3.5rem', fontWeight: 900, marginTop: '1rem' }}>Pillars of Transformation</h2>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem' }}>
+      {pillars.map((item, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          whileHover={{ y: -15 }}
+          transition={{ delay: i * 0.1 }}
+          style={{
+            background: 'radial-gradient(circle at 10% 10%, rgba(16, 185, 129, 0.03) 0%, transparent 50%), radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.03) 0%, transparent 50%), #fff',
+            padding: '4rem 3rem',
+            borderRadius: '40px',
+            boxShadow: '0 15px 0 #fff7ed, 0 30px 60px rgba(249,115,22,0.12)',
+            textAlign: 'center',
+            border: '1px solid #ffedd5',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            overflow: 'hidden',
+            position: 'relative'
+          }}
+        >
+          {/* Watercolor effect blobs */}
+          <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: '150px', height: '150px', background: 'rgba(16, 185, 129, 0.04)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
+          <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '150px', height: '150px', background: 'rgba(16, 185, 129, 0.04)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
+          <div style={{
+            width: '80px',
+            height: '80px',
+            background: '#fff7ed',
+            borderRadius: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#f97316',
+            margin: '0 auto 2.5rem',
+            boxShadow: '0 15px 30px rgba(249,115,22,0.12)'
+          }}>
+            {React.cloneElement(item.icon, { size: 32 })}
+          </div>
+          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1.5rem' }}>{item.title}</h3>
+          <p style={{ color: '#666', lineHeight: 1.7, margin: '0 auto', fontSize: '1.1rem' }}>{item.desc}</p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* ===== OPERATIONAL RIGOR ===== */ }
+<section style={{
+  padding: '8rem 5%',
+  background: '#0a0a0b',
+  color: '#fff',
+  backgroundImage: 'radial-gradient(rgba(255,255,255,0.05) 1px, transparent 0)',
+  backgroundSize: '40px 40px',
+  position: 'relative'
+}}>
+  <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
+      <h2 style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '1.5rem' }}>Operational Rigor</h2>
+      <p style={{ color: '#666', fontSize: '1.2rem' }}>Our systematic approach to sustainable social impact</p>
+    </div>
+
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+      gap: '4rem',
+      position: 'relative'
+    }}>
+      {/* Connection Line */}
+      <div style={{
+        position: 'absolute',
+        top: '40px',
+        left: '10%',
+        right: '10%',
+        height: '2px',
+        background: 'linear-gradient(90deg, transparent, rgba(249,115,22,0.3), transparent)',
+        zIndex: 0,
+        display: 'none', // Shown on desktop
+        '@media (min-width: 1024px)': { display: 'block' }
+      }}></div>
+
+      {operationalSteps.map((step, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.1 }}
+          style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}
+        >
+          <div style={{
+            width: '80px', height: '80px',
+            background: 'radial-gradient(circle at center, #fff 0%, #f97316 40%, #ea580c 100%)',
+            borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '1.8rem', fontWeight: 900, margin: '0 auto 2.5rem',
+            boxShadow: '0 0 40px rgba(249,115,22,0.6), inset 0 0 15px rgba(255,255,255,0.8)',
+            color: '#fff',
+            transform: 'rotate(0deg)',
+            border: '2px solid rgba(255,255,255,0.2)'
+          }}>
+            {step.num}
+          </div>
+          <h4 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: '#fff' }}>{step.title}</h4>
+          <p style={{ color: '#aaa', lineHeight: 1.6 }}>{step.text}</p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* ===== FEATURED INITIATIVES SLIDER ===== */ }
+<section style={{ padding: '8rem 5% 4rem', background: '#fff' }}>
+  <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+
+    <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+      <motion.span
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        style={{ color: '#f97316', fontWeight: 800, letterSpacing: '3px', fontSize: '1rem', textTransform: 'uppercase' }}
+      >
+        DRIVING REAL CHANGE
+      </motion.span>
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1 }}
+        style={{
+          fontSize: '4rem',
+          fontWeight: 900,
+          marginTop: '1.5rem',
+          color: '#1a1a1a',
+          letterSpacing: '-2px',
+          textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5'
+        }}
+      >
+        Our Successful <span style={{ color: '#f97316' }}>Programs</span>
+      </motion.h2>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2 }}
+        style={{ fontSize: '1.25rem', color: '#666', maxWidth: '800px', margin: '1.5rem auto 0', lineHeight: 1.8 }}
+      >
+        Explore our core initiatives that have transformed thousands of lives across the region through dedicated volunteer work and community support.
+      </motion.p>
+    </div>
+
+    <div style={{ position: 'relative' }}>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeEvent}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.5, ease: "circOut" }}
+          style={{
+            background: '#fff', borderRadius: '48px', padding: '5rem',
+            display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '5rem',
+            boxShadow: '0 20px 0 #fff7ed, 0 40px 80px rgba(0,0,0,0.05)',
+            border: '1px solid #ffedd5',
+            position: 'relative'
+          }}
+        >
+          <div style={{ flex: '1', minWidth: '320px' }}>
+            <span style={{ background: '#f97316', color: '#fff', padding: '8px 20px', borderRadius: '50px', fontSize: '0.8rem', fontWeight: 900, letterSpacing: '1px' }}>{allEvents[activeEvent]?.tag}</span>
+            <h2 style={{
+              fontSize: '3.5rem',
+              fontWeight: 900,
+              margin: '2rem 0 1.5rem',
+              color: '#1a1a1a',
+              letterSpacing: '-1.5px',
+              textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5'
+            }}>{allEvents[activeEvent]?.title}</h2>
+            <p style={{ color: '#666', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '3rem' }}>
+              {allEvents[activeEvent]?.desc}
+            </p>
+
+            <motion.button
+              whileHover={{ y: -4, boxShadow: '0 12px 0 #c2410c, 0 20px 40px rgba(249,115,22,0.4)' }}
+              whileTap={{ y: 8, boxShadow: '0 0px 0 #c2410c, 0 5px 10px rgba(249,115,22,0.2)' }}
               onClick={() => navigate('/involved')}
-              style={{ 
-                background: '#f97316', color: '#fff', padding: '1.2rem 2.5rem', 
-                borderRadius: '16px', border: 'none', fontWeight: 800, cursor: 'pointer',
-                boxShadow: '0 8px 0 #c2410c',
-                transition: 'all 0.1s ease'
+              style={{
+                background: 'linear-gradient(to bottom, #fb923c, #f97316)',
+                color: '#fff', padding: '1.2rem 3rem',
+                borderRadius: '20px', border: 'none', fontWeight: 900, cursor: 'pointer',
+                boxShadow: '0 8px 0 #c2410c, 0 15px 30px rgba(249,115,22,0.3)',
+                transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
+                fontSize: '1.1rem'
               }}
-              onMouseDown={(e) => e.currentTarget.style.boxShadow = '0 2px 0 #c2410c'}
-              onMouseUp={(e) => e.currentTarget.style.boxShadow = '0 8px 0 #c2410c'}
             >
-              Volunteer Now
+              Support this Initiative
             </motion.button>
           </div>
-        </div>
-      </section>
+          <div style={{ flex: '1.4', minWidth: '320px' }}>
+            <div style={{
+              background: '#fff', borderRadius: '40px', padding: '0.5rem',
+              boxShadow: '0 30px 60px rgba(0,0,0,0.08)', position: 'relative',
+              border: '1px solid #f0f0f0'
+            }}>
+              <img
+                src={allEvents[activeEvent]?.img}
+                style={{
+                  width: '100%',
+                  height: '500px',
+                  borderRadius: '35px',
+                  objectFit: 'cover',
+                  objectPosition: allEvents[activeEvent]?.objectPosition || 'center',
+                  display: 'block'
+                }}
+                alt="Featured Event"
+              />
+              <motion.div
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                style={{
+                  position: 'absolute', top: '-30px', right: '-30px', width: '90px', height: '90px',
+                  background: '#fff', borderRadius: '28px', display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', color: '#f97316', boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
+                  border: '1px solid #f0f0f0'
+                }}>
+                {typeof allEvents[activeEvent]?.icon === 'string' && allEvents[activeEvent]?.icon.startsWith('http') ? (
+                  <img src={allEvents[activeEvent].icon} style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+                ) : (
+                  allEvents[activeEvent]?.icon
+                )}
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
-
-
+      {/* Navigation Arrows */}
+      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '4rem' }}>
+        <motion.button
+          whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setActiveEvent(prev => (prev === 0 ? allEvents.length - 1 : prev - 1))}
+          style={{
+            width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
+          }}
+        >
+          <ArrowRight size={24} style={{ transform: 'rotate(180deg)' }} />
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setActiveEvent(prev => (prev === allEvents.length - 1 ? 0 : prev + 1))}
+          style={{
+            width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+            boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
+          }}
+        >
+          <ArrowRight size={24} />
+        </motion.button>
+      </div>
     </div>
+  </div>
+</section>
+
+{/* ===== VOLUNTEER WORK GALLERY ===== */ }
+<section style={{ padding: '6rem 0 2rem', background: '#fff', overflow: 'hidden' }}>
+  <div style={{ padding: '0 5%', marginBottom: '4rem' }}>
+    <motion.h2
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      style={{
+        fontSize: '4.5rem',
+        fontWeight: 900,
+        textAlign: 'center',
+        marginBottom: '1.5rem',
+        letterSpacing: '-2px',
+        textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5, 0 10px 20px rgba(0,0,0,0.05)'
+      }}
+    >
+      Our <span style={{ color: '#f97316' }}>Volunteers</span> in Action
+    </motion.h2>
+    <p style={{ textAlign: 'center', color: '#666', fontSize: '1.25rem', maxWidth: '800px', margin: '0 auto', lineHeight: 1.8 }}>
+      A glimpse into the dedicated efforts of our ground teams across various social welfare initiatives. Every moment captured represents a life touched and a community strengthened.
+    </p>
+  </div>
+
+  <div style={{ position: 'relative', display: 'flex', gap: '2rem' }}>
+    <motion.div
+      animate={{ x: ['0%', '-50%'] }}
+      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      style={{ display: 'flex', gap: '2rem', paddingLeft: '2rem' }}
+    >
+      {[...allVolunteerImages, ...allVolunteerImages].map((img, idx) => (
+        <motion.div
+          key={idx}
+          whileHover={{ y: -15, scale: 1.02 }}
+          style={{
+            flexShrink: 0, width: '450px', height: '320px',
+            borderRadius: '32px', overflow: 'hidden',
+            boxShadow: '0 30px 60px rgba(0,0,0,0.1)',
+            border: '1px solid #f0f0f0',
+            background: '#fff'
+          }}
+        >
+          <img
+            src={img}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+            alt="Volunteer Work"
+          />
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
+</section>
+
+{/* ===== COMMUNITY VOICES (TESTIMONIALS) ===== */ }
+<section style={{ padding: '8rem 5% 4rem', background: '#fff9f2' }}>
+  <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
+    <motion.span
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      style={{ color: '#f97316', fontWeight: 800, letterSpacing: '3px', fontSize: '1rem', textTransform: 'uppercase', display: 'block', marginBottom: '1.5rem' }}
+    >
+      COMMUNITY VOICES
+    </motion.span>
+
+    <div style={{ position: 'relative', minHeight: '300px' }}>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeReviewSlide}
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 1.05, y: -20 }}
+          transition={{ duration: 0.6, ease: "circOut" }}
+          style={{
+            background: '#fff',
+            padding: '4rem 3rem',
+            borderRadius: '40px',
+            boxShadow: '0 25px 60px rgba(249,115,22,0.1)',
+            border: '1px solid #ffedd5',
+            position: 'relative',
+            zIndex: 1
+          }}
+        >
+          <div style={{
+            position: 'absolute', top: '20px', right: '40px',
+            fontSize: '8rem', color: '#f97316', opacity: 0.1,
+            lineHeight: 1, fontFamily: 'serif', pointerEvents: 'none'
+          }}>
+            "
+          </div>
+
+          <p style={{
+            fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+            color: '#333',
+            fontStyle: 'italic',
+            lineHeight: 1.6,
+            marginBottom: '2.5rem',
+            fontWeight: 500
+          }}>
+            "{welfareReviews[activeReviewSlide].quote}"
+          </p>
+
+          <div>
+            <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#1a1a1a', margin: '0 0 0.5rem 0' }}>
+              {welfareReviews[activeReviewSlide].author}
+            </h4>
+            <p style={{ color: '#f97316', fontWeight: 800, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', margin: 0 }}>
+              {welfareReviews[activeReviewSlide].role}
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+
+    {/* Dots */}
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginTop: '3rem' }}>
+      {welfareReviews.map((_, i) => (
+        <div
+          key={i}
+          onClick={() => setActiveReviewSlide(i)}
+          style={{
+            width: i === activeReviewSlide ? '32px' : '10px',
+            height: '10px',
+            borderRadius: '5px',
+            background: i === activeReviewSlide ? '#f97316' : '#ddd',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease'
+          }}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* ===== NEWSLETTER ===== */ }
+<section style={{ padding: '0rem 5% 8rem', background: '#fff' }}>
+  <div style={{
+    maxWidth: '1200px', margin: '0 auto', background: '#fff',
+    borderRadius: '48px', padding: '6rem 2rem', textAlign: 'center',
+    boxShadow: '0 40px 100px rgba(0,0,0,0.03)', border: '1px solid #f5f5f5'
+  }}>
+    <h2 style={{
+      fontSize: '3rem',
+      fontWeight: 900,
+      marginBottom: '1.5rem',
+      textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5, 0 10px 20px rgba(0,0,0,0.05)'
+    }}>Stay Updated with Our Work</h2>
+    <p style={{ color: '#888', fontSize: '1.2rem', marginBottom: '4rem', maxWidth: '600px', margin: '0 auto 4rem' }}>
+      Subscribe to our monthly newsletter to receive updates on our programs and opportunities to volunteer.
+    </p>
+    <div style={{
+      maxWidth: '600px', margin: '0 auto', display: 'flex', gap: '1rem',
+      background: '#f8f9fa', padding: '8px', borderRadius: '20px',
+      border: '1px solid #eee'
+    }}>
+      <input
+        type="email"
+        placeholder="Enter your email address"
+        style={{ flex: 1, background: 'none', border: 'none', padding: '0 1.5rem', outline: 'none', fontSize: '1rem' }}
+      />
+      <motion.button
+        whileHover={{ y: -2 }}
+        whileTap={{ y: 4 }}
+        onClick={() => navigate('/involved')}
+        style={{
+          background: '#f97316', color: '#fff', padding: '1.2rem 2.5rem',
+          borderRadius: '16px', border: 'none', fontWeight: 800, cursor: 'pointer',
+          boxShadow: '0 8px 0 #c2410c',
+          transition: 'all 0.1s ease'
+        }}
+        onMouseDown={(e) => e.currentTarget.style.boxShadow = '0 2px 0 #c2410c'}
+        onMouseUp={(e) => e.currentTarget.style.boxShadow = '0 8px 0 #c2410c'}
+      >
+        Volunteer Now
+      </motion.button>
+    </div>
+  </div>
+</section>
+
+
+
+    </div >
   );
 };
 

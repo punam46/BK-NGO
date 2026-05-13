@@ -1324,6 +1324,7 @@ const Education = () => {
         </div>
       </section>
 
+
       {/* CTA Section */}
       <section style={{ padding: '10rem 5%', textAlign: 'center', background: '#fff' }}>
         <h2 style={{ 

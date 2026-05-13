@@ -25,6 +25,52 @@ import orphan3 from '../assets/orphan3.jpg';
 import karanImg from '../assets/karan.png';
 import mayaImg from '../assets/maya.png';
 
+// 3D Card component for interactive effects
+const Interactive3DCard = ({ children, intensity = 15, scale = 1.05, className = "" }) => {
+  const cardRef = useRef(null);
+  const [transform, setTransform] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -intensity;
+    const rotateY = ((x - centerX) / centerX) * intensity;
+    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${isHovered ? scale : 1})`);
+  };
+
+  const handleMouseLeave = () => {
+    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+    setIsHovered(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+      style={{
+        transform,
+        transformStyle: 'preserve-3d',
+        transition: 'transform 0.1s ease-out',
+        willChange: 'transform',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
 const StatCard = ({ stat, i }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -513,10 +559,12 @@ const OrphanSupport = () => {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           gap: '2rem',
-          perspective: '1000px'
+          perspective: '1500px'
         }}>
           {stats.map((stat, i) => (
-            <StatCard key={i} stat={stat} i={i} />
+            <Interactive3DCard key={i} intensity={20} scale={1.08}>
+              <StatCard stat={stat} i={i} />
+            </Interactive3DCard>
           ))}
         </div>
       </section>
@@ -569,43 +617,100 @@ const OrphanSupport = () => {
             <div style={{ width: '60px', height: '4px', background: '#ff5722', margin: '0 auto' }}></div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '3rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '3rem', perspective: '2000px' }}>
             {mainSupports.map((item, i) => (
-              <InitiativeCard key={i} item={item} i={i} />
+              <Interactive3DCard key={i} intensity={12} scale={1.03}>
+                <InitiativeCard item={item} i={i} />
+              </Interactive3DCard>
             ))}
           </div>
         </div>
       </section>
 
       {/* ===== SANCTUARY SECTION ===== */}
-      <section style={{ padding: '6rem 5% 8rem', background: '#fff' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ padding: '6rem 5% 8rem', background: '#fff9f2', position: 'relative', overflow: 'hidden' }}>
+        {/* Watercolor Illustration Blobs */}
+        <div style={{
+          position: 'absolute', top: '-10%', left: '-5%', width: '40%', height: '60%',
+          background: 'radial-gradient(circle, #fff3e0 0%, transparent 70%)',
+          filter: 'blur(80px)', opacity: 0.5, zIndex: 0,
+          borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%'
+        }} />
+        <div style={{
+          position: 'absolute', bottom: '-10%', right: '-5%', width: '45%', height: '70%',
+          background: 'radial-gradient(circle, #e3f2fd 0%, transparent 70%)',
+          filter: 'blur(100px)', opacity: 0.4, zIndex: 0,
+          borderRadius: '60% 40% 30% 70% / 50% 60% 40% 50%'
+        }} />
+        <div style={{
+          position: 'absolute', top: '20%', right: '10%', width: '30%', height: '40%',
+          background: 'radial-gradient(circle, #fce4ec 0%, transparent 70%)',
+          filter: 'blur(90px)', opacity: 0.3, zIndex: 0,
+          borderRadius: '30% 70% 40% 60% / 60% 40% 50% 40%'
+        }} />
+        <div style={{
+          position: 'absolute', bottom: '10%', left: '15%', width: '35%', height: '50%',
+          background: 'radial-gradient(circle, #e8f5e9 0%, transparent 70%)',
+          filter: 'blur(110px)', opacity: 0.4, zIndex: 0,
+          borderRadius: '50% 50% 60% 40% / 40% 60% 50% 50%'
+        }} />
+
+        <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1.5rem' }}>A Sanctuary for Every Child</h2>
             <p style={{ color: '#666', maxWidth: '800px', margin: '0 auto', lineHeight: 1.7, fontSize: '1.1rem' }}>
               Beyond being an institution, we are a permanent, loving home. For children who have lost their families, we provide the stability and unconditional love every child deserves.
             </p>
           </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', perspective: '1200px' }}>
             {sanctuaryItems.map((item, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -5 }}
-                style={{
-                  background: item.color,
-                  padding: '2rem',
-                  borderRadius: '24px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '1.5rem',
-                  textAlign: 'center'
-                }}
-              >
-                <div style={{ color: item.iconColor }}>{item.icon}</div>
-                <h4 style={{ margin: 0, fontWeight: 800, fontSize: '1.1rem' }}>{item.title}</h4>
-              </motion.div>
+              <Interactive3DCard key={i} intensity={25} scale={1.1}>
+                <motion.div
+                  whileHover={{ y: -5 }}
+                  style={{
+                    background: item.color,
+                    padding: '2.5rem 2rem',
+                    borderRadius: '32px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    boxShadow: '0 15px 40px rgba(0,0,0,0.05)',
+                    border: '1px solid rgba(0,0,0,0.03)',
+                    height: '100%',
+                    transformStyle: 'preserve-3d'
+                  }}
+                >
+                  <motion.div
+                    style={{
+                      background: '#fff',
+                      padding: '1.2rem',
+                      borderRadius: '24px',
+                      color: item.iconColor,
+                      marginBottom: '1.5rem',
+                      boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
+                      transform: 'translateZ(30px)'
+                    }}
+                  >
+                    {item.icon}
+                  </motion.div>
+                  <h4 style={{
+                    fontSize: '1.4rem',
+                    fontWeight: 900,
+                    color: '#333',
+                    marginBottom: '1.5rem',
+                    transform: 'translateZ(20px)'
+                  }}>{item.title}</h4>
+                  <div style={{
+                    width: '30px',
+                    height: '4px',
+                    background: item.iconColor,
+                    borderRadius: '2px',
+                    opacity: 0.6,
+                    transform: 'translateZ(10px)'
+                  }}></div>
+                </motion.div>
+              </Interactive3DCard>
             ))}
           </div>
         </div>
@@ -627,78 +732,40 @@ const OrphanSupport = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 style={{
-                  background: '#2d3748',
-                  borderRadius: '40px',
-                  overflow: 'hidden',
+                  background: 'rgba(255,255,255,0.05)',
+                  borderRadius: '20px',
                   display: 'flex',
-                  alignItems: 'center', // Center vertically
-                  flexWrap: 'wrap',
-                  minHeight: '600px',
-                  padding: '4rem'
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '1.5rem',
+                  textAlign: 'center',
+                  maxWidth: '650px',
+                  margin: '0 auto',
+                  border: '1px solid rgba(255,255,255,0.1)'
                 }}
               >
-                <div style={{ flex: '1', display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                  <div style={{
-                    width: '550px',
-                    height: '500px',
-                    position: 'relative',
-                    zIndex: 2,
-                    borderRadius: '40px',
-                    overflow: 'hidden',
-                    boxShadow: '0 40px 80px rgba(0,0,0,0.3)'
-                  }}>
-                    <img
-                      src={stories[currentStory].image}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      alt={stories[currentStory].name}
-                    />
-                  </div>
-                </div>
-
-                  {/* Decorative Curved Line */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '-20px',
-                    right: '-20px',
-                    width: '540px',
-                    height: '540px',
-                    pointerEvents: 'none',
-                    zIndex: -1
-                  }}>
-                    <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%', transform: 'rotate(-15deg)' }}>
-                      <path
-                        d="M 10 50 A 40 40 0 1 1 90 50"
-                        fill="none"
-                        stroke="#ff5722"
-                        strokeWidth="0.5"
-                        strokeDasharray="1 3"
-                        strokeLinecap="round"
-                        opacity="0.3"
-                      />
-                      <path
-                        d="M 5 50 A 45 45 0 0 1 95 50"
-                        fill="none"
-                        stroke="#ff5722"
-                        strokeWidth="0.2"
-                        opacity="0.2"
-                      />
-                    </svg>
-                  </div>
-
-
-
-                <div style={{ flex: '1.2', padding: '4rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <h3 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '2rem' }}>{stories[currentStory].name}</h3>
-                  <p style={{ fontSize: '1.3rem', lineHeight: 1.8, color: '#e2e8f0', fontStyle: 'italic', marginBottom: '3rem' }}>
+                <div style={{ maxWidth: '500px', margin: '0 auto' }}>
+                  <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ff5722', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    {stories[currentStory].name}
+                  </h4>
+                  <p style={{ fontSize: '0.95rem', lineHeight: 1.5, color: '#e2e8f0', fontStyle: 'italic', marginBottom: '1rem' }}>
                     "{stories[currentStory].text}"
                   </p>
-                  <div style={{ display: 'flex', gap: '1rem' }}>
-                    <button onClick={handlePrevStory} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', width: '50px', height: '50px', borderRadius: '50%', cursor: 'pointer' }}>
-                      <ChevronLeft />
-                    </button>
-                    <button onClick={handleNextStory} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', width: '50px', height: '50px', borderRadius: '50%', cursor: 'pointer' }}>
-                      <ChevronRight />
-                    </button>
+                  <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center' }}>
+                    <motion.button 
+                      whileHover={{ scale: 1.1, color: '#ff5722' }}
+                      onClick={handlePrevStory} 
+                      style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer' }}
+                    >
+                      <ChevronLeft size={20} />
+                    </motion.button>
+                    <motion.button 
+                      whileHover={{ scale: 1.1, color: '#ff5722' }}
+                      onClick={handleNextStory} 
+                      style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer' }}
+                    >
+                      <ChevronRight size={20} />
+                    </motion.button>
                   </div>
                 </div>
               </motion.div>
@@ -866,8 +933,8 @@ const OrphanSupport = () => {
                   }} />
 
                   <div style={{
-                    width: '550px',
-                    height: '450px',
+                    width: '580px', // Increased width
+                    height: '450px', // Reverted height
                     position: 'relative',
                     zIndex: 1,
                     background: '#fff',

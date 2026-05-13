@@ -24,63 +24,31 @@ const Header = () => {
 
   return (
     <>
-      <div style={{
-        background: '#1a1a1a',
-        padding: '10px 4rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderBottom: '1px solid #333'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '900', letterSpacing: '1px' }}>
-            REG NO: <span style={{ color: '#ffcc00' }}>F-12121</span>
-          </span>
-        </div>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <span style={{ color: '#888', fontSize: '0.85rem', fontWeight: '800', letterSpacing: '1px' }}>
-            WE ARE REGISTERED WITH
-          </span>
-          <div style={{ 
-            background: '#ffcc00', 
-            padding: '8px 20px', 
-            borderRadius: '8px', 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '10px',
-            boxShadow: '0 4px 15px rgba(255,204,0,0.2)'
-          }}>
-            <Shield size={18} fill="#1a1a1a" color="#1a1a1a" />
-            <span style={{ color: '#1a1a1a', fontSize: '0.9rem', fontWeight: '900', letterSpacing: '0.5px' }}>
-              GOVERNMENT REGISTERED
-            </span>
-          </div>
-        </div>
-      </div>
-
       <header className="header">
         <div className="header-left">
           <Link to="/" className="logo-link" onClick={closeMenu} style={{ 
             display: 'flex',
             alignItems: 'center',
-            textDecoration: 'none'
+            textDecoration: 'none',
+            gap: '20px'
           }}>
-            <img src={logo} alt="BK Logo" style={{ 
-              width: '80px', 
-              height: '80px', 
-              objectFit: 'cover', 
-              borderRadius: '12px',
-              boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
-              border: '1px solid #eee'
-            }} />
-            <div style={{ marginLeft: '15px', display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1a1a1a', lineHeight: '1.1' }}>
-                <span style={{ color: '#e53935' }}>BK</span> Educational
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+              <img src={logo} alt="BK Logo" style={{ 
+                width: '80px', 
+                height: '80px', 
+                objectFit: 'cover', 
+                borderRadius: '12px',
+                boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
+                border: '1px solid #eee'
+              }} />
+              <span style={{ fontSize: '0.75rem', fontWeight: '800', color: '#666' }}>
+                Reg No: <span style={{ color: '#f57c00' }}>F-12121</span>
               </span>
-              <span style={{ fontSize: '0.9rem', color: '#1a1a1a', fontWeight: '700' }}>& Welfare Society</span>
-              <span style={{ fontSize: '0.75rem', color: '#1a1a1a', fontWeight: '800', marginTop: '3px' }}>
-                REG NO: <span style={{ color: '#f57c00' }}>F-12121</span>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontSize: '1.4rem', fontWeight: '900', color: '#1a1a1a', letterSpacing: '-0.5px', lineHeight: '1.2' }}>
+                <span style={{ color: '#e53935' }}>BK</span> Educational & Welfare Society
               </span>
             </div>
           </Link>

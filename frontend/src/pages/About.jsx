@@ -1,12 +1,63 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import aboutUsBanner from '../assets/about_us_hero_banner.png';
 import boysSmilingImg from '../assets/boys_smiling_red.png';
 import volunteersImg from '../assets/volunteers_smiling_faces.png';
 import ghugeImg from '../assets/ghuge sir.jpeg';
+import sanskarLogo from '../assets/sanskar.jpeg';
+import gurukulLogo from '../assets/gurukul.jpeg';
+import bkLogo from '../assets/logo.jpeg';
+import sportsLogo from '../assets/bkSportsLogo.jpeg';
+import bkTimesLogo from '../assets/bk-times-logo.jpg';
 import ThreeDCarousel from '../components/ThreeDCarousel';
 import { renderText } from './Education';
+
+// 3D Card component for Sites
+const Interactive3DCard = ({ children, intensity = 15, scale = 1.05 }) => {
+  const cardRef = useRef(null);
+  const [transform, setTransform] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -intensity;
+    const rotateY = ((x - centerX) / centerX) * intensity;
+    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${isHovered ? scale : 1})`);
+  };
+
+  const handleMouseLeave = () => {
+    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+    setIsHovered(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform,
+        transformStyle: 'preserve-3d',
+        transition: 'transform 0.1s ease-out',
+        willChange: 'transform',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 const About = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -58,6 +109,45 @@ const About = () => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
   };
+
+  const institutionData = [
+    {
+      name: "BK Sports Academy",
+      url: "www.bksports.in",
+      link: "https://www.bksports.in/",
+      logo: sportsLogo
+    },
+    {
+      name: "BK Times",
+      url: "www.bktimes.co.in",
+      link: "https://www.bktimes.co.in/",
+      logo: bkTimesLogo
+    },
+    {
+      name: "BK Science Academy",
+      url: "www.bkscience.in",
+      link: "https://www.bkscience.in/",
+      logo: bkLogo
+    },
+    {
+      name: "BK Career Academy",
+      url: "bkeducation.co.in",
+      link: "https://bkeducation.co.in/",
+      logo: bkLogo
+    },
+    {
+      name: "SANSKAR ENGLISH MEDIUM SCHOOL",
+      url: "www.bksanskar.in",
+      link: "https://www.bksanskar.in/",
+      logo: sanskarLogo
+    },
+    {
+      name: "BK GURUKUL VIDYANIKETAN",
+      url: "bkgurukul.in",
+      link: "https://bkgurukul.in/",
+      logo: gurukulLogo
+    }
+  ];
 
 
   return (
@@ -132,7 +222,7 @@ const About = () => {
             {/* Image 1 (Left) - Circular Frame */}
             <div style={{
               position: 'absolute',
-              top: '-100px',
+              top: '-40px', /* Reduced from -100px to prevent overlapping with header */
               left: '0',
               width: '400px',
               height: '400px',
@@ -176,7 +266,7 @@ const About = () => {
           padding: '0 4%'
         }}>
           {/* Photo Column */}
-          <div className="profile-photo-col" style={{ position: 'relative', animation: 'fadeUp 1s ease-out forwards', flex: '1', minWidth: '300px' }}>
+          <div className="profile-photo-col" style={{ position: 'relative', animation: 'fadeUp 1s ease-out forwards', flex: '1', minWidth: '400px' }}>
             <div style={{
               borderRadius: '20px',
               overflow: 'hidden',
@@ -190,8 +280,8 @@ const About = () => {
                 style={{ width: '100%', borderRadius: '12px 12px 0 0', display: 'block', objectFit: 'cover', objectPosition: 'top', height: '400px' }}
               />
               <div style={{ padding: '1.5rem', textAlign: 'center' }}>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#333', marginBottom: '0.3rem' }}>Dr. Adv. Er. Bhagwan Nivrutti Elmame</h3>
-                <p style={{ fontSize: '0.95rem', color: '#000', fontWeight: '600' }}>Secretary, <span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society</p>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#333', marginBottom: '0.3rem' }}>Dr. Adv. Er. Bhagwan Nivrutti Elmame</h3>
+                <p style={{ fontSize: '1.05rem', color: '#000', fontWeight: '600' }}>Secretary, <span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society</p>
               </div>
             </div>
 
@@ -290,13 +380,98 @@ const About = () => {
       {/* Key Focus Areas */}
       <section className="about-programs-preview" style={{ padding: '6rem 0', background: '#fff' }}>
         <div style={{ textAlign: 'center', marginBottom: '4.5rem', padding: '0 4%' }}>
-          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 2.8rem)', fontWeight: '800', color: '#1a1a1a', marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 2.8rem)', fontWeight: '800', color: '#1a1a1a', marginBottom: '1.2rem' }}>
             Our Key <span style={{ color: '#e53935' }}>Programs</span>
           </h2>
-          <div style={{ width: '60px', height: '4px', background: '#FFC107', margin: '0 auto' }}></div>
+          <div style={{ width: '80px', height: '5px', background: '#FFC107', margin: '0 auto', borderRadius: '10px' }}></div>
         </div>
 
         <ThreeDCarousel />
+      </section>
+
+      {/* Our Institutions Section */}
+      <section className="about-institutions-section" style={{ padding: '6rem 0', background: '#f8fafc' }}>
+        <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 5%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
+            <div style={{ width: '6px', height: '45px', background: '#e53935', marginRight: '15px', borderRadius: '4px' }}></div>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#004d99', margin: 0 }}>
+              Our Institutions
+            </h2>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+            {institutionData.map((inst, idx) => (
+              <motion.a 
+                key={idx}
+                href={inst.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ delay: idx * 0.15, duration: 0.6, ease: "easeOut" }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  background: '#ffffff',
+                  padding: '1.2rem 1.8rem',
+                  borderRadius: '20px',
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  border: '1px solid #eef2f6'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+                }}
+              >
+                <div style={{ 
+                  width: '70px', 
+                  height: '70px', 
+                  borderRadius: '50%', 
+                  overflow: 'hidden', 
+                  border: '1px solid #f0f0f0', 
+                  marginRight: '1.5rem',
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: '#fff'
+                }}>
+                  <img src={inst.logo} alt={inst.name} style={{ width: '80%', height: '80%', objectFit: 'contain' }} />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#1a1a1a', margin: '0 0 0.3rem 0' }}>
+                    {inst.name}
+                  </h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '1.05rem', color: '#3182ce', fontWeight: '600' }}>{inst.url}</span>
+                    <div style={{ 
+                      background: '#bee3f8', 
+                      borderRadius: '4px', 
+                      width: '20px', 
+                      height: '20px', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center' 
+                    }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Our Team Section */}
@@ -382,27 +557,26 @@ const About = () => {
                   }}>
                     <div style={{
                       width: '100%',
-                      height: '500px', // Increased height to accommodate circular layout
+                      minHeight: '600px', // Adjusted for wider, shorter image
                       background: '#ffffff',
                       borderRadius: '32px',
-                      overflow: 'hidden',
                       position: 'relative',
                       boxShadow: '0 30px 60px rgba(0,0,0,0.12)',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      padding: '3rem 2rem 2rem',
+                      padding: '3rem 2rem 2.5rem',
                       color: '#1a1a1a'
                     }}>
                       {/* Rectangular Image Container */}
                       <div style={{
-                        width: '260px',
-                        height: '320px',
+                        width: '380px', // Further increased width
+                        height: '320px', // Reverted height
                         borderRadius: '32px',
                         overflow: 'hidden',
                         border: '6px solid #f8f9fa',
                         boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
-                        marginBottom: '2rem',
+                        marginBottom: '2.5rem',
                         flexShrink: 0
                       }}>
                         <img
@@ -417,9 +591,9 @@ const About = () => {
                         textAlign: 'center',
                         zIndex: 2
                       }}>
-                        <h4 style={{ fontSize: '1.4rem', fontWeight: '900', marginBottom: '0.6rem', color: '#1a1a1a', lineHeight: '1.3' }}>{member.name}</h4>
+                        <h4 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.6rem', color: '#1a1a1a', lineHeight: '1.3' }}>{member.name}</h4>
                         <div style={{ width: '40px', height: '3px', background: '#e53935', margin: '0.5rem auto 1rem' }}></div>
-                        <p style={{ fontSize: '0.85rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#e53935', lineHeight: '1.4' }}>{member.role}</p>
+                        <p style={{ fontSize: '0.95rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#e53935', lineHeight: '1.4' }}>{member.role}</p>
                       </div>
                     </div>
 

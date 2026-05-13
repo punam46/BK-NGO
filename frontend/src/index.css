@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Satisfy&family=Dancing+Script:wght@400;700;900&display=swap');
 
 :root {
@@ -10,10 +14,13 @@
   --font-script: 'Satisfy', cursive;
 }
 
-* {
+html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 body {
@@ -202,26 +209,22 @@ body {
   to { transform: translateX(0); opacity: 1; }
 }
 
-/* Magazine Layout Style */
+/* Magazine Layout Style - Removed the panel to show full image */
 .hero-magazine::before {
   content: '';
   position: absolute;
   top: 0;
   right: 0;
-  width: 100%;
+  width: 15px; /* Narrowed to just the 'blue point' border */
   height: 100%;
-  background: linear-gradient(135deg, #ffffff 0%, #e0f7fa 100%);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(224, 247, 250, 0.9) 100%);
-  clip-path: polygon(100% 0, 75% 0, 60% 50%, 75% 100%, 100% 100%); /* Much narrower panel */
-  z-index: 1;
-  border-right: 12px solid #00BFA5;
-  transform: translateX(100%); /* Hidden offscreen at start */
-  animation: slideTriangle 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; /* Step 2: Triangle slides after image */
+  background: #00BFA5; /* The cyan 'blue point' marker */
+  z-index: 10;
+  box-shadow: -10px 0 20px rgba(0,191,165,0.2);
 }
 
-@keyframes slideTriangle {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+.hero-magazine {
+  background-position: center !important;
+  background-size: cover !important;
 }
 
 .hero-magazine {
@@ -606,8 +609,8 @@ body {
 .container > .wwd-card:nth-child(4) { animation-delay: 0.4s; }
 
 .wwd-card:hover {
-  transform: translateY(-10px) !important;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.12) !important;
+  transform: translateY(-15px) scale(1.02) !important;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.15), 0 10px 25px rgba(0,0,0,0.08) !important;
 }
 
 .wwd-image-container {
@@ -1148,7 +1151,7 @@ body {
 
 .scroll-reveal-right {
   opacity: 0;
-  transform: translateX(100px);
+  transform: translateX(50px); /* Reduced from 100px to prevent excessive overflow */
   transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
