@@ -1,36 +1,49 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './ThreeDCarousel.css';
 
+import g16 from '../assets/g16.jpeg';
+import g5 from '../assets/g5.jpg';
+import g18 from '../assets/g18.jpeg';
+import G52 from '../assets/G52.jpeg';
+import tribalDev from '../assets/TRIBAL2.jpg';
+import childDev from '../assets/child care 1.jpg';
+
 const programs = [
   {
     id: 1,
     title: "Educational Support",
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop",
+    image: g5,
     desc: "Empowering children with foundational literacy and skills."
   },
   {
     id: 2,
     title: "Environment Care",
-    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&auto=format&fit=crop",
+    image: g18,
     desc: "Promoting sustainable living and tree plantation drives."
-  },
-  {
-    id: 4,
-    title: "Vocational Training",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop",
-    desc: "Guiding youth towards professional excellence."
   },
   {
     id: 6,
     title: "Donation Drives",
-    image: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&auto=format&fit=crop",
+    image: g16,
     desc: "Organizing blood donation camps and resource collection for those in need."
   },
   {
     id: 5,
     title: "Social Welfare",
-    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&auto=format&fit=crop",
+    image: G52,
     desc: "Supporting physically challenged and economically weaker sections."
+  },
+  {
+    id: 7,
+    title: "Tribal Development",
+    image: tribalDev,
+    desc: "Empowering tribal communities through education and sustainability."
+  },
+  {
+    id: 8,
+    title: "Child Development",
+    image: childDev,
+    desc: "Focusing on the overall development, health, and education of children."
   }
 ];
 

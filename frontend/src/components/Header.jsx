@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, Menu, X, Shield, Facebook, Linkedin, Youtube, Instagram } from 'lucide-react';
 
 import logo from '../assets/logo.jpeg';
@@ -8,6 +9,16 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMobileSub, setActiveMobileSub] = useState(null); // Track which sub-menu is open on mobile
   const [showBanner, setShowBanner] = useState(true);
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -24,7 +35,20 @@ const Header = () => {
 
   return (
     <>
-      <header className="header">
+      <motion.header 
+        className={`header ${scrolled ? 'scrolled' : ''}`}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ 
+          y: scrolled ? 0 : 5, 
+          opacity: 1,
+          scale: 1
+        }}
+        transition={{ 
+          type: 'spring', 
+          stiffness: 260, 
+          damping: 20 
+        }}
+      >
         <div className="header-left">
           <Link to="/" className="logo-link" onClick={closeMenu} style={{ 
             display: 'flex',
@@ -32,22 +56,40 @@ const Header = () => {
             textDecoration: 'none',
             gap: '20px'
           }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+            <motion.div 
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
+              whileHover={{ rotateY: 15, rotateX: -5 }}
+            >
               <img src={logo} alt="BK Logo" style={{ 
-                width: '80px', 
-                height: '80px', 
+                width: scrolled ? '55px' : '70px', 
+                height: scrolled ? '55px' : '70px', 
                 objectFit: 'cover', 
                 borderRadius: '12px',
                 boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
-                border: '1px solid #eee'
+                border: '1px solid #eee',
+                transition: 'all 0.3s ease'
               }} />
-              <span style={{ fontSize: '0.75rem', fontWeight: '800', color: '#666' }}>
-                Reg No: <span style={{ color: '#f57c00' }}>F-12121</span>
-              </span>
-            </div>
+              {!scrolled && (
+                <motion.span 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  style={{ fontSize: '0.75rem', fontWeight: '800', color: '#666' }}
+                >
+                  Reg No: <span style={{ color: '#f57c00' }}>F-12121</span>
+                </motion.span>
+              )}
+            </motion.div>
             
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '1.4rem', fontWeight: '900', color: '#1a1a1a', letterSpacing: '-0.5px', lineHeight: '1.2' }}>
+              <span style={{ 
+                fontSize: scrolled ? '1.2rem' : '1.6rem', 
+                fontWeight: '900', 
+                color: '#1a1a1a', 
+                letterSpacing: '-0.5px', 
+                lineHeight: '1.2',
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap' /* Keep title in one line */
+              }}>
                 <span style={{ color: '#e53935' }}>BK</span> Educational & Welfare Society
               </span>
             </div>
@@ -115,29 +157,32 @@ const Header = () => {
           <NavLink to="/contact" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={closeMenu}>Contact</NavLink>
         </nav>
 
-        <div className="header-right desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <div className="social-icons" style={{ display: 'flex', gap: '0.8rem' }}>
-            <a href="#" className="social-icon" style={{ color: '#1a1a1a' }}><Facebook size={18} /></a>
-            <a href="#" className="social-icon" style={{ color: '#1a1a1a' }}><Linkedin size={18} /></a>
-            <a href="#" className="social-icon" style={{ color: '#1a1a1a' }}><Youtube size={18} /></a>
-            <a href="#" className="social-icon" style={{ color: '#1a1a1a' }}><Instagram size={18} /></a>
-          </div>
+        <div className="header-right desktop-only" style={{ display: 'flex', alignItems: 'center', gap: scrolled ? '1rem' : '1.5rem', flexShrink: 0 }}>
           <Link to="/donate" style={{ textDecoration: 'none' }}>
-            <button style={{
-              background: '#e53935',
-              color: '#fff',
-              padding: '0.8rem 1.5rem',
-              borderRadius: '6px',
-              border: 'none',
-              fontWeight: '800',
-              fontSize: '0.85rem',
-              cursor: 'pointer',
-              textTransform: 'uppercase',
-              letterSpacing: '1px'
-            }}>Donate Now</button>
+            <motion.button 
+              whileHover={{ scale: 1.05, translateZ: 20 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                background: '#e53935',
+                color: '#fff',
+                padding: scrolled ? '0.6rem 1.2rem' : '0.8rem 1.5rem',
+                borderRadius: '12px',
+                border: 'none',
+                fontWeight: '800',
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                whiteSpace: 'nowrap',
+                boxShadow: '0 10px 20px rgba(229, 57, 53, 0.2)',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              Donate
+            </motion.button>
           </Link>
         </div>
-      </header>
+      </motion.header>
     </>
   );
 };

@@ -126,26 +126,28 @@ const Donate = () => {
   };
 
   return (
-    <div className="donate-page" style={{ paddingTop: '85px' }}>
+    <div className="donate-page" style={{ paddingTop: '130px' }}>
       <section className="donate-hero" style={{ padding: '0 5% 6rem', textAlign: 'center', background: '#fff' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h1 style={{
-            fontSize: 'clamp(2rem, 5vw, 4.5rem)',
-            fontWeight: '400',
-            fontFamily: 'var(--font-script)',
-            marginBottom: '1rem',
-            color: '#333',
-            lineHeight: '1.3',
+            fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+            fontWeight: '900',
+            fontFamily: "'Inter', sans-serif",
+            marginBottom: '1.5rem',
+            color: '#1a1a1a',
+            lineHeight: '1.1',
+            letterSpacing: '-1.5px',
             whiteSpace: 'normal'
           }}>
             Build Futures with <br /> <span style={{ color: '#e53935' }}>BK Education and Welfare Society</span>
           </h1>
           <p style={{
-            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-            fontWeight: '400',
+            fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
+            fontWeight: '600',
             color: '#444',
-            marginBottom: '1.5rem',
-            lineHeight: '1.1'
+            marginBottom: '2rem',
+            lineHeight: '1.2',
+            fontFamily: "'Inter', sans-serif"
           }}>
             Empower Children, Youth, and Environmental care
           </p>
@@ -153,19 +155,22 @@ const Donate = () => {
           {!showForm && (
             <div style={{ maxWidth: '900px', margin: '0 auto' }}>
               <p style={{
-                fontSize: '1.25rem',
-                lineHeight: '1.6',
-                color: '#333',
-                marginBottom: '2.5rem'
+                fontSize: '1.15rem',
+                lineHeight: '1.8',
+                color: '#444',
+                marginBottom: '2.5rem',
+                fontFamily: "'Inter', sans-serif"
               }}>
-                BK Education and Welfare Society is committed to preparing children and youth for the future while building sustainable communities and nurturing environmental care. By helping children overcome learning barriers, empowering communities to protect their natural heritage, and equipping youth with employable skills and entrepreneurship opportunities, BK Education and Welfare Society creates opportunities for growth and self-sufficiency.
+                BK Education and Welfare Society is committed to preparing children and youth through robust social welfare initiatives, dedicated tribal education programs, and community-driven development. By building sustainable communities and nurturing environmental care, we help children overcome learning barriers and equip youth with the employable skills and entrepreneurship opportunities needed for a self-sufficient and inclusive future.
               </p>
 
               <h2 style={{
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
                 color: '#f57c00',
-                marginBottom: '1.5rem',
-                fontWeight: '500'
+                marginBottom: '2rem',
+                fontWeight: '800',
+                fontFamily: "'Inter', sans-serif",
+                letterSpacing: '-1px'
               }}>
                 Your support can change lives
               </h2>

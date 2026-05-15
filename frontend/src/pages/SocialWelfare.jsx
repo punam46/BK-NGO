@@ -245,7 +245,7 @@ const SocialWelfare = () => {
     { year: '2022', text: 'First major Innovation & Skills Training Center established in rural Maharashtra.', pos: 'above', color: '#ffc107' },
     { year: '2021', text: 'NGO recognized for exceptional contribution to Rural Education Development.', pos: 'below', color: '#f97316', img: g25 },
     { year: '2020', text: 'TaRL programs in regional districts grow to reach 10,000+ students.', pos: 'above', color: '#ffc107', img: g24 },
-    { year: '2019', text: 'Launched the first Bilingual News Paper to promote positive news in rural areas.', pos: 'below', color: '#f97316', img: g5 },
+    { year: '2019', text: 'Launched the first BK Times Bilingual News Paper to promote positive news in rural areas.', pos: 'below', color: '#f97316', img: g5 },
     { year: '2018', text: 'Expanded educational interventions to 10 new districts in Western Maharashtra.', pos: 'above', color: '#ffc107' },
     { year: '2017', text: 'Established 50+ digital learning centers to bridge the urban-rural divide.', pos: 'below', color: '#f97316' },
     { year: '2016', text: 'Won state-level award for community empowerment through vocational training.', pos: 'above', color: '#ffc107' },

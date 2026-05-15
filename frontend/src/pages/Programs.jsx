@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import bloodCampImg from '../assets/g16.jpeg';
 import seniorWelfareImg from '../assets/G42.jpeg';
 import tribalHeroNew from '../assets/TRIBAL2.jpg';
@@ -7,161 +8,7 @@ import yogaHeroImg from '../assets/yoga_hero.png';
 // Using the new tribal hero asset for consistency
 const tribalImg = tribalHeroNew;
 
-const renderText = (text) => {
-  if (typeof text !== 'string') return text;
-  return text.split('BK').map((part, i, arr) => (
-    <React.Fragment key={i}>
-      {part}
-      {i < arr.length - 1 && <span style={{ color: 'red' }}>BK</span>}
-    </React.Fragment>
-  ));
-};
 
-const ProgramCard = ({ program, index }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.4,
-        rootMargin: '0px 0px -50px 0px'
-      }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
-
-  const isEven = index % 2 === 0;
-
-  return (
-    <div
-      ref={cardRef}
-      style={{
-        display: 'flex',
-        flexDirection: window.innerWidth < 992 ? 'column' : (isEven ? 'row' : 'row-reverse'),
-        background: '#fff',
-        borderRadius: '12px',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)',
-        overflow: 'hidden',
-        transition: 'all 0.4s ease',
-        border: '1px solid #eee',
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
-        position: 'relative',
-        margin: '2rem 0'
-      }}
-      className="program-horizontal-card program-card-hover"
-    >
-
-      {/* Image Container */}
-      <div style={{
-        flex: '0 0 50%',
-        minHeight: window.innerWidth < 768 ? '300px' : '450px',
-        position: 'relative',
-        overflow: 'hidden',
-        background: program.fit === 'contain' ? '#fcfcfc' : 'transparent'
-      }}>
-        <img
-          src={program.image}
-          alt={program.title}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: program.fit || 'cover',
-            display: 'block',
-            transition: 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
-            padding: program.fit === 'contain' ? '3rem' : '0'
-          }}
-        />
-        {/* Image Overlay Gradient */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: `linear-gradient(${isEven ? 'to right' : 'to left'}, transparent, rgba(255,255,255,0.05))`,
-          pointerEvents: 'none'
-        }}></div>
-      </div>
-
-      {/* Content Container */}
-      <div style={{
-        flex: '1',
-        padding: window.innerWidth < 768 ? '2.5rem' : '4rem',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        background: '#fff'
-      }}>
-        <div style={{
-          background: program.color || 'var(--pratham-yellow)',
-          color: '#fff',
-          padding: '0.6rem 1.4rem',
-          marginBottom: '2rem',
-          borderRadius: '8px',
-          fontWeight: '900',
-          fontSize: '0.85rem',
-          textTransform: 'uppercase',
-          letterSpacing: '2px',
-          boxShadow: `0 10px 20px ${program.color}33`,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-          width: 'fit-content'
-        }}>
-          {program.icon && (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              {program.icon.startsWith('http') ? (
-                <img src={program.icon} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain', borderRadius: '4px' }} />
-              ) : (
-                <span style={{ fontSize: '1.2rem' }}>{program.icon}</span>
-              )}
-            </div>
-          )}
-          <span>{program.title}</span>
-        </div>
-
-        <h3 style={{
-          fontSize: window.innerWidth < 768 ? '1.8rem' : '2.5rem',
-          fontWeight: '900',
-          color: '#1a1a1a',
-          marginBottom: '1.5rem',
-          lineHeight: '1.2',
-          letterSpacing: '-1px'
-        }}>
-          {program.title}
-        </h3>
-
-        {program.description.split('\n\n').map((paragraph, pIndex) => (
-          <p key={pIndex} style={{
-            color: '#555',
-            lineHeight: '1.8',
-            fontSize: '1.1rem',
-            marginBottom: '1.5rem',
-            textAlign: 'justify'
-          }}>
-            {renderText(paragraph)}
-          </p>
-        ))}
-
-      </div>
-    </div>
-  );
-};
 
 const Programs = () => {
   const [dynamicPrograms, setDynamicPrograms] = useState([]);
@@ -374,34 +221,143 @@ const Programs = () => {
         </div>
       </section>
 
-      {/* Programs List - Horizontal Layout */}
+      {/* Programs List - 3 Column Grid Layout */}
       <section style={{ padding: '6rem 0', background: '#f8f9fa' }}>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+        <div className="container" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', 
+            gap: '2.5rem' 
+          }}>
             {[...dynamicPrograms, ...programData].map((program, index) => (
-              <ProgramCard key={program._id || index} program={program} index={index} />
+              <motion.div
+                key={program._id || index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ delay: (index % 3) * 0.15, duration: 0.6 }}
+                style={{
+                  background: '#fff',
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+                  border: '1px solid #eee',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: 'all 0.3s ease',
+                }}
+                className="program-card-hover"
+              >
+                {/* Image Section */}
+                <div style={{
+                  height: '280px',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  background: program.fit === 'contain' ? '#fcfcfc' : 'transparent'
+                }}>
+                  <img
+                    src={program.image}
+                    alt={program.title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: program.fit || 'cover',
+                      display: 'block',
+                      transition: 'transform 0.6s ease',
+                      padding: program.fit === 'contain' ? '2rem' : '0'
+                    }}
+                  />
+                  {/* Category Badge Overlay */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '0.5rem',
+                    left: '1.5rem',
+                    background: program.color || '#e53935',
+                    color: '#fff',
+                    padding: '0.5rem 1.2rem',
+                    borderRadius: '12px',
+                    fontSize: '0.75rem',
+                    fontWeight: '900',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                    zIndex: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}>
+                    {program.icon && <span style={{ fontSize: '1rem' }}>{program.icon}</span>}
+                    {program.title}
+                  </div>
+                </div>
+
+                {/* Content Section */}
+                <div style={{
+                  padding: '2rem',
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}>
+                  <h3 style={{
+                    fontSize: '1.6rem',
+                    fontWeight: '900',
+                    color: '#1a1a1a',
+                    marginBottom: '1rem',
+                    lineHeight: '1.3'
+                  }}>
+                    {program.title}
+                  </h3>
+                  
+                  <p style={{
+                    color: '#666',
+                    lineHeight: '1.6',
+                    fontSize: '1.05rem',
+                    marginBottom: '1.5rem',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    flex: 1
+                  }}>
+                    {program.description}
+                  </p>
+
+
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section style={{ padding: '6rem 0', background: 'var(--pratham-yellow)', textAlign: 'center' }}>
+      <section style={{ padding: '6rem 0', background: '#FFC107', textAlign: 'center' }}>
         <div className="container">
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Want to make a difference?</h2>
-          <p style={{ fontSize: '1.2rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem' }}>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', fontWeight: '900' }}>Want to make a difference?</h2>
+          <p style={{ fontSize: '1.2rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem', fontWeight: '600', color: '#333' }}>
             Whether through volunteering or support, your contribution helps us expand these programs to more people in need.
           </p>
           <button style={{
-            background: 'var(--pratham-black)',
+            background: '#1a1a1a',
             color: '#fff',
-            padding: '1rem 3rem',
-            fontSize: '1.2rem',
+            padding: '1.2rem 3.5rem',
+            fontSize: '1.1rem',
             border: 'none',
-            borderRadius: '4px',
+            borderRadius: '12px',
             cursor: 'pointer',
-            fontWeight: '600'
-          }}>
+            fontWeight: '800',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-3px)';
+            e.currentTarget.style.background = '#000';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.background = '#1a1a1a';
+          }}
+          >
             Get Involved Now
           </button>
         </div>

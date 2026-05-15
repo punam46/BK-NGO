@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import childrenStudying from '../assets/children_studying.png';
 import childrenExtremeLeft from '../assets/children_extreme_left.png';
@@ -12,17 +13,37 @@ import bkLogo from '../assets/logo.jpeg';
 import g5 from '../assets/g5.jpg';
 import womenEmpowermentImg from '../assets/Women-Empowerment.webp';
 import newSmileImg from '../assets/6636163.jpg';
-import socialWelfareImg from '../assets/socialwelf.png';
+import childCare1Jpg from '../assets/child care 1.jpg';
+import compataiveAvif from '../assets/compataive.avif';
+import childCareImg from '../assets/child care.jpg';
+import g30Img from '../assets/g30.jpeg';
+import pwdImg from '../assets/pwd.jpg';
+import home1Img from '../assets/Home1.png';
+import home2Img from '../assets/Home2.png';
+import home3Img from '../assets/Home3.png';
+import home4Img from '../assets/Home4.png';
+import home5Img from '../assets/Home5.png';
+import home7Img from '../assets/Home7.png';
+import mainImg from '../assets/main.jpg';
 
+const HOME_HERO_SLIDES = [home1Img, home2Img, home3Img, home4Img, home5Img, home7Img];
 const Home = () => {
   const carouselRef = useRef(null);
   const separatorRef = useRef(null);
   const whatWeDoRef = useRef(null);
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [currentHero, setCurrentHero] = useState(0);
   const [isSeparatorVisible, setIsSeparatorVisible] = useState(false);
   const [isWhatWeDoVisible, setIsWhatWeDoVisible] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeWwdCard, setActiveWwdCard] = useState(null);
+
+
+  const stats = [
+    { title: "Activities in", value: "36", label: "Districts" },
+    { title: "Children reached", value: "10K", label: "Through direct programs and government partnerships" },
+    { title: "Social Welfare & Environmental Care", value: "300+", label: "Impactful programs and rehabilitation projects" },
+    { title: "Youth reached", value: "1K+", label: "Through vocational/non-vocational courses" }
+  ];
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -30,67 +51,13 @@ const Home = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Auto-cycle hero images
   useEffect(() => {
-    const interval = setInterval(() => {
-      const { current } = carouselRef;
-      if (current) {
-        // If we've reached the end, scroll back to the start
-        if (Math.ceil(current.scrollLeft + current.offsetWidth) >= current.scrollWidth - 5) {
-          current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          const scrollAmount = windowWidth < 768 ? current.offsetWidth : current.offsetWidth / 3;
-          current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }
-      }
+    const timer = setTimeout(() => {
+      setCurrentHero((prev) => (prev + 1) % HOME_HERO_SLIDES.length);
     }, 4000);
-    return () => clearInterval(interval);
-  }, [windowWidth]);
-
-  const heroSlides = [
-    {
-      title: "Women Safety & Empowerment",
-      text: "Conducting self-defense training and legal awareness workshops to ensure a secure and empowered future for every woman.",
-      image: newSmileImg,
-      layout: "magazine",
-      bgPosition: "left center",
-      bgSize: "contain",
-      bgColor: "#9b4b45"
-    },
-    {
-      title: "Every Smile Tells a Story of Hope",
-      text: "Building a brighter future through education and care, one happy face at a time.",
-      image: childrenExtremeLeft,
-      layout: "magazine",
-      bgPosition: "left center",
-      bgSize: "cover",
-      bgColor: "#fff"
-    },
-    {
-      title: "Rural Community Empowerment",
-      text: "Fostering sustainable growth and self-reliance in rural areas through community-driven initiatives.",
-      image: "/rural_women_empowerment.png",
-      layout: "magazine",
-      bgPosition: "center",
-      bgSize: "cover",
-      bgColor: "#fff"
-    },
-    {
-      title: "Skill Development",
-      text: "Empowering communities through practical workshops and technical skills for a sustainable future.",
-      image: "/skill_development_new.png",
-      layout: "magazine",
-      bgPosition: "center",
-      bgSize: "cover",
-      bgColor: "#fff"
-    }
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [heroSlides.length]);
+    return () => clearTimeout(timer);
+  }, [currentHero]);
 
   // Observer for Separator Animations
   useEffect(() => {
@@ -136,7 +103,7 @@ const Home = () => {
                 const carousel = carouselRef.current;
                 const maxScrollLeft = carousel.scrollWidth - carousel.offsetWidth;
                 const cardWidth = carousel.firstElementChild?.offsetWidth || 300;
-                
+
                 if (carousel.scrollLeft >= maxScrollLeft - 20) {
                   carousel.scrollTo({ left: 0, behavior: 'smooth' });
                 } else {
@@ -165,57 +132,82 @@ const Home = () => {
     };
   }, []);
 
-  const scroll = (direction) => {
-    if (carouselRef.current) {
-      const cardWidth = carouselRef.current.firstElementChild?.offsetWidth || 580;
-      const scrollAmount = direction === 'next' ? cardWidth + 20 : -(cardWidth + 20);
-      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="home-page">
-      {/* Hero Section */}
+      {/* Cinematic Image Slider Hero Section */}
       <section
-        className={`hero hero-${heroSlides[activeSlide].layout}`}
-        style={{ 
-          backgroundImage: heroSlides[activeSlide].image ? `url("${heroSlides[activeSlide].image}")` : 'none',
-          backgroundPosition: heroSlides[activeSlide].bgPosition,
-          backgroundSize: heroSlides[activeSlide].bgSize,
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: heroSlides[activeSlide].bgColor,
-          transition: 'background-image 0.8s ease-in-out, background-position 0.8s ease-in-out, background-size 0.8s ease-in-out'
+        className="hero"
+        style={{
+          height: '85vh',
+          width: '100%',
+          position: 'relative',
+          overflow: 'hidden',
+          background: '#000',
+          marginTop: '130px'
         }}
       >
-        <div className="hero-overlay">
-          <div className="hero-content" key={activeSlide}>
-            <h1>{heroSlides[activeSlide].title}</h1>
-            <p>{heroSlides[activeSlide].text}</p>
-            <a href="#" className="read-more">Read More</a>
-          </div>
-        </div>
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentHero}
+            initial={{ x: '100%', opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '-100%', opacity: 0 }}
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.4 }
+            }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 1
+            }}
+          >
+            <img
+              src={HOME_HERO_SLIDES[currentHero]}
+              alt="BK NGO Initiative"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: '20% center'
+              }}
+            />
+          </motion.div>
+        </AnimatePresence>
 
-        <div className="slider-dots">
-          {heroSlides.map((_, index) => (
-            <span 
-              key={index} 
-              className={`dot ${activeSlide === index ? 'active' : ''}`}
-              onClick={() => setActiveSlide(index)}
-              style={{ cursor: 'pointer' }}
-            ></span>
+        {/* Slide Indicators */}
+        <div style={{
+          position: 'absolute',
+          bottom: '30px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          gap: '12px',
+          zIndex: 15
+        }}>
+          {HOME_HERO_SLIDES.map((_, idx) => (
+            <div
+              key={idx}
+              onClick={() => setCurrentHero(idx)}
+              style={{
+                width: idx === currentHero ? '40px' : '10px',
+                height: '10px',
+                borderRadius: '5px',
+                background: idx === currentHero ? '#ff9800' : 'rgba(255,255,255,0.5)',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}
+            />
           ))}
         </div>
       </section>
-
-
-
 
 
       {/* Panoramic Watercolor Separator */}
       <section
         className="watercolor-separator"
         ref={separatorRef}
-        style={{ 
+        style={{
           backgroundImage: 'url("/watercolor_children_group.png")',
           width: '100%',
           minHeight: '900px',
@@ -250,30 +242,34 @@ const Home = () => {
           WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 40%, black 60%, transparent)'
         }}></div>
 
+        <div className={`scroll-reveal ${isSeparatorVisible ? 'active' : ''}`} style={{
+          fontSize: 'clamp(1.5rem, 4vw, 2.4rem)',
+          marginBottom: '3rem',
+          color: '#000000',
+          fontWeight: '900',
+          lineHeight: '1.2',
+          whiteSpace: 'nowrap',
+          transitionDelay: '0.2s',
+          alignSelf: 'center',
+          marginRight: '12%' /* Subtle left bias as requested */
+        }}>
+          <span style={{ color: '#d32f2f' }}>BK</span> Education and Welfare Society (NGO)
+        </div>
+
         <div className="responsive-container">
-          <div className={`scroll-reveal ${isSeparatorVisible ? 'active' : ''}`} style={{ 
-            fontSize: 'clamp(1.4rem, 2.8vw, 2.2rem)', 
-            marginBottom: '1.5rem', 
-            color: '#1a1a1a', 
-            fontWeight: '800',
-            whiteSpace: 'nowrap',
-            transitionDelay: '0.2s'
-          }}>
-            <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society (NGO)
-          </div>
-          
-          <div className={`scroll-reveal ${isSeparatorVisible ? 'active' : ''}`} style={{ 
-            fontSize: '1.1rem', 
-            lineHeight: '1.8', 
-            color: '#444', 
+          <div className={`scroll-reveal ${isSeparatorVisible ? 'active' : ''}`} style={{
+            fontSize: '1.2rem',
+            lineHeight: '1.8',
+            color: '#000000',
             fontWeight: '500',
-            transitionDelay: '0.5s'
+            transitionDelay: '0.5s',
+            maxWidth: '900px'
           }}>
             <p style={{ marginBottom: '1.2rem' }}>
               The <span style={{ color: '#e53935', fontWeight: 'bold' }}>BK</span> Education and Welfare Society (NGO) has been formed with the foundational idea of <strong>"Education for all"</strong> and creating widespread awareness regarding health, environment, and social issues. Established in 2011, we are committed to supporting the social growth of physically challenged individuals by providing free guidance for competitive exams and government placements.
             </p>
             <p style={{ marginBottom: '1.2rem' }}>
-              In addition to our core missions, we provide critical support to students from economically weaker sections through fee reductions. As part of our socio-economic contribution to society, we have introduced India's first national <strong>Bilingual Newspaper</strong> that focuses exclusively on positive news.
+              In addition to our core missions, we provide critical support to students from economically weaker sections through fee reductions. As part of our socio-economic contribution to society, we have introduced India's first national <strong>BK Times Bilingual Newspaper</strong> that focuses exclusively on positive news.
             </p>
             <p style={{ marginBottom: '1.2rem' }}>
               Our unique <strong>"One Village One Reporter"</strong> system generates meaningful employment at the village, Tehsil, and district levels. Our weekly newsletter provides essential updates on current affairs, great personalities, and general knowledge for rural communities and students preparing for competitive exams, including listings for all government and public sector vacancies.
@@ -284,57 +280,57 @@ const Home = () => {
       </section>
 
       {/* What We Do Section */}
-      <section className="what-we-do" ref={whatWeDoRef} style={{ 
-        padding: '0 0 2rem', 
+      <section className="what-we-do" ref={whatWeDoRef} style={{
+        padding: '0 0 2rem',
         background: 'linear-gradient(to bottom, #00BFA5 55%, #fff 55%)', /* Restored original teal */
         position: 'relative',
         overflow: 'hidden'
       }}>
         {/* Artistic Watercolor Illustration Texture - Top Half Only */}
-        <div style={{ 
-          position: 'absolute', top: 0, left: 0, width: '100%', height: '55%', 
-          backgroundImage: 'url("/yellow_watercolor_wash.png")', 
+        <div style={{
+          position: 'absolute', top: 0, left: 0, width: '100%', height: '55%',
+          backgroundImage: 'url("/yellow_watercolor_wash.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'top',
-          filter: 'hue-rotate(130deg) saturate(1.1) brightness(0.9)', 
+          filter: 'hue-rotate(130deg) saturate(1.1) brightness(0.9)',
           mixBlendMode: 'multiply',
           opacity: 0.5,
           zIndex: 1
         }}></div>
 
 
-        <div style={{ 
-          position: 'relative', 
-          zIndex: 20, 
+        <div style={{
+          position: 'relative',
+          zIndex: 20,
           marginTop: '-1rem', /* Lowered further per request */
-          marginBottom: '3.5rem' 
+          marginBottom: '3.5rem'
         }}>
           {/* Professional Teal Banner - Restored */}
-          <div style={{ 
-            background: '#00BFA5', 
-            width: 'clamp(280px, 50%, 600px)', 
-            margin: '0 auto', 
-            padding: '1.2rem 2rem', 
+          <div style={{
+            background: '#00BFA5',
+            width: 'clamp(280px, 50%, 600px)',
+            margin: '0 auto',
+            padding: '1.2rem 2rem',
             textAlign: 'center',
             borderRadius: '16px',
             boxShadow: '0 20px 45px rgba(0,0,0,0.2)',
             border: '2px solid rgba(255,255,255,0.2)'
           }}>
-            <h2 style={{ 
-              fontSize: 'clamp(1.5rem, 4vw, 2.8rem)', 
-              color: '#ffffff', 
-              margin: '0', 
+            <h2 style={{
+              fontSize: 'clamp(1.2rem, 3vw, 2.2rem)',
+              color: '#ffffff',
+              margin: '0',
               fontWeight: '900',
               textTransform: 'uppercase',
-              letterSpacing: '2px',
+              letterSpacing: '1.5px',
               textShadow: '0 2px 10px rgba(0,0,0,0.2)'
             }}>What We Do</h2>
           </div>
         </div>
 
-        <div className="container" style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+        <div className="container" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: '2rem',
           padding: '0 2%',
           maxWidth: '1600px',
@@ -343,17 +339,17 @@ const Home = () => {
           zIndex: 5
         }}>
           {/* Card 1: Education */}
-          <div 
-            className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`} 
+          <div
+            className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`}
             onClick={() => {
               if (window.innerWidth <= 768) {
                 setActiveWwdCard(activeWwdCard === 0 ? null : 0);
               }
             }}
-            style={{ 
-              background: '#fff', 
-              borderRadius: '16px', 
-              textAlign: 'center', 
+            style={{
+              background: '#fff',
+              borderRadius: '16px',
+              textAlign: 'center',
               padding: '2.5rem 2rem',
               boxShadow: '0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05)',
               transition: 'all 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
@@ -365,7 +361,7 @@ const Home = () => {
           >
 
             <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src="/education_card.png" alt="Education" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <img src={g5} alt="Education" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 0 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 0 ? 1 : undefined,
@@ -382,17 +378,17 @@ const Home = () => {
           </div>
 
           {/* Card 2: Social Welfare */}
-          <div 
-            className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`} 
+          <div
+            className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`}
             onClick={() => {
               if (window.innerWidth <= 768) {
                 setActiveWwdCard(activeWwdCard === 1 ? null : 1);
               }
             }}
-            style={{ 
-              background: '#fff', 
-              borderRadius: '16px', 
-              textAlign: 'center', 
+            style={{
+              background: '#fff',
+              borderRadius: '16px',
+              textAlign: 'center',
               padding: '2.5rem 2rem',
               boxShadow: '0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05)',
               transition: 'all 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
@@ -404,7 +400,7 @@ const Home = () => {
           >
 
             <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src={socialWelfareImg} alt="Social Work" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <img src={seniorCitizenImg} alt="Social Work" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 1 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 1 ? 1 : undefined,
@@ -421,17 +417,17 @@ const Home = () => {
           </div>
 
           {/* Card 3: Environment */}
-          <div 
-            className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`} 
+          <div
+            className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`}
             onClick={() => {
               if (window.innerWidth <= 768) {
                 setActiveWwdCard(activeWwdCard === 2 ? null : 2);
               }
             }}
-            style={{ 
-              background: '#fff', 
-              borderRadius: '16px', 
-              textAlign: 'center', 
+            style={{
+              background: '#fff',
+              borderRadius: '16px',
+              textAlign: 'center',
               padding: '2.5rem 2rem',
               boxShadow: '0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05)',
               transition: 'all 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
@@ -443,7 +439,7 @@ const Home = () => {
           >
 
             <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src="/rural_community_hub.png" alt="Environment" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <img src={socialWelfareImpactImg} alt="Environment" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 2 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 2 ? 1 : undefined,
@@ -460,17 +456,17 @@ const Home = () => {
           </div>
 
           {/* Card 4: Exam Guidance */}
-          <div 
-            className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`} 
+          <div
+            className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`}
             onClick={() => {
               if (window.innerWidth <= 768) {
                 setActiveWwdCard(activeWwdCard === 3 ? null : 3);
               }
             }}
-            style={{ 
-              background: '#fff', 
-              borderRadius: '16px', 
-              textAlign: 'center', 
+            style={{
+              background: '#fff',
+              borderRadius: '16px',
+              textAlign: 'center',
               padding: '2.5rem 2rem',
               boxShadow: '0 20px 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05)',
               transition: 'all 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
@@ -480,9 +476,8 @@ const Home = () => {
               cursor: 'pointer'
             }}
           >
-
             <div className="wwd-image-container" style={{ position: 'relative', zIndex: 1, height: '380px', overflow: 'hidden', borderRadius: '12px' }}>
-              <img src="/what_we_do_pwd_exam.png" alt="Exam Prep" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <img src={pwdImg} alt="Exam Prep" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
               <div className="wwd-overlay" style={{
                 transform: activeWwdCard === 3 ? 'translateY(0)' : undefined,
                 opacity: activeWwdCard === 3 ? 1 : undefined,
@@ -497,14 +492,16 @@ const Home = () => {
             <h3 style={{ fontSize: '1.2rem', fontWeight: '600', color: '#333', marginBottom: '1rem', position: 'relative', zIndex: 1, minHeight: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Competitive Exam Prep (PwD)</h3>
             <div style={{ width: '25px', height: '3px', background: '#00BFA5', margin: '0 auto', position: 'relative', zIndex: 1 }}></div>
           </div>
+
+
         </div>
       </section>
 
 
 
       {/* Help Children Today Section */}
-      <section className="help-section" style={{ 
-        padding: '4rem 6% 2rem', 
+      <section className="help-section" style={{
+        padding: '4rem 6% 2rem',
         background: '#ffffff',
         position: 'relative',
         overflow: 'hidden'
@@ -520,10 +517,10 @@ const Home = () => {
           pointerEvents: 'none'
         }}></div>
 
-        <div className="help-grid-container" style={{ 
-          display: 'grid', 
+        <div className="help-grid-container" style={{
+          display: 'grid',
           gridTemplateColumns: windowWidth < 1100 ? '1fr' : '30% 70%',
-          alignItems: 'center', 
+          alignItems: 'center',
           gap: windowWidth < 1100 ? '2rem' : '4rem',
           maxWidth: '1600px',
           margin: '0 auto',
@@ -532,69 +529,69 @@ const Home = () => {
         }}>
           {/* Left Column: Text & CTA */}
           <div style={{ zIndex: 2 }}>
-            <h2 style={{ 
-              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-              color: '#333', 
-              lineHeight: '1.1',
+            <h2 style={{
+              fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+              color: '#333',
+              lineHeight: '1.2',
               fontWeight: '800',
-              marginBottom: '2rem'
+              marginBottom: '1.5rem'
             }}>
-              How do you want to <span style={{ 
-                color: '#ffd54f', 
+              How do you want <span style={{
+                color: '#00BFA5',
                 fontFamily: '"Dancing Script", cursive',
-                fontSize: windowWidth < 768 ? '3rem' : '4.5rem',
+                fontSize: windowWidth < 768 ? '2.2rem' : '3rem',
                 fontWeight: '700',
                 display: 'inline-block',
-                margin: '0.5rem 0',
-                letterSpacing: '2px', // Make it broader
-                textShadow: '0.8px 0.8px 0px #ffd54f, -0.8px -0.8px 0px #ffd54f'
-              }}>help society</span> <br/>
+                margin: '0.2rem 0',
+                letterSpacing: '1px',
+                textShadow: '0.5px 0.5px 0px #00BFA5'
+              }}>help society</span> <br />
               today?
             </h2>
-            <p style={{ 
-              fontSize: '1.1rem', 
-              color: '#666', 
-              lineHeight: '1.6', 
-              marginBottom: '3rem',
+            <p style={{
+              fontSize: '1rem',
+              color: '#666',
+              lineHeight: '1.6',
+              marginBottom: '2rem',
               maxWidth: '450px'
             }}>
-              Your smallest contribution makes a big difference to society. 
+              Your smallest contribution makes a big difference to society.
               We count on the generosity of people like you to be able to create real change through our society's initiatives!
             </p>
           </div>
 
           {/* Right Column: Carousel */}
           <div style={{ position: 'relative', minHeight: windowWidth < 768 ? 'auto' : '500px', width: '100%', overflow: 'visible' }}>
-            
-            <div 
+
+            <div
               ref={carouselRef}
               className="impact-carousel" style={{
-              display: 'flex',
-              gap: '1.5rem',
-              overflowX: 'scroll', /* Force scroll */
-              paddingBottom: '2rem',
-              width: '100%',
-              scrollBehavior: 'smooth',
-              WebkitOverflowScrolling: 'touch',
-              msOverflowStyle: 'none',
-              scrollbarWidth: 'none',
-              minWidth: 0,
-              paddingLeft: '5%',
-              paddingRight: '5%'
-            }}>
-              {/* Impact Card 1 */}
-              <div 
-                className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
-                background: '#fff',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+                display: 'flex',
+                gap: '1.5rem',
+                overflowX: 'scroll', /* Force scroll */
+                paddingBottom: '2rem',
+                width: '100%',
+                scrollBehavior: 'smooth',
+                WebkitOverflowScrolling: 'touch',
+                msOverflowStyle: 'none',
+                scrollbarWidth: 'none',
+                minWidth: 0,
+                paddingLeft: '5%',
+                paddingRight: '5%'
               }}>
+              {/* Impact Card 1 */}
+              <div
+                className="impact-card" style={{
+                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+                }}>
                 <div style={{ position: 'relative', height: '300px' }}>
                   <img src="/impact_education_1776673692428.png" alt="Education" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <div style={{ 
+                  <div style={{
                     position: 'absolute', top: '20px', right: '0', background: '#ffd54f',
                     padding: '0.5rem 1.2rem', fontWeight: '800', fontSize: '0.9rem',
                     borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px'
@@ -608,15 +605,15 @@ const Home = () => {
               </div>
 
               {/* Impact Card 2: Social Welfare */}
-              <div 
+              <div
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
-                background: '#fff',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
-              }}>
+                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+                }}>
                 <div style={{ position: 'relative', height: '300px' }}>
                   <img src={socialWelfareImpactImg} alt="Social Welfare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
@@ -628,15 +625,15 @@ const Home = () => {
               </div>
 
               {/* Impact Card: Clean Water Access */}
-              <div 
+              <div
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
-                background: '#fff',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
-              }}>
+                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+                }}>
                 <div style={{ position: 'relative', height: '300px' }}>
                   <img src={cleanWaterImg} alt="Clean Water Access" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
@@ -648,19 +645,19 @@ const Home = () => {
               </div>
 
               {/* Impact Card 3 */}
-              <Link 
+              <Link
                 to="/donate"
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
-                background: '#fff',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.08)',
-                textDecoration: 'none',
-                color: 'inherit',
-                display: 'block'
-              }}>
+                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.08)',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  display: 'block'
+                }}>
                 <div style={{ position: 'relative', height: '300px' }}>
                   <img src={g5} alt="Ashram School" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
@@ -672,15 +669,15 @@ const Home = () => {
               </Link>
 
               {/* Impact Card 4 */}
-              <div 
+              <div
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
-                background: '#fff',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
-              }}>
+                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+                }}>
                 <div style={{ position: 'relative', height: '300px' }}>
                   <img src="/healthcare_all.jpg" alt="Healthcare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
@@ -692,15 +689,15 @@ const Home = () => {
               </div>
 
               {/* Impact Card 5: Senior Citizen Welfare */}
-              <div 
+              <div
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
-                background: '#fff',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
-              }}>
+                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+                }}>
                 <div style={{ position: 'relative', height: '300px' }}>
                   <img src={seniorCitizenImg} alt="Senior Citizen Welfare" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
@@ -712,15 +709,15 @@ const Home = () => {
               </div>
 
               {/* Impact Card 6: Blood Donation Camps */}
-              <div 
+              <div
                 className="impact-card" style={{
-                minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
-                background: '#fff',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
-              }}>
+                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.08)'
+                }}>
                 <div style={{ position: 'relative', height: '300px' }}>
                   <img src={bloodDonationImg} alt="Blood Donation Camps" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
@@ -746,78 +743,122 @@ const Home = () => {
         <div className="group-photo-banner" style={{
           width: '100%',
           minHeight: '800px',
-          backgroundImage: 'linear-gradient(to bottom, #e0f2fe 0%, rgba(255, 255, 255, 0.2) 50%, #ffffff 100%), url("/main_impact_banner.jpg")',
+          backgroundImage: 'url("/main_impact_banner.jpg")',
           backgroundSize: 'cover',
-          backgroundPosition: 'center 15%',
+          backgroundPosition: 'center 35%', /* Fine-tuning to balance height and visibility */
           backgroundRepeat: 'no-repeat',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: '1.5rem 4% 0',
+          padding: '0',
           position: 'relative'
         }}>
-          {/* Stats Overlay */}
-          <div className="stats-grid" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '3rem',
-            maxWidth: '1200px',
+          {/* Continuous Stats Marquee */}
+          <div className="stats-marquee-container" style={{
             width: '100%',
-            margin: '0 auto 4rem',
-            textAlign: 'center',
-            zIndex: 10
+            overflow: 'hidden',
+            padding: '3rem 0', /* Slightly tighter padding */
+            position: 'relative',
+            zIndex: 10,
+            marginTop: '-3rem', /* Reduced negative margin to create gap from cards above */
+            background: 'rgba(0, 30, 60, 0.85)', /* Deep Navy Blue */
+            backdropFilter: 'blur(15px)',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            borderBottom: '1px solid rgba(255,255,255,0.1)'
           }}>
-            {/* Stat 1 */}
-            <div className="stat-item">
-              <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Activities in</h4>
-              <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>36</div>
-              <p style={{ marginTop: '1rem', color: '#000', fontWeight: '600' }}>districts</p>
-            </div>
-
-            {/* Stat 2 */}
-            <div className="stat-item">
-              <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Children reached</h4>
-              <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>10K</div>
-              <p style={{ marginTop: '1rem', color: '#000', fontWeight: '600' }}>through direct programs and <br/> government partnerships</p>
-            </div>
-
-            {/* Stat 3 */}
-            <div className="stat-item">
-              <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Social Welfare & Environmental Care</h4>
-              <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>300+</div>
-              <p style={{ marginTop: '1rem', color: '#000', fontWeight: '600' }}>Impactful programs and <br/> rehabilitation projects</p>
-            </div>
-
-            {/* Stat 4 */}
-            <div className="stat-item">
-              <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>Youth reached</h4>
-              <div style={{ fontSize: '5rem', fontWeight: '800', color: '#ff9800', lineHeight: 1 }}>1K+</div>
-              <p style={{ marginTop: '1rem', color: '#000', fontWeight: '600' }}>through vocational/non-<br/>vocational courses</p>
-            </div>
-          </div>
-
-          {/* Yellow Logo Overlay */}
-          <div style={{
-            position: 'absolute',
-            bottom: '40px',
-            right: '40px',
-            width: '60px',
-            height: '60px',
-            background: '#ffc107',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: '4px',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
-            zIndex: 10
-          }}>
+            {/* Gradient Edges for Smooth Transition */}
             <div style={{
-              width: '30px',
-              height: '30px',
-              background: '#fff',
-              clipPath: 'polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%)'
+              position: 'absolute', top: 0, left: 0, bottom: 0, width: '150px',
+              background: 'linear-gradient(to right, rgba(0, 30, 60, 1), transparent)', zIndex: 12, pointerEvents: 'none'
             }}></div>
+            <div style={{
+              position: 'absolute', top: 0, right: 0, bottom: 0, width: '150px',
+              background: 'linear-gradient(to left, rgba(0, 30, 60, 1), transparent)', zIndex: 12, pointerEvents: 'none'
+            }}></div>
+
+            <motion.div
+              animate={{
+                x: [0, '-50%']
+              }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{
+                display: 'flex',
+                gap: '6rem',
+                width: 'max-content',
+                padding: '0 3rem'
+              }}
+            >
+              {/* Double the items for seamless loop */}
+              {[...stats, ...stats].map((stat, index) => (
+                <div key={index} style={{
+                  minWidth: '400px',
+                  flexShrink: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: '0 1.5rem'
+                }}>
+                  <h4 style={{
+                    fontSize: '1.2rem',
+                    fontWeight: '900',
+                    color: '#ffffff',
+                    marginBottom: '1.2rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '2px',
+                    textAlign: 'center',
+                    maxWidth: '280px',
+                    margin: '0 auto 1.2rem',
+                    lineHeight: '1.3',
+                    opacity: 0.95
+                  }}>
+                    {stat.title}
+                  </h4>
+                  <div style={{
+                    fontSize: '3.5rem',
+                    fontWeight: '900',
+                    color: '#ff9800',
+                    lineHeight: 1,
+                    marginBottom: '0.8rem',
+                    textShadow: '0 0 20px rgba(255, 152, 0, 0.4), 0 0 40px rgba(255, 152, 0, 0.2)',
+                    textAlign: 'center',
+                    width: '100%',
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    {/* Glow Effect Behind Number */}
+                    <div style={{
+                      position: 'absolute',
+                      width: '120px',
+                      height: '120px',
+                      background: 'radial-gradient(circle, rgba(255, 152, 0, 0.15) 0%, transparent 70%)',
+                      zIndex: -1,
+                      filter: 'blur(10px)'
+                    }}></div>
+                    {stat.value}
+                  </div>
+                  <p style={{
+                    color: 'rgba(255,255,255,0.75)',
+                    fontWeight: '600',
+                    fontSize: '1rem',
+                    whiteSpace: 'normal',
+                    maxWidth: '250px',
+                    lineHeight: '1.5',
+                    textAlign: 'center',
+                    margin: '0 auto'
+                  }}>
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
           </div>
+
         </div>
       </section>
     </div>

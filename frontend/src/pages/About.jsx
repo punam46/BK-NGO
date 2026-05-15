@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import aboutUsBanner from '../assets/about_us_hero_banner.png';
+import AboutInfographic from '../assets/About.png';
 import boysSmilingImg from '../assets/boys_smiling_red.png';
 import volunteersImg from '../assets/volunteers_smiling_faces.png';
 import ghugeImg from '../assets/ghuge sir.jpeg';
@@ -11,6 +11,10 @@ import gurukulLogo from '../assets/gurukul.jpeg';
 import bkLogo from '../assets/logo.jpeg';
 import sportsLogo from '../assets/bkSportsLogo.jpeg';
 import bkTimesLogo from '../assets/bk-times-logo.jpg';
+import p1 from '../assets/p1.jpeg';
+import p2 from '../assets/p2.jpeg';
+import p3 from '../assets/p3.jpeg';
+import p4 from '../assets/p4.jpeg';
 import ThreeDCarousel from '../components/ThreeDCarousel';
 import { renderText } from './Education';
 
@@ -99,7 +103,10 @@ const About = () => {
     { img: "/bkphoto.jpeg", name: "Dr. Adv. Er. Bhagwan Nivrutti Elmame", role: "Bench Magistrate (Member) of the Child Welfare Committee", pos: "top center" },
     { img: "/k1.jpeg", name: "Prof. Kishor Nivrutti Yelmame", role: "Founder President", pos: "top center" },
     { img: "/D1.jpeg", name: "Dnyaneshwar Nikalje", role: "Yoga & Physical Wellness Trainer", pos: "top center" },
-    { img: ghugeImg, name: "Nandkishor Ghuge", role: "Senior Fitness & Conditioning Coach", pos: "top center" }
+    { img: p1, name: "Preeti Dube", role: "Master of Quantitative Aptitude and Mathematics", pos: "top center" },
+    { img: p2, name: "Sushant Dughad", role: "Master of Logical Reasoning", pos: "top center" },
+    { img: p3, name: "Dnaneshwar Rathod", role: "Specialization in General Science and General Knowledge", pos: "top center" },
+    { img: p4, name: "Nandkishor Ghuge", role: "MPSC UPSC Aspirants & Gov Exams Specialist", pos: "top center" }
   ];
 
   const nextSlide = () => {
@@ -109,6 +116,12 @@ const About = () => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
   };
+
+  // Auto-slide effect for continuous motion
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 4000);
+    return () => clearInterval(timer);
+  }, [teamMembers.length]);
 
   const institutionData = [
     {
@@ -154,7 +167,7 @@ const About = () => {
     <div className="about-page">
       {/* Modern Hero Section */}
       <section style={{
-        padding: '6rem 5% 4rem',
+        padding: '11rem 5% 4rem', /* Further increased for even more clearance */
         background: '#fcfcf0',
         position: 'relative',
         overflow: 'hidden'
@@ -191,66 +204,30 @@ const About = () => {
               lineHeight: '1.7',
               maxWidth: '650px'
             }}>
-              <span style={{ color: '#e53935', fontWeight: 'bold' }}>BK</span> Education and Welfare Society was founded in 2011 with the foundational idea of "Education for all". Since then, we have transformed this conviction into a powerful movement for social change, empowering India's youth and nurturing talent on the path to a brighter, more educated future.
+              <span style={{ color: '#e53935', fontWeight: 'bold' }}>BK</span> Education and Welfare Society was founded in 2011 with the foundational idea of "Education for all". Since then, we have transformed this conviction into a powerful movement for social change—empowering India's youth through extensive social welfare initiatives, tribal education programs, and diverse community development projects on the path to a brighter, more inclusive future.
             </p>
           </div>
 
-          {/* Right Visuals (Overlapping Images) */}
-          <div style={{ flex: '1', position: 'relative', minWidth: '400px', minHeight: '500px' }}>
-            {/* Dotted Patterns */}
+          {/* Right Visuals (Static Infographic Wheel) */}
+          <div style={{ flex: '1', position: 'relative', minWidth: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{
-              position: 'absolute',
-              top: '10%',
-              right: '5%',
-              width: '120px',
-              height: '120px',
-              backgroundImage: 'radial-gradient(#ddd 2px, transparent 2px)',
-              backgroundSize: '15px 15px',
-              zIndex: 0
-            }} />
-            <div style={{
-              position: 'absolute',
-              bottom: '5%',
-              left: '15%',
-              width: '150px',
-              height: '150px',
-              backgroundImage: 'radial-gradient(#ddd 2px, transparent 2px)',
-              backgroundSize: '15px 15px',
-              zIndex: 0
-            }} />
-
-            {/* Image 1 (Left) - Circular Frame */}
-            <div style={{
-              position: 'absolute',
-              top: '-40px', /* Reduced from -100px to prevent overlapping with header */
-              left: '0',
-              width: '400px',
-              height: '400px',
-              zIndex: 2,
+              width: '100%',
+              maxWidth: '650px',
+              filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.12))',
               borderRadius: '50%',
-              overflow: 'hidden',
-              boxShadow: '0 40px 80px rgba(0,0,0,0.25)',
-              border: '12px solid #fff'
+              overflow: 'hidden'
             }}>
-              <img src={boysSmilingImg} alt="Students" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', objectPosition: 'top center' }} />
-            </div>
-
-
-            {/* Image 2 (Right Overlapping) */}
-            <div style={{
-              position: 'absolute',
-              top: '25%',
-              right: '-5%',
-              width: '70%',
-              zIndex: 1,
-              borderRadius: '10px 40px 40px 40px',
-              overflow: 'hidden',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
-            }}>
-              <img src={volunteersImg} alt="Volunteers" style={{ width: '100%', display: 'block' }} />
+              <img 
+                src={AboutInfographic} 
+                alt="BK Educational Society Programs Wheel" 
+                style={{ 
+                  width: '100%', 
+                  height: 'auto', 
+                  display: 'block'
+                }} 
+              />
             </div>
           </div>
-
         </div>
       </section>
 
@@ -311,15 +288,13 @@ const About = () => {
 
             <div style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#444', textAlign: 'justify' }}>
               <p style={{ marginBottom: '1.2rem' }}>
-                <strong>Dr. Adv. Er. Bhagwan Nivrutti Elmame</strong> is a seasoned academician, legal professional, administrator, and media leader with more than two decades of rich experience in the fields of education, law, governance, and social development. His career reflects a unique blend of academic excellence, practical legal expertise, institutional leadership, and public service.
+                <strong>Dr. Adv. Er. Bhagwan Nivrutti Elmame</strong> is a distinguished academician, legal professional, administrator, and media leader with over two decades of dedicated experience in the fields of education, law, governance, and social development. His professional journey reflects a remarkable combination of academic excellence, legal expertise, institutional leadership, and commitment to public welfare.
               </p>
               <p style={{ marginBottom: '1.2rem' }}>
-                He currently serves as the <strong>Chief Editor of <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</strong>, where he actively contributes to responsible journalism, public awareness, and dissemination of knowledge on contemporary legal, social, and governance issues. In addition, he holds the position of <strong>Secretary of <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</strong>, leading various initiatives aimed at promoting education, social justice, and community empowerment.
+                As the <strong>Chief Editor of <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</strong>, he actively promotes responsible journalism, public awareness, and the dissemination of knowledge related to legal, educational, social, and governance issues. Through his visionary leadership, the organization continuously works toward creating an informed, empowered, and socially responsible society.
               </p>
               <p>
-                Dr. Elmame is also entrusted with a significant quasi-judicial responsibility as a <strong>Bench Magistrate (Member)</strong>
-                of the Child Welfare Committee under the Government of Maharashtra, where he plays a vital role in safeguarding
-                child rights, ensuring rehabilitation, and implementing child protection laws.
+                In his role as the <strong>Secretary of <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society</strong>, Dr. Elmame leads various educational and social initiatives focused on community development, youth empowerment, social justice, and equal opportunities for all sections of society. His dedication has played a vital role in strengthening the organization’s mission of serving humanity through education and welfare activities.
               </p>
             </div>
           </div>
@@ -329,7 +304,7 @@ const About = () => {
 
       {/* Introduction Section */}
       <section className="about-intro-section" style={{
-        padding: '8rem 0',
+        padding: '5rem 0',
         background: 'linear-gradient(rgba(249, 249, 249, 0.7), rgba(249, 249, 249, 0.7)), url("/yellow_watercolor_wash.png") center/cover no-repeat',
         position: 'relative',
         overflow: 'hidden'
@@ -341,44 +316,61 @@ const About = () => {
           position: 'relative',
           zIndex: 2
         }}>
-          {/* Orange Introduction Tag */}
+          {/* 3D Introduction Tag */}
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
             background: '#FFC107',
-            padding: '0.6rem 1.5rem',
-            marginBottom: '2rem',
-            borderRadius: '4px',
+            padding: '0.8rem 2rem',
+            marginBottom: '2.5rem',
+            borderRadius: '8px',
             color: '#1a1a1a',
-            fontWeight: '800',
-            fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
-            letterSpacing: '1px'
-          }}>
-            <span style={{ marginRight: '10px' }}>&gt;</span> INTRODUCTION
+            fontWeight: '900',
+            fontSize: '1.1rem',
+            letterSpacing: '2px',
+            boxShadow: `
+              0 1px 0 #cc9a06,
+              0 2px 0 #b38705,
+              0 3px 0 #997304,
+              0 4px 0 #806104,
+              0 5px 0 #664d03,
+              0 10px 20px rgba(0,0,0,0.2)
+            `,
+            transform: 'perspective(1000px) rotateX(5deg) translateY(-2px)',
+            transition: 'all 0.3s ease',
+            cursor: 'default'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) translateY(-5px)';
+            e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.25)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'perspective(1000px) rotateX(5deg) translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 1px 0 #cc9a06, 0 2px 0 #b38705, 0 3px 0 #997304, 0 4px 0 #806104, 0 5px 0 #664d03, 0 10px 20px rgba(0,0,0,0.2)';
+          }}
+          >
+            <span style={{ marginRight: '12px', opacity: 0.7 }}>&gt;</span> INTRODUCTION
           </div>
 
           <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', marginBottom: '1.5rem', color: '#1a1a1a', fontWeight: '800' }}>
-            <span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society (NGO) <span style={{ fontSize: '1rem', verticalAlign: 'middle', background: '#f5f5f5', padding: '4px 10px', borderRadius: '4px', border: '1px solid #ddd', color: '#666', fontWeight: '600' }}>Reg. No. F-12121</span>
+            <span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society (NGO)
           </h2>
 
           <div style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.15rem)', lineHeight: '1.8', color: '#444', textAlign: 'justify' }}>
             <p style={{ marginBottom: '1.5rem' }}>
-              The <strong><span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society (NGO)</strong> was formed with the core vision of <strong>"Education for all"</strong> and creating widespread awareness about health, environment, and social issues. Since 2011, we have been dedicated to fostering social growth and empowering communities through diverse interventions.
+              <strong><span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society</strong> is a dedicated non-governmental organization committed to promoting education, social welfare, and community development for the betterment of society. The organization actively works in areas such as education development, tribal welfare, child development, women empowerment, orphan support, rural development, disability affairs, and public awareness programs. Through various social initiatives, awareness campaigns, educational support activities, and welfare programs, the society aims to empower underprivileged communities and create equal opportunities for growth, dignity, and self-reliance. The NGO also encourages youth participation, social responsibility, and community engagement to build a stronger and more inclusive society.
             </p>
             <p style={{ marginBottom: '1.5rem' }}>
-              We are deeply committed to supporting physically challenged individuals by providing free guidance for competitive exams and helping them secure government placements. Additionally, we provide meaningful support to students from economically weaker sections through significant fee reductions, ensuring that financial barriers do not hinder academic progress.
-            </p>
-            <p style={{ marginBottom: '1.5rem' }}>
-              As part of our socio-economic contribution, we introduced the first national <strong>Bilingual News Paper</strong> that exclusively features positive news. Through our <strong>"One Village One Reporter"</strong> system, we generate employment at the village, Tehsil, and district levels. Our weekly newsletter keeps rural communities and students updated on current affairs, general knowledge, and all public sector vacancies.
+              The organization further promotes health and wellness through yoga and awareness initiatives focused on physical and mental well-being. <strong><span style={{ color: '#e53935' }}>BK</span> Educational and Welfare Society</strong> continuously works toward social justice, child protection, educational guidance, and support for vulnerable individuals by organizing welfare activities and community-driven programs. With a vision of creating an educated, healthy, and socially responsible society, the NGO remains committed to serving humanity through compassion, leadership, and sustainable social development initiatives across different communities and regions.
             </p>
             <p>
-              Beyond education and media, we take active responsibility for the environment and public health. We conduct large-scale tree plantation campaigns and implement programs to ensure safe drinking water supply, striving to uplift society through every initiative.
+              Our institutions work with a shared vision of providing quality education, skill development, career guidance, sports training, and social awareness to students and communities. Through platforms such as <strong><span style={{ color: '#e53935' }}>BK</span> Sports Academy, <span style={{ color: '#e53935' }}>BK</span> Times, <span style={{ color: '#e53935' }}>BK</span> Science Academy, <span style={{ color: '#e53935' }}>BK</span> Career Academy, Sanskar English Medium School, and <span style={{ color: '#e53935' }}>BK</span> Gurukul Vidyaniketan</strong>, we aim to nurture knowledge, discipline, creativity, leadership, and social responsibility among individuals. Each institution is dedicated to excellence in its respective field while contributing toward the overall mission of educational growth, youth empowerment, and nation-building through accessible and value-based learning opportunities.
             </p>
           </div>
         </div>
       </section>
       {/* Key Focus Areas */}
-      <section className="about-programs-preview" style={{ padding: '6rem 0', background: '#fff' }}>
+      <section className="about-programs-preview" style={{ padding: '4rem 0', background: '#fff' }}>
         <div style={{ textAlign: 'center', marginBottom: '4.5rem', padding: '0 4%' }}>
           <h2 style={{ fontSize: 'clamp(2rem, 5vw, 2.8rem)', fontWeight: '800', color: '#1a1a1a', marginBottom: '1.2rem' }}>
             Our Key <span style={{ color: '#e53935' }}>Programs</span>
@@ -390,8 +382,8 @@ const About = () => {
       </section>
 
       {/* Our Institutions Section */}
-      <section className="about-institutions-section" style={{ padding: '6rem 0', background: '#f8fafc' }}>
-        <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 5%' }}>
+      <section className="about-institutions-section" style={{ padding: '4rem 0', background: '#f8fafc' }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 5%' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '3rem' }}>
             <div style={{ width: '6px', height: '45px', background: '#e53935', marginRight: '15px', borderRadius: '4px' }}></div>
             <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#004d99', margin: 0 }}>
@@ -399,17 +391,21 @@ const About = () => {
             </h2>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: windowWidth < 768 ? '1fr' : '1fr 1fr', 
+            gap: '1.5rem' 
+          }}>
             {institutionData.map((inst, idx) => (
               <motion.a 
                 key={idx}
                 href={inst.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: idx * 0.15, duration: 0.6, ease: "easeOut" }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ delay: idx * 0.1, duration: 0.5, ease: "easeOut" }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -419,24 +415,27 @@ const About = () => {
                   boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
                   textDecoration: 'none',
                   transition: 'all 0.3s ease',
-                  border: '1px solid #eef2f6'
+                  border: '1px solid #eef2f6',
+                  height: '100%'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.08)';
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.borderColor = '#3182ce';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+                  e.currentTarget.style.borderColor = '#eef2f6';
                 }}
               >
                 <div style={{ 
-                  width: '70px', 
-                  height: '70px', 
-                  borderRadius: '50%', 
+                  width: '60px', 
+                  height: '60px', 
+                  borderRadius: '16px', 
                   overflow: 'hidden', 
                   border: '1px solid #f0f0f0', 
-                  marginRight: '1.5rem',
+                  marginRight: '1.2rem',
                   flexShrink: 0,
                   display: 'flex',
                   alignItems: 'center',
@@ -446,21 +445,21 @@ const About = () => {
                   <img src={inst.logo} alt={inst.name} style={{ width: '80%', height: '80%', objectFit: 'contain' }} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#1a1a1a', margin: '0 0 0.3rem 0' }}>
+                  <h3 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#1a1a1a', margin: '0 0 0.2rem 0', lineHeight: '1.2' }}>
                     {inst.name}
                   </h3>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1.05rem', color: '#3182ce', fontWeight: '600' }}>{inst.url}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ fontSize: '0.9rem', color: '#3182ce', fontWeight: '600' }}>{inst.url}</span>
                     <div style={{ 
                       background: '#bee3f8', 
                       borderRadius: '4px', 
-                      width: '20px', 
-                      height: '20px', 
+                      width: '18px', 
+                      height: '18px', 
                       display: 'flex', 
                       alignItems: 'center', 
                       justifyContent: 'center' 
                     }}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2b6cb0" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                         <polyline points="15 3 21 3 21 9"></polyline>
                         <line x1="10" y1="14" x2="21" y2="3"></line>
@@ -477,185 +476,155 @@ const About = () => {
       {/* Our Team Section */}
       <section style={{
         position: 'relative',
-        background: '#d81b60', /* Radiant Crimson Pink */
-        padding: '8rem 0 6rem',
-        color: '#fff'
+        background: 'linear-gradient(135deg, #d81b60 0%, #ad1457 100%)', /* Deeper 3D Gradient */
+        padding: '5rem 0 5rem',
+        color: '#fff',
+        overflow: 'hidden'
       }}>
-        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-          <h2 style={{
-            fontSize: 'clamp(3rem, 8vw, 4.5rem)',
-            textAlign: 'center',
-            marginBottom: '6rem',
-            fontWeight: '900',
-            textTransform: 'uppercase',
-            letterSpacing: '4px',
-            opacity: 0.9,
-            lineHeight: '1'
-          }}>Our Team</h2>
-
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: windowWidth < 768 ? '2rem' : '5rem',
-            alignItems: 'flex-start'
-          }}>
-            {/* Left Content Block: Managing Committee */}
-            <div style={{ flex: '1.6', minWidth: windowWidth < 768 ? '100%' : '350px', paddingLeft: windowWidth < 768 ? '0' : '5%' }}>
-              <div style={{
-                padding: '2.5rem 0',
-                borderRadius: '24px'
-              }}>
-                <h3 style={{
-                  fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
-                  fontWeight: '900',
-                  marginBottom: '1.2rem',
-                  lineHeight: '1.1',
-                  color: '#fff'
-                }}>
-                  Managing <br /> Committee
-                </h3>
-                <p style={{
-                  fontSize: '1.05rem',
-                  lineHeight: '1.8',
-                  color: 'rgba(255,255,255,0.95)',
-                  marginBottom: '2rem',
-                  maxWidth: '500px'
-                }}>
-                  <span style={{ fontWeight: 'bold' }}><span style={{ color: '#fff' }}>BK</span> Educational and Welfare Society</span>'s leadership collective of Directors provides strategic direction to achieve our organizational objectives.
-                </p>
-                <div style={{
-                  width: '100%',
-                  height: '2px',
-                  background: 'rgba(255,255,255,0.4)',
-                  marginTop: '1rem'
-                }}></div>
-
-
-              </div>
-            </div>
-
-            {/* Right Content Block: Team Slider */}
+        <div className="container" style={{ maxWidth: '1600px', margin: '0 auto', padding: '0 4%', position: 'relative', zIndex: 10 }}>
+          <div style={{ textAlign: 'center', marginBottom: '5rem', maxWidth: '800px', margin: '0 auto 5rem' }}>
             <div style={{
-              flex: '2',
-              position: 'relative',
-              overflow: 'hidden',
-              paddingBottom: '2rem',
-              minWidth: windowWidth < 768 ? '100%' : '400px'
+              display: 'inline-flex',
+              alignItems: 'center',
+              background: 'rgba(255,255,255,0.2)',
+              padding: '0.8rem 2.2rem',
+              marginBottom: '2rem',
+              borderRadius: '6px',
+              color: '#fff',
+              fontWeight: '900',
+              fontSize: '1.2rem',
+              letterSpacing: '3px',
+              border: '2px solid rgba(255,255,255,0.4)',
+              textTransform: 'uppercase'
             }}>
-              <div style={{
-                display: 'flex',
-                gap: '1.5rem',
-                transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                transform: `translateX(-${currentSlide * (windowWidth < 768 ? 100 : 50)}%)`,
-                padding: '0 0.5rem'
-              }}>
-                {teamMembers.map((member, i) => (
-                  <div key={i} style={{
-                    flex: windowWidth < 768 ? '0 0 100%' : '0 0 calc(50% - 0.75rem)',
-                    display: 'flex',
-                    justifyContent: 'center'
-                  }}>
-                    <div style={{
-                      width: '100%',
-                      minHeight: '600px', // Adjusted for wider, shorter image
-                      background: '#ffffff',
-                      borderRadius: '32px',
-                      position: 'relative',
-                      boxShadow: '0 30px 60px rgba(0,0,0,0.12)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      padding: '3rem 2rem 2.5rem',
-                      color: '#1a1a1a'
-                    }}>
-                      {/* Rectangular Image Container */}
-                      <div style={{
-                        width: '380px', // Further increased width
-                        height: '320px', // Reverted height
-                        borderRadius: '32px',
-                        overflow: 'hidden',
-                        border: '6px solid #f8f9fa',
-                        boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
-                        marginBottom: '2.5rem',
-                        flexShrink: 0
-                      }}>
-                        <img
-                          src={member.img}
-                          alt={member.name}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: member.pos || 'center' }}
-                        />
-                      </div>
-
-                      {/* Text content moved below the circular image */}
-                      <div style={{
-                        textAlign: 'center',
-                        zIndex: 2
-                      }}>
-                        <h4 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.6rem', color: '#1a1a1a', lineHeight: '1.3' }}>{member.name}</h4>
-                        <div style={{ width: '40px', height: '3px', background: '#e53935', margin: '0.5rem auto 1rem' }}></div>
-                        <p style={{ fontSize: '0.95rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#e53935', lineHeight: '1.4' }}>{member.role}</p>
-                      </div>
-                    </div>
-
-                  </div>
-                ))}
-              </div>
-
-              {/* Navigation Buttons */}
-              <div style={{
-                position: 'absolute',
-                bottom: '1rem',
-                right: '1.5rem',
-                display: 'flex',
-                gap: '12px',
-                zIndex: 30
-              }}>
-                <button
-                  onClick={prevSlide}
-                  style={{
-                    width: '45px',
-                    height: '45px',
-                    borderRadius: '12px',
-                    border: 'none',
-                    background: 'rgba(255,255,255,0.2)',
-                    color: '#fff',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    backdropFilter: 'blur(8px)',
-                    transition: '0.3s',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#FFC107'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
-                >
-                  &#10094;
-                </button>
-                <button
-                  onClick={nextSlide}
-                  style={{
-                    width: '45px',
-                    height: '45px',
-                    borderRadius: '12px',
-                    border: 'none',
-                    background: 'rgba(255,255,255,0.2)',
-                    color: '#fff',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    backdropFilter: 'blur(8px)',
-                    transition: '0.3s',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#FFC107'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
-                >
-                  &#10095;
-                </button>
-              </div>
+              OUR TEAM
             </div>
+            <h2 style={{
+              fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+              fontWeight: '900',
+              textTransform: 'uppercase',
+              letterSpacing: '4px',
+              opacity: 0.9,
+              lineHeight: '1.1',
+              marginBottom: '1.5rem',
+              color: '#fff',
+              textShadow: `
+                0 1px 0 #c2185b,
+                0 2px 0 #ad1457,
+                0 3px 0 #880e4f,
+                0 4px 0 #560633,
+                0 10px 20px rgba(0,0,0,0.4)
+              `
+            }}>
+              Managing <br /> Committee
+            </h2>
+            <div style={{ width: '60px', height: '6px', background: '#FFC107', margin: '0 auto 2rem', borderRadius: '10px' }}></div>
+            <p style={{
+              fontSize: '1.15rem',
+              lineHeight: '1.8',
+              color: 'rgba(255,255,255,0.95)',
+              fontWeight: '600',
+              fontStyle: 'italic'
+            }}>
+              <strong><span style={{ color: '#fff' }}>BK</span> Educational and Welfare Society</strong>'s leadership collective of Directors provides strategic direction to achieve our organizational objectives.
+            </p>
+          </div>
+
+          {/* Infinite Continuous Slider */}
+          <div style={{
+            position: 'relative',
+            overflow: 'hidden',
+            padding: '3rem 0',
+            width: '100vw',
+            left: '50%',
+            right: '50%',
+            marginLeft: '-50vw',
+            marginRight: '-50vw'
+          }}>
+            <motion.div 
+              animate={{
+                x: [0, -2400] // Adjust based on content width
+              }}
+              transition={{
+                duration: 40,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{
+                display: 'flex',
+                gap: '4rem',
+                width: 'max-content',
+                padding: '0 2rem'
+              }}
+            >
+              {/* Duplicate the team members for a seamless loop */}
+              {[...teamMembers, ...teamMembers, ...teamMembers].map((member, i) => (
+                <div key={i} style={{
+                  width: '280px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  color: '#fff',
+                  flexShrink: 0
+                }}>
+                  {/* Circular Image Container with 3D Depth */}
+                  <div style={{
+                    width: '240px',
+                    height: '240px',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    boxShadow: `
+                      0 15px 35px rgba(0,0,0,0.5),
+                      0 5px 15px rgba(0,0,0,0.3),
+                      inset 0 0 25px rgba(255,255,255,0.1)
+                    `,
+                    marginBottom: '1.8rem',
+                    flexShrink: 0,
+                    background: '#fff',
+                    transition: 'transform 0.4s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  >
+                    <img
+                      src={member.img}
+                      alt={member.name}
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover', 
+                        objectPosition: member.pos || 'center'
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ textAlign: 'center', padding: '0 1rem' }}>
+                    <h4 style={{ 
+                      fontSize: '1.2rem', 
+                      fontWeight: '900', 
+                      marginBottom: '0.4rem', 
+                      color: '#fff', 
+                      lineHeight: '1.2',
+                      minHeight: '2.5rem'
+                    }}>
+                      {member.name}
+                    </h4>
+                    <div style={{ width: '30px', height: '2px', background: '#FFC107', margin: '0.4rem auto 0.8rem', borderRadius: '10px' }}></div>
+                    <p style={{ 
+                      fontSize: '0.75rem', 
+                      fontWeight: '800', 
+                      textTransform: 'uppercase', 
+                      letterSpacing: '1.2px', 
+                      color: 'rgba(255,255,255,0.9)', 
+                      lineHeight: '1.4' 
+                    }}>
+                      {member.role}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>

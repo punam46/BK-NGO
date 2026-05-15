@@ -28,7 +28,7 @@ const Footer = () => {
             <div>ENROLMENT CERT NO: 99594678152P</div>
           </div>
           <p className="footer-description">
-            Dedicated to creating holistic community development through education, 
+            Dedicated to creating holistic community development through education,
             social welfare, and environmental care. Together, we build a better tomorrow.
           </p>
           <div className="footer-socials">
@@ -65,7 +65,8 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Column 4: Contact Info */}
+
+
         <div className="footer-col contact">
           <h4 className="footer-title">Contact Us</h4>
           <div className="contact-item">
@@ -88,10 +89,10 @@ const Footer = () => {
           <div className="footer-copyright">
             <p>&copy; {new Date().getFullYear()} <span style={{ color: '#e53935', fontWeight: 600 }}>BK</span> Education and Welfare Society (NGO). All rights reserved.</p>
           </div>
-          <div className="footer-views" style={{ 
-            fontSize: '1rem', 
-            background: 'rgba(255,255,255,0.05)', 
-            padding: '0.4rem 1.2rem', 
+          <div className="footer-views" style={{
+            fontSize: '1rem',
+            background: 'rgba(255,255,255,0.05)',
+            padding: '0.4rem 1.2rem',
             borderRadius: '20px',
             border: '1px solid rgba(255,255,255,0.1)',
             display: 'flex',

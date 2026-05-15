@@ -87,7 +87,7 @@ const TaRL = () => {
         }}></div>
 
         <div className="container" style={{ maxWidth: '1200px', margin: '0 5%', display: 'flex', alignItems: 'center', height: '100%', color: '#fff', position: 'relative', zIndex: 10, padding: windowWidth < 768 ? '0 5%' : '0' }}>
-          <div style={{ maxWidth: '900px', textAlign: 'left', paddingTop: windowWidth < 768 ? '4rem' : '2rem', marginLeft: '0' }}>
+          <div style={{ maxWidth: '900px', textAlign: 'left', paddingTop: windowWidth < 768 ? '6rem' : '15rem', marginLeft: '0' }}>
             <h1 style={{ 
               fontSize: windowWidth < 768 ? '2.5rem' : '3.8rem', 
               fontWeight: '900', 
