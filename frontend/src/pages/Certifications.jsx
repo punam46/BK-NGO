@@ -120,7 +120,7 @@ const Certifications = () => {
       `}</style>
       <section style={{
         background: '#d34b07',
-        padding: '3rem 5% 3rem',
+        padding: '8rem 5% 3rem',
         textAlign: 'center',
         color: '#fff'
       }}>
@@ -204,16 +204,7 @@ const Certifications = () => {
                   <p style={{ color: '#666', lineHeight: '1.7', fontSize: '1rem', marginBottom: '1.5rem' }}>
                     {cert.description}
                   </p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', color: '#888', borderTop: '1px solid #f0f0f0', paddingTop: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <Shield size={14} />
-                      <span><strong>Issuer:</strong> {cert.organization}</span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <CheckCircle size={14} />
-                      <span><strong>ID:</strong> {cert.idNumber}</span>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             ))}

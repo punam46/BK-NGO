@@ -516,21 +516,23 @@ const Marquee = () => (
 );
 
 // ─── CTA ──────────────────────────────────────────────────────────────────────
-const CTASection = () => (
-  <section className="py-32 relative overflow-hidden bg-gray-900 text-white flex items-center">
-    <div className="absolute inset-0 opacity-20 pointer-events-none">
-      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=2000&q=20" alt="" className="w-full h-full object-cover" />
-    </div>
-    <div className="container mx-auto px-4 md:px-6 relative z-10 text-center max-w-4xl">
-      <h2 className="text-5xl md:text-7xl font-serif mb-8">Plant a Seed for Tomorrow.</h2>
-      <p className="text-xl md:text-2xl text-white/80 mb-12 font-light">Join us in empowering rural communities to build sustainable, prosperous futures.</p>
-      <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <Button size="lg" className="rounded-full">Make a Donation</Button>
-        <Button size="lg" variant="outline" className="rounded-full">Become a Partner</Button>
+const CTASection = () => {
+  const navigate = useNavigate();
+  return (
+    <section className="py-32 relative overflow-hidden bg-gray-900 text-white flex items-center">
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=2000&q=20" alt="" className="w-full h-full object-cover" />
       </div>
-    </div>
-  </section>
-);
+      <div className="container mx-auto px-4 md:px-6 relative z-10 text-center max-w-4xl">
+        <h2 className="text-5xl md:text-7xl font-serif mb-8">Plant a Seed for Tomorrow.</h2>
+        <p className="text-xl md:text-2xl text-white/80 mb-12 font-light">Join us in empowering rural communities to build sustainable, prosperous futures.</p>
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Button size="lg" className="rounded-full" onClick={() => navigate('/donate')}>Make a Donation</Button>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function RuralDevelopment() {

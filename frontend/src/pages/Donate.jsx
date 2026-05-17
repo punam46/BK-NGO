@@ -2,27 +2,46 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const INDIAN_CITIES = [
-  "Agra", "Ahmedabad", "Ajmer", "Aligarh", "Amravati", "Amritsar", "Asansol", "Aurangabad", "Bangalore", 
-  "Bareilly", "Belgaum", "Bhavnagar", "Bhilai", "Bhiwandi", "Bhopal", "Bhubaneswar", "Bikaner", "Chandigarh", 
-  "Chennai", "Coimbatore", "Cuttack", "Dehradun", "Delhi", "Dhanbad", "Durgapur", "Erode", "Faridabad", 
-  "Firozabad", "Gandhinagar", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", "Gurgaon", "Guwahati", "Gwalior", 
-  "Hubli", "Hyderabad", "Indore", "Jabalpur", "Jaipur", "Jalandhar", "Jalgaon", "Jammu", "Jamnagar", "Jamshedpur", 
-  "Jhansi", "Jodhpur", "Kannur", "Kanpur", "Kochi", "Kolhapur", "Kolkata", "Kollam", "Kota", "Kozhikode", 
-  "Lucknow", "Ludhiana", "Madurai", "Malegaon", "Mangalore", "Meerut", "Moradabad", "Mumbai", "Mysore", 
-  "Nagpur", "Nanded", "Nashik", "Nellore", "Noida", "Patna", "Pondicherry", "Pune", "Raipur", "Rajahmundry", 
-  "Rajkot", "Ranchi", "Rourkela", "Salem", "Sangli", "Siliguri", "Solapur", "Srinagar", "Surat", "Thane", 
-  "Thiruvananthapuram", "Thrissur", "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Udaipur", "Ujjain", "Vadodara", 
-  "Varanasi", "Vasai-Virar", "Vellore", "Vijayawada", "Visakhapatnam", "Warangal", "Other"
-];
+const STATE_CITY_MAP = {
+  "Andaman and Nicobar Islands": ["Port Blair", "Other"],
+  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool", "Rajahmundry", "Other"],
+  "Arunachal Pradesh": ["Itanagar", "Other"],
+  "Assam": ["Guwahati", "Silchar", "Dibrugarh", "Other"],
+  "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Other"],
+  "Chandigarh": ["Chandigarh"],
+  "Chhattisgarh": ["Raipur", "Bhilai", "Bilaspur", "Other"],
+  "Dadra and Nagar Haveli and Daman and Diu": ["Daman", "Diu", "Silvassa", "Other"],
+  "Delhi": ["Delhi", "New Delhi", "Other"],
+  "Goa": ["Panaji", "Vasco da Gama", "Margao", "Other"],
+  "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar", "Jamnagar", "Gandhinagar", "Other"],
+  "Haryana": ["Faridabad", "Gurgaon", "Panipat", "Ambala", "Rohtak", "Other"],
+  "Himachal Pradesh": ["Shimla", "Mandi", "Dharamshala", "Other"],
+  "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Other"],
+  "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro", "Other"],
+  "Karnataka": ["Bangalore", "Mysore", "Hubli", "Mangalore", "Belgaum", "Gulbarga", "Other"],
+  "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Kollam", "Thrissur", "Kannur", "Other"],
+  "Ladakh": ["Leh", "Kargil", "Other"],
+  "Lakshadweep": ["Kavaratti", "Other"],
+  "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain", "Other"],
+  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Kalyan-Dombivli", "Vasai-Virar", "Aurangabad", "Solapur", "Amravati", "Malegaon", "Jalgaon", "Nanded", "Kolhapur", "Sangli", "Bhiwandi", "Other"],
+  "Manipur": ["Imphal", "Other"],
+  "Meghalaya": ["Shillong", "Other"],
+  "Mizoram": ["Aizawl", "Other"],
+  "Nagaland": ["Dimapur", "Kohima", "Other"],
+  "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Brahmapur", "Other"],
+  "Puducherry": ["Pondicherry", "Ozhukarai", "Other"],
+  "Punjab": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala", "Other"],
+  "Rajasthan": ["Jaipur", "Jodhpur", "Kota", "Bikaner", "Ajmer", "Udaipur", "Other"],
+  "Sikkim": ["Gangtok", "Other"],
+  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Tirunelveli", "Tiruppur", "Vellore", "Erode", "Other"],
+  "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Other"],
+  "Tripura": ["Agartala", "Other"],
+  "Uttar Pradesh": ["Lucknow", "Kanpur", "Ghaziabad", "Agra", "Varanasi", "Meerut", "Prayagraj", "Bareilly", "Aligarh", "Moradabad", "Saharanpur", "Gorakhpur", "Noida", "Firozabad", "Jhansi", "Other"],
+  "Uttarakhand": ["Dehradun", "Haridwar", "Roorkee", "Other"],
+  "West Bengal": ["Kolkata", "Asansol", "Siliguri", "Durgapur", "Howrah", "Other"]
+};
 
-const INDIAN_STATES = [
-  "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", 
-  "Chhattisgarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Goa", "Gujarat", "Haryana", 
-  "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Ladakh", "Lakshadweep", 
-  "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", 
-  "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
-];
+const INDIAN_STATES = Object.keys(STATE_CITY_MAP);
 
 const Donate = () => {
   const [showForm, setShowForm] = useState(false);
@@ -67,8 +86,15 @@ const Donate = () => {
     }
     if (name === 'mobile' && value.length > 10) return;
     if (name === 'aadharNumber' && value.length > 12) return;
+    if (name === 'panNumber' && value.length > 10) return;
     
-    setFormData({ ...formData, [name]: value });
+    const finalValue = name === 'panNumber' ? value.toUpperCase() : value;
+    
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: finalValue,
+      ...(name === 'state' ? { city: '' } : {}) 
+    }));
   };
 
   const initPayment = (data) => {
@@ -159,7 +185,7 @@ const Donate = () => {
             letterSpacing: '-1.5px',
             whiteSpace: 'normal'
           }}>
-            Build Futures with <br /> <span style={{ color: '#e53935' }}>BK Education and Welfare Society</span>
+            Build Futures with <br /> <span style={{ color: '#e53935' }}>BK</span> Education and Welfare Society
           </h1>
           <p style={{
             fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
@@ -247,17 +273,17 @@ const Donate = () => {
                     <input name="email" type="email" required onChange={handleChange} style={inputStyle} />
                   </div>
                   <div style={responsiveInputGroup}>
-                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>City *</label>
-                    <select name="city" required onChange={handleChange} style={inputStyle}>
-                      <option value="">Select City</option>
-                      {INDIAN_CITIES.map(city => <option key={city} value={city}>{city}</option>)}
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>State *</label>
+                    <select name="state" required value={formData.state} onChange={handleChange} style={inputStyle}>
+                      <option value="">Select State</option>
+                      {INDIAN_STATES.map(state => <option key={state} value={state}>{state}</option>)}
                     </select>
                   </div>
                   <div style={responsiveInputGroup}>
-                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>State *</label>
-                    <select name="state" required onChange={handleChange} style={inputStyle}>
-                      <option value="">Select State</option>
-                      {INDIAN_STATES.map(state => <option key={state} value={state}>{state}</option>)}
+                    <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>City *</label>
+                    <select name="city" required value={formData.city} onChange={handleChange} style={inputStyle} disabled={!formData.state}>
+                      <option value="">Select City</option>
+                      {(formData.state && STATE_CITY_MAP[formData.state]) ? STATE_CITY_MAP[formData.state].map(city => <option key={city} value={city}>{city}</option>) : <option value="Other">Other</option>}
                     </select>
                   </div>
                 </div>
@@ -273,7 +299,7 @@ const Donate = () => {
                    </div>
                   <div style={responsiveInputGroup}>
                     <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>PAN Number *</label>
-                    <input name="panNumber" type="text" required onChange={handleChange} style={inputStyle} />
+                    <input name="panNumber" type="text" placeholder="10-character PAN" maxLength="10" required value={formData.panNumber} onChange={handleChange} style={inputStyle} />
                   </div>
                   <div style={responsiveInputGroup}>
                     <label style={windowWidth < 768 ? labelMobileStyle : labelStyle}>Amount (INR) *</label>

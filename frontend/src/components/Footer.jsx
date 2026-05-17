@@ -14,52 +14,6 @@ const Footer = () => {
 
   return (
     <>
-      {/* Pre-Footer CTA */}
-      <div className="pre-footer-cta" style={{
-        backgroundColor: '#C92A2A',
-        padding: '5rem 2rem',
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '2rem'
-      }}>
-        <h2 style={{
-          color: 'white',
-          fontSize: 'clamp(2rem, 5vw, 4rem)',
-          fontWeight: '900',
-          margin: 0,
-          fontFamily: 'inherit',
-          letterSpacing: '-1px'
-        }}>
-          Ready to Give Your Child the Best?
-        </h2>
-        <Link to="/contact" className="cta-enroll-btn" style={{
-          display: 'inline-block',
-          border: '2px solid white',
-          borderRadius: '50px',
-          padding: '0.8rem 2.5rem',
-          color: 'white',
-          fontWeight: '700',
-          textDecoration: 'none',
-          fontSize: '1.2rem',
-          transition: 'all 0.3s ease',
-          backgroundColor: 'transparent'
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.backgroundColor = 'white';
-          e.target.style.color = '#C92A2A';
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.backgroundColor = 'transparent';
-          e.target.style.color = 'white';
-        }}
-        >
-          Enroll Now
-        </Link>
-      </div>
-
       <footer className="main-footer">
       <div className="footer-container">
         {/* Column 1: Branding */}
@@ -150,7 +104,6 @@ const Footer = () => {
             <span style={{ color: '#ffd54f', fontWeight: '800', letterSpacing: '1px' }}>{views.toLocaleString()}</span>
           </div>
           <div className="footer-bottom-links">
-            <a href="/login" style={{ color: 'rgba(255,255,255,0.3)' }}>Admin Panel</a>
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>
           </div>

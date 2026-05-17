@@ -66,14 +66,12 @@ const InteractiveCard = ({ children, style, onClick, hoverColor = '#111' }) => {
         ...style,
         rotateX,
         rotateY,
-        transformStyle: "preserve-3d",
-        boxShadow: '10px 10px 0px #111',
-        border: '2px solid #111'
+        transformStyle: "preserve-3d"
       }}
       whileHover={{ 
         scale: 1.05,
         y: -15,
-        boxShadow: `20px 20px 0px #111`
+        boxShadow: '0 25px 50px rgba(0,0,0,0.1)'
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="interactive-card"
@@ -182,7 +180,7 @@ const GetInvolved = () => {
       <style>{animations}</style>
       {/* Mini Hero */}
       <section className="volunteer-hero" style={{
-        padding: '2rem 0 3rem',
+        padding: '8rem 0 4rem',
         background: '#fff',
         textAlign: 'center',
         position: 'relative',
@@ -270,6 +268,7 @@ const GetInvolved = () => {
             <motion.button 
               whileHover={{ y: -4, boxShadow: '0 10px 0 #e5e5e5, 0 15px 30px rgba(0,0,0,0.05)' }}
               whileTap={{ y: 6, boxShadow: '0 0px 0 #e5e5e5' }}
+              onClick={() => navigate('/contact')}
               style={{ 
                 background: '#fff', 
                 border: '2px solid #f0f0f0', 

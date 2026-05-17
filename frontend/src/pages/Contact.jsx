@@ -65,7 +65,7 @@ const Contact = () => {
   `;
 
   return (
-    <div className="contact-page">
+    <div className="contact-page" style={{ paddingTop: '130px' }}>
       <style>{animations}</style>
       {/* Mini Hero */}
       <section className="page-hero" style={{ 
