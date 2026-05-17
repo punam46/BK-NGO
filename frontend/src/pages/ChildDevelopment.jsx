@@ -116,13 +116,13 @@ const ChildDevelopment = () => {
         <motion.div 
           animate={{ rotate: 360 }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          style={{ position: 'absolute', top: isMobile ? '2%' : '5%', right: isMobile ? '2%' : '5%', width: isMobile ? '120px' : '180px', height: isMobile ? '120px' : '180px', zIndex: 1 }}
+          style={{ position: 'absolute', top: isMobile ? '5%' : '15%', right: isMobile ? '5%' : '10%', width: isMobile ? '120px' : '180px', height: isMobile ? '120px' : '180px', zIndex: 1 }}
         >
-          <div style={{ width: isMobile ? '60px' : '90px', height: isMobile ? '60px' : '90px', background: '#ff9800', borderRadius: '50%', margin: isMobile ? '30px auto' : '45px auto', position: 'relative' }}>
+          <div style={{ width: isMobile ? '60px' : '90px', height: isMobile ? '60px' : '90px', background: '#e65100', borderRadius: '50%', margin: isMobile ? '30px auto' : '45px auto', position: 'relative' }}>
             {[...Array(12)].map((_, i) => (
               <div key={i} style={{
                 position: 'absolute', top: '50%', left: '50%', width: isMobile ? '90px' : '140px', height: isMobile ? '6px' : '10px', 
-                background: '#ffb74d', borderRadius: '5px',
+                background: '#f57c00', borderRadius: '5px',
                 transform: `translate(-50%, -50%) rotate(${i * 30}deg)`
               }}></div>
             ))}
@@ -170,7 +170,8 @@ const ChildDevelopment = () => {
           alignItems: 'center', 
           position: 'relative', 
           zIndex: 10,
-          textAlign: isMobile ? 'center' : 'left'
+          textAlign: isMobile ? 'center' : 'left',
+          marginTop: isMobile ? '0' : '16vh'
         }}>
           <motion.div
             initial={{ opacity: 0, y: isMobile ? 30 : 0, x: isMobile ? 0 : -50 }}
@@ -318,7 +319,7 @@ const ChildDevelopment = () => {
       </section>
 
       {/* 3. OFFERING SECTION */}
-      <section style={{ padding: '4rem 7% 8rem', background: '#fffaf0', textAlign: 'center' }}>
+      <section style={{ padding: '4rem 7% 2rem', background: '#fffaf0', textAlign: 'center' }}>
         <span style={{ color: '#ff5252', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Services</span>
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -402,7 +403,7 @@ const ChildDevelopment = () => {
       </section>
 
       {/* 4. OUR SCHOOLS SECTION */}
-      <section style={{ padding: isMobile ? '4rem 5%' : '6rem 7%', background: '#f8f9fa' }}>
+      <section style={{ padding: isMobile ? '2rem 5%' : '2rem 7% 6rem', background: '#f8f9fa' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <span style={{ color: '#ff5252', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px' }}>Our Network</span>

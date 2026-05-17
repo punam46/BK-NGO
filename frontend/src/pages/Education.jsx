@@ -5,6 +5,7 @@ import sanakeImg from '../assets/sanake_school.png';
 import sanskarLogo from '../assets/sanskar.jpeg';
 import gurukulLogo from '../assets/gurukul.jpeg';
 import bkLogo from '../assets/logo.jpeg';
+import tarlImg from '../assets/tarl.avif';
 import { BookOpen, GraduationCap, School, Play, Quote } from 'lucide-react';
 
 // 3D Card component with mouse tracking
@@ -458,7 +459,7 @@ const Education = () => {
       tag: "Foundational Learning",
       title: "Building Bright Futures",
       description: "BK Education and Welfare Society foundational literacy and numeracy programs target children in their most critical developmental years. By focusing on the basics of reading, writing, and arithmetic, we ensure that every child has the tools they need to succeed.",
-      image: "/educational_initiatives_bg_1776918506592.png",
+      image: tarlImg,
       videoUrl: "Qm8d6k22oWY",
       icon: <BookOpen size={32} />
     },
@@ -486,6 +487,7 @@ const Education = () => {
     sanakeImg,
     "/src/assets/volunteers_smiling_faces.png",
     "/bkphoto.jpeg",
+    tarlImg,
     "/educational_initiatives_bg_1776918506592.png",
     "/main_impact_banner.jpg"
   ];
@@ -646,7 +648,7 @@ const Education = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            style={{ marginTop: '-15rem' }}
+            style={{ marginTop: '-5rem' }}
           >
             <h2 style={{ 
                 fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)', 
@@ -697,7 +699,7 @@ const Education = () => {
           <motion.div 
             animate={{ y: [0, 15, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            style={{ position: 'absolute', bottom: '-80px', left: '50%', transform: 'translateX(-50%)', opacity: 0.6 }}
+            style={{ position: 'absolute', bottom: '-50px', left: '50%', transform: 'translateX(-50%)', opacity: 0.6 }}
           >
             <div style={{ width: '30px', height: '50px', border: '2px solid #fff', borderRadius: '15px', position: 'relative' }}>
               <div style={{ width: '4px', height: '10px', background: '#ffc107', position: 'absolute', top: '10px', left: '50%', transform: 'translateX(-50%)', borderRadius: '2px' }} />
@@ -1286,38 +1288,40 @@ const Education = () => {
       
 
 
-      {/* Stats Section */}
+      {/* Stats Section - Compact Stripe */}
       <section style={{ 
-        padding: '10rem 5%', 
+        padding: '3.5rem 5%', 
         background: '#0c121e', 
         color: '#fff',
         textAlign: 'center',
-        position: 'relative'
+        position: 'relative',
+        borderTop: '1px solid rgba(255,255,255,0.05)',
+        borderBottom: '1px solid rgba(255,255,255,0.05)'
       }}>
         <div style={{ 
           display: 'flex', 
           justifyContent: 'center', 
           flexWrap: 'wrap', 
-          gap: '10rem',
+          gap: '5rem',
           maxWidth: '1200px',
           margin: '0 auto'
         }}>
-          <div style={{ position: 'relative' }}>
-            <div style={{ fontSize: '7rem', fontWeight: '900', color: '#fff', lineHeight: '1' }}>
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ fontSize: '3.5rem', fontWeight: '900', color: '#fff', lineHeight: '1' }}>
               <AnimatedCounter end={15000} suffix="+" />
             </div>
-            <div style={{ width: '60px', height: '6px', background: '#ffc107', margin: '1.5rem auto' }} />
-            <div style={{ fontSize: '1.2rem', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '2px', color: '#888' }}>
+            <div style={{ width: '40px', height: '4px', background: '#ffc107', margin: '0.8rem auto' }} />
+            <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '2px', color: '#aaa' }}>
               Students Empowered
             </div>
           </div>
 
-          <div style={{ position: 'relative' }}>
-            <div style={{ fontSize: '7rem', fontWeight: '900', color: '#fff', lineHeight: '1' }}>
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ fontSize: '3.5rem', fontWeight: '900', color: '#fff', lineHeight: '1' }}>
               <AnimatedCounter end={500} suffix="+" />
             </div>
-            <div style={{ width: '60px', height: '6px', background: '#ffc107', margin: '1.5rem auto' }} />
-            <div style={{ fontSize: '1.2rem', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '2px', color: '#888' }}>
+            <div style={{ width: '40px', height: '4px', background: '#ffc107', margin: '0.8rem auto' }} />
+            <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '2px', color: '#aaa' }}>
               Trained Volunteers
             </div>
           </div>

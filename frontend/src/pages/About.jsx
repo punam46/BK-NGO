@@ -232,7 +232,7 @@ const About = () => {
       </section>
 
       {/* Secretary Profile Section */}
-      <section className="about-profile-section" style={{ padding: '6rem 4%', background: '#fff' }}>
+      <section className="about-profile-section" style={{ padding: '4rem 4%', background: '#fff' }}>
         <div className="container about-profile-grid" style={{
           maxWidth: '1600px',
           margin: '0 auto',
@@ -304,7 +304,7 @@ const About = () => {
 
       {/* Introduction Section */}
       <section className="about-intro-section" style={{
-        padding: '5rem 0',
+        padding: '3.5rem 0',
         background: 'linear-gradient(rgba(249, 249, 249, 0.7), rgba(249, 249, 249, 0.7)), url("/yellow_watercolor_wash.png") center/cover no-repeat',
         position: 'relative',
         overflow: 'hidden'
@@ -370,9 +370,9 @@ const About = () => {
         </div>
       </section>
       {/* Key Focus Areas */}
-      <section className="about-programs-preview" style={{ padding: '4rem 0', background: '#fff' }}>
-        <div style={{ textAlign: 'center', marginBottom: '4.5rem', padding: '0 4%' }}>
-          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 2.8rem)', fontWeight: '800', color: '#1a1a1a', marginBottom: '1.2rem' }}>
+      <section className="about-programs-preview" style={{ padding: '3rem 0 1rem', background: '#fff' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem', padding: '0 4%' }}>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 2.8rem)', fontWeight: '800', color: '#1a1a1a', marginBottom: '1rem' }}>
             Our Key <span style={{ color: '#e53935' }}>Programs</span>
           </h2>
           <div style={{ width: '80px', height: '5px', background: '#FFC107', margin: '0 auto', borderRadius: '10px' }}></div>

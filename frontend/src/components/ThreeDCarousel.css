@@ -1,6 +1,6 @@
 .carousel-3d-wrapper {
     width: 100%;
-    height: 700px; /* Increased height for better scale */
+    height: 600px; /* Reduced from 700px */
     position: relative;
     display: flex;
     align-items: center;
@@ -141,7 +141,7 @@
         height: 400px;
     }
     .carousel-3d-wrapper {
-        height: 600px;
+        height: 500px;
     }
     .carousel-perspective {
         perspective: 1000px;

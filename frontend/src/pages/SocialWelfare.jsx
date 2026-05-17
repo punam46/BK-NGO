@@ -240,12 +240,12 @@ const SocialWelfare = () => {
   ];
 
   const journeyMilestones = [
-    { year: '2026', text: 'BK Innovations spread to more than 25 districts across the state, reaching remote communities.', pos: 'above', color: '#ffc107', img: G53 },
+    { year: '2026', text: 'BK Innovations spread to more than 25 districts across the state, reaching remote communities.', pos: 'above', color: '#ffc107' },
     { year: '2022', text: 'BK International established to help with the senior citizens to donate food to them.', pos: 'below', color: '#f97316' },
     { year: '2022', text: 'First major Innovation & Skills Training Center established in rural Maharashtra.', pos: 'above', color: '#ffc107' },
-    { year: '2021', text: 'NGO recognized for exceptional contribution to Rural Education Development.', pos: 'below', color: '#f97316', img: g25 },
-    { year: '2020', text: 'TaRL programs in regional districts grow to reach 10,000+ students.', pos: 'above', color: '#ffc107', img: g24 },
-    { year: '2019', text: 'Launched the first BK Times Bilingual News Paper to promote positive news in rural areas.', pos: 'below', color: '#f97316', img: g5 },
+    { year: '2021', text: 'NGO recognized for exceptional contribution to Rural Education Development.', pos: 'below', color: '#f97316' },
+    { year: '2020', text: 'TaRL programs in regional districts grow to reach 10,000+ students.', pos: 'above', color: '#ffc107' },
+    { year: '2019', text: 'Launched the first BK Times Bilingual News Paper to promote positive news in rural areas.', pos: 'below', color: '#f97316' },
     { year: '2018', text: 'Expanded educational interventions to 10 new districts in Western Maharashtra.', pos: 'above', color: '#ffc107' },
     { year: '2017', text: 'Established 50+ digital learning centers to bridge the urban-rural divide.', pos: 'below', color: '#f97316' },
     { year: '2016', text: 'Won state-level award for community empowerment through vocational training.', pos: 'above', color: '#ffc107' },
@@ -283,7 +283,7 @@ const SocialWelfare = () => {
       {/* ===== Hero Section ===== */}
       {/* ===== Hero Section ===== */}
       <section style={{
-        padding: '1rem 5% 4rem',
+        padding: '2.5rem 5% 4rem',
         background: '#fff',
         position: 'relative',
         overflow: 'visible'
@@ -308,7 +308,7 @@ const SocialWelfare = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', fontWeight: 900, color: '#1a1a1a', lineHeight: 1, marginBottom: '2.5rem', letterSpacing: '-2px' }}
+              style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, color: '#1a1a1a', lineHeight: 1, marginBottom: '2.5rem', letterSpacing: '-2px' }}
             >
               Upholding <br />
               <span style={{
@@ -321,7 +321,7 @@ const SocialWelfare = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              style={{ fontSize: '1.1rem', color: '#555', lineHeight: 1.7, marginBottom: '3rem', maxWidth: '500px' }}
+              style={{ fontSize: '1.05rem', color: '#555', lineHeight: 1.7, marginBottom: '3rem', maxWidth: '500px' }}
             >
               Dedicated to human rights, legal aid, and social welfare across India. We believe every citizen deserves a life of respect and security.
             </motion.p>
@@ -384,26 +384,27 @@ const SocialWelfare = () => {
             alignItems: 'center',
             justifyContent: 'center',
             perspective: '2000px',
-            zIndex: 1
+            zIndex: 1,
+            marginTop: '1rem'
           }}>
             <div style={{
-              width: '650px',
-              height: '550px',
-              borderRadius: '48px',
+              width: '580px', // Reduced from 850px
+              height: '480px', // Reduced from 720px
+              borderRadius: '40px',
               overflow: 'hidden',
-              border: '15px solid #fff',
-              boxShadow: '0 40px 100px rgba(0,0,0,0.2)',
+              border: '12px solid #fff',
+              boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
               position: 'relative',
               background: '#fff'
             }}>
               <motion.div
-                animate={{ y: [0, -2500] }} // Adjust based on content height
+                animate={{ y: [0, -2200] }} // Adjusted for smaller content
                 transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '25px',
-                  padding: '25px'
+                  gap: '20px',
+                  padding: '20px'
                 }}
               >
                 {[...sliderImages, ...sliderImages].map((img, idx) => (
@@ -411,17 +412,23 @@ const SocialWelfare = () => {
                     key={idx}
                     style={{
                       width: '100%',
-                      height: '350px',
+                      height: '320px', // Reduced from 520px
                       flexShrink: 0,
-                      borderRadius: '32px',
+                      borderRadius: '28px',
                       overflow: 'hidden',
-                      boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
                       border: '1px solid #f0f0f0'
                     }}
                   >
                     <img
                       src={img}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        transform: 'scale(1.05)', // Reduced from 1.25
+                        transition: 'transform 0.5s ease-out'
+                      }}
                       alt="Welfare Impact"
                     />
                   </div>
@@ -651,28 +658,6 @@ const SocialWelfare = () => {
                 cursor: 'pointer'
               }}
             />
-
-            {/* Optional Image */}
-            {milestone.img && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: milestone.pos === 'above' ? -10 : 10 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                style={{
-                  position: 'absolute',
-                  [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 40px)',
-                  left: 'calc(50% + 10px)',
-                  width: '200px',
-                  height: '150px',
-                  borderRadius: '24px',
-                  overflow: 'hidden',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
-                  border: '1px solid #ffedd5'
-                }}>
-                <img src={milestone.img} alt={milestone.year} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-              </motion.div>
-            )}
           </div>
         ))}
 

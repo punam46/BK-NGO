@@ -152,7 +152,7 @@ const TribalDevelopment = () => {
 
       {/* Premium Hero Section */}
       <section style={{
-        padding: '2rem 5% 4rem',
+        padding: '7rem 5% 4rem',
         background: 'linear-gradient(to right, #fdf8f5 0%, #f3ede8 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -232,7 +232,7 @@ const TribalDevelopment = () => {
           {/* Main Image */}
           <div style={{
             position: 'absolute',
-            top: '5%',
+            top: '15%',
             right: '0',
             width: '90%',
             height: '85%',

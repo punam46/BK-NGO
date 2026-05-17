@@ -25,8 +25,9 @@ const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["25deg", "-25deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-25deg", "25deg"]);
+  const scale = useTransform(mouseXSpring, (v) => v !== 0 ? 1.05 : 1);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -52,6 +53,7 @@ const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
       style={{
         rotateX,
         rotateY,
+        scale,
         transformStyle: "preserve-3d",
         ...style
       }}
@@ -89,9 +91,10 @@ const Yoga = () => {
         height: '100vh', 
         position: 'relative', 
         display: 'flex', 
-        alignItems: 'center', 
+        alignItems: 'flex-start', // Changed from center
         justifyContent: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        paddingTop: '25vh' // Increased from 15vh to push content more down
       }}>
         <motion.div style={{ 
           position: 'absolute', 
@@ -141,11 +144,13 @@ const Yoga = () => {
               transition: 'transform 0.1s ease-out',
               cursor: 'default',
               textShadow: `
-                1px 1px 0px #ccc,
-                2px 2px 0px #ccc,
-                3px 3px 0px #ccc,
-                4px 4px 0px #ccc,
-                5px 5px 15px rgba(0,0,0,0.1)
+                1px 1px 0px #fff,
+                2px 2px 0px #d4af37,
+                3px 3px 0px #d4af37,
+                4px 4px 0px #d4af37,
+                5px 5px 0px #c5a028,
+                6px 6px 0px #b69119,
+                7px 7px 20px rgba(0,0,0,0.2)
               `
             }}>
             Breathe. <span style={{ color: '#d4af37' }}>Heal.</span> Grow.
@@ -191,7 +196,13 @@ const Yoga = () => {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
-            <h2 style={{ fontSize: '3.5rem', fontWeight: '900', color: '#1a1a1a', marginBottom: '1.5rem' }}>Mastering the <span style={{ color: '#d4af37' }}>Basics</span></h2>
+            <h2 style={{ 
+              fontSize: '3.5rem', 
+              fontWeight: '900', 
+              color: '#1a1a1a', 
+              marginBottom: '1.5rem',
+              textShadow: '1px 1px 0px #fff, 2px 2px 0px #d4af37, 3px 3px 0px #d4af37, 4px 4px 10px rgba(0,0,0,0.1)'
+            }}>Mastering the <span style={{ color: '#d4af37' }}>Basics</span></h2>
             <p style={{ color: '#666', fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto' }}>Follow these simple steps to begin your journey toward physical and mental harmony.</p>
           </div>
 
@@ -309,7 +320,7 @@ const Yoga = () => {
           viewport={{ once: true }}
           style={{ 
             width: '100%',
-            marginTop: '0',
+            marginTop: '6rem',
             overflow: 'hidden'
           }}
         >
@@ -336,7 +347,13 @@ const Yoga = () => {
         textAlign: 'center' 
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '3.5rem', fontWeight: '900', marginBottom: '1.5rem', color: '#1a1a1a' }}>Holistic <span style={{ color: '#d4af37' }}>Impact</span></h2>
+          <h2 style={{ 
+            fontSize: '3.5rem', 
+            fontWeight: '900', 
+            marginBottom: '1.5rem', 
+            color: '#1a1a1a',
+            textShadow: '1px 1px 0px #fff, 2px 2px 0px #d4af37, 3px 3px 0px #d4af37, 4px 4px 10px rgba(0,0,0,0.1)'
+          }}>Holistic <span style={{ color: '#d4af37' }}>Impact</span></h2>
           <p style={{ color: '#666', fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto 5rem' }}>Our mission goes beyond physical exercise. We aim to transform lives through a comprehensive approach to wellness.</p>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
@@ -384,7 +401,7 @@ const Yoga = () => {
 
       {/* Impact Stats Banner */}
       <section style={{ 
-        padding: '10rem 5%', 
+        padding: '4rem 5%', 
         background: '#f8f9fa',
         borderRadius: '100px 100px 0 0',
         marginTop: '-50px',
@@ -449,7 +466,14 @@ const Yoga = () => {
                 }}
               />
               <div style={{ position: 'relative', zIndex: 1 }}>
-                <h3 style={{ fontSize: '4.5rem', fontWeight: '900', margin: 0, color: '#1a1a1a', letterSpacing: '-2px' }}>{stat.value}</h3>
+                <h3 style={{ 
+                  fontSize: '4.5rem', 
+                  fontWeight: '900', 
+                  margin: 0, 
+                  color: '#1a1a1a', 
+                  letterSpacing: '-2px',
+                  textShadow: '1px 1px 0px #fff, 2px 2px 0px #dee2e6, 3px 3px 0px #ced4da, 4px 4px 10px rgba(0,0,0,0.05)'
+                }}>{stat.value}</h3>
                 <p style={{ 
                   fontSize: '1.1rem', 
                   fontWeight: '600', 
@@ -482,7 +506,13 @@ const Yoga = () => {
           zIndex: 0
         }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', padding: '0 20px' }}>
-          <h2 style={{ fontSize: '4rem', fontWeight: '900', marginBottom: '2rem', color: '#1a1a1a' }}>Start Your Journey Today.</h2>
+          <h2 style={{ 
+            fontSize: '4rem', 
+            fontWeight: '900', 
+            marginBottom: '2rem', 
+            color: '#1a1a1a',
+            textShadow: '1px 1px 0px #fff, 2px 2px 0px #d4af37, 3px 3px 0px #d4af37, 4px 4px 10px rgba(0,0,0,0.1)'
+          }}>Start Your Journey Today.</h2>
           <p style={{ fontSize: '1.4rem', color: '#555', marginBottom: '3rem', fontWeight: '400' }}>Join our mission to bring wellness to every corner of rural India.</p>
           <button 
             onClick={() => navigate('/involved')}

@@ -24,6 +24,60 @@ import orphan2 from '../assets/orphan 2.jpg';
 import orphan3 from '../assets/orphan3.jpg';
 import karanImg from '../assets/karan.png';
 import mayaImg from '../assets/maya.png';
+import foodImg from '../assets/food.png';
+import safeHousingImg from '../assets/safe housing.png';
+import familyLoveImg from '../assets/familylove.png';
+import healthcareImg from '../assets/healthcare.png';
+
+// Animated Counter Component
+const AnimatedCounter = ({ value, duration = 2000 }) => {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  // Extract the numerical part (e.g., "500" from "500+")
+  const numericPart = value.replace(/,/g, '').match(/\d+/);
+  const endValue = numericPart ? parseInt(numericPart[0]) : 0;
+  const nonNumericPart = value.replace(numericPart ? numericPart[0] : '', '');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (countRef.current) {
+      observer.observe(countRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let startTime = null;
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      setCount(Math.floor(progress * endValue));
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  }, [hasStarted, endValue, duration]);
+
+  return (
+    <span ref={countRef}>
+      {count.toLocaleString()}{nonNumericPart}
+    </span>
+  );
+};
 
 // 3D Card component for interactive effects
 const Interactive3DCard = ({ children, intensity = 15, scale = 1.05, className = "" }) => {
@@ -84,7 +138,7 @@ const StatCard = ({ stat, i }) => {
       transition={{ delay: i * 0.1 }}
       animate={{
         scale: isHovered ? 1.05 : 1,
-        y: isHovered ? -10 : 0
+        y: isHovered ? -15 : 0
       }}
       style={{
         background: isHovered ? '#fff' : stat.color,
@@ -92,12 +146,12 @@ const StatCard = ({ stat, i }) => {
         borderRadius: '32px',
         textAlign: 'center',
         boxShadow: isHovered
-          ? `0 30px 60px rgba(0,0,0,0.1), 0 0 0 2px ${stat.textColor}20`
-          : '0 10px 30px rgba(0,0,0,0.04)',
+          ? `0 50px 100px rgba(0,0,0,0.12), 0 15px 35px rgba(0,0,0,0.07)`
+          : '0 20px 40px rgba(0,0,0,0.05)',
         cursor: 'pointer',
         position: 'relative',
         overflow: 'hidden',
-        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+        transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
       }}
     >
       <motion.div
@@ -133,7 +187,7 @@ const StatCard = ({ stat, i }) => {
         margin: '0 0 0.5rem 0',
         letterSpacing: '-1px'
       }}>
-        {stat.value}
+        <AnimatedCounter value={stat.value} />
       </h3>
 
       <p style={{
@@ -202,7 +256,7 @@ const InitiativeCard = ({ item, i }) => {
         y: isHovered ? -15 : 0
       }}
       style={{
-        padding: '4.5rem 3rem',
+        padding: '2.5rem 2rem',
         borderRadius: '48px',
         background: isHovered ? '#fff' : 'rgba(255,255,255,0.7)',
         backdropFilter: 'blur(10px)',
@@ -262,12 +316,12 @@ const InitiativeCard = ({ item, i }) => {
           }}
           transition={{ type: "spring", stiffness: 300, damping: 10 }}
           style={{
-            width: '110px', height: '110px',
+            width: '90px', height: '90px',
             background: isHovered ? item.color : `${item.color}15`,
             color: isHovered ? '#fff' : item.color,
-            borderRadius: '36px',
+            borderRadius: '32px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 2.5rem',
+            margin: '0 auto 1.5rem',
             boxShadow: isHovered ? `0 20px 40px ${item.color}40` : 'none',
             transition: 'all 0.4s ease'
           }}
@@ -276,9 +330,9 @@ const InitiativeCard = ({ item, i }) => {
         </motion.div>
 
         <h3 style={{
-          fontSize: '2.2rem',
+          fontSize: '1.8rem',
           fontWeight: 950,
-          marginBottom: '1.5rem',
+          marginBottom: '1rem',
           color: '#1a202c',
           letterSpacing: '-0.5px'
         }}>
@@ -287,24 +341,24 @@ const InitiativeCard = ({ item, i }) => {
 
         <p style={{
           color: '#555',
-          lineHeight: 1.8,
-          marginBottom: '2.5rem',
-          fontSize: '1.15rem',
+          lineHeight: 1.7,
+          marginBottom: '1.5rem',
+          fontSize: '1.05rem',
           fontWeight: 500
         }}>
           {item.desc}
         </p>
 
-        <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
           {item.tags.map((tag, j) => (
             <motion.span
               key={j}
               whileHover={{ y: -3, scale: 1.05 }}
               style={{
                 background: isHovered ? '#fff' : '#f8f9fa',
-                padding: '10px 24px',
+                padding: '8px 18px',
                 borderRadius: '50px',
-                fontSize: '0.85rem',
+                fontSize: '0.8rem',
                 fontWeight: 800,
                 color: isHovered ? item.color : '#888',
                 border: isHovered ? `1px solid ${item.color}30` : '1px solid transparent',
@@ -372,20 +426,6 @@ const OrphanSupport = () => {
       color: "#2196f3"
     },
     {
-      title: "Emotional Wellbeing",
-      desc: "Professional counseling and a family-like atmosphere to build confidence, warmth, and belonging.",
-      tags: ["COUNSELING", "MENTORSHIP"],
-      icon: <Heart className="w-8 h-8" />,
-      color: "#e91e63"
-    },
-    {
-      title: "Vocational Training",
-      desc: "Empowering older children with practical job skills and technical training for future independence.",
-      tags: ["CAREER READY", "TECHNICAL"],
-      icon: <ShieldCheck className="w-8 h-8" />,
-      color: "#4caf50"
-    },
-    {
       title: "Arts & Recreation",
       desc: "Nurturing talents through music, dance, painting, and sports to ensure balanced personality growth.",
       tags: ["CREATIVITY", "SPORTS"],
@@ -402,10 +442,10 @@ const OrphanSupport = () => {
   ];
 
   const sanctuaryItems = [
-    { title: "Nutritional Meals", icon: <Utensils className="w-6 h-6" />, color: "#fff3e0", iconColor: "#f57c00" },
-    { title: "Safe Housing", icon: <Home className="w-6 h-6" />, color: "#e3f2fd", iconColor: "#1976d2" },
-    { title: "Family Love", icon: <Heart className="w-6 h-6" />, color: "#fce4ec", iconColor: "#d81b60" },
-    { title: "Healthcare", icon: <Stethoscope className="w-6 h-6" />, color: "#e8f5e9", iconColor: "#388e3c" }
+    { title: "Nutritional Meals", icon: <Utensils size={64} />, color: "#fff3e0", iconColor: "#f57c00", image: foodImg },
+    { title: "Safe Housing", icon: <Home size={64} />, color: "#e3f2fd", iconColor: "#1976d2", image: safeHousingImg },
+    { title: "Family Love", icon: <Heart size={64} />, color: "#fce4ec", iconColor: "#d81b60", image: familyLoveImg },
+    { title: "Healthcare", icon: <Stethoscope size={64} />, color: "#e8f5e9", iconColor: "#388e3c", image: healthcareImg }
   ];
 
   const stories = [
@@ -429,7 +469,7 @@ const OrphanSupport = () => {
 
       {/* ===== HERO SECTION ===== */}
       <section style={{
-        padding: '4rem 5% 6rem',
+        padding: '8rem 5% 4rem',
         background: 'linear-gradient(135deg, #fffcf8 0%, #fff3e0 100%)',
         position: 'relative'
       }}>
@@ -481,7 +521,7 @@ const OrphanSupport = () => {
             {/* Nurturing Hope card removed */}
           </div>
 
-          <div style={{ flex: '1.2', minWidth: '320px', position: 'relative', height: '500px', marginTop: '1rem' }}>
+          <div style={{ flex: '1.2', minWidth: '320px', position: 'relative', height: '500px', marginTop: '6rem' }}>
             {/* Background Image 1 */}
             <motion.div
               initial={{ x: 100, y: -100, opacity: 0, rotate: 15 }}
@@ -554,17 +594,14 @@ const OrphanSupport = () => {
       {/* ===== STATS SECTION ===== */}
       <section style={{ padding: '0 5% 4rem', background: '#fff', position: 'relative', zIndex: 20 }}>
         <div style={{
-          maxWidth: '1200px',
-          margin: '3rem auto 0',
+          margin: '2rem auto 0',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           gap: '2rem',
           perspective: '1500px'
         }}>
           {stats.map((stat, i) => (
-            <Interactive3DCard key={i} intensity={20} scale={1.08}>
-              <StatCard stat={stat} i={i} />
-            </Interactive3DCard>
+            <StatCard key={i} stat={stat} i={i} />
           ))}
         </div>
       </section>
@@ -617,11 +654,14 @@ const OrphanSupport = () => {
             <div style={{ width: '60px', height: '4px', background: '#ff5722', margin: '0 auto' }}></div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '3rem', perspective: '2000px' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: window.innerWidth < 1024 ? 'repeat(auto-fit, minmax(280px, 1fr))' : 'repeat(4, 1fr)', 
+            gap: '1.5rem', 
+            perspective: '2000px' 
+          }}>
             {mainSupports.map((item, i) => (
-              <Interactive3DCard key={i} intensity={12} scale={1.03}>
-                <InitiativeCard item={item} i={i} />
-              </Interactive3DCard>
+              <InitiativeCard key={i} item={item} i={i} />
             ))}
           </div>
         </div>
@@ -666,33 +706,47 @@ const OrphanSupport = () => {
             {sanctuaryItems.map((item, i) => (
               <Interactive3DCard key={i} intensity={25} scale={1.1}>
                 <motion.div
-                  whileHover={{ y: -5 }}
+                  whileHover={{ 
+                    y: -15,
+                    boxShadow: '0 50px 100px rgba(0,0,0,0.12), 0 15px 35px rgba(0,0,0,0.07)'
+                  }}
                   style={{
                     background: item.color,
                     padding: '2.5rem 2rem',
-                    borderRadius: '32px',
+                    borderRadius: '40px',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     textAlign: 'center',
-                    boxShadow: '0 15px 40px rgba(0,0,0,0.05)',
-                    border: '1px solid rgba(0,0,0,0.03)',
+                    boxShadow: '0 20px 50px rgba(0,0,0,0.08)',
+                    border: '1px solid rgba(0,0,0,0.02)',
                     height: '100%',
-                    transformStyle: 'preserve-3d'
+                    transformStyle: 'preserve-3d',
+                    transition: 'box-shadow 0.4s ease'
                   }}
                 >
                   <motion.div
                     style={{
                       background: '#fff',
-                      padding: '1.2rem',
+                      padding: item.image ? '0' : '1.2rem',
                       borderRadius: '24px',
                       color: item.iconColor,
                       marginBottom: '1.5rem',
                       boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
-                      transform: 'translateZ(30px)'
+                      transform: 'translateZ(30px)',
+                      width: '150px',
+                      height: '150px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      overflow: 'hidden'
                     }}
                   >
-                    {item.icon}
+                    {item.image ? (
+                      <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      item.icon
+                    )}
                   </motion.div>
                   <h4 style={{
                     fontSize: '1.4rem',
@@ -775,39 +829,154 @@ const OrphanSupport = () => {
       </section>
 
       {/* ===== GET INVOLVED SECTION ===== */}
-      <section style={{ padding: '6rem 5% 10rem', background: '#fff' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '1.5rem' }}>Get Involved</h2>
+      <section style={{ 
+        padding: '8rem 5% 10rem', 
+        background: `
+          radial-gradient(circle at 10% 20%, rgba(245, 124, 0, 0.05) 0%, transparent 40%),
+          radial-gradient(circle at 90% 80%, rgba(25, 118, 210, 0.05) 0%, transparent 40%),
+          radial-gradient(circle at 50% 50%, rgba(216, 27, 96, 0.03) 0%, transparent 60%),
+          #fff
+        `,
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Decorative Floating Orbs */}
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -50, 0],
+              x: [0, Math.random() * 30 - 15, 0],
+              opacity: [0.1, 0.3, 0.1]
+            }}
+            transition={{
+              duration: 10 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            style={{
+              position: 'absolute',
+              width: `${200 + i * 50}px`,
+              height: `${200 + i * 50}px`,
+              borderRadius: '50%',
+              background: i % 2 === 0 ? 'rgba(245, 124, 0, 0.03)' : 'rgba(25, 118, 210, 0.03)',
+              filter: 'blur(80px)',
+              left: `${10 + i * 20}%`,
+              top: `${20 + i * 15}%`,
+              zIndex: 0,
+              pointerEvents: 'none'
+            }}
+          />
+        ))}
+
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <h2 style={{ 
+            fontSize: '3.5rem', 
+            fontWeight: 950, 
+            marginBottom: '1.5rem',
+            color: '#1a1a1a',
+            textShadow: `
+              0 1px 0 #ccc,
+              0 2px 0 #c9c9c9,
+              0 3px 0 #bbb,
+              0 4px 0 #b9b9b9,
+              0 5px 0 #aaa,
+              0 6px 1px rgba(0,0,0,.1),
+              0 0 5px rgba(0,0,0,.1),
+              0 1px 3px rgba(0,0,0,.3),
+              0 3px 5px rgba(0,0,0,.2),
+              0 5px 10px rgba(0,0,0,.25)
+            `
+          }}>Get Involved</h2>
           <p style={{ color: '#666', fontSize: '1.1rem', marginBottom: '5rem' }}>Your contribution changes lives</p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: window.innerWidth < 1024 ? '1fr' : 'repeat(3, 1fr)', 
+            gap: '2.5rem',
+            perspective: '1500px'
+          }}>
             {[
-              { title: "Volunteer", desc: "Donate your time & skills", icon: <Users className="w-6 h-6" />, color: "#f8f9fa" },
-              { title: "Sponsor a Child", desc: "Provide direct monthly support", icon: <HandHeart className="w-6 h-6" />, color: "#fce4ec" },
-              { title: "Donate Supplies", icon: <Gift className="w-6 h-6" />, desc: "Books, clothes, or medicine", color: "#f8f9fa" }
+              { title: "Volunteer", desc: "Donate your time and specialized skills to mentor our children.", icon: <Users size={32} />, color: "#f57c00", bgColor: "#fff3e0" },
+              { title: "Sponsor a Child", desc: "Provide direct monthly support for education, food, and clothing.", icon: <HandHeart size={32} />, color: "#d81b60", bgColor: "#fce4ec" },
+              { title: "Donate Supplies", desc: "Contribute essential items like books, clothes, or life-saving medicine.", icon: <Gift size={32} />, color: "#1976d2", bgColor: "#e3f2fd" }
             ].map((item, i) => (
               <motion.div
                 key={i}
-                whileHover={{ scale: 1.02, boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                whileHover={{ 
+                  y: -15, 
+                  scale: 1.02,
+                  boxShadow: `0 30px 60px ${item.color}20` 
+                }}
                 style={{
-                  background: item.color,
-                  padding: '2rem 3rem',
-                  borderRadius: '24px',
+                  background: '#fff',
+                  padding: '3.5rem 2rem',
+                  borderRadius: '40px',
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
-                  cursor: 'pointer'
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  border: '1px solid #f0f0f0',
+                  boxShadow: '0 15px 35px rgba(0,0,0,0.05)',
+                  transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                 }}
                 onClick={() => navigate(i === 0 ? '/involved' : '/donate')}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', textAlign: 'left' }}>
-                  <div style={{ color: '#ff5722' }}>{item.icon}</div>
-                  <div>
-                    <h4 style={{ margin: 0, fontWeight: 800, fontSize: '1.2rem' }}>{item.title}</h4>
-                    <p style={{ margin: 0, color: '#777', fontSize: '0.95rem' }}>{item.desc}</p>
-                  </div>
+                <div style={{
+                  width: '90px',
+                  height: '90px',
+                  background: item.bgColor,
+                  color: item.color,
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '2rem',
+                  boxShadow: `0 10px 20px ${item.color}15`,
+                  transition: 'transform 0.3s ease'
+                }}>
+                  {item.icon}
                 </div>
-                <ChevronRight color="#ccc" />
+                
+                <h4 style={{ 
+                  margin: '0 0 1rem 0', 
+                  fontWeight: 900, 
+                  fontSize: '1.6rem', 
+                  color: '#1a1a1a',
+                  letterSpacing: '-0.5px'
+                }}>
+                  {item.title}
+                </h4>
+                
+                <p style={{ 
+                  margin: '0 0 2rem 0', 
+                  color: '#666', 
+                  fontSize: '1rem', 
+                  lineHeight: 1.6,
+                  maxWidth: '240px' 
+                }}>
+                  {item.desc}
+                </p>
+                
+                <motion.div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    color: item.color,
+                    fontWeight: 800,
+                    fontSize: '0.9rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}
+                >
+                  Learn More <ArrowRight size={18} />
+                </motion.div>
               </motion.div>
             ))}
           </div>

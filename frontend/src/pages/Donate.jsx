@@ -44,6 +44,16 @@ const Donate = () => {
     country: 'India'
   });
 
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
   React.useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
@@ -106,6 +116,16 @@ const Donate = () => {
     setLoading(true);
 
     try {
+      // 1. Ensure Razorpay script is loaded
+      if (!window.Razorpay) {
+        const scriptLoaded = await loadRazorpayScript();
+        if (!scriptLoaded) {
+          alert("Razorpay SDK failed to load. Are you online?");
+          setLoading(false);
+          return;
+        }
+      }
+
       const orderUrl = `${import.meta.env.VITE_API_URL}/payment/order`;
       const { data } = await axios.post(orderUrl, { amount: formData.amount });
       initPayment(data);

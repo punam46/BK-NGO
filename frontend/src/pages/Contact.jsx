@@ -69,7 +69,7 @@ const Contact = () => {
       <style>{animations}</style>
       {/* Mini Hero */}
       <section className="page-hero" style={{ 
-        height: '30vh', 
+        height: '45vh', 
         background: 'linear-gradient(135deg, #1a1a1a 0%, #333333 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -86,7 +86,7 @@ const Contact = () => {
       </section>
 
       {/* Main Contact Section */}
-      <section style={{ padding: '4rem 0', background: '#fff' }}>
+      <section style={{ padding: '8rem 0', background: '#fff' }}>
         <div className="container" style={{ 
           maxWidth: '1600px', 
           margin: '0 auto', 

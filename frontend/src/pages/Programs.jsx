@@ -4,11 +4,161 @@ import { motion } from 'framer-motion';
 import bloodCampImg from '../assets/g16.jpeg';
 import seniorWelfareImg from '../assets/G42.jpeg';
 import tribalHeroNew from '../assets/TRIBAL2.jpg';
-import yogaHeroImg from '../assets/yoga_hero.png';
+import yogaHeroImg from '../assets/yoga.webp';
+import disabilityImg from '../assets/pwd.jpg';
+import orphanSupportImg from '../assets/orphan3.jpg';
+import ruralDevImg from '../assets/rural3.jpg';
 // Using the new tribal hero asset for consistency
 const tribalImg = tribalHeroNew;
 
 
+
+const FlipCard = ({ program, index }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ delay: (index % 3) * 0.15, duration: 0.6 }}
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+      style={{
+        perspective: '1500px',
+        height: '450px',
+        width: '100%',
+        cursor: 'pointer'
+      }}
+    >
+      <motion.div
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.8, type: 'spring', stiffness: 260, damping: 20 }}
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+          transformStyle: 'preserve-3d',
+        }}
+      >
+        {/* FRONT SIDE: IMAGE ONLY */}
+        <div style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          backfaceVisibility: 'hidden',
+          borderRadius: '24px',
+          overflow: 'hidden',
+          boxShadow: '0 25px 60px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1)',
+          background: program.fit === 'contain' ? '#fcfcfc' : '#eee',
+          border: '1px solid rgba(0,0,0,0.05)'
+        }}>
+          <img
+            src={program.image}
+            alt={program.title}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: program.fit || 'cover',
+              objectPosition: program.position || 'center',
+              display: 'block',
+              padding: program.fit === 'contain' ? '2rem' : '0'
+            }}
+          />
+          {/* Overlay Badge for Title on Front */}
+          <div style={{
+            position: 'absolute',
+            bottom: '20px',
+            left: '20px',
+            right: '20px',
+            background: 'rgba(0,0,0,0.6)',
+            backdropFilter: 'blur(5px)',
+            color: '#fff',
+            padding: '1rem',
+            borderRadius: '16px',
+            textAlign: 'center',
+            fontWeight: '800',
+            fontSize: '1.2rem',
+            border: '1px solid rgba(255,255,255,0.1)'
+          }}>
+            {program.title}
+          </div>
+        </div>
+
+        {/* BACK SIDE: INFO */}
+        <div style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          backfaceVisibility: 'hidden',
+          borderRadius: '24px',
+          padding: '2.5rem',
+          background: '#fff',
+          boxShadow: '0 25px 60px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1)',
+          transform: 'rotateY(180deg)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          border: `4px solid ${program.color || '#ff5722'}`
+        }}>
+          <div style={{
+            fontSize: '3rem',
+            marginBottom: '1.5rem',
+            background: `${program.color}15`,
+            width: '80px',
+            height: '80px',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            {program.icon}
+          </div>
+          <h3 style={{
+            fontSize: '1.8rem',
+            fontWeight: '900',
+            color: '#1a1a1a',
+            marginBottom: '1.5rem',
+            lineHeight: '1.2'
+          }}>
+            {program.title}
+          </h3>
+          <p style={{
+            color: '#555',
+            lineHeight: '1.6',
+            fontSize: '1.05rem',
+            marginBottom: '2rem',
+            display: '-webkit-box',
+            WebkitLineClamp: 6,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden'
+          }}>
+            {program.description}
+          </p>
+          {program.link && (
+            <Link to={program.link} style={{
+              background: program.color || '#ff5722',
+              color: '#fff',
+              padding: '0.8rem 2rem',
+              borderRadius: '50px',
+              textDecoration: 'none',
+              fontWeight: '800',
+              fontSize: '0.9rem',
+              transition: 'transform 0.3s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              LEARN MORE
+            </Link>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const Programs = () => {
   const [dynamicPrograms, setDynamicPrograms] = useState([]);
@@ -52,13 +202,6 @@ const Programs = () => {
       0% { background-position: -200% 0; }
       100% { background-position: 200% 0; }
     }
-    .program-card-hover:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.15) !important;
-    }
-    .program-card-hover:hover img {
-      transform: scale(1.1) rotate(1deg);
-    }
     .shimmer-box {
       background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
       background-size: 200% 100%;
@@ -100,7 +243,8 @@ const Programs = () => {
       description: "Creating an inclusive society where physically challenged individuals have equal opportunities for growth and expression. BK Education and Welfare Society provides assistive devices, vocational training, and specialized educational support to help individuals with disabilities overcome barriers and lead independent lives.\n\nWe also work on community awareness to reduce stigma and promote accessibility in public spaces, ensuring that every individual, regardless of their physical abilities, can contribute meaningfully to the progress of our nation.",
       icon: "♿",
       color: "#607d8b",
-      image: "/disability_affair.png"
+      image: disabilityImg,
+      position: 'top'
     },
 
 
@@ -110,14 +254,14 @@ const Programs = () => {
       description: "Providing a loving home, quality education, and comprehensive care for orphaned and abandoned children. BK Education and Welfare Society works to ensure that every child, regardless of their family circumstances, has access to a safe environment and the resources needed to build a bright future.\n\nOur support includes residential facilities, nutritional care, psychological counseling, and formal schooling. We aim to nurture these children into confident, self-reliant individuals who can lead meaningful lives and contribute positively to society.",
       icon: "🏠👶",
       color: "#ff5722",
-      image: "/orphan_support.png"
+      image: orphanSupportImg
     },
     {
       title: "Rural Development",
       description: "Transforming rural landscapes through sustainable agriculture practices, infrastructure improvements, and digital literacy. BK Education and Welfare Society works closely with village panchayats to implement water harvesting systems, solar energy solutions, and modern farming techniques.\n\nBy bridging the digital divide, we provide rural youth with access to online education and government services, ensuring that the benefits of progress reach the heart of our rural communities and reduce the need for distress migration to urban centers.",
       icon: "🚜",
       color: "#ffc107",
-      image: "/rural_community_hub.png"
+      image: ruralDevImg
     },
     {
       title: "Volunteer Programs",
@@ -177,7 +321,7 @@ const Programs = () => {
         color: '#fff',
         textAlign: 'center',
         position: 'relative',
-        padding: '2rem 0 4rem'
+        padding: '14rem 0 4rem'
       }}>
         <div className="container">
           <h1 style={{
@@ -222,7 +366,7 @@ const Programs = () => {
       </section>
 
       {/* Programs List - 3 Column Grid Layout */}
-      <section style={{ padding: '6rem 0', background: '#f8f9fa' }}>
+      <section style={{ padding: '10rem 0 6rem', background: '#f8f9fa' }}>
         <div className="container" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ 
             display: 'grid', 
@@ -230,136 +374,52 @@ const Programs = () => {
             gap: '2.5rem' 
           }}>
             {[...dynamicPrograms, ...programData].map((program, index) => (
-              <motion.div
-                key={program._id || index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: (index % 3) * 0.15, duration: 0.6 }}
-                style={{
-                  background: '#fff',
-                  borderRadius: '24px',
-                  overflow: 'hidden',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                  border: '1px solid #eee',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  transition: 'all 0.3s ease',
-                }}
-                className="program-card-hover"
-              >
-                {/* Image Section */}
-                <div style={{
-                  height: '280px',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  background: program.fit === 'contain' ? '#fcfcfc' : 'transparent'
-                }}>
-                  <img
-                    src={program.image}
-                    alt={program.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: program.fit || 'cover',
-                      display: 'block',
-                      transition: 'transform 0.6s ease',
-                      padding: program.fit === 'contain' ? '2rem' : '0'
-                    }}
-                  />
-                  {/* Category Badge Overlay */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '0.5rem',
-                    left: '1.5rem',
-                    background: program.color || '#e53935',
-                    color: '#fff',
-                    padding: '0.5rem 1.2rem',
-                    borderRadius: '12px',
-                    fontSize: '0.75rem',
-                    fontWeight: '900',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                    zIndex: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}>
-                    {program.icon && <span style={{ fontSize: '1rem' }}>{program.icon}</span>}
-                    {program.title}
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <div style={{
-                  padding: '2rem',
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}>
-                  <h3 style={{
-                    fontSize: '1.6rem',
-                    fontWeight: '900',
-                    color: '#1a1a1a',
-                    marginBottom: '1rem',
-                    lineHeight: '1.3'
-                  }}>
-                    {program.title}
-                  </h3>
-                  
-                  <p style={{
-                    color: '#666',
-                    lineHeight: '1.6',
-                    fontSize: '1.05rem',
-                    marginBottom: '1.5rem',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                    flex: 1
-                  }}>
-                    {program.description}
-                  </p>
-
-
-                </div>
-              </motion.div>
+              <FlipCard key={program._id || index} program={program} index={index} />
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section style={{ padding: '6rem 0', background: '#FFC107', textAlign: 'center' }}>
-        <div className="container">
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', fontWeight: '900' }}>Want to make a difference?</h2>
-          <p style={{ fontSize: '1.2rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem', fontWeight: '600', color: '#333' }}>
+      <section style={{ 
+        padding: '8rem 5%', 
+        background: '#FFC107', 
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center' 
+      }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1.5rem', fontWeight: '900', color: '#1a1a1a' }}>Want to make a difference?</h2>
+          <p style={{ fontSize: '1.25rem', marginBottom: '3rem', fontWeight: '600', color: '#333', lineHeight: '1.6' }}>
             Whether through volunteering or support, your contribution helps us expand these programs to more people in need.
           </p>
-          <button style={{
-            background: '#1a1a1a',
-            color: '#fff',
-            padding: '1.2rem 3.5rem',
-            fontSize: '1.1rem',
-            border: 'none',
-            borderRadius: '12px',
-            cursor: 'pointer',
-            fontWeight: '800',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-3px)';
-            e.currentTarget.style.background = '#000';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.background = '#1a1a1a';
-          }}
-          >
-            Get Involved Now
-          </button>
+          <Link to="/involved" style={{ textDecoration: 'none' }}>
+            <button style={{
+              background: '#1a1a1a',
+              color: '#fff',
+              padding: '1.2rem 4rem',
+              fontSize: '1.1rem',
+              border: 'none',
+              borderRadius: '12px',
+              cursor: 'pointer',
+              fontWeight: '800',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.background = '#000';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.background = '#1a1a1a';
+            }}
+            >
+              Get Involved Now
+            </button>
+          </Link>
         </div>
       </section>
     </div>

@@ -196,7 +196,7 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
       {/* Enhanced Hero Section */}
       <section style={{
-        padding: '2rem 5% 4rem',
+        padding: '8rem 5% 4rem',
         backgroundImage: `linear-gradient(135deg, rgba(34, 123, 138, 0.95) 0%, rgba(249, 216, 196, 0.95) 100%), url(${disabilityExamImg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',

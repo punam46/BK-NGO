@@ -16,6 +16,7 @@ import sustainableAgImg from "../assets/rural_dev_hero_organic_1778653281151.png
 import cleanWaterImg from "../assets/clean water.jpg";
 import ruralEducationImg from "../assets/rural education.jpg";
 import ruralHeroFallback from "../assets/ai_rural_hero.png";
+import ruralProcessImg from "../assets/rural5.png";
 
 // Simple Local Button Component to replace missing shadcn/ui
 const Button = ({ children, className = "", size = "md", variant = "primary", ...props }) => {
@@ -255,149 +256,193 @@ const SuccessStories = () => (
 );
 
 // ─── Agricultural Innovation ──────────────────────────────────────────────────
-// ─── Agricultural Innovation ──────────────────────────────────────────────────
-const AgInnovation = () => (
-  <section className="py-24 bg-white relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-1/2 h-full bg-[#064e3b]/5 rounded-l-full blur-3xl -z-10" />
-    <div className="container mx-auto px-4 md:px-6">
-      <div className="flex flex-col gap-16">
-        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-8 max-w-3xl">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#064e3b]">Smart Farming, Deep Roots</h2>
-          <p className="text-xl text-gray-600 leading-relaxed">We blend traditional agricultural wisdom with modern innovation — from drone-assisted crop monitoring to drought-resistant seed programs.</p>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {['Precision Irrigation Systems', 'Organic Pest Management', 'Soil Health Monitoring', 'Climate-Resilient Crops'].map((item, i) => (
-              <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
-                <div className="w-8 h-8 rounded-full bg-[#fbbf24] flex items-center justify-center text-black shadow-md">
-                  <ChevronRight className="w-4 h-4" />
-                </div>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }} 
-          whileInView={{ opacity: 1, scale: 1 }} 
-          viewport={{ once: true }} 
-          transition={{ duration: 0.8 }} 
-          style={{
-            position: 'relative',
-            height: '600px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            perspective: '2000px',
-            zIndex: 1,
-            marginTop: '-4rem'
-          }}
-        >
-          <motion.div
+const AgInnovation = () => {
+  const pillars = [
+    {
+      title: "Transparency",
+      desc: "Good accounting practices and transparent fund usage build trust.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          <circle cx="12" cy="11" r="3" />
+          <line x1="15" y1="14" x2="17" y2="16" />
+        </svg>
+      ),
+      color: "#FFD700",
+      textColor: "#B8860B",
+      glow: "rgba(255, 215, 0, 0.4)"
+    },
+    {
+      title: "Sustainable Change",
+      desc: "Leading NGOs focus on long-term solutions like skill development.",
+      icon: <Sprout className="w-10 h-10" />,
+      color: "#FF9800",
+      textColor: "#E65100",
+      glow: "rgba(255, 152, 0, 0.4)"
+    },
+    {
+      title: "Community Centric",
+      desc: "Effective NGOs work with local communities to identify needs.",
+      icon: <Users className="w-10 h-10" />,
+      color: "#FF5252",
+      textColor: "#D32F2F",
+      glow: "rgba(255, 82, 82, 0.4)"
+    },
+    {
+      title: "Measurable Impact",
+      desc: "Data-driven outcomes and visible changes distinguish effective NGOs.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+          <path d="M18 10l-6-6-6 6" />
+        </svg>
+      ),
+      color: "#F06292",
+      textColor: "#C2185B",
+      glow: "rgba(240, 98, 146, 0.4)"
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-[#064e3b]/5 rounded-l-full blur-3xl -z-10" />
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-8">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#064e3b]">Smart Farming, Deep Roots</h2>
+            <p className="text-xl text-gray-600 leading-relaxed">
+              We blend traditional agricultural wisdom with modern innovation — from drone-assisted crop monitoring to drought-resistant seed programs. Our mission is to empower farmers with the tools they need to flourish in a changing climate.
+            </p>
+            <ul className="space-y-4">
+              {['Precision Irrigation Systems', 'Organic Pest Management', 'Soil Health Monitoring', 'Climate-Resilient Crops'].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
+                  <div className="w-8 h-8 rounded-full bg-[#fbbf24] flex items-center justify-center text-black shadow-md">
+                    <ChevronRight className="w-4 h-4" />
+                  </div>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 1 }}
             style={{
-              width: '100%',
-              height: '100%',
               position: 'relative',
-              transformStyle: 'preserve-3d',
-            }}
-            animate={{ 
-              rotateY: [5, -5, 5],
-              rotateX: [2, -2, 2]
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "linear"
+              width: '100%',
+              borderRadius: '2.5rem',
+              background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+              padding: '3rem 2rem',
+              boxShadow: '0 40px 80px rgba(0,0,0,0.08)',
+              border: '1px solid rgba(0,0,0,0.05)',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '1rem'
             }}
           >
-            {/* Main Center Circle (Top) */}
-            <motion.div
-              style={{
-                position: 'absolute',
-                top: '30%',
-                left: '65%',
-                transform: 'translate(-50%, -50%) translateZ(50px)',
-                width: '400px',
-                height: '400px',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                border: '15px solid #fff',
-                boxShadow: '0 40px 100px rgba(0,0,0,0.25)',
-                zIndex: 2
-              }}
-            >
-              <img src={sustainableAgImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Sustainable Ag" />
-            </motion.div>
+            {pillars.map((pillar, idx) => (
+              <div key={idx} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                {/* 1. Circle with Spring Bounce */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 260, 
+                    damping: 20, 
+                    delay: idx * 0.7 
+                  }}
+                  whileHover={{ 
+                    y: -12, 
+                    scale: 1.05,
+                    boxShadow: `0 20px 40px ${pillar.glow}`
+                  }}
+                  style={{
+                    width: '85px',
+                    height: '85px',
+                    borderRadius: '50%',
+                    background: pillar.color,
+                    border: '1.5px solid #1a1a1a',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1rem',
+                    cursor: 'pointer',
+                    transition: 'box-shadow 0.3s ease'
+                  }}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    style={{ color: '#1a1a1a' }}
+                  >
+                    {pillar.icon}
+                  </motion.div>
+                </motion.div>
 
-            {/* Second Circle (Bottom Left) */}
-            <motion.div
-              animate={{ 
-                y: [0, -15, 0],
-                x: [0, 10, 0]
-              }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                position: 'absolute',
-                top: '65%',
-                left: '50%',
-                transform: 'translate(-50%, -50%) translateZ(100px)',
-                width: '240px',
-                height: '240px',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                border: '10px solid #fff',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.2)',
-                zIndex: 3
-              }}
-            >
-              <img src={agTechImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Ag Tech" />
-            </motion.div>
+                {/* 2. Downward Arrow */}
+                <motion.div
+                  initial={{ y: -15, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (idx * 0.7) + 0.3, duration: 0.5 }}
+                  style={{ marginBottom: '1rem', color: '#888' }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                  </svg>
+                </motion.div>
 
-            {/* Third Circle (Bottom Right) */}
-            <motion.div
-              animate={{ 
-                y: [0, 20, 0],
-                x: [0, -10, 0]
-              }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '72%',
-                transform: 'translate(-50%, -50%) translateZ(20px)',
-                width: '260px',
-                height: '260px',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                border: '12px solid #fff',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.2)',
-                zIndex: 1
-              }}
-            >
-              <img src={r3Img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Impact" />
-            </motion.div>
+                {/* 3. Title */}
+                <motion.h3
+                  initial={{ y: 15, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (idx * 0.7) + 0.5, duration: 0.5 }}
+                  style={{
+                    fontSize: '1rem',
+                    fontWeight: '800',
+                    color: pillar.textColor,
+                    marginBottom: '0.8rem',
+                    fontFamily: "'Inter', sans-serif",
+                    lineHeight: '1.2'
+                  }}
+                >
+                  {pillar.title}
+                </motion.h3>
 
-            {/* Rotating Accent Ring */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              style={{
-                position: 'absolute',
-                width: '550px',
-                height: '550px',
-                border: '2px dashed rgba(251, 191, 36, 0.3)',
-                borderRadius: '50%',
-                top: '50%',
-                left: '50%',
-                marginTop: '-275px',
-                marginLeft: '-275px',
-                zIndex: 0
-              }}
-            />
+                {/* 4. Description */}
+                <motion.p
+                  initial={{ y: 15, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (idx * 0.7) + 0.7, duration: 0.5 }}
+                  style={{
+                    fontSize: '0.75rem',
+                    color: '#555',
+                    lineHeight: '1.5',
+                    fontFamily: "'Inter', sans-serif",
+                    margin: 0,
+                    maxWidth: '120px'
+                  }}
+                >
+                  {pillar.desc}
+                </motion.p>
+              </div>
+            ))}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ─── Photo Gallery ────────────────────────────────────────────────────────────
 const PhotoGallery = () => {
