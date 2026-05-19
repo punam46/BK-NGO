@@ -140,8 +140,9 @@ const Home = () => {
       <section
         className="hero"
         style={{
-          height: windowWidth < 768 ? '35vh' : '85vh',
           width: '100%',
+          aspectRatio: windowWidth < 768 ? '2106/747' : 'auto',
+          height: windowWidth < 768 ? 'auto' : '85vh',
           position: 'relative',
           overflow: 'hidden',
           background: '#000',
@@ -171,7 +172,7 @@ const Home = () => {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                objectPosition: windowWidth < 768 ? 'center' : '20% center'
+                objectPosition: 'center'
               }}
             />
           </motion.div>
