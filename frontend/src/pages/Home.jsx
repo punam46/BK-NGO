@@ -140,12 +140,12 @@ const Home = () => {
       <section
         className="hero"
         style={{
-          height: windowWidth < 768 ? '55vh' : '85vh',
+          height: windowWidth < 768 ? '35vh' : '85vh',
           width: '100%',
           position: 'relative',
           overflow: 'hidden',
           background: '#000',
-          marginTop: windowWidth < 768 ? '80px' : '130px'
+          marginTop: windowWidth < 768 ? '70px' : '130px'
         }}
       >
         <AnimatePresence initial={false}>
@@ -180,7 +180,7 @@ const Home = () => {
         {/* Slide Indicators */}
         <div style={{
           position: 'absolute',
-          bottom: '30px',
+          bottom: windowWidth < 768 ? '10px' : '30px',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',

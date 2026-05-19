@@ -9,8 +9,8 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMobileSub, setActiveMobileSub] = useState(null); // Track which sub-menu is open on mobile
   const [showBanner, setShowBanner] = useState(true);
-
   const [scrolled, setScrolled] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +18,14 @@ const Header = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -32,6 +40,8 @@ const Header = () => {
     setIsMenuOpen(false);
     setActiveMobileSub(null);
   };
+
+  const isMobile = windowWidth <= 768;
 
   return (
     <>
@@ -54,22 +64,22 @@ const Header = () => {
             display: 'flex',
             alignItems: 'center',
             textDecoration: 'none',
-            gap: '20px'
+            gap: isMobile ? '8px' : '20px'
           }}>
             <motion.div 
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
               whileHover={{ rotateY: 15, rotateX: -5 }}
             >
               <img src={logo} alt="BK Logo" style={{ 
-                width: scrolled ? '55px' : '70px', 
-                height: scrolled ? '55px' : '70px', 
+                width: isMobile ? '35px' : (scrolled ? '55px' : '70px'), 
+                height: isMobile ? '35px' : (scrolled ? '55px' : '70px'), 
                 objectFit: 'cover', 
                 borderRadius: '12px',
                 boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
                 border: '1px solid #eee',
                 transition: 'all 0.3s ease'
               }} />
-              {!scrolled && (
+              {!scrolled && !isMobile && (
                 <motion.span 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -82,7 +92,7 @@ const Header = () => {
             
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{ 
-                fontSize: scrolled ? '1.2rem' : '1.6rem', 
+                fontSize: isMobile ? '0.85rem' : (scrolled ? '1.2rem' : '1.6rem'), 
                 fontWeight: '900', 
                 color: '#1a1a1a', 
                 letterSpacing: '-0.5px', 
