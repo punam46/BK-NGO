@@ -140,6 +140,7 @@ const Header = () => {
             <div className="dropdown-menu">
               <Link to="/involved" className="dropdown-item" onClick={closeMenu}>Volunteer</Link>
               <Link to="/donate" className="dropdown-item" onClick={closeMenu}>Donate Now</Link>
+              <Link to="/involved/upcoming-events" className="dropdown-item" onClick={closeMenu}>Upcoming Events</Link>
             </div>
           </div>
 

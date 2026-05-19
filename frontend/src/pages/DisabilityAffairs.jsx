@@ -354,25 +354,7 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
                 transition: 'transform 0.5s ease'
               }} 
             />
-            {/* Floating Label */}
-            <div style={{
-              position: 'absolute',
-              bottom: '15%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              background: '#fff',
-              padding: '12px 25px',
-              borderRadius: '100px',
-              fontWeight: '900',
-              color: '#227b8a',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-              fontSize: '0.9rem',
-              zIndex: 11,
-              whiteSpace: 'nowrap',
-              letterSpacing: '1px'
-            }}>
-              REAL IMPACT
-            </div>
+
           </motion.div>
 
           {/* Decorative Elements */}

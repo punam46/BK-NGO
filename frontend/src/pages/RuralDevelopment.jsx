@@ -65,10 +65,31 @@ const ParallaxHero = () => {
         </motion.div>
 
         <motion.h1
-          className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium leading-tight mb-6 max-w-5xl"
+          className="text-5xl md:text-7xl lg:text-8xl font-sans font-medium leading-tight mb-6 max-w-5xl text-white"
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            e.currentTarget.style.transform = `perspective(1000px) rotateY(${x * 15}deg) rotateX(${-y * 15}deg) scale(1.02)`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)`;
+          }}
+          style={{
+            transition: 'transform 0.1s ease-out',
+            cursor: 'default',
+            transformOrigin: 'center',
+            textShadow: `
+              1px 1px 0px #e5e7eb,
+              2px 2px 0px #9ca3af,
+              3px 3px 0px rgba(0, 0, 0, 0.25),
+              4px 4px 0px rgba(0, 0, 0, 0.2),
+              5px 5px 15px rgba(0, 0, 0, 0.4)
+            `
+          }}
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }}
         >
-          Rooted in the Land. <br /><span className="text-[#fbbf24] italic">Rising Together.</span>
+          Rooted in the Land. <br />Rising Together.
         </motion.h1>
 
         <motion.p
@@ -103,11 +124,28 @@ const ParallaxHero = () => {
 // ─── Animated Counter ─────────────────────────────────────────────────────────
 const AnimatedCounter = ({ value, label }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
-    if (!isInView) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.15 } // Triggers when 15% of the counter card is visible
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
     let startTime = null;
     const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
@@ -117,11 +155,11 @@ const AnimatedCounter = ({ value, label }) => {
       if (progress < 1) requestAnimationFrame(animate);
     };
     requestAnimationFrame(animate);
-  }, [isInView, value]);
+  }, [hasStarted, value]);
 
   return (
     <div ref={ref} className="flex flex-col items-center text-center p-6">
-      <div className="text-5xl md:text-6xl font-serif text-[#064e3b] mb-2">{count.toLocaleString()}+</div>
+      <div className="text-5xl md:text-6xl font-sans font-extrabold text-[#e53935] mb-2">{count.toLocaleString()}+</div>
       <div className="text-sm md:text-base font-medium text-gray-500 uppercase tracking-wider">{label}</div>
     </div>
   );
@@ -171,7 +209,7 @@ const TiltCard = ({ title, desc, icon: Icon, image }) => {
         <div className="w-12 h-12 rounded-full bg-[#fbbf24] flex items-center justify-center mb-4 text-black shadow-xl">
           <Icon className="w-6 h-6" />
         </div>
-        <h3 className="text-2xl font-serif text-white mb-2">{title}</h3>
+        <h3 className="text-2xl font-sans text-white mb-2">{title}</h3>
         <p className="text-white/80 text-sm leading-relaxed">{desc}</p>
       </div>
     </motion.div>
@@ -179,19 +217,12 @@ const TiltCard = ({ title, desc, icon: Icon, image }) => {
 };
 
 const InitiativesSection = () => (
-  <section className="py-32 bg-white">
+  <section className="pt-12 pb-16 bg-white">
     <div className="container mx-auto px-4 md:px-6">
       <div className="max-w-5xl mb-20 mx-auto text-center">
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#064e3b] mb-8" style={{
-          textShadow: `
-            1px 1px 0px #fff,
-            2px 2px 0px rgba(6, 78, 59, 0.15),
-            3px 3px 0px rgba(6, 78, 59, 0.1),
-            4px 4px 15px rgba(0,0,0,0.1)
-          `,
-          letterSpacing: '-2px',
-          lineHeight: 1.1
-        }}>Seeds of Change</h2>
+        <Interactive3DHeading className="text-5xl md:text-7xl lg:text-8xl font-sans font-extrabold text-[#1a1a1a] mb-8">
+          Seeds of <span style={{ color: '#e53935' }}>Change</span>
+        </Interactive3DHeading>
         <p className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
           Our programs are designed to address the interconnected challenges of rural life. We don't just build infrastructure; we cultivate resilience, empower local leaders, and foster sustainable growth from the ground up.
         </p>
@@ -210,7 +241,9 @@ const SuccessStories = () => (
   <section className="py-24 bg-gray-50">
     <div className="container mx-auto px-4 md:px-6">
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-4xl md:text-5xl font-serif text-[#064e3b] mb-6">Stories from the Field</h2>
+        <Interactive3DHeading className="text-4xl md:text-5xl font-sans font-extrabold text-[#1a1a1a] mb-6">
+          Stories from the <span style={{ color: '#e53935' }}>Field</span>
+        </Interactive3DHeading>
         <p className="text-lg text-gray-600">Real impact measured not just in numbers, but in lives transformed.</p>
       </div>
       <motion.div 
@@ -233,7 +266,7 @@ const SuccessStories = () => (
             <div className="inline-block p-3 rounded-full bg-[#fbbf24] text-black mb-6">
               <Sprout className="w-6 h-6" />
             </div>
-            <h3 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
+            <h3 className="text-3xl md:text-5xl lg:text-6xl font-sans text-white mb-6 leading-tight">
               "The yield has doubled, and our children are back in school."
             </h3>
             <p className="text-white/80 text-lg md:text-xl max-w-2xl leading-relaxed mb-8">
@@ -307,12 +340,14 @@ const AgInnovation = () => {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="pt-10 pb-24 bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[#064e3b]/5 rounded-l-full blur-3xl -z-10" />
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-8">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#064e3b]">Smart Farming, Deep Roots</h2>
+            <Interactive3DHeading className="text-4xl md:text-5xl lg:text-6xl font-sans font-extrabold text-[#1a1a1a]">
+              Smart Farming, <span style={{ color: '#e53935' }}>Deep Roots</span>
+            </Interactive3DHeading>
             <p className="text-xl text-gray-600 leading-relaxed">
               We blend traditional agricultural wisdom with modern innovation — from drone-assisted crop monitoring to drought-resistant seed programs. Our mission is to empower farmers with the tools they need to flourish in a changing climate.
             </p>
@@ -458,7 +493,9 @@ const PhotoGallery = () => {
     <section className="py-24 bg-[#064e3b] text-white overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 mb-16 text-center max-w-3xl">
         <Leaf className="w-10 h-10 mx-auto text-[#fbbf24] mb-6" />
-        <h2 className="text-4xl md:text-5xl font-serif mb-6">The Faces of the Countryside</h2>
+        <Interactive3DHeading className="text-4xl md:text-5xl font-sans font-extrabold text-white mb-6">
+          The Faces of the <span style={{ color: '#e53935' }}>Countryside</span>
+        </Interactive3DHeading>
         <p className="text-white/80 text-lg">Every statistic represents a real human story.</p>
       </div>
 
@@ -505,7 +542,7 @@ const Marquee = () => (
         <div key={i} className="flex gap-16 items-center">
           {['Global Agro Fund', 'EarthCare Foundation', 'SolarRural Solutions', 'Village Connect Hub', 'Water For All'].map((name, j) => (
             <React.Fragment key={`${i}-${j}`}>
-              <span className="text-2xl font-serif text-gray-400">{name}</span>
+              <span className="text-2xl font-sans text-gray-400">{name}</span>
               <span className="w-2 h-2 rounded-full bg-[#fbbf24]" />
             </React.Fragment>
           ))}
@@ -524,7 +561,9 @@ const CTASection = () => {
         <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=2000&q=20" alt="" className="w-full h-full object-cover" />
       </div>
       <div className="container mx-auto px-4 md:px-6 relative z-10 text-center max-w-4xl">
-        <h2 className="text-5xl md:text-7xl font-serif mb-8">Plant a Seed for Tomorrow.</h2>
+        <Interactive3DHeading className="text-5xl md:text-7xl font-sans font-extrabold text-white mb-8">
+          Plant a Seed for <span style={{ color: '#e53935' }}>Tomorrow.</span>
+        </Interactive3DHeading>
         <p className="text-xl md:text-2xl text-white/80 mb-12 font-light">Join us in empowering rural communities to build sustainable, prosperous futures.</p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Button size="lg" className="rounded-full" onClick={() => navigate('/donate')}>Make a Donation</Button>
@@ -534,11 +573,93 @@ const CTASection = () => {
   );
 };
 
+// ─── Floating 3D Background Shapes ─────────────────────────────────────────────
+const Floating3DShapes = () => {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      {[...Array(12)].map((_, i) => (
+        <motion.div
+          key={i}
+          animate={{
+            y: [0, -120, 0],
+            x: [0, Math.random() * 80 - 40, 0],
+            rotate: [0, 360],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 15 + Math.random() * 15,
+            repeat: Infinity,
+            delay: i * 1.5,
+            ease: "easeInOut"
+          }}
+          style={{
+            position: 'absolute',
+            width: `${Math.random() * 150 + 80}px`,
+            height: `${Math.random() * 150 + 80}px`,
+            background: i % 3 === 0 
+              ? 'linear-gradient(135deg, rgba(6, 78, 59, 0.08) 0%, rgba(16, 185, 129, 0.04) 100%)' 
+              : i % 3 === 1 
+                ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.06) 0%, rgba(245, 158, 11, 0.02) 100%)'
+                : 'linear-gradient(135deg, rgba(229, 57, 53, 0.04) 0%, rgba(220, 38, 38, 0.01) 100%)',
+            borderRadius: i % 2 === 0 ? '40% 60% 70% 30% / 40% 50% 60% 50%' : '50%',
+            filter: 'blur(30px)',
+            boxShadow: 'inset 0 0 20px rgba(255,255,255,0.2)',
+            left: `${Math.random() * 90}%`,
+            top: `${10 + Math.random() * 80}%`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// ─── Interactive 3D Heading ───────────────────────────────────────────────────
+const Interactive3DHeading = ({ children, className = "", style = {} }) => {
+  const isWhiteText = className.includes("text-white");
+  return (
+    <motion.h2
+      className={className}
+      onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        e.currentTarget.style.transform = `perspective(1000px) rotateY(${x * 20}deg) rotateX(${-y * 20}deg) scale(1.03)`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)`;
+      }}
+      style={{
+        transition: 'transform 0.1s ease-out',
+        cursor: 'default',
+        transformOrigin: 'center',
+        textShadow: isWhiteText
+          ? `
+            1px 1px 0px rgba(0, 0, 0, 0.25),
+            2px 2px 0px rgba(0, 0, 0, 0.2),
+            3px 3px 0px rgba(0, 0, 0, 0.15),
+            4px 4px 12px rgba(0, 0, 0, 0.35)
+          `
+          : `
+            1px 1px 0px #fff,
+            2px 2px 0px rgba(0, 0, 0, 0.15),
+            3px 3px 0px rgba(0, 0, 0, 0.12),
+            4px 4px 0px rgba(0, 0, 0, 0.08),
+            5px 5px 15px rgba(0, 0, 0, 0.15)
+          `,
+        ...style
+      }}
+    >
+      {children}
+    </motion.h2>
+  );
+};
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function RuralDevelopment() {
   return (
-    <div className="min-h-[100dvh] w-full bg-white">
-      <main>
+    <div className="min-h-[100dvh] w-full bg-white relative">
+      <Floating3DShapes />
+      <main className="relative z-10">
         <ParallaxHero />
         <StatsSection />
         <InitiativesSection />

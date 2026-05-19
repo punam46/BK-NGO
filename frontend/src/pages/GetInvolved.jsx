@@ -681,15 +681,7 @@ const GetInvolved = () => {
         </div>
       </section>
 
-      {/* Quote Section */}
-      <section style={{ padding: '8rem 0', background: '#111', color: '#fff', textAlign: 'center' }}>
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <h2 style={{ fontSize: '2.5rem', fontFamily: 'serif', fontStyle: 'italic', marginBottom: '2rem' }}>
-            "Service to others is the rent you pay for your room here on earth."
-          </h2>
-          <p style={{ fontSize: '1.2rem', color: 'var(--pratham-yellow)', fontWeight: '600' }}>— Dr. Adv. Er. Bhagwan Nivrutti Elmame</p>
-        </div>
-      </section>
+
     </div>
   );
 };

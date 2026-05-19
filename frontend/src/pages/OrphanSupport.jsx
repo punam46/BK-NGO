@@ -458,6 +458,21 @@ const OrphanSupport = () => {
       name: "Maya's Transformation",
       text: "I found a family here that I never thought existed. Today I am studying to be a nurse.",
       image: mayaImg
+    },
+    {
+      name: "Rahul's Growth",
+      text: "Through the educational sponsorship program, I completed my degree and now work as a software analyst.",
+      image: null
+    },
+    {
+      name: "Priya's Path",
+      text: "BK Society provided me with vocational training. Now, I run my own tailoring shop and support my siblings.",
+      image: null
+    },
+    {
+      name: "Amit's Dream",
+      text: "The mentorship and sports program helped me build confidence and get selected for the state-level academy.",
+      image: null
     }
   ];
 
@@ -771,52 +786,107 @@ const OrphanSupport = () => {
       </section>
 
       {/* ===== SUCCESS STORIES ===== */}
-      <section style={{ padding: '8rem 5%', background: '#1a202c', color: '#fff' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ marginBottom: '5rem' }}>
-            <h2 style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '1rem' }}>Success Stories</h2>
-            <p style={{ color: '#a0aec0', fontSize: '1.2rem' }}>Testimonies of transformation</p>
-          </div>
+      <section style={{ padding: '8rem 5%', background: 'linear-gradient(135deg, #1a202c 0%, #2d3748 100%)', color: '#fff', position: 'relative', overflow: 'hidden' }}>
+        {/* Background decorative blobs */}
+        <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(255,87,34,0.08) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-20%', left: '-10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
 
-          <div style={{ position: 'relative' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+
+
+          {/* Cards */}
+          <div style={{ position: 'relative', minHeight: '320px' }}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStory}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: 'circOut' }}
                 style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  borderRadius: '20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '1.5rem',
-                  textAlign: 'center',
-                  maxWidth: '650px',
+                  background: 'rgba(255,255,255,0.04)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '32px',
+                  padding: '4rem',
+                  maxWidth: '780px',
                   margin: '0 auto',
-                  border: '1px solid rgba(255,255,255,0.1)'
+                  position: 'relative',
+                  boxShadow: '0 30px 60px rgba(0,0,0,0.3)'
                 }}
               >
-                <div style={{ maxWidth: '500px', margin: '0 auto' }}>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ff5722', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                    {stories[currentStory].name}
-                  </h4>
-                  <p style={{ fontSize: '0.95rem', lineHeight: 1.5, color: '#e2e8f0', fontStyle: 'italic', marginBottom: '1rem' }}>
-                    "{stories[currentStory].text}"
-                  </p>
-                  <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center' }}>
-                    <motion.button 
-                      whileHover={{ scale: 1.1, color: '#ff5722' }}
-                      onClick={handlePrevStory} 
-                      style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer' }}
+                {/* Giant quote mark */}
+                <div style={{
+                  position: 'absolute', top: '2rem', left: '3rem',
+                  fontSize: '8rem', lineHeight: 1, color: '#ff5722',
+                  opacity: 0.15, fontFamily: 'Georgia, serif', fontWeight: 900,
+                  userSelect: 'none', pointerEvents: 'none'
+                }}>"</div>
+
+                {/* Stars */}
+                <div style={{ display: 'flex', gap: '4px', marginBottom: '1.5rem' }}>
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} style={{ color: '#f97316', fontSize: '1.2rem' }}>★</span>
+                  ))}
+                </div>
+
+                {/* Quote text */}
+                <p style={{
+                  fontSize: '1.25rem', lineHeight: 1.8, color: '#e2e8f0',
+                  fontStyle: 'italic', marginBottom: '2.5rem', position: 'relative', zIndex: 1
+                }}>
+                  "{stories[currentStory].text}"
+                </p>
+
+                {/* Author row */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {/* Avatar circle */}
+                    <div style={{
+                      width: '56px', height: '56px', borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #ff5722, #f97316)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '1.4rem', fontWeight: 900, color: '#fff',
+                      boxShadow: '0 8px 20px rgba(255,87,34,0.4)',
+                      flexShrink: 0
+                    }}>
+                      {stories[currentStory].name.charAt(0)}
+                    </div>
+                    <div>
+                      <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#fff', margin: 0 }}>
+                        {stories[currentStory].name}
+                      </h4>
+                      <p style={{ fontSize: '0.85rem', color: '#ff5722', fontWeight: 700, margin: 0, letterSpacing: '1px', textTransform: 'uppercase' }}>
+                        BK Society Beneficiary
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Prev / Next */}
+                  <div style={{ display: 'flex', gap: '0.75rem' }}>
+                    <motion.button
+                      whileHover={{ scale: 1.1, backgroundColor: '#ff5722' }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={handlePrevStory}
+                      style={{
+                        width: '48px', height: '48px', borderRadius: '14px',
+                        background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        cursor: 'pointer', color: '#fff', transition: 'all 0.3s ease'
+                      }}
                     >
                       <ChevronLeft size={20} />
                     </motion.button>
-                    <motion.button 
-                      whileHover={{ scale: 1.1, color: '#ff5722' }}
-                      onClick={handleNextStory} 
-                      style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer' }}
+                    <motion.button
+                      whileHover={{ scale: 1.1, backgroundColor: '#ff5722' }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={handleNextStory}
+                      style={{
+                        width: '48px', height: '48px', borderRadius: '14px',
+                        background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        cursor: 'pointer', color: '#fff', transition: 'all 0.3s ease'
+                      }}
                     >
                       <ChevronRight size={20} />
                     </motion.button>
@@ -824,6 +894,21 @@ const OrphanSupport = () => {
                 </div>
               </motion.div>
             </AnimatePresence>
+
+            {/* Dot indicators */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '2.5rem' }}>
+              {stories.map((_, i) => (
+                <motion.div
+                  key={i}
+                  onClick={() => setCurrentStory(i)}
+                  animate={{ width: i === currentStory ? '28px' : '8px', opacity: i === currentStory ? 1 : 0.3 }}
+                  style={{
+                    height: '8px', borderRadius: '4px',
+                    background: '#ff5722', cursor: 'pointer', transition: 'all 0.3s ease'
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

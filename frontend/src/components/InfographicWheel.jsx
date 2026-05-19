@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 
 import AboutImg from '../assets/About.png';
+import centerGirlImg from '../assets/maya.png';
 
 const programs = [
   { id: 0, title: "EDUCATION", color: "#1E3A8A", desc: "Providing physical, mental, books & learning opportunities for a brighter future." },
@@ -139,8 +140,8 @@ const InfographicWheel = () => {
           }}
         >
           <div style={{
-            width: '80%',
-            height: '80%',
+            width: '100%',
+            height: '100%',
             overflow: 'hidden',
             borderRadius: '50%',
             display: 'flex',
@@ -148,11 +149,11 @@ const InfographicWheel = () => {
             justifyContent: 'center'
           }}>
             <img 
-              src={AboutImg} 
+              src={centerGirlImg} 
               style={{ 
-                width: '300%', 
-                height: '300%', 
-                objectFit: 'contain'
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover'
               }} 
             />
           </div>

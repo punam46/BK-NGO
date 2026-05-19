@@ -16,6 +16,14 @@ import stretchingVideo from '../assets/dz3qitg2SOA5SlunJ3.webm';
 import meditationVideo from '../assets/1Me8VR7912RO2k1Jeu.webm';
 import relaxationVideo from '../assets/0neAdz31x259D4a8LW.webm';
 import yogaBasicsFooterImg from '../assets/ChatGPT Image May 12, 2026, 04_36_55 PM.png';
+import yoga1 from '../assets/yoga1.jpeg';
+import yoga2 from '../assets/yoga2.jpeg';
+import yoga3 from '../assets/yoga3.jpeg';
+import yoga4 from '../assets/yoga4.jpeg';
+import yoga5 from '../assets/yoga5.jpeg';
+import yoga6 from '../assets/yoga6.jpeg';
+import yoga7 from '../assets/yoga7.jpeg';
+import yoga8 from '../assets/yoga8.jpeg';
 import { Leaf, Wind, Heart, Zap, Award, Users, Play, X } from 'lucide-react';
 
 const InteractiveCard = ({ children, style, hoverColor = '#ffcc00' }) => {
@@ -99,7 +107,7 @@ const Yoga = () => {
         <motion.div style={{ 
           position: 'absolute', 
           top: 0, left: 0, width: '100%', height: '120%',
-          backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0), rgba(255, 255, 255, 0.8), rgba(212, 175, 55, 0.05)), url(${yogaHeroImg})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0), rgba(255, 255, 255, 0.8), rgba(212, 175, 55, 0.05)), url(${yoga2})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           y: backgroundY,
@@ -161,13 +169,7 @@ const Yoga = () => {
             transition={{ duration: 1, delay: 0.5 }}
             style={{ height: '5px', background: '#d4af37', margin: '0 auto 3rem' }}
           />
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            style={{ fontSize: '1.4rem', color: '#555', lineHeight: '1.6', fontWeight: '400', marginBottom: '3rem' }}>
-            Empowering rural India through the ancient science of Yoga and holistic wellness.
-          </motion.p>
+
 
         </div>
 
@@ -488,6 +490,52 @@ const Yoga = () => {
       </section>
 
 
+
+      {/* Our Volunteers Actions Image Gallery */}
+      <section style={{ padding: '8rem 5%', background: '#fff', textAlign: 'center' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <h2 style={{ 
+            fontSize: '3.5rem', 
+            fontWeight: '900', 
+            marginBottom: '1.5rem', 
+            color: '#1a1a1a',
+            textShadow: '1px 1px 0px #fff, 2px 2px 0px #d4af37, 3px 3px 0px #d4af37, 4px 4px 10px rgba(0,0,0,0.1)'
+          }}>Our Volunteers <span style={{ color: '#d4af37' }}>Actions</span></h2>
+          <p style={{ color: '#666', fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto 4rem' }}>Witness the profound impact of our dedicated yoga instructors and volunteers serving rural communities.</p>
+          
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+            gap: '1.5rem' 
+          }}>
+            {[yoga1, yoga2, yoga3, yoga4, yoga5, yoga6, yoga7, yoga8].map((img, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05, zIndex: 10 }}
+                style={{
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
+                  aspectRatio: '1 / 1',
+                  position: 'relative'
+                }}
+              >
+                <img 
+                  src={img} 
+                  alt={`Volunteer Action ${index + 1}`} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }} 
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Final Serenity Section */}
       <section style={{ 

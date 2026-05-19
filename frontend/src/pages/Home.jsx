@@ -23,10 +23,12 @@ import home2Img from '../assets/Home2.png';
 import home3Img from '../assets/Home3.png';
 import home4Img from '../assets/Home4.png';
 import home5Img from '../assets/Home5.png';
+import home6Img from '../assets/Home6.png';
 import home7Img from '../assets/Home7.png';
+import home8Img from '../assets/home8.png';
 import mainImg from '../assets/main.jpg';
 
-const HOME_HERO_SLIDES = [home1Img, home2Img, home3Img, home4Img, home5Img, home7Img];
+const HOME_HERO_SLIDES = [home1Img, home2Img, home3Img, home4Img, home5Img, home6Img, home7Img, home8Img];
 const Home = () => {
   const carouselRef = useRef(null);
   const separatorRef = useRef(null);

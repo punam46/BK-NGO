@@ -21,6 +21,9 @@ import {
 } from 'lucide-react';
 
 import socialWelfImg from '../assets/G42.jpeg';
+import socialImg from '../assets/social.png';
+import communityImg from '../assets/community.png';
+import socialSecurityImg from '../assets/social sceurity.png';
 import bloodCampImg from '../assets/g16.jpeg';
 
 import g5 from '../assets/g5.jpg';
@@ -215,19 +218,28 @@ const SocialWelfare = () => {
     {
       title: "Social Awareness",
       desc: "Educating communities about their constitutional rights and fundamental duties to build a responsible society.",
-      icon: <Users className="w-6 h-6" />,
+      icon: null,
+      image: socialImg,
+      imageFit: 'cover',
+      imageBg: '#fff7ed',
       color: "#f97316"
     },
     {
       title: "Community Welfare",
       desc: "Direct intervention through medical camps, disaster relief, and infrastructure support for marginalized regions.",
-      icon: <Users className="w-6 h-6" />,
+      icon: null,
+      image: communityImg,
+      imageFit: 'cover',
+      imageBg: '#fff7ed',
       color: "#f97316"
     },
     {
       title: "Social Security",
       desc: "Ensuring every citizen has access to government schemes, pensions, and professional legal frameworks.",
-      icon: <ShieldCheck className="w-6 h-6" />,
+      icon: null,
+      image: socialSecurityImg,
+      imageFit: 'contain',
+      imageBg: '#f0f7ff',
       color: "#f97316"
     }
   ];
@@ -276,6 +288,13 @@ const SocialWelfare = () => {
     }, 3000);
     return () => clearInterval(autoScroll);
   }, []);
+
+  const scrollJourney = (direction) => {
+    if (journeyRef.current) {
+      const scrollAmount = direction === 'left' ? -250 : 250;
+      journeyRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="sw-page" style={{ background: '#fff9f2', minHeight: '100vh', overflowX: 'hidden' }} ref={containerRef}>
@@ -356,6 +375,7 @@ const SocialWelfare = () => {
               <motion.button
                 whileHover={{ y: -4, boxShadow: '0 10px 0 #e5e5e5, 0 15px 30px rgba(0,0,0,0.05)' }}
                 whileTap={{ y: 6, boxShadow: '0 0px 0 #e5e5e5' }}
+                onClick={() => document.getElementById('successful-programs')?.scrollIntoView({ behavior: 'smooth' })}
                 style={{
                   background: '#fff',
                   border: '2px solid #f0f0f0',
@@ -440,34 +460,9 @@ const SocialWelfare = () => {
             </div>
 
             {/* Floating Badges */}
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                position: 'absolute', top: '10%', right: '-10%', background: '#fff',
-                padding: '1.2rem 2.4rem', borderRadius: '24px', boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
-                display: 'flex', alignItems: 'center', gap: '1.2rem', zIndex: 1000,
-                border: '1px solid #f0f0f0',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 15px #10b981' }}></div>
-              <span style={{ fontWeight: 900, fontSize: '1rem', color: '#1a1a1a' }}>Direct Impact</span>
-            </motion.div>
 
-            <motion.div
-              animate={{ y: [0, 20, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                position: 'absolute', bottom: '5%', left: '-5%', background: '#f97316',
-                padding: '1.5rem 2.5rem', borderRadius: '24px', boxShadow: '0 25px 50px rgba(249,115,22,0.4)',
-                display: 'flex', alignItems: 'center', gap: '1.2rem', zIndex: 1000, color: '#fff',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              <ShieldCheck size={24} />
-              <span style={{ fontWeight: 900, fontSize: '1rem' }}>CERTIFIED NGO</span>
-            </motion.div>
+
+
     </div>
         </div >
       </section >
@@ -569,99 +564,132 @@ const SocialWelfare = () => {
         From initial community surveys to becoming a leading force in regional social security, track our evolution through the years.
       </p>
     </motion.div>
+  </div>
 
-    {/* Visual Timeline */}
-    <div
-      ref={journeyRef}
-      className="hide-scrollbar"
-      style={{
-        position: 'relative',
-        padding: '12rem 0',
-        overflowX: 'auto',
-        msOverflowStyle: 'none',
-        scrollbarWidth: 'none',
-        scrollBehavior: 'smooth'
-      }}
-    >
-      <style>{`
-              .hide-scrollbar::-webkit-scrollbar {
-                display: none;
-              }
-            `}</style>
-      {/* Horizontal Main Line */}
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: 0,
-        width: journeyMilestones.length * 250 + 'px',
-        height: '4px',
-        background: 'linear-gradient(90deg, #ffedd5 0%, #f97316 50%, #ffedd5 100%)',
-        zIndex: 1
-      }} />
+  {/* Visual Timeline (Now full screen width to prevent boundary clipping) */}
+  <div
+    ref={journeyRef}
+    className="hide-scrollbar"
+    style={{
+      position: 'relative',
+      padding: '12rem 0',
+      overflowX: 'auto',
+      msOverflowStyle: 'none',
+      scrollbarWidth: 'none',
+      scrollBehavior: 'smooth',
+      width: '100%'
+    }}
+  >
+    <style>{`
+            .hide-scrollbar::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
+    {/* Horizontal Main Line (Perfectly aligned between first and last nodes) */}
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: 'calc(10% + 125px)',
+      width: (journeyMilestones.length - 1) * 250 + 'px',
+      height: '4px',
+      background: 'linear-gradient(90deg, #ffedd5 0%, #f97316 50%, #ffedd5 100%)',
+      zIndex: 1
+    }} />
 
-      <div style={{
-        display: 'flex',
-        gap: '0',
-        position: 'relative',
-        zIndex: 2,
-        width: 'max-content'
-      }}>
-        {journeyMilestones.map((milestone, i) => (
-          <div key={i} style={{ width: '250px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{
+      display: 'flex',
+      gap: '0',
+      position: 'relative',
+      zIndex: 2,
+      width: 'max-content',
+      paddingLeft: '10%',
+      paddingRight: '20%'
+    }}>
+      {journeyMilestones.map((milestone, i) => (
+        <div key={i} style={{ width: '250px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-            {/* Text Section (Above or Below) */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              style={{
-                position: 'absolute',
-                [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 40px)',
-                left: 'calc(50% + 10px)',
-                width: '220px',
-                textAlign: 'left'
-              }}
-            >
-              <p style={{ fontSize: '1.05rem', color: '#555', lineHeight: '1.5', fontWeight: '600' }}>
-                {milestone.text}
-              </p>
-            </motion.div>
+          {/* Text Section (Above or Below) */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            style={{
+              position: 'absolute',
+              [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 40px)',
+              left: 'calc(50% + 10px)',
+              width: '220px',
+              textAlign: 'left'
+            }}
+          >
+            <p style={{ fontSize: '1.05rem', color: '#555', lineHeight: '1.5', fontWeight: '600' }}>
+              {milestone.text}
+            </p>
+          </motion.div>
 
-            {/* Vertical Connector Line (Animated) */}
-            <motion.div
-              initial={{ scaleY: 0, originY: milestone.pos === 'above' ? 1 : 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0 }}
-              style={{
-                position: 'absolute',
-                [milestone.pos === 'above' ? 'bottom' : 'top']: '50%',
-                left: '50%',
-                width: '3px',
-                height: '60px',
-                background: 'linear-gradient(to ' + (milestone.pos === 'above' ? 'bottom' : 'top') + ', #f97316, transparent)',
-                transform: 'translateX(-50%)'
-              }} />
+          {/* Vertical Connector Line (Animated) */}
+          <motion.div
+            initial={{ scaleY: 0, originY: milestone.pos === 'above' ? 1 : 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0 }}
+            style={{
+              position: 'absolute',
+              [milestone.pos === 'above' ? 'bottom' : 'top']: '50%',
+              left: '50%',
+              width: '3px',
+              height: '60px',
+              background: 'linear-gradient(to ' + (milestone.pos === 'above' ? 'bottom' : 'top') + ', #f97316, transparent)',
+              transform: 'translateX(-50%)'
+            }} />
 
-            {/* Milestone Node (Circle) */}
-            <motion.div
-              whileHover={{ scale: 1.3 }}
-              style={{
-                width: '45px',
-                height: '45px',
-                background: milestone.color,
-                borderRadius: '50%',
-                border: '6px solid #fff',
-                boxShadow: `0 0 20px ${milestone.color}66`,
-                zIndex: 5,
-                cursor: 'pointer'
-              }}
-            />
-          </div>
-        ))}
+          {/* Milestone Node (Circle) */}
+          <motion.div
+            whileHover={{ scale: 1.3 }}
+            style={{
+              width: '45px',
+              height: '45px',
+              background: milestone.color,
+              borderRadius: '50%',
+              border: '6px solid #fff',
+              boxShadow: `0 0 20px ${milestone.color}66`,
+              zIndex: 5,
+              cursor: 'pointer'
+            }}
+          />
+        </div>
+      ))}
 
-      </div>
+    </div>
+  </div>
+
+  <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 5%' }}>
+    {/* Timeline Navigation Arrows */}
+    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2.5rem' }}>
+      <motion.button
+        whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => scrollJourney('left')}
+        style={{
+          width: '50px', height: '50px', borderRadius: '15px', background: '#fff', border: '1px solid #eee',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+          boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
+        }}
+      >
+        <ArrowRight size={20} style={{ transform: 'rotate(180deg)' }} />
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => scrollJourney('right')}
+        style={{
+          width: '50px', height: '50px', borderRadius: '15px', background: '#fff', border: '1px solid #eee',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+          boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
+        }}
+      >
+        <ArrowRight size={20} />
+      </motion.button>
     </div>
   </div>
 </section>
@@ -684,43 +712,76 @@ const SocialWelfare = () => {
           whileHover={{ y: -15 }}
           transition={{ delay: i * 0.1 }}
           style={{
-            background: 'radial-gradient(circle at 10% 10%, rgba(16, 185, 129, 0.03) 0%, transparent 50%), radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.03) 0%, transparent 50%), #fff',
-            padding: '4rem 3rem',
+            background: '#fff',
             borderRadius: '40px',
             boxShadow: '0 15px 0 #fff7ed, 0 30px 60px rgba(249,115,22,0.12)',
             textAlign: 'center',
             border: '1px solid #ffedd5',
             transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
             overflow: 'hidden',
-            position: 'relative'
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column'
           }}
         >
-          {/* Watercolor effect blobs */}
-          <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: '150px', height: '150px', background: 'rgba(16, 185, 129, 0.04)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-          <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '150px', height: '150px', background: 'rgba(16, 185, 129, 0.04)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-          <div style={{
-            width: '80px',
-            height: '80px',
-            background: '#fff7ed',
-            borderRadius: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#f97316',
-            margin: '0 auto 2.5rem',
-            boxShadow: '0 15px 30px rgba(249,115,22,0.12)'
-          }}>
-            {React.cloneElement(item.icon, { size: 32 })}
+          {item.image ? (
+            /* Image fills top half of card */
+            <div style={{
+              width: '100%',
+              height: '220px',
+              overflow: 'hidden',
+              flexShrink: 0,
+              background: item.imageBg || '#fff7ed',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: item.imageFit === 'contain' ? '2rem' : '0'
+            }}>
+              <img
+                src={item.image}
+                alt={item.title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: item.imageFit || 'cover',
+                  objectPosition: 'center',
+                  display: 'block'
+                }}
+              />
+            </div>
+          ) : (
+            /* Standard icon box for other pillars */
+            <div style={{ padding: '4rem 3rem 0', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: '150px', height: '150px', background: 'rgba(16, 185, 129, 0.04)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
+              <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '150px', height: '150px', background: 'rgba(16, 185, 129, 0.04)', filter: 'blur(40px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
+              <div style={{
+                width: '80px',
+                height: '80px',
+                background: '#fff7ed',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#f97316',
+                margin: '0 auto',
+                boxShadow: '0 15px 30px rgba(249,115,22,0.12)'
+              }}>
+                {React.cloneElement(item.icon, { size: 32 })}
+              </div>
+            </div>
+          )}
+          {/* Bottom half: title + description */}
+          <div style={{ padding: '2.5rem 3rem 4rem', flex: 1 }}>
+            <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1.5rem' }}>{item.title}</h3>
+            <p style={{ color: '#666', lineHeight: 1.7, margin: '0 auto', fontSize: '1.1rem' }}>{item.desc}</p>
           </div>
-          <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1.5rem' }}>{item.title}</h3>
-          <p style={{ color: '#666', lineHeight: 1.7, margin: '0 auto', fontSize: '1.1rem' }}>{item.desc}</p>
         </motion.div>
       ))}
     </div>
   </div>
 </section>
 
-{/* ===== OPERATIONAL RIGOR ===== */ }
+{/* ===== WHAT WE DO ===== */ }
 <section style={{
   padding: '8rem 5%',
   background: '#0a0a0b',
@@ -731,8 +792,8 @@ const SocialWelfare = () => {
 }}>
   <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
     <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
-      <h2 style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '1.5rem' }}>Operational Rigor</h2>
-      <p style={{ color: '#666', fontSize: '1.2rem' }}>Our systematic approach to sustainable social impact</p>
+      <h2 style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '1.5rem' }}>What We Do</h2>
+      <p style={{ color: '#ccc', fontSize: '1.2rem' }}>Our hands-on approach to creating lasting social impact</p>
     </div>
 
     <div style={{
@@ -776,7 +837,7 @@ const SocialWelfare = () => {
             {step.num}
           </div>
           <h4 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: '#fff' }}>{step.title}</h4>
-          <p style={{ color: '#aaa', lineHeight: 1.6 }}>{step.text}</p>
+          <p style={{ color: '#bbb', lineHeight: 1.6 }}>{step.text}</p>
         </motion.div>
       ))}
     </div>
@@ -784,7 +845,7 @@ const SocialWelfare = () => {
 </section>
 
 {/* ===== FEATURED INITIATIVES SLIDER ===== */ }
-<section style={{ padding: '8rem 5% 4rem', background: '#fff' }}>
+<section id="successful-programs" style={{ padding: '8rem 5% 4rem', background: '#fff' }}>
   <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
     <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
@@ -823,6 +884,8 @@ const SocialWelfare = () => {
       </motion.p>
     </div>
 
+
+
     <div style={{ position: 'relative' }}>
       <AnimatePresence mode="wait">
         <motion.div
@@ -853,21 +916,51 @@ const SocialWelfare = () => {
               {allEvents[activeEvent]?.desc}
             </p>
 
-            <motion.button
-              whileHover={{ y: -4, boxShadow: '0 12px 0 #c2410c, 0 20px 40px rgba(249,115,22,0.4)' }}
-              whileTap={{ y: 8, boxShadow: '0 0px 0 #c2410c, 0 5px 10px rgba(249,115,22,0.2)' }}
-              onClick={() => navigate('/involved')}
-              style={{
-                background: 'linear-gradient(to bottom, #fb923c, #f97316)',
-                color: '#fff', padding: '1.2rem 3rem',
-                borderRadius: '20px', border: 'none', fontWeight: 900, cursor: 'pointer',
-                boxShadow: '0 8px 0 #c2410c, 0 15px 30px rgba(249,115,22,0.3)',
-                transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
-                fontSize: '1.1rem'
-              }}
-            >
-              Support this Initiative
-            </motion.button>
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
+              <motion.button
+                whileHover={{ y: -4, boxShadow: '0 12px 0 #c2410c, 0 20px 40px rgba(249,115,22,0.4)' }}
+                whileTap={{ y: 8, boxShadow: '0 0px 0 #c2410c, 0 5px 10px rgba(249,115,22,0.2)' }}
+                onClick={() => navigate('/involved')}
+                style={{
+                  background: 'linear-gradient(to bottom, #fb923c, #f97316)',
+                  color: '#fff', padding: '1.2rem 3rem',
+                  borderRadius: '20px', border: 'none', fontWeight: 900, cursor: 'pointer',
+                  boxShadow: '0 8px 0 #c2410c, 0 15px 30px rgba(249,115,22,0.3)',
+                  transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
+                  fontSize: '1.1rem'
+                }}
+              >
+                Support this Initiative
+              </motion.button>
+
+              {/* Nav arrows — right side */}
+              <div style={{ display: 'flex', gap: '0.75rem', marginRight: '-9rem', marginTop: '10rem' }}>
+                <motion.button
+                  whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setActiveEvent(prev => (prev === 0 ? allEvents.length - 1 : prev - 1))}
+                  style={{
+                    width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                    boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
+                  }}
+                >
+                  <ArrowRight size={24} style={{ transform: 'rotate(180deg)' }} />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setActiveEvent(prev => (prev === allEvents.length - 1 ? 0 : prev + 1))}
+                  style={{
+                    width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                    boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
+                  }}
+                >
+                  <ArrowRight size={24} />
+                </motion.button>
+              </div>
+            </div>
           </div>
           <div style={{ flex: '1.4', minWidth: '320px' }}>
             <div style={{
@@ -907,33 +1000,6 @@ const SocialWelfare = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Arrows */}
-      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '4rem' }}>
-        <motion.button
-          whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setActiveEvent(prev => (prev === 0 ? allEvents.length - 1 : prev - 1))}
-          style={{
-            width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-            boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
-          }}
-        >
-          <ArrowRight size={24} style={{ transform: 'rotate(180deg)' }} />
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setActiveEvent(prev => (prev === allEvents.length - 1 ? 0 : prev + 1))}
-          style={{
-            width: '60px', height: '60px', borderRadius: '20px', background: '#fff', border: '1px solid #eee',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-            boxShadow: '0 10px 20px rgba(0,0,0,0.05)', transition: 'all 0.3s ease'
-          }}
-        >
-          <ArrowRight size={24} />
-        </motion.button>
-      </div>
     </div>
   </div>
 </section>

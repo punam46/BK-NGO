@@ -14,6 +14,7 @@ import childCareJpg from '../assets/child care.jpg';
 import sanskarLogo from '../assets/sanskar.jpeg';
 import gurukulLogo from '../assets/gurukul.jpeg';
 import bkLogo from '../assets/logo.jpeg';
+import compataiveImg from '../assets/compataive.avif';
 
 // 3D Card component for Schools
 const Interactive3DCard = ({ children, intensity = 15, scale = 1.05 }) => {
@@ -292,24 +293,40 @@ const ChildDevelopment = () => {
             <h2 style={{ fontSize: '3rem', fontWeight: 900, color: '#1a1a1a', margin: '1.5rem 0 2rem' }}>Child Care Professional</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-              {[1, 2, 3].map((i) => (
+              {[
+                {
+                  id: 1,
+                  title: "Individual attention in a small class setting",
+                  desc: "We ensure that every child receives personalized care tailored to their unique learning pace and personality."
+                },
+                {
+                  id: 2,
+                  title: "Expert and Passionate Educators",
+                  desc: "Our highly qualified teachers are dedicated to fostering a love for learning and providing a nurturing environment."
+                },
+                {
+                  id: 3,
+                  title: "Holistic Development Approach",
+                  desc: "We focus on cognitive, social, emotional, and physical growth to build a strong foundation for your child's future."
+                }
+              ].map((item, index) => (
                 <motion.div 
-                  key={i} 
+                  key={item.id} 
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false, amount: 0.3 }}
-                  transition={{ delay: i * 0.2, duration: 0.6 }}
+                  transition={{ delay: (index + 1) * 0.2, duration: 0.6 }}
                   style={{ display: 'flex', gap: '1.5rem' }}
                 >
                   <div style={{ 
-                    width: '60px', height: '60px', background: i === 1 ? '#ffb300' : i === 2 ? '#ff7043' : '#0097a7', 
+                    width: '60px', height: '60px', background: item.id === 1 ? '#ffb300' : item.id === 2 ? '#ff7043' : '#0097a7', 
                     borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 
                   }}>
                     <CheckCircle2 color="#fff" />
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem' }}>Individual attention in a small class setting</h4>
-                    <p style={{ color: '#666', lineHeight: 1.6 }}>We ensure that every child receives personalized care tailored to their unique learning pace and personality.</p>
+                    <h4 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem' }}>{item.title}</h4>
+                    <p style={{ color: '#666', lineHeight: 1.6 }}>{item.desc}</p>
                   </div>
                 </motion.div>
               ))}

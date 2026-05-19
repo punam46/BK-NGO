@@ -6,7 +6,14 @@ import sanskarLogo from '../assets/sanskar.jpeg';
 import gurukulLogo from '../assets/gurukul.jpeg';
 import bkLogo from '../assets/logo.jpeg';
 import tarlImg from '../assets/tarl.avif';
+import rahulPortrait from '../assets/rahul_portrait.png';
+import sunitaPortrait from '../assets/sunita_portrait.png';
+import karanPortrait from '../assets/karan.png';
+import mayaPortrait from '../assets/maya.png';
+import volunteerPortrait from '../assets/volunteer_portrait.png';
+import women3Img from '../assets/women3.png';
 import { BookOpen, GraduationCap, School, Play, Quote } from 'lucide-react';
+import { TestimonialCarousel } from '@/components/ui/testimonial';
 
 // 3D Card component with mouse tracking
 const Interactive3DCard = ({ children, intensity = 15, scale = 1.05 }) => {
@@ -492,6 +499,45 @@ const Education = () => {
     "/main_impact_banner.jpg"
   ];
 
+  const seniorTestimonials = [
+    {
+      id: 1,
+      name: "Rahul Sharma",
+      avatar: rahulPortrait,
+      description: "The guidance I received during my final years of high school was life-changing. From career counseling to competitive exam preparation, BK Education and Welfare Society provided the support I needed to secure a university placement."
+    },
+    {
+      id: 2,
+      name: "Priya Verma",
+      avatar: mayaPortrait,
+      description: "I never thought I could pursue higher education until I joined the BK Education and Welfare Society scholarship program. They didn't just give me resources; they gave me the confidence to dream big."
+    },
+    {
+      id: 3,
+      name: "Sneha Patil",
+      avatar: sunitaPortrait,
+      description: "The mentorship at BK Education and Welfare Society helped me navigate my board exams with confidence. Their workshops on time management were exactly what I needed during my final year."
+    },
+    {
+      id: 4,
+      name: "Aniket Shinde",
+      avatar: karanPortrait,
+      description: "The science laboratories and equipment supported by the BK Science Academy gave me hands-on experience that textbooks could never match. It truly inspired my passion for research."
+    },
+    {
+      id: 5,
+      name: "Rohan Joshi",
+      avatar: volunteerPortrait,
+      description: "From standard study materials to regular test series, the academic rigour and support from the instructors prepared me perfectly for my entrance exams. I am forever grateful."
+    },
+    {
+      id: 6,
+      name: "Divya Kulkarni",
+      avatar: women3Img,
+      description: "The teachers didn't just teach subjects; they mentored us through personal struggles. The emotional and financial support of the society helped my family keep me in school."
+    }
+  ];
+
   const schoolData = [
     {
       name: "SANSKAR ENGLISH MEDIUM SCHOOL",
@@ -508,14 +554,14 @@ const Education = () => {
       isLogo: true
     },
     {
-      name: "BK EDUCATION",
+      name: "BK EDUCATIONAL AND WELFARE SOCIETY",
       info: "Empowering students with comprehensive educational resources and modern learning tools.",
       image: bkLogo,
       link: "https://bkeducation.co.in/",
       isLogo: true
     },
     {
-      name: "BK SCIENCE",
+      name: "BK SCIENCE ACADEMY",
       info: "Fostering scientific curiosity and excellence through specialized learning and practical knowledge.",
       image: bkLogo,
       link: "https://bkscience.in/",
@@ -709,7 +755,7 @@ const Education = () => {
       </section>
 
       {/* ===== FEATURED INITIATIVES SLIDER ===== */}
-      <section style={{ padding: '8rem 5%', background: '#fff' }}>
+      <section style={{ padding: '2rem 5% 2rem 5%', background: '#fff' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem' }}>
             <div style={{ flex: 1 }}>
@@ -855,7 +901,7 @@ const Education = () => {
 
 
       {/* Our Schools Section */}
-      <section style={{ padding: '6rem 5%', background: '#f4f7fb' }}>
+      <section style={{ padding: '2rem 5% 6rem 5%', background: '#f4f7fb' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{ 
@@ -981,7 +1027,7 @@ const Education = () => {
             gap: '2rem' 
           }}>
             {schoolData.map((school, idx) => (
-              <Interactive3DCard key={idx} intensity={10} scale={1.03}>
+              <React.Fragment key={idx}>
                 {school.isLogo ? (
                   <a 
                     href={school.link}
@@ -1070,7 +1116,7 @@ const Education = () => {
                     </div>
                   </a>
                 )}
-              </Interactive3DCard>
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -1111,24 +1157,27 @@ const Education = () => {
             </h3>
             <div style={{ 
               display: 'flex', 
-              gap: '2.5rem', 
+              gap: '1.5rem', 
               flexWrap: 'wrap', 
               justifyContent: 'center' 
             }}>
               {[
                 { id: 'z18YX4x1Lw8', name: 'Palak Wagh' },
                 { id: 'cPLrVlE2uRQ', name: 'Sakshi Patil' },
-                { id: 'y65ArcDxITw', name: 'Karan Ahire' }
+                { id: 'y65ArcDxITw', name: 'Karan Ahire' },
+                { id: 'wn7i39rNblw', name: 'Student Experience' },
+                { id: 'mFnRVNOI2_E', name: 'Student Story' },
+                { id: 'Jof92fozWuk', name: 'Student Feedback' }
               ].map((video, idx) => (
                 <motion.div 
                   key={idx}
                   whileHover={{ scale: 1.02, y: -5 }}
                   onClick={() => setActiveVideo(video.id)}
                   style={{ 
-                    width: '300px', 
-                    height: '540px', 
+                    width: '250px', 
+                    height: '450px', 
                     background: '#000',
-                    borderRadius: '35px',
+                    borderRadius: '25px',
                     overflow: 'hidden',
                     boxShadow: '0 25px 50px rgba(0,0,0,0.25)',
                     border: '5px solid #fff',
@@ -1148,34 +1197,16 @@ const Education = () => {
                     transform: 'translate(-50%, -50%)',
                     zIndex: 2,
                     background: 'rgba(255, 59, 59, 0.9)',
-                    width: '70px',
-                    height: '70px',
+                    width: '60px',
+                    height: '60px',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '0 0 25px rgba(255, 59, 59, 0.4)',
+                    boxShadow: '0 0 20px rgba(255, 59, 59, 0.4)',
                     border: '2px solid #fff'
                   }}>
-                    <Play size={28} color="#fff" fill="#fff" />
-                  </div>
-                  <div style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    width: '100%',
-                    padding: '2.5rem 1.5rem 1.5rem',
-                    background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)',
-                    color: '#fff',
-                    zIndex: 1,
-                    textAlign: 'center'
-                  }}>
-                    <h4 style={{ margin: 0, fontSize: '1.3rem', fontWeight: '900', letterSpacing: '0.5px' }}>
-                      {video.name}
-                    </h4>
-                    <p style={{ margin: '0.4rem 0 0', opacity: 0.8, fontSize: '0.85rem', textTransform: 'uppercase' }}>
-                      Student Testimonial
-                    </p>
+                    <Play size={24} color="#fff" fill="#fff" />
                   </div>
                 </motion.div>
               ))}
@@ -1183,103 +1214,16 @@ const Education = () => {
           </div>
           
 
-          <div style={{ marginTop: '8rem', position: 'relative' }}>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '3rem', color: '#888', textTransform: 'uppercase', letterSpacing: '2px' }}>
+          <div style={{ marginTop: '5rem', position: 'relative' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '1.5rem', color: '#888', textTransform: 'uppercase', letterSpacing: '2px' }}>
               Higher Secondary & High School Seniors
             </h3>
-            <div style={{ 
-              display: 'flex', 
-              gap: '1.5rem', 
-              transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-              transform: `translateX(calc(-${activeSeniorSlide * 100}% - ${activeSeniorSlide * 1.5}rem))`,
-              padding: '1rem 0',
-              width: '100%'
-            }}>
-              {[
-                {
-                  quote: (
-                    <>
-                      The guidance I received during my final years of high school was life-changing. From career counseling to competitive exam preparation, <span style={{ color: '#ff3b3b' }}>BK</span> Education and Welfare Society provided the support I needed to secure a university placement.
-                    </>
-                  ),
-                  author: "Rahul Sharma",
-                  role: "High School Senior, Batch of 2024"
-                },
-                {
-                  quote: (
-                    <>
-                      I never thought I could pursue higher education until I joined the <span style={{ color: '#ff3b3b' }}>BK</span> Education and Welfare Society scholarship program. They didn't just give me resources; they gave me the confidence to dream big.
-                    </>
-                  ),
-                  author: "Priya Verma",
-                  role: "Higher Secondary Student"
-                },
-                {
-                  quote: (
-                    <>
-                      The mentorship at <span style={{ color: '#ff3b3b' }}>BK</span> Education and Welfare Society helped me navigate my board exams with confidence. Their workshops on time management were exactly what I needed during my final year.
-                    </>
-                  ),
-                  author: "Sneha Patil",
-                  role: "High School Graduate"
-                }
-              ].map((card, idx) => (
-                <div key={idx} style={{ flex: '0 0 100%' }}>
-                    <div style={{
-                      background: '#fff',
-                      padding: '2.5rem 2rem',
-                      borderRadius: '20px',
-                      boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                      textAlign: 'left',
-                      position: 'relative',
-                      borderLeft: '6px solid var(--pratham-yellow)',
-                      boxSizing: 'border-box',
-                      height: '100%'
-                    }}>
-                      <div style={{ 
-                        position: 'absolute', 
-                        top: '10px', 
-                        right: '10px', 
-                        opacity: 0.5,
-                        zIndex: 0,
-                        pointerEvents: 'none'
-                      }}>
-                        <svg className="quote-animate" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="var(--pratham-yellow)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M3 21c3 0 7-1 7-8V5c0-1.25-1-2.25-2.25-2.25h-4.5C2.125 2.75 1.125 3.75 1.125 5v5.25c0 1.25 1 2.25 2.25 2.25h2.25c0 2.25-2.25 3.75-2.625 4.5"/>
-                          <path d="M15 21c3 0 7-1 7-8V5c0-1.25-1-2.25-2.25-2.25h-4.5c-1.125 0-2.125 1-2.125 2.25v5.25c0 1.25 1 2.25 2.25 2.25h2.25c0 2.25-2.25 3.75-2.625 4.5"/>
-                        </svg>
-                      </div>
-                      <p style={{ fontSize: '1.1rem', fontStyle: 'italic', color: '#555', marginBottom: '2rem', lineHeight: '1.7', position: 'relative', zIndex: 1 }}>
-                        "{card.quote}"
-                      </p>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <div>
-                          <h4 style={{ fontWeight: '800', fontSize: '1rem', margin: 0 }}>{card.author}</h4>
-                          <p style={{ fontSize: '0.85rem', color: '#888', margin: 0 }}>{card.role}</p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Dots for the slider */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '1rem' }}>
-              {[0, 1, 2].map((i) => (
-                <div 
-                  key={i} 
-                  onClick={() => setActiveSeniorSlide(i)}
-                  style={{
-                    width: i === activeSeniorSlide ? '24px' : '8px',
-                    height: '8px',
-                    borderRadius: '4px',
-                    background: i === activeSeniorSlide ? 'var(--pratham-yellow)' : '#ddd',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease'
-                  }}
-                />
-              ))}
-            </div>
+            <TestimonialCarousel 
+              testimonials={seniorTestimonials} 
+              className="max-w-2xl mx-auto" 
+              showArrows={true} 
+              showDots={true} 
+            />
           </div>
         </div>
       </section>
@@ -1308,11 +1252,11 @@ const Education = () => {
         }}>
           <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{ fontSize: '3.5rem', fontWeight: '900', color: '#fff', lineHeight: '1' }}>
-              <AnimatedCounter end={15000} suffix="+" />
+              <AnimatedCounter end={400} suffix="+" />
             </div>
             <div style={{ width: '40px', height: '4px', background: '#ffc107', margin: '0.8rem auto' }} />
             <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '2px', color: '#aaa' }}>
-              Students Empowered
+              Selected Students
             </div>
           </div>
 
@@ -1323,6 +1267,16 @@ const Education = () => {
             <div style={{ width: '40px', height: '4px', background: '#ffc107', margin: '0.8rem auto' }} />
             <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '2px', color: '#aaa' }}>
               Trained Volunteers
+            </div>
+          </div>
+
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ fontSize: '3.5rem', fontWeight: '900', color: '#fff', lineHeight: '1' }}>
+              <AnimatedCounter end={15000} suffix="+" />
+            </div>
+            <div style={{ width: '40px', height: '4px', background: '#ffc107', margin: '0.8rem auto' }} />
+            <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '2px', color: '#aaa' }}>
+              Students Empowered
             </div>
           </div>
         </div>
