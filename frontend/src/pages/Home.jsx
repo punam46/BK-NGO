@@ -144,7 +144,7 @@ const Home = () => {
           height: windowWidth < 768 ? '28vh' : '85vh',
           position: 'relative',
           overflow: 'hidden',
-          background: '#000',
+          background: '#fff',
           marginTop: windowWidth < 768 ? '70px' : '130px'
         }}
       >
@@ -170,7 +170,7 @@ const Home = () => {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
+                objectFit: windowWidth < 768 ? 'contain' : 'cover',
                 objectPosition: 'center'
               }}
             />
