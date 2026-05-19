@@ -140,12 +140,12 @@ const Home = () => {
       <section
         className="hero"
         style={{
-          height: '85vh',
+          height: windowWidth < 768 ? '55vh' : '85vh',
           width: '100%',
           position: 'relative',
           overflow: 'hidden',
           background: '#000',
-          marginTop: '130px'
+          marginTop: windowWidth < 768 ? '80px' : '130px'
         }}
       >
         <AnimatePresence initial={false}>
@@ -171,7 +171,7 @@ const Home = () => {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                objectPosition: '20% center'
+                objectPosition: windowWidth < 768 ? 'center' : '20% center'
               }}
             />
           </motion.div>
@@ -212,7 +212,7 @@ const Home = () => {
         style={{
           backgroundImage: 'url("/watercolor_children_group.png")',
           width: '100%',
-          minHeight: '900px',
+          minHeight: windowWidth < 768 ? '450px' : '900px',
           height: 'auto',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -221,8 +221,8 @@ const Home = () => {
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-end',
-          padding: '6rem 2% 2rem',
+          alignItems: windowWidth < 768 ? 'center' : 'flex-end',
+          padding: windowWidth < 768 ? '4rem 5% 2rem' : '6rem 2% 2rem',
           zIndex: 2
         }}
       >
@@ -250,10 +250,11 @@ const Home = () => {
           color: '#000000',
           fontWeight: '900',
           lineHeight: '1.2',
-          whiteSpace: 'nowrap',
+          whiteSpace: windowWidth < 768 ? 'normal' : 'nowrap',
+          textAlign: 'center',
           transitionDelay: '0.2s',
           alignSelf: 'center',
-          marginRight: '12%' /* Subtle left bias as requested */
+          marginRight: windowWidth < 768 ? '0' : '12%' /* Subtle left bias as requested */
         }}>
           <span style={{ color: '#d32f2f' }}>BK</span> Education and Welfare Society (NGO)
         </div>
@@ -284,13 +285,13 @@ const Home = () => {
       {/* What We Do Section */}
       <section className="what-we-do" ref={whatWeDoRef} style={{
         padding: '0 0 2rem',
-        background: 'linear-gradient(to bottom, #00BFA5 55%, #fff 55%)', /* Restored original teal */
+        background: windowWidth < 1024 ? '#00BFA5' : 'linear-gradient(to bottom, #00BFA5 55%, #fff 55%)', /* Restored original teal */
         position: 'relative',
         overflow: 'hidden'
       }}>
         {/* Artistic Watercolor Illustration Texture - Top Half Only */}
         <div style={{
-          position: 'absolute', top: 0, left: 0, width: '100%', height: '55%',
+          position: 'absolute', top: 0, left: 0, width: '100%', height: windowWidth < 1024 ? '100%' : '55%',
           backgroundImage: 'url("/yellow_watercolor_wash.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'top',
@@ -344,7 +345,7 @@ const Home = () => {
           <div
             className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`}
             onClick={() => {
-              if (window.innerWidth <= 768) {
+              if (windowWidth <= 768) {
                 setActiveWwdCard(activeWwdCard === 0 ? null : 0);
               }
             }}
@@ -383,7 +384,7 @@ const Home = () => {
           <div
             className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`}
             onClick={() => {
-              if (window.innerWidth <= 768) {
+              if (windowWidth <= 768) {
                 setActiveWwdCard(activeWwdCard === 1 ? null : 1);
               }
             }}
@@ -422,7 +423,7 @@ const Home = () => {
           <div
             className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`}
             onClick={() => {
-              if (window.innerWidth <= 768) {
+              if (windowWidth <= 768) {
                 setActiveWwdCard(activeWwdCard === 2 ? null : 2);
               }
             }}
@@ -461,7 +462,7 @@ const Home = () => {
           <div
             className={`wwd-card scroll-reveal-right ${isWhatWeDoVisible ? 'active' : ''}`}
             onClick={() => {
-              if (window.innerWidth <= 768) {
+              if (windowWidth <= 768) {
                 setActiveWwdCard(activeWwdCard === 3 ? null : 3);
               }
             }}
@@ -584,8 +585,8 @@ const Home = () => {
               {/* Impact Card 1 */}
               <div
                 className="impact-card" style={{
-                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  minWidth: windowWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: windowWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                   background: '#fff',
                   borderRadius: '16px',
                   overflow: 'hidden',
@@ -609,8 +610,8 @@ const Home = () => {
               {/* Impact Card 2: Social Welfare */}
               <div
                 className="impact-card" style={{
-                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  minWidth: windowWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: windowWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                   background: '#fff',
                   borderRadius: '16px',
                   overflow: 'hidden',
@@ -629,8 +630,8 @@ const Home = () => {
               {/* Impact Card: Clean Water Access */}
               <div
                 className="impact-card" style={{
-                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  minWidth: windowWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: windowWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                   background: '#fff',
                   borderRadius: '16px',
                   overflow: 'hidden',
@@ -650,8 +651,8 @@ const Home = () => {
               <Link
                 to="/donate"
                 className="impact-card" style={{
-                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  minWidth: windowWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: windowWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                   background: '#fff',
                   borderRadius: '16px',
                   overflow: 'hidden',
@@ -673,8 +674,8 @@ const Home = () => {
               {/* Impact Card 4 */}
               <div
                 className="impact-card" style={{
-                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  minWidth: windowWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: windowWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                   background: '#fff',
                   borderRadius: '16px',
                   overflow: 'hidden',
@@ -693,8 +694,8 @@ const Home = () => {
               {/* Impact Card 5: Senior Citizen Welfare */}
               <div
                 className="impact-card" style={{
-                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  minWidth: windowWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: windowWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                   background: '#fff',
                   borderRadius: '16px',
                   overflow: 'hidden',
@@ -713,8 +714,8 @@ const Home = () => {
               {/* Impact Card 6: Blood Donation Camps */}
               <div
                 className="impact-card" style={{
-                  minWidth: window.innerWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
-                  flex: window.innerWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
+                  minWidth: windowWidth <= 768 ? '85vw' : 'calc(48% - 1.5rem)',
+                  flex: windowWidth <= 768 ? '0 0 85vw' : '0 0 calc(48% - 1.5rem)',
                   background: '#fff',
                   borderRadius: '16px',
                   overflow: 'hidden',
@@ -744,7 +745,7 @@ const Home = () => {
       }}>
         <div className="group-photo-banner" style={{
           width: '100%',
-          minHeight: '800px',
+          minHeight: windowWidth < 768 ? '450px' : '800px',
           backgroundImage: 'url("/main_impact_banner.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center 35%', /* Fine-tuning to balance height and visibility */
@@ -759,10 +760,10 @@ const Home = () => {
           <div className="stats-marquee-container" style={{
             width: '100%',
             overflow: 'hidden',
-            padding: '3rem 0', /* Slightly tighter padding */
+            padding: windowWidth < 768 ? '1.5rem 0' : '3rem 0', /* Slightly tighter padding */
             position: 'relative',
             zIndex: 10,
-            marginTop: '-3rem', /* Reduced negative margin to create gap from cards above */
+            marginTop: windowWidth < 768 ? '0' : '-3rem', /* Reduced negative margin to create gap from cards above */
             background: 'rgba(0, 30, 60, 0.85)', /* Deep Navy Blue */
             backdropFilter: 'blur(15px)',
             borderTop: '1px solid rgba(255,255,255,0.1)',
@@ -770,11 +771,11 @@ const Home = () => {
           }}>
             {/* Gradient Edges for Smooth Transition */}
             <div style={{
-              position: 'absolute', top: 0, left: 0, bottom: 0, width: '150px',
+              position: 'absolute', top: 0, left: 0, bottom: 0, width: windowWidth < 768 ? '50px' : '150px',
               background: 'linear-gradient(to right, rgba(0, 30, 60, 1), transparent)', zIndex: 12, pointerEvents: 'none'
             }}></div>
             <div style={{
-              position: 'absolute', top: 0, right: 0, bottom: 0, width: '150px',
+              position: 'absolute', top: 0, right: 0, bottom: 0, width: windowWidth < 768 ? '50px' : '150px',
               background: 'linear-gradient(to left, rgba(0, 30, 60, 1), transparent)', zIndex: 12, pointerEvents: 'none'
             }}></div>
 
@@ -789,7 +790,7 @@ const Home = () => {
               }}
               style={{
                 display: 'flex',
-                gap: '6rem',
+                gap: windowWidth < 768 ? '2rem' : '6rem',
                 width: 'max-content',
                 padding: '0 3rem'
               }}
@@ -797,7 +798,7 @@ const Home = () => {
               {/* Double the items for seamless loop */}
               {[...stats, ...stats].map((stat, index) => (
                 <div key={index} style={{
-                  minWidth: '400px',
+                  minWidth: windowWidth < 768 ? '260px' : '400px',
                   flexShrink: 0,
                   display: 'flex',
                   flexDirection: 'column',
@@ -805,7 +806,7 @@ const Home = () => {
                   padding: '0 1.5rem'
                 }}>
                   <h4 style={{
-                    fontSize: '1.2rem',
+                    fontSize: windowWidth < 768 ? '0.95rem' : '1.2rem',
                     fontWeight: '900',
                     color: '#ffffff',
                     marginBottom: '1.2rem',
@@ -820,7 +821,7 @@ const Home = () => {
                     {stat.title}
                   </h4>
                   <div style={{
-                    fontSize: '3.5rem',
+                    fontSize: windowWidth < 768 ? '2.5rem' : '3.5rem',
                     fontWeight: '900',
                     color: '#ff9800',
                     lineHeight: 1,
@@ -836,8 +837,8 @@ const Home = () => {
                     {/* Glow Effect Behind Number */}
                     <div style={{
                       position: 'absolute',
-                      width: '120px',
-                      height: '120px',
+                      width: windowWidth < 768 ? '80px' : '120px',
+                      height: windowWidth < 768 ? '80px' : '120px',
                       background: 'radial-gradient(circle, rgba(255, 152, 0, 0.15) 0%, transparent 70%)',
                       zIndex: -1,
                       filter: 'blur(10px)'
@@ -847,7 +848,7 @@ const Home = () => {
                   <p style={{
                     color: 'rgba(255,255,255,0.75)',
                     fontWeight: '600',
-                    fontSize: '1rem',
+                    fontSize: windowWidth < 768 ? '0.85rem' : '1rem',
                     whiteSpace: 'normal',
                     maxWidth: '250px',
                     lineHeight: '1.5',
