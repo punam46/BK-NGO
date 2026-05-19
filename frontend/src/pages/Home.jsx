@@ -141,8 +141,7 @@ const Home = () => {
         className="hero"
         style={{
           width: '100%',
-          aspectRatio: windowWidth < 768 ? '2106/747' : 'auto',
-          height: windowWidth < 768 ? 'auto' : '85vh',
+          height: windowWidth < 768 ? '45vh' : '85vh',
           position: 'relative',
           overflow: 'hidden',
           background: '#000',
@@ -162,17 +161,38 @@ const Home = () => {
             style={{
               position: 'absolute',
               inset: 0,
-              zIndex: 1
+              zIndex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden'
             }}
           >
+            {windowWidth < 768 && (
+              <img
+                src={HOME_HERO_SLIDES[currentHero]}
+                alt=""
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'blur(20px) brightness(0.5)',
+                  transform: 'scale(1.2)',
+                  zIndex: 1
+                }}
+              />
+            )}
             <img
               src={HOME_HERO_SLIDES[currentHero]}
               alt="BK NGO Initiative"
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center'
+                objectFit: windowWidth < 768 ? 'contain' : 'cover',
+                objectPosition: 'center',
+                position: 'relative',
+                zIndex: 2
               }}
             />
           </motion.div>
