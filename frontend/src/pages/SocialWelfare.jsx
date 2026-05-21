@@ -145,17 +145,20 @@ const SocialWelfare = () => {
   const [dynamicVolunteerImages, setDynamicVolunteerImages] = useState([]);
   const [allEvents, setAllEvents] = useState(featuredEvents);
   const [allVolunteerImages, setAllVolunteerImages] = useState(volunteerImages);
+  const [dbVolunteerCount, setDbVolunteerCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [eventsRes, imagesRes] = await Promise.all([
+        const [eventsRes, imagesRes, countRes] = await Promise.all([
           fetch('http://localhost:5000/api/successful-programs'),
-          fetch('http://localhost:5000/api/volunteer-action-images')
+          fetch('http://localhost:5000/api/volunteer-action-images'),
+          fetch('http://localhost:5000/api/volunteers/count')
         ]);
 
         const eventsData = await eventsRes.json();
         const imagesData = await imagesRes.json();
+        const countData = await countRes.json();
 
         setDynamicEvents(eventsData);
         setAllEvents([...eventsData, ...featuredEvents]);
@@ -163,6 +166,10 @@ const SocialWelfare = () => {
         const dynamicSrcs = imagesData.map(img => img.src);
         setDynamicVolunteerImages(dynamicSrcs);
         setAllVolunteerImages([...dynamicSrcs, ...volunteerImages]);
+
+        if (countData && typeof countData.count === 'number') {
+          setDbVolunteerCount(countData.count);
+        }
       } catch (error) {
         console.error('Error fetching social welfare data:', error);
       }
@@ -209,7 +216,7 @@ const SocialWelfare = () => {
 
   const stats = [
     { label: "Lives Impacted", value: "50k+", icon: <Heart className="w-6 h-6" /> },
-    { label: "Active Volunteers", value: "1200+", icon: <Users className="w-6 h-6" /> },
+    { label: "Active Volunteers", value: `${(1200 + dbVolunteerCount).toLocaleString()}+`, icon: <Users className="w-6 h-6" /> },
     { label: "Districts Covered", value: "25+", icon: <MapPin className="w-6 h-6" /> },
     { label: "Projects Completed", value: "500+", icon: <Zap className="w-6 h-6" /> }
   ];
@@ -845,10 +852,10 @@ const SocialWelfare = () => {
 </section>
 
 {/* ===== FEATURED INITIATIVES SLIDER ===== */ }
-<section id="successful-programs" style={{ padding: '8rem 5% 4rem', background: '#fff' }}>
+<section id="successful-programs" style={{ padding: '4rem 5% 2rem', background: '#fff' }}>
   <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
-    <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
       <motion.span
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -895,8 +902,8 @@ const SocialWelfare = () => {
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.5, ease: "circOut" }}
           style={{
-            background: '#fff', borderRadius: '48px', padding: '5rem',
-            display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '5rem',
+            background: '#fff', borderRadius: '48px', padding: '3rem',
+            display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: '3rem',
             boxShadow: '0 20px 0 #fff7ed, 0 40px 80px rgba(0,0,0,0.05)',
             border: '1px solid #ffedd5',
             position: 'relative'
@@ -907,12 +914,12 @@ const SocialWelfare = () => {
             <h2 style={{
               fontSize: '3.5rem',
               fontWeight: 900,
-              margin: '2rem 0 1.5rem',
+              margin: '0.5rem 0 1rem',
               color: '#1a1a1a',
               letterSpacing: '-1.5px',
               textShadow: '0.5px 0.5px 0 #fff, 1px 1px 0 #ffedd5, 2px 2px 0 #ffedd5, 3px 3px 0 #ffedd5'
             }}>{allEvents[activeEvent]?.title}</h2>
-            <p style={{ color: '#666', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '3rem' }}>
+            <p style={{ color: '#666', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '1.5rem' }}>
               {allEvents[activeEvent]?.desc}
             </p>
 
@@ -934,7 +941,7 @@ const SocialWelfare = () => {
               </motion.button>
 
               {/* Nav arrows — right side */}
-              <div style={{ display: 'flex', gap: '0.75rem', marginRight: '-9rem', marginTop: '10rem' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', marginRight: '-9rem', marginTop: '1rem' }}>
                 <motion.button
                   whileHover={{ scale: 1.1, backgroundColor: '#f97316', color: '#fff' }}
                   whileTap={{ scale: 0.9 }}
@@ -962,7 +969,7 @@ const SocialWelfare = () => {
               </div>
             </div>
           </div>
-          <div style={{ flex: '1.4', minWidth: '320px' }}>
+          <div style={{ flex: '1.4', minWidth: '320px', marginTop: '4rem' }}>
             <div style={{
               background: '#fff', borderRadius: '40px', padding: '0.5rem',
               boxShadow: '0 30px 60px rgba(0,0,0,0.08)', position: 'relative',
@@ -972,7 +979,7 @@ const SocialWelfare = () => {
                 src={allEvents[activeEvent]?.img}
                 style={{
                   width: '100%',
-                  height: '500px',
+                  height: '350px',
                   borderRadius: '35px',
                   objectFit: 'cover',
                   objectPosition: allEvents[activeEvent]?.objectPosition || 'center',

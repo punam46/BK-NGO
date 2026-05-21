@@ -2,25 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { renderText } from './Education';
-import yogaHeroImg from '../assets/yoga_hero.png';
-import yogaMeditationImg from '../assets/yoga_meditation.png';
-import yogaCommunityImg from '../assets/yoga_community.png';
 import yogaBannerImg from '../assets/yoga_banner.png';
-import yogaInstructorImg from '../assets/yoga_instructor.png';
-import yogaGiphy from '../assets/Yoga.gif';
-import enjoyGif from '../assets/enjoy.gif';
-import creativityGif from '../assets/Creativity Comes From Within.gif';
-import breathingGif from '../assets/Deep Breathing Meditation Animation.gif';
 import yogaPosesVideo from '../assets/8AqW8zd7U12z6SeJJ9.webm';
 import stretchingVideo from '../assets/dz3qitg2SOA5SlunJ3.webm';
 import meditationVideo from '../assets/1Me8VR7912RO2k1Jeu.webm';
 import relaxationVideo from '../assets/0neAdz31x259D4a8LW.webm';
-import yogaBasicsFooterImg from '../assets/ChatGPT Image May 12, 2026, 04_36_55 PM.png';
+import breathingGif from '../assets/Deep Breathing Meditation Animation.gif';
+import warmupGif from '../assets/Yoga.gif';
+import yogaBasicsFooterImg from '../assets/yoga_benefits.jpg';
 import yoga1 from '../assets/yoga1.jpeg';
 import yoga2 from '../assets/yoga2.jpeg';
 import yoga3 from '../assets/yoga3.jpeg';
-import yoga4 from '../assets/yoga4.jpeg';
-import yoga5 from '../assets/yoga5.jpeg';
 import yoga6 from '../assets/yoga6.jpeg';
 import yoga7 from '../assets/yoga7.jpeg';
 import yoga8 from '../assets/yoga8.jpeg';
@@ -215,14 +207,16 @@ const Yoga = () => {
                 title: "Warm-up", 
                 desc: "Gently rotate your joints and stretch your muscles to prepare for deeper asanas.",
                 color: "#fff",
-                gif: yogaGiphy
+                gif: warmupGif,
+                isVideo: false
               },
               { 
                 step: "02", 
                 title: "Breathing exercises", 
                 desc: "Focus on rhythmic breathing to calm the nervous system and increase lung capacity.",
                 color: "#fff",
-                gif: breathingGif
+                gif: breathingGif,
+                isVideo: false
               },
               { 
                 step: "03", 
@@ -404,7 +398,7 @@ const Yoga = () => {
       {/* Impact Stats Banner */}
       <section style={{ 
         padding: '4rem 5%', 
-        background: '#f8f9fa',
+        background: '#fdf6e2',
         borderRadius: '100px 100px 0 0',
         marginTop: '-50px',
         position: 'relative',
@@ -443,9 +437,9 @@ const Yoga = () => {
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '4rem' }}>
           {[
-            { label: 'Participants', value: '5k+', color: '#e9ecef' },
-            { label: 'Villages Reached', value: '50+', color: '#dee2e6' },
-            { label: 'Community Support', value: '24/7', color: '#ced4da' }
+            { label: 'Participants', value: '5k+', color: 'rgba(212, 175, 55, 0.25)' },
+            { label: 'Villages Reached', value: '50+', color: 'rgba(13, 148, 136, 0.2)' },
+            { label: 'Community Support', value: '24/7', color: 'rgba(244, 63, 94, 0.2)' }
           ].map((stat, i) => (
             <div key={i} style={{ position: 'relative', minWidth: '200px' }}>
               <motion.div
@@ -502,13 +496,8 @@ const Yoga = () => {
             textShadow: '1px 1px 0px #fff, 2px 2px 0px #d4af37, 3px 3px 0px #d4af37, 4px 4px 10px rgba(0,0,0,0.1)'
           }}>Our Volunteers <span style={{ color: '#d4af37' }}>Actions</span></h2>
           <p style={{ color: '#666', fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto 4rem' }}>Witness the profound impact of our dedicated yoga instructors and volunteers serving rural communities.</p>
-          
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-            gap: '1.5rem' 
-          }}>
-            {[yoga1, yoga2, yoga3, yoga4, yoga5, yoga6, yoga7, yoga8].map((img, index) => (
+          <div className="yoga-gallery-grid">
+            {[yoga1, yoga2, yoga3, yoga6, yoga7, yoga8].map((img, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, scale: 0.9 }}

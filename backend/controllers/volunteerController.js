@@ -74,3 +74,27 @@ export const getVolunteers = async (req, res) => {
   const volunteers = await Volunteer.find({}).sort({ createdAt: -1 });
   res.json(volunteers);
 };
+
+// @desc    Get volunteer count
+// @route   GET /api/volunteers/count
+// @access  Public
+export const getVolunteerCount = async (req, res) => {
+  const count = await Volunteer.countDocuments({});
+  res.json({ count });
+};
+
+// @desc    Delete volunteer
+// @route   DELETE /api/volunteers/:id
+// @access  Private/Admin
+export const deleteVolunteer = async (req, res) => {
+  const volunteer = await Volunteer.findById(req.params.id);
+  if (volunteer) {
+    await Volunteer.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Volunteer application removed' });
+  } else {
+    res.status(404);
+    throw new Error('Volunteer not found');
+  }
+};
+
+

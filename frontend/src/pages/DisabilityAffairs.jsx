@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Users, BookOpen, Award, Heart, TrendingUp, Star, ChevronLeft, ChevronRight, ArrowRight, HandHeart, Globe, Shield, Lightbulb } from 'lucide-react';
 
 import disabilityExamImg from '../assets/dis2.jpg';
+import competitiveImg from '../assets/compataive.avif';
 import pwdExamImg from '../assets/what_we_do_pwd_exam.png';
 import disabilitySkillsImg from '../assets/dis.jpg';
 import vocationalImg from '../assets/disability1.jpg';
@@ -321,7 +322,7 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
               transform: 'rotate(0deg)'
             }}
           >
-            <img src={disabilityExamImg} alt="Disability Impact" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={competitiveImg} alt="Disability Impact" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </motion.div>
 
           {/* Front Image Card - Circular */}
@@ -900,17 +901,20 @@ const TiltCard = ({ item, index }) => {
         style={{
           fontSize: '3.5rem',
           marginBottom: '2rem',
-          display: 'inline-block',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           background: `${item.color}15`,
           width: '100px',
           height: '100px',
-          lineHeight: '100px',
           borderRadius: '30px',
           transform: 'translateZ(50px)',
           color: item.color,
           boxShadow: isHovered ? `0 20px 40px ${item.color}30` : 'none',
           position: 'relative',
           zIndex: 2,
+          overflow: 'hidden',
+          margin: '0 auto',
           border: isHovered ? `1px solid ${item.color}40` : '1px solid transparent',
           transition: 'box-shadow 0.3s, border 0.3s'
         }}

@@ -209,7 +209,7 @@ const About = () => {
           </div>
 
           {/* Right Visuals (Static Infographic Wheel) */}
-          <div style={{ flex: '1', position: 'relative', minWidth: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ flex: '1', position: 'relative', minWidth: windowWidth < 480 ? '100%' : '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{
               width: '100%',
               maxWidth: '650px',
@@ -237,13 +237,22 @@ const About = () => {
           maxWidth: '1600px',
           margin: '0 auto',
           display: 'flex',
-          flexWrap: 'wrap',
-          gap: '6rem',
-          alignItems: 'start',
+          flexDirection: windowWidth < 991 ? 'column' : 'row',
+          gap: windowWidth < 768 ? '3rem' : '6rem',
+          alignItems: windowWidth < 991 ? 'center' : 'start',
+          justifyContent: 'center',
           padding: '0 4%'
         }}>
           {/* Photo Column */}
-          <div className="profile-photo-col" style={{ position: 'relative', animation: 'fadeUp 1s ease-out forwards', flex: '1', minWidth: '400px' }}>
+          <div className="profile-photo-col" style={{ 
+            position: 'relative', 
+            animation: 'fadeUp 1s ease-out forwards', 
+            flex: '1', 
+            width: '100%',
+            maxWidth: '450px',
+            minWidth: windowWidth < 480 ? '100%' : '400px',
+            margin: windowWidth < 991 ? '0 auto' : '0'
+          }}>
             <div style={{
               borderRadius: '20px',
               overflow: 'hidden',
@@ -254,7 +263,7 @@ const About = () => {
               <img
                 src="/bkphoto.jpeg"
                 alt="Dr. Adv. Er. Bhagwan Nivrutti Elmame"
-                style={{ width: '100%', borderRadius: '12px 12px 0 0', display: 'block', objectFit: 'cover', objectPosition: 'top', height: '400px' }}
+                style={{ width: '100%', borderRadius: '12px 12px 0 0', display: 'block', objectFit: 'cover', objectPosition: 'top', height: windowWidth < 480 ? '320px' : '400px' }}
               />
               <div style={{ padding: '1.5rem', textAlign: 'center' }}>
                 <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#333', marginBottom: '0.3rem' }}>Dr. Adv. Er. Bhagwan Nivrutti Elmame</h3>
@@ -283,7 +292,7 @@ const About = () => {
           </div>
 
           {/* Biography Column */}
-          <div className="profile-bio-col" style={{ flex: '1.5', minWidth: '300px' }}>
+          <div className="profile-bio-col" style={{ flex: '1.5', minWidth: windowWidth < 480 ? '100%' : '300px' }}>
             <h2 style={{ fontSize: '2.8rem', color: '#1a1a1a', marginBottom: '2rem', fontWeight: '800' }}>Leadership with <span style={{ color: '#e53935' }}>Vision</span></h2>
 
             <div style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#444', textAlign: 'justify' }}>

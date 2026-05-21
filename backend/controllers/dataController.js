@@ -6,6 +6,7 @@ import SuccessfulProgram from '../models/SuccessfulProgram.js';
 import VolunteerActionImage from '../models/VolunteerActionImage.js';
 import Counter from '../models/Counter.js';
 import Visitor from '../models/Visitor.js';
+import Event from '../models/Event.js';
 
 // @desc    Get total website views
 export const getViews = async (req, res) => {
@@ -162,4 +163,25 @@ export const updateSuccessfulProgram = async (req, res) => {
 export const updateVolunteerActionImage = async (req, res) => {
   const image = await VolunteerActionImage.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.json(image);
+};
+
+// Events CRUD
+export const getEvents = async (req, res) => {
+  const events = await Event.find({}).sort({ createdAt: -1 });
+  res.json(events);
+};
+
+export const createEvent = async (req, res) => {
+  const event = await Event.create(req.body);
+  res.status(201).json(event);
+};
+
+export const deleteEvent = async (req, res) => {
+  await Event.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Event removed' });
+};
+
+export const updateEvent = async (req, res) => {
+  const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(event);
 };

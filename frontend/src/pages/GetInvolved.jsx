@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Heart, Users, HandHeart } from 'lucide-react';
+import { ArrowRight, Heart, Users, HandHeart, Clock, MapPin, Award } from 'lucide-react';
 import { useMotionValue, useTransform, useSpring } from 'framer-motion';
 import vTeachingImg from '../assets/volunteer_teaching.png';
 import vDistributionImg from '../assets/volunteer_distribution.png';
@@ -14,7 +14,6 @@ import actImg4 from '../assets/g21.jpeg';
 import actImg5 from '../assets/g25.jpeg';
 import actImg6 from '../assets/g24.jpeg';
 import actImg7 from '../assets/g29.jpeg';
-import actImg8 from '../assets/g30.jpeg';
 import actImg9 from '../assets/g33.jpeg';
 import g42 from '../assets/G42.jpeg';
 import g43 from '../assets/G43.jpeg';
@@ -30,8 +29,10 @@ import g55 from '../assets/G55.jpeg';
 import g56 from '../assets/G56.jpeg';
 import ghugeImg from '../assets/ghuge sir.jpeg';
 import nikaljeImg from '../assets/D1.jpeg';
+import p1 from '../assets/p1.jpeg';
+import p2 from '../assets/p2.jpeg';
 
-const InteractiveCard = ({ children, style, onClick, hoverColor = '#111' }) => {
+const InteractiveCard = ({ children, style, onClick, className = '', hoverColor = '#111', ...props }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -74,10 +75,11 @@ const InteractiveCard = ({ children, style, onClick, hoverColor = '#111' }) => {
         boxShadow: '0 25px 50px rgba(0,0,0,0.1)'
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="interactive-card"
+      className={`interactive-card ${className}`}
       onClick={onClick}
+      {...props}
     >
-      <div style={{ transform: "translateZ(50px)", height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ transform: "translateZ(50px)", height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
         {children}
       </div>
     </motion.div>
@@ -88,6 +90,18 @@ const GetInvolved = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = React.useState(0);
   const formRef = React.useRef(null);
+  const [dbVolunteerCount, setDbVolunteerCount] = useState(0);
+
+  React.useEffect(() => {
+    fetch('http://localhost:5000/api/volunteers/count')
+      .then(res => res.json())
+      .then(data => {
+        if (data && typeof data.count === 'number') {
+          setDbVolunteerCount(data.count);
+        }
+      })
+      .catch(err => console.error('Error fetching volunteer count:', err));
+  }, []);
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -105,19 +119,14 @@ const GetInvolved = () => {
       text: "Volunteering with BK has significantly changed me. I've become more open and interactive, which has contributed to my personal growth. Seeing the direct impact has reinforced my belief in taking small, consistent steps."
     },
     {
-      name: "Rahul Verma",
-      img: vPortraitImg,
+      name: "Sushant Dughad",
+      img: p2,
       text: "Working with the rural outreach team opened my eyes to the incredible potential in our villages. BK provides the perfect platform to channel your energy into real, measurable change. I've learned more about empathy here."
     },
     {
-      name: "Sneha Patil",
-      img: vPortraitImg,
+      name: "Priti Dube",
+      img: p1,
       text: "Being part of the women empowerment workshops has been the most rewarding part of my career. Witnessing the transition from hesitation to confidence in these women is priceless. BK doesn't just help; it empowers."
-    },
-    {
-      name: "Karan Mehta",
-      img: vPortraitImg,
-      text: "The energy at BK is infectious. Whether it's a blood donation camp or a child safety workshop, everyone is driven by a shared vision. I've made lifelong friends and found a community that truly cares."
     }
   ];
 
@@ -195,8 +204,8 @@ const GetInvolved = () => {
             lineHeight: '1.1',
             letterSpacing: '-1px'
           }}>
-            Volunteers are our{' '}
-            <span style={{ position: 'relative', display: 'inline-block', fontFamily: 'var(--font-script)', color: '#ffcc00', fontSize: '1.2em' }}>
+            Volunteers are our<br />
+            <span style={{ position: 'relative', display: 'inline-block', color: '#ffcc00' }}>
               everyday heroes
               {/* Decorative yellow rays */}
               <div style={{
@@ -213,29 +222,73 @@ const GetInvolved = () => {
             </span>
           </h1>
           
-          <div style={{ 
-            width: '100%', 
-            height: '2px', 
-            background: '#eeeeee', 
-            margin: '4rem auto', 
-            maxWidth: '800px',
-            position: 'relative'
-          }}>
-            <div style={{ position: 'absolute', width: '150px', height: '4px', background: '#ffcc00', top: '-1px', left: '50%', transform: 'translateX(-50%)' }}></div>
+          <div className="involved-stats-grid">
+            {/* Card 1: Volunteers */}
+            <InteractiveCard 
+              className="involved-stat-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="involved-stat-icon-wrapper">
+                <Users size={28} />
+              </div>
+              <div className="involved-stat-number">
+                {(12000 + dbVolunteerCount).toLocaleString()}+
+              </div>
+              <div className="involved-stat-label">Volunteers</div>
+              <div className="involved-stat-sublabel">&amp; { (1264).toLocaleString() } Interns Support</div>
+            </InteractiveCard>
+
+            {/* Card 2: Hours */}
+            <InteractiveCard 
+              className="involved-stat-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="involved-stat-icon-wrapper">
+                <Clock size={28} />
+              </div>
+              <div className="involved-stat-number">20.7L+</div>
+              <div className="involved-stat-label">Hours Generated</div>
+              <div className="involved-stat-sublabel">Dedicated volunteering hours</div>
+            </InteractiveCard>
+
+            {/* Card 3: States */}
+            <InteractiveCard 
+              className="involved-stat-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="involved-stat-icon-wrapper">
+                <MapPin size={28} />
+              </div>
+              <div className="involved-stat-number">13+</div>
+              <div className="involved-stat-label">States Covered</div>
+              <div className="involved-stat-sublabel">Pan-India outreach presence</div>
+            </InteractiveCard>
+
+            {/* Card 4: Children */}
+            <InteractiveCard 
+              className="involved-stat-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className="involved-stat-icon-wrapper">
+                <Heart size={28} />
+              </div>
+              <div className="involved-stat-number">75k+</div>
+              <div className="involved-stat-label">Children Reached</div>
+              <div className="involved-stat-sublabel">Empowered through education</div>
+            </InteractiveCard>
           </div>
-          
-          <p style={{ 
-            fontSize: '1.4rem', 
-            color: '#555', 
-            lineHeight: '1.6', 
-            marginBottom: '0',
-            maxWidth: '900px',
-            margin: '0 auto 0',
-            fontWeight: '400'
-          }}>
-            10,555 volunteers. 1,264 interns. 20,74,526 volunteering hours generated.<br />
-            13 states. 75,000 children reached through volunteers.
-          </p>
 
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -328,7 +381,7 @@ const GetInvolved = () => {
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
             <h2 style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: '800', color: '#1a1a1a', lineHeight: '1.2' }}>
-              what <span style={{ color: '#ffcc00', fontFamily: 'var(--font-script)', fontSize: 'clamp(3rem, 8vw, 5.5rem)', fontWeight: '400' }}>our volunteers</span> have to say
+              what <span style={{ color: '#ffcc00' }}>our volunteers</span> have to say
             </h2>
           </div>
           
@@ -357,7 +410,7 @@ const GetInvolved = () => {
                 />
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: '1.1rem', color: '#555', lineHeight: '1.8', margin: 0 }}>
-                    "{review.text.replace('BK', '')}<span style={{ color: '#e53935', fontWeight: '700' }}>BK</span>{review.text.split('BK')[1] || ''}"
+                    "{review.text.split('BK').reduce((acc, part, i) => i === 0 ? [part] : [...acc, <span key={i} style={{ color: '#e53935', fontWeight: '700' }}>BK</span>, part], [])}"
                   </p>
                   <h4 style={{ fontSize: '1.3rem', fontWeight: '800', marginTop: '1.5rem', color: '#1a1a1a' }}>{review.name}</h4>
                 </div>
@@ -407,7 +460,7 @@ const GetInvolved = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
             {[
               actImg1, actImg2, actImg3, actImg4, 
-              actImg5, actImg6, actImg7, actImg8,
+              actImg5, actImg6, actImg7, 
               actImg9, g42, g43, g45, g46,
               g48, g49, g50, g51, g52,
               g54, g55, g56

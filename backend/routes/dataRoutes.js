@@ -4,7 +4,8 @@ import {
   createPhoto, createCertification, createPublication, createProgram, createSuccessfulProgram, createVolunteerActionImage,
   deletePhoto, deleteCertification, deletePublication, deleteProgram, deleteSuccessfulProgram, deleteVolunteerActionImage,
   updatePhoto, updateCertification, updatePublication, updateProgram, updateSuccessfulProgram, updateVolunteerActionImage,
-  getViews, incrementViews
+  getViews, incrementViews,
+  getEvents, createEvent, deleteEvent, updateEvent
 } from '../controllers/dataController.js';
 
 const router = express.Router();
@@ -53,5 +54,12 @@ router.route('/volunteer-action-images')
 router.route('/volunteer-action-images/:id')
   .delete(deleteVolunteerActionImage)
   .put(updateVolunteerActionImage);
+
+router.route('/events')
+  .get(getEvents)
+  .post(createEvent);
+router.route('/events/:id')
+  .delete(deleteEvent)
+  .put(updateEvent);
 
 export default router;

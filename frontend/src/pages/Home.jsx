@@ -564,7 +564,7 @@ const Home = () => {
           </div>
 
           {/* Right Column: Carousel */}
-          <div style={{ position: 'relative', minHeight: windowWidth < 768 ? 'auto' : '500px', width: '100%', overflow: 'visible' }}>
+          <div style={{ position: 'relative', minHeight: windowWidth < 768 ? 'auto' : '500px', width: '100%', minWidth: 0, overflow: 'hidden' }}>
 
             <div
               ref={carouselRef}

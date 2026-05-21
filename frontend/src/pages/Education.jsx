@@ -12,8 +12,9 @@ import karanPortrait from '../assets/karan.png';
 import mayaPortrait from '../assets/maya.png';
 import volunteerPortrait from '../assets/volunteer_portrait.png';
 import women3Img from '../assets/women3.png';
-import { BookOpen, GraduationCap, School, Play, Quote } from 'lucide-react';
+import { BookOpen, GraduationCap, School, Play, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { TestimonialCarousel } from '@/components/ui/testimonial';
+
 
 // 3D Card component with mouse tracking
 const Interactive3DCard = ({ children, intensity = 15, scale = 1.05 }) => {
@@ -443,7 +444,9 @@ const Education = () => {
   const [activeSeniorSlide, setActiveSeniorSlide] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeVideo, setActiveVideo] = useState(null);
+  const [activeVideoIdx, setActiveVideoIdx] = useState(0);
   const seniorScrollRef = useRef(null);
+  const videoScrollRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -1150,67 +1153,268 @@ const Education = () => {
             Hear from the children and seniors whose lives have been transformed through our education initiatives.
           </p>
 
-          {/* Featured Video Testimonials Grid */}
-          <div style={{ marginBottom: '6rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {/* Featured Video Testimonials Carousel */}
+          <div style={{ marginBottom: '6rem', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
             <h3 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '3rem', color: '#888', textTransform: 'uppercase', letterSpacing: '2px' }}>
               Student Success Stories
             </h3>
-            <div style={{ 
-              display: 'flex', 
-              gap: '1.5rem', 
-              flexWrap: 'wrap', 
-              justifyContent: 'center' 
-            }}>
-              {[
-                { id: 'z18YX4x1Lw8', name: 'Palak Wagh' },
-                { id: 'cPLrVlE2uRQ', name: 'Sakshi Patil' },
-                { id: 'y65ArcDxITw', name: 'Karan Ahire' },
-                { id: 'wn7i39rNblw', name: 'Student Experience' },
-                { id: 'mFnRVNOI2_E', name: 'Student Story' },
-                { id: 'Jof92fozWuk', name: 'Student Feedback' }
-              ].map((video, idx) => (
-                <motion.div 
-                  key={idx}
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  onClick={() => setActiveVideo(video.id)}
-                  style={{ 
-                    width: '250px', 
-                    height: '450px', 
-                    background: '#000',
-                    borderRadius: '25px',
-                    overflow: 'hidden',
-                    boxShadow: '0 25px 50px rgba(0,0,0,0.25)',
-                    border: '5px solid #fff',
-                    position: 'relative',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <img 
-                    src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9 }} 
-                    alt={video.name} 
-                  />
-                  <div style={{ 
-                    position: 'absolute', 
-                    top: '50%', 
-                    left: '50%', 
-                    transform: 'translate(-50%, -50%)',
-                    zIndex: 2,
-                    background: 'rgba(255, 59, 59, 0.9)',
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 0 20px rgba(255, 59, 59, 0.4)',
-                    border: '2px solid #fff'
-                  }}>
-                    <Play size={24} color="#fff" fill="#fff" />
+            
+            {(() => {
+              const videoCards = [
+                  { 
+                    id: 'z18YX4x1Lw8', 
+                    name: 'Palak Wagh', 
+                    role: 'Student', 
+                    academy: 'BK SCIENCE ACADEMY',
+                    badgeType: 'red-std'
+                  },
+                  { 
+                    id: 'cPLrVlE2uRQ', 
+                    name: 'Sidharth Jadhav', 
+                    role: 'Student:', 
+                    details: '(12th pcmb)',
+                    academy: 'BK SCIENCE ACADEMY',
+                    badgeType: 'red-italics'
+                  },
+                  { 
+                    id: 'y65ArcDxITw', 
+                    name: 'Roshani Shirsath', 
+                    role: 'Student', 
+                    academy: 'BK SCIENCE ACADEMY',
+                    badgeType: 'red-std'
+                  },
+                  { 
+                    id: 'wn7i39rNblw', 
+                    name: 'Sushant Dughad', 
+                    role: 'Reasoning Faculty', 
+                    academy: 'BK GROUP OF EDUCATION',
+                    badgeType: 'white-faculty'
+                  },
+                  { 
+                    id: 'mFnRVNOI2_E', 
+                    name: 'Student Story', 
+                    role: 'Student', 
+                    academy: 'BK SCIENCE ACADEMY',
+                    badgeType: 'red-std'
+                  }
+              ];
+              const total = videoCards.length;
+              const getSlot = (idx) => {
+                let d = idx - activeVideoIdx;
+                if (d > total / 2) d -= total;
+                if (d < -total / 2) d += total;
+                return d;
+              };
+              const slotStyle = (slot) => {
+                const ABS = Math.abs(slot);
+                if (ABS > 2) return { display: 'none' };
+                return {
+                  scale:   slot === 0 ? 1 : ABS === 1 ? 0.85 : 0.7,
+                  xPct:    slot === 0 ? 0 : slot * 110,
+                  rotate:  0,
+                  opacity: slot === 0 ? 1 : ABS === 1 ? 0.7 : 0.4,
+                  zIndex:  slot === 0 ? 5 : ABS === 1 ? 4 : 3,
+                  blur:    slot === 0 ? 0 : ABS === 1 ? 1 : 3,
+                };
+              };
+
+              return (
+                <div style={{ position: 'relative', height: '620px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', width: '280px', height: '520px' }}>
+                    {videoCards.map((card, idx) => {
+                      const slot = getSlot(idx);
+                      const style = slotStyle(slot);
+                      if (!style || style.display === 'none') return null;
+
+                      return (
+                        <motion.div 
+                          key={idx}
+                          initial={false}
+                          animate={{
+                            x: `${style.xPct}%`,
+                            scale: style.scale,
+                            rotate: 0,
+                            opacity: style.opacity,
+                            zIndex: style.zIndex,
+                            filter: `blur(${style.blur}px)`
+                          }}
+                          transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                          onClick={() => {
+                            if (slot === 0) {
+                              setActiveVideo(card.id);
+                            } else {
+                              setActiveVideoIdx(idx);
+                            }
+                          }}
+                          style={{ 
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '280px', 
+                            height: '520px', 
+                            background: '#1a1a1a',
+                            borderRadius: '32px',
+                            overflow: 'hidden',
+                            boxShadow: slot === 0 ? '0 30px 60px rgba(0,0,0,0.5)' : '0 10px 30px rgba(0,0,0,0.3)',
+                            border: '6px solid #fff',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            padding: '1.2rem',
+                            boxSizing: 'border-box'
+                          }}
+                        >
+                          {/* Header */}
+                          <div style={{
+                            background: '#fff',
+                            borderRadius: '16px',
+                            padding: '0.4rem 0.8rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            height: '45px',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                          }}>
+                            <img src={bkLogo} style={{ width: '28px', height: '28px', borderRadius: '4px', objectFit: 'cover' }} alt="BK Logo" />
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                              <span style={{ fontSize: '9px', fontWeight: 900, color: '#ff3b3b', lineHeight: 1 }}>
+                                {card.academy.includes('SCIENCE') ? 'BK SCIENCE' : 'BK GROUP'}
+                              </span>
+                              <span style={{ fontSize: '11px', fontWeight: 900, color: '#1a1a1a', letterSpacing: '0.3px', lineHeight: 1.1 }}>
+                                {card.academy.includes('SCIENCE') ? 'ACADEMY' : 'OF EDUCATION'}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* YouTube Thumbnail / Play Button */}
+                          <div style={{
+                            position: 'relative',
+                            flexGrow: 1,
+                            marginTop: '0.8rem',
+                            marginBottom: '0.8rem',
+                            borderRadius: '20px',
+                            overflow: 'hidden',
+                            background: '#000',
+                            border: '3px solid #333'
+                          }}>
+                            <img 
+                              src={`https://img.youtube.com/vi/${card.id}/maxresdefault.jpg`}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }} 
+                              alt={card.name}
+                            />
+                            
+                            {/* Play Button Overlay */}
+                            <div style={{ 
+                              position: 'absolute', 
+                              top: '50%', 
+                              left: '50%', 
+                              transform: 'translate(-50%, -50%)',
+                              zIndex: 2,
+                              background: 'linear-gradient(135deg, #ff3b3b 0%, #c00 100%)',
+                              width: '54px',
+                              height: '54px',
+                              borderRadius: '50%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              boxShadow: '0 0 15px rgba(255, 59, 59, 0.5)',
+                              border: '3px solid #fff'
+                            }}>
+                              <Play size={20} color="#fff" fill="#fff" style={{ marginLeft: '2px' }} />
+                            </div>
+                          </div>
+
+                          {/* Bottom Badge */}
+                          {card.badgeType === 'red-std' && (
+                            <div style={{
+                              background: '#8b0000',
+                              borderRadius: '16px',
+                              padding: '0.5rem 1rem',
+                              textAlign: 'center',
+                              color: '#fff',
+                              boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                            }}>
+                              <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.9 }}>
+                                {card.role}
+                              </div>
+                              <div style={{ fontSize: '1rem', fontWeight: 800 }}>
+                                {card.name}
+                              </div>
+                            </div>
+                          )}
+
+                          {card.badgeType === 'red-italics' && (
+                            <div style={{
+                              background: '#8b0000',
+                              borderRadius: '16px',
+                              padding: '0.5rem 1rem',
+                              textAlign: 'center',
+                              color: '#fff',
+                              boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                            }}>
+                              <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.9 }}>
+                                {card.role}
+                              </div>
+                              <div style={{ fontSize: '1rem', fontWeight: 800, fontStyle: 'italic', fontFamily: 'serif' }}>
+                                {card.name}
+                              </div>
+                              <div style={{ fontSize: '0.7rem', opacity: 0.8, marginTop: '2px' }}>
+                                {card.details}
+                              </div>
+                            </div>
+                          )}
+
+                          {card.badgeType === 'white-faculty' && (
+                            <div style={{
+                              background: '#fff',
+                              borderRadius: '16px',
+                              padding: '0.5rem 1rem',
+                              textAlign: 'center',
+                              color: '#1a1a1a',
+                              border: '1px solid #ddd',
+                              boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
+                            }}>
+                              <div style={{ fontSize: '0.85rem', fontWeight: 900, color: '#1a1a1a' }}>
+                                Name: {card.name}
+                              </div>
+                              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#555', marginTop: '2px' }}>
+                                Designation : {card.role}
+                              </div>
+                            </div>
+                          )}
+                        </motion.div>
+                      );
+                    })}
+
+                    {/* Navigation Controls */}
+                    <div style={{ position: 'absolute', bottom: '-80px', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '2rem', zIndex: 10 }}>
+                      <button
+                        onClick={() => setActiveVideoIdx((i) => (i - 1 + total) % total)}
+                        style={{ background: '#fff', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s ease', color: '#1a1a1a' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#ffc107'; e.currentTarget.style.color = '#fff'; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#1a1a1a'; }}
+                      >
+                        <ChevronLeft size={22} />
+                      </button>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        {videoCards.map((_, i) => (
+                          <div key={i} onClick={() => setActiveVideoIdx(i)} style={{ width: i === activeVideoIdx ? '24px' : '8px', height: '8px', borderRadius: '4px', background: i === activeVideoIdx ? '#ff3b3b' : '#ddd', transition: 'all 0.3s ease', cursor: 'pointer' }} />
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => setActiveVideoIdx((i) => (i + 1) % total)}
+                        style={{ background: '#fff', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s ease', color: '#1a1a1a' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#ffc107'; e.currentTarget.style.color = '#fff'; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#1a1a1a'; }}
+                      >
+                        <ChevronRight size={22} />
+                      </button>
+                    </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                </div>
+              );
+            })()}
           </div>
           
 
