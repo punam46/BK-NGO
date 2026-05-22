@@ -124,7 +124,8 @@ const SocialWelfare = () => {
       desc: <><span style={{ color: 'red', fontWeight: 800 }}>BK</span> Education & Welfare Society provides monthly rations, medical checkups, and emotional support to neglected senior citizens. We believe that our elders deserve to live their golden years with peace and respect. Our "Dignity Care" program includes door-to-door medical assistance, regular social gatherings to combat loneliness, and the provision of essential medicines and nutrition to those without family support systems, ensuring they feel valued by society.</>,
       img: socialWelfImg,
       icon: <Heart size={40} fill="#f97316" fillOpacity={0.1} />,
-      objectPosition: '50% 10%'
+      objectPosition: 'center',
+      objectFit: 'contain'
     },
     {
       tag: "ELDERLY CARE",
@@ -132,7 +133,8 @@ const SocialWelfare = () => {
       desc: <><span style={{ color: 'red', fontWeight: 800 }}>BK</span> Education & Welfare Society supports local Vrudha Ashrams (old age homes) with infrastructure upgrades, nutritious meals, and social interaction programs. We don't just donate; we spend time with the residents to provide the emotional companionship they often lack. From arranging birthday celebrations to ensuring consistent healthcare access, we work to make these ashrams a vibrant, loving home for every resident who has been displaced or neglected by their own families.</>,
       img: g52,
       icon: <Zap size={40} fill="#f97316" fillOpacity={0.1} />,
-      objectPosition: '50% 10%'
+      objectPosition: 'center',
+      objectFit: 'contain'
     }
   ];
 
@@ -320,7 +322,7 @@ const SocialWelfare = () => {
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
-          gap: '6rem'
+          gap: windowWidth < 768 ? '2rem' : '6rem'
         }}>
           <div style={{ flex: '0.8', minWidth: '320px' }}>
             <motion.span
@@ -402,30 +404,32 @@ const SocialWelfare = () => {
                 Learn More <ArrowRight size={20} color="#f97316" />
               </motion.button>
             </motion.div>
-          </div>          {/* Right Content: 3D Three-Circle Design */}
+          </div>          {/* Right Content: Image Slider */}
           <div style={{
             flex: '1.2',
             position: 'relative',
-            height: '650px',
-            display: windowWidth < 1024 ? 'none' : 'flex',
+            height: windowWidth < 768 ? '450px' : '650px',
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             perspective: '2000px',
             zIndex: 1,
-            marginTop: '1rem'
+            marginTop: windowWidth < 768 ? '2rem' : '1rem',
+            width: '100%'
           }}>
             <div style={{
-              width: '580px', // Reduced from 850px
-              height: '480px', // Reduced from 720px
+              width: windowWidth < 768 ? '100%' : '580px',
+              height: windowWidth < 768 ? '400px' : '480px',
               borderRadius: '40px',
               overflow: 'hidden',
-              border: '12px solid #fff',
+              border: windowWidth < 768 ? '6px solid #fff' : '12px solid #fff',
               boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
               position: 'relative',
-              background: '#fff'
+              background: '#fff',
+              margin: '0 auto'
             }}>
               <motion.div
-                animate={{ y: [0, -2200] }} // Adjusted for smaller content
+                animate={{ y: [0, -2200] }} 
                 transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                 style={{
                   display: 'flex',
@@ -439,7 +443,7 @@ const SocialWelfare = () => {
                     key={idx}
                     style={{
                       width: '100%',
-                      height: '320px', // Reduced from 520px
+                      height: windowWidth < 768 ? '200px' : '320px', 
                       flexShrink: 0,
                       borderRadius: '28px',
                       overflow: 'hidden',
@@ -453,7 +457,7 @@ const SocialWelfare = () => {
                         width: '100%', 
                         height: '100%', 
                         objectFit: 'cover',
-                        transform: 'scale(1.05)', // Reduced from 1.25
+                        transform: 'scale(1.05)', 
                         transition: 'transform 0.5s ease-out'
                       }}
                       alt="Welfare Impact"
@@ -462,8 +466,8 @@ const SocialWelfare = () => {
                 ))}
               </motion.div>
               {/* Fade overlays for smooth entry/exit */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100px', background: 'linear-gradient(to bottom, #fff, transparent)', zIndex: 2 }} />
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '100px', background: 'linear-gradient(to top, #fff, transparent)', zIndex: 2 }} />
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: windowWidth < 768 ? '50px' : '100px', background: 'linear-gradient(to bottom, #fff, transparent)', zIndex: 2 }} />
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: windowWidth < 768 ? '50px' : '100px', background: 'linear-gradient(to top, #fff, transparent)', zIndex: 2 }} />
             </div>
 
             {/* Floating Badges */}
@@ -592,41 +596,43 @@ const SocialWelfare = () => {
               display: none;
             }
           `}</style>
-    {/* Horizontal Main Line (Perfectly aligned between first and last nodes) */}
-    <div style={{
-      position: 'absolute',
-      top: '50%',
-      left: 'calc(10% + 125px)',
-      width: (journeyMilestones.length - 1) * 250 + 'px',
-      height: '4px',
-      background: 'linear-gradient(90deg, #ffedd5 0%, #f97316 50%, #ffedd5 100%)',
-      zIndex: 1
-    }} />
-
     <div style={{
       display: 'flex',
       gap: '0',
       position: 'relative',
       zIndex: 2,
       width: 'max-content',
-      paddingLeft: '10%',
-      paddingRight: '20%'
+      paddingLeft: '5%',
+      paddingRight: '15%'
     }}>
+      {/* Horizontal Main Line spanning the entire scrollable area */}
+      <div style={{
+        position: 'absolute',
+        top: '50%',
+        left: 0,
+        right: 0,
+        height: '4px',
+        background: 'linear-gradient(90deg, transparent 0%, #f97316 5%, #f97316 95%, transparent 100%)',
+        zIndex: 1,
+        transform: 'translateY(-50%)'
+      }} />
+
       {journeyMilestones.map((milestone, i) => (
         <div key={i} style={{ width: '250px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
           {/* Text Section (Above or Below) */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: milestone.pos === 'above' ? 20 : -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
             style={{
               position: 'absolute',
-              [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 40px)',
-              left: 'calc(50% + 10px)',
+              [milestone.pos === 'above' ? 'bottom' : 'top']: 'calc(50% + 70px)',
+              left: '50%',
+              transform: 'translateX(-50%)',
               width: '220px',
-              textAlign: 'left'
+              textAlign: 'center'
             }}
           >
             <p style={{ fontSize: '1.05rem', color: '#555', lineHeight: '1.5', fontWeight: '600' }}>
@@ -979,9 +985,9 @@ const SocialWelfare = () => {
                 src={allEvents[activeEvent]?.img}
                 style={{
                   width: '100%',
-                  height: '350px',
+                  height: '450px',
                   borderRadius: '35px',
-                  objectFit: 'cover',
+                  objectFit: allEvents[activeEvent]?.objectFit || 'cover',
                   objectPosition: allEvents[activeEvent]?.objectPosition || 'center',
                   display: 'block'
                 }}

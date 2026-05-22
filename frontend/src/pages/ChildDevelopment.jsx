@@ -99,10 +99,10 @@ const ChildDevelopment = () => {
 
   return (
     <div style={{ background: '#fff', overflowX: 'hidden', fontFamily: "'Inter', sans-serif" }}>
-      
+
       {/* 1. HERO SECTION - Overhauled to match reference */}
-      <section style={{ 
-        padding: isMobile ? '6rem 5% 4rem' : '0 7%', 
+      <section style={{
+        padding: isMobile ? '6rem 5% 4rem' : '0 7%',
         background: 'linear-gradient(to bottom, #e3f2fd, #ffffff)',
         position: 'relative',
         height: isMobile ? 'auto' : '100vh',
@@ -112,9 +112,9 @@ const ChildDevelopment = () => {
         overflow: 'hidden'
       }}>
         {/* Decorative Elements */}
-        
+
         {/* Sun */}
-        <motion.div 
+        <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
           style={{ position: 'absolute', top: isMobile ? '5%' : '15%', right: isMobile ? '5%' : '10%', width: isMobile ? '120px' : '180px', height: isMobile ? '120px' : '180px', zIndex: 1 }}
@@ -122,7 +122,7 @@ const ChildDevelopment = () => {
           <div style={{ width: isMobile ? '60px' : '90px', height: isMobile ? '60px' : '90px', background: '#e65100', borderRadius: '50%', margin: isMobile ? '30px auto' : '45px auto', position: 'relative' }}>
             {[...Array(12)].map((_, i) => (
               <div key={i} style={{
-                position: 'absolute', top: '50%', left: '50%', width: isMobile ? '90px' : '140px', height: isMobile ? '6px' : '10px', 
+                position: 'absolute', top: '50%', left: '50%', width: isMobile ? '90px' : '140px', height: isMobile ? '6px' : '10px',
                 background: '#f57c00', borderRadius: '5px',
                 transform: `translate(-50%, -50%) rotate(${i * 30}deg)`
               }}></div>
@@ -134,26 +134,26 @@ const ChildDevelopment = () => {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            animate={{ 
+            animate={{
               x: i % 2 === 0 ? [-150, 150, -150] : [150, -150, 150],
               y: [0, 30, 0]
             }}
-            transition={{ 
-              duration: 12 + i * 4, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
+            transition={{
+              duration: 12 + i * 4,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
-            style={{ 
-              position: 'absolute', 
-              top: `${5 + i * 10}%`, 
-              left: `${(i * 12) % 85}%`, 
-              width: `${200 + i * 60}px`, 
-              height: `${80 + i * 25}px`, 
-              background: '#ffffff', 
-              borderRadius: '100px', 
-              zIndex: 1, 
-              filter: `blur(${25 + i * 5}px)`, 
-              opacity: 0.6 + (i * 0.05) 
+            style={{
+              position: 'absolute',
+              top: `${5 + i * 10}%`,
+              left: `${(i * 12) % 85}%`,
+              width: `${200 + i * 60}px`,
+              height: `${80 + i * 25}px`,
+              background: '#ffffff',
+              borderRadius: '100px',
+              zIndex: 1,
+              filter: `blur(${25 + i * 5}px)`,
+              opacity: 0.6 + (i * 0.05)
             }}
           />
         ))}
@@ -162,14 +162,14 @@ const ChildDevelopment = () => {
         <div style={{ position: 'absolute', bottom: isMobile ? '-50px' : '-100px', left: '-10%', width: isMobile ? '120%' : '70%', height: isMobile ? '300px' : '400px', background: '#aed581', borderRadius: '50% 50% 0 0', zIndex: 2, opacity: 0.9 }}></div>
         <div style={{ position: 'absolute', bottom: isMobile ? '-100px' : '-150px', left: isMobile ? '-10%' : '20%', width: '120%', height: isMobile ? '400px' : '500px', background: '#8bc34a', borderRadius: '50% 50% 0 0', zIndex: 1, opacity: 0.9 }}></div>
 
-        <div style={{ 
-          maxWidth: '1400px', 
-          margin: '0 auto', 
-          display: 'grid', 
-          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', 
-          gap: isMobile ? '2rem' : '4rem', 
-          alignItems: 'center', 
-          position: 'relative', 
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? '2rem' : '4rem',
+          alignItems: 'center',
+          position: 'relative',
           zIndex: 10,
           textAlign: isMobile ? 'center' : 'left',
           marginTop: isMobile ? '0' : '16vh'
@@ -182,10 +182,10 @@ const ChildDevelopment = () => {
             <span style={{ color: '#8d6e63', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '4px', fontSize: isMobile ? '0.8rem' : '0.9rem' }}>
               Welcome To Our School
             </span>
-            <h1 style={{ 
-              fontSize: isMobile ? '2.8rem' : 'clamp(3.5rem, 7vw, 5.5rem)', 
-              fontWeight: 900, 
-              color: '#3e2723', 
+            <h1 style={{
+              fontSize: isMobile ? '2.8rem' : 'clamp(3.5rem, 7vw, 5.5rem)',
+              fontWeight: 900,
+              color: '#3e2723',
               lineHeight: 1.05,
               marginTop: '1.5rem',
               marginBottom: '2rem',
@@ -193,23 +193,23 @@ const ChildDevelopment = () => {
             }}>
               Make Your <span style={{ color: '#f4511e' }}>Children's</span><br />Life Special
             </h1>
-            <p style={{ 
-              fontSize: isMobile ? '1.1rem' : '1.25rem', 
-              color: '#5d4037', 
-              lineHeight: 1.8, 
-              marginBottom: isMobile ? '2.5rem' : '4rem', 
-              maxWidth: '600px', 
+            <p style={{
+              fontSize: isMobile ? '1.1rem' : '1.25rem',
+              color: '#5d4037',
+              lineHeight: 1.8,
+              marginBottom: isMobile ? '2.5rem' : '4rem',
+              maxWidth: '600px',
               margin: isMobile ? '0 auto 2.5rem' : '0 0 4rem',
-              opacity: 0.9 
+              opacity: 0.9
             }}>
               The Universe is one great kindergarten for man. Everything that exists has brought with it its own peculiar lesson.
             </p>
             <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', justifyContent: isMobile ? 'center' : 'flex-start' }}>
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 15px 30px rgba(244, 81, 30, 0.3)' }}
                 whileTap={{ scale: 0.95 }}
-                style={{ 
-                  background: '#f4511e', color: '#fff', padding: isMobile ? '1.2rem 2.5rem' : '1.5rem 3.5rem', 
+                style={{
+                  background: '#f4511e', color: '#fff', padding: isMobile ? '1.2rem 2.5rem' : '1.5rem 3.5rem',
                   borderRadius: '50px', fontWeight: 800, border: 'none', cursor: 'pointer',
                   fontSize: isMobile ? '1rem' : '1.1rem', transition: 'all 0.3s ease'
                 }}
@@ -220,26 +220,26 @@ const ChildDevelopment = () => {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1.2 }}
-            style={{ 
-              position: 'relative', 
-              textAlign: isMobile ? 'center' : 'right', 
+            style={{
+              position: 'relative',
+              textAlign: isMobile ? 'center' : 'right',
               top: isMobile ? '0' : '40px',
               marginTop: isMobile ? '2rem' : '0',
               zIndex: 10
             }}
           >
             {/* We use giphyGif for the final high-fidelity look */}
-            <img 
-              src={giphyGif} 
-              alt="School Children" 
-              style={{ 
-                width: isMobile ? '100%' : '160%', 
-                maxWidth: isMobile ? '500px' : '1400px', 
-                position: 'relative', 
+            <img
+              src={giphyGif}
+              alt="School Children"
+              style={{
+                width: isMobile ? '100%' : '160%',
+                maxWidth: isMobile ? '500px' : '1400px',
+                position: 'relative',
                 right: isMobile ? '0' : '30%',
                 zIndex: 10,
                 maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
@@ -247,42 +247,42 @@ const ChildDevelopment = () => {
                 mixBlendMode: 'multiply',
                 opacity: 1,
                 filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.1)) saturate(1.1) contrast(1.1) brightness(1.05)'
-              }} 
+              }}
             />
           </motion.div>
         </div>
       </section>
 
       {/* 2. ABOUT SECTION */}
-      <section style={{ padding: '8rem 7%', background: '#fff' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6rem', alignItems: 'center' }}>
-          
-          <div style={{ position: 'relative', height: '600px' }}>
+      <section style={{ padding: isMobile ? '4rem 5%' : '8rem 7%', background: '#fff' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '3rem' : '6rem', alignItems: 'center' }}>
+
+          <div style={{ position: 'relative', height: isMobile ? '400px' : '600px', margin: isMobile ? '0 auto' : '0', width: '100%', maxWidth: '500px' }}>
             {/* Overlapping Circle Images */}
-            <motion.div 
+            <motion.div
               whileInView={{ x: 0, opacity: 1 }}
               initial={{ x: -100, opacity: 0 }}
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.8 }}
-              style={{ position: 'absolute', top: 0, left: '10%', width: '350px', height: '350px', borderRadius: '50%', border: '15px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 2 }}
+              style={{ position: 'absolute', top: 0, left: '10%', width: isMobile ? '250px' : '350px', height: isMobile ? '250px' : '350px', borderRadius: '50%', border: isMobile ? '8px solid #fff' : '15px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 2 }}
             >
               <img src={childCare1Jpg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </motion.div>
-            <motion.div 
+            <motion.div
               whileInView={{ scale: 1, opacity: 1 }}
               initial={{ scale: 0.5, opacity: 0 }}
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.8 }}
-              style={{ position: 'absolute', bottom: '10%', left: 0, width: '250px', height: '250px', borderRadius: '50%', border: '12px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 3 }}
+              style={{ position: 'absolute', bottom: isMobile ? '10%' : '10%', left: 0, width: isMobile ? '180px' : '250px', height: isMobile ? '180px' : '250px', borderRadius: '50%', border: isMobile ? '6px solid #fff' : '12px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 3 }}
             >
               <img src={childCareJpg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </motion.div>
-            <motion.div 
+            <motion.div
               whileInView={{ y: 0, opacity: 1 }}
               initial={{ y: 100, opacity: 0 }}
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.8 }}
-              style={{ position: 'absolute', top: '45%', left: '45%', width: '200px', height: '200px', borderRadius: '50%', border: '10px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 1 }}
+              style={{ position: 'absolute', top: '45%', left: '45%', width: isMobile ? '150px' : '200px', height: isMobile ? '150px' : '200px', borderRadius: '50%', border: isMobile ? '5px solid #fff' : '10px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 1 }}
             >
               <img src="/child3.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </motion.div>
@@ -291,7 +291,7 @@ const ChildDevelopment = () => {
           <div>
             <span style={{ color: '#ff5252', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>About Us</span>
             <h2 style={{ fontSize: '3rem', fontWeight: 900, color: '#1a1a1a', margin: '1.5rem 0 2rem' }}>Child Care Professional</h2>
-            
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
               {[
                 {
@@ -310,17 +310,17 @@ const ChildDevelopment = () => {
                   desc: "We focus on cognitive, social, emotional, and physical growth to build a strong foundation for your child's future."
                 }
               ].map((item, index) => (
-                <motion.div 
-                  key={item.id} 
+                <motion.div
+                  key={item.id}
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false, amount: 0.3 }}
                   transition={{ delay: (index + 1) * 0.2, duration: 0.6 }}
                   style={{ display: 'flex', gap: '1.5rem' }}
                 >
-                  <div style={{ 
-                    width: '60px', height: '60px', background: item.id === 1 ? '#ffb300' : item.id === 2 ? '#ff7043' : '#0097a7', 
-                    borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 
+                  <div style={{
+                    width: '60px', height: '60px', background: item.id === 1 ? '#ffb300' : item.id === 2 ? '#ff7043' : '#0097a7',
+                    borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
                   }}>
                     <CheckCircle2 color="#fff" />
                   </div>
@@ -338,14 +338,14 @@ const ChildDevelopment = () => {
       {/* 3. OFFERING SECTION */}
       <section style={{ padding: '4rem 7% 2rem', background: '#fffaf0', textAlign: 'center' }}>
         <span style={{ color: '#ff5252', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Services</span>
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
-          style={{ 
-            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
-            fontWeight: 900, 
-            color: '#1a1a1a', 
+          style={{
+            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+            fontWeight: 900,
+            color: '#1a1a1a',
             margin: '1.5rem 0 4rem',
             textShadow: '2px 2px 0px #ffc107, 4px 4px 0px rgba(255,193,7,0.3), 6px 6px 0px rgba(0,0,0,0.05)',
             letterSpacing: '-1px'
@@ -353,13 +353,13 @@ const ChildDevelopment = () => {
         >
           What We Offer
         </motion.h2>
-        
-        <div style={{ 
-          display: 'flex', 
-          flexWrap: 'wrap', 
+
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
           justifyContent: 'center',
-          gap: '2.5rem', 
-          maxWidth: '1400px', 
+          gap: '2.5rem',
+          maxWidth: '1400px',
           margin: '0 auto',
           padding: '2rem 1rem 4rem',
           perspective: '2000px'
@@ -370,25 +370,25 @@ const ChildDevelopment = () => {
               initial={{ opacity: 0, y: -200, rotateX: -15 }}
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: false, amount: 0.1 }}
-              transition={{ 
-                delay: i * 0.3, 
-                duration: 1.2, 
-                type: 'spring', 
-                stiffness: 60, 
-                damping: 15 
+              transition={{
+                delay: i * 0.3,
+                duration: 1.2,
+                type: 'spring',
+                stiffness: 60,
+                damping: 15
               }}
-              whileHover={{ 
-                y: -25, 
-                rotateY: 5, 
+              whileHover={{
+                y: -25,
+                rotateY: 5,
                 rotateX: -5,
                 scale: 1.02,
                 boxShadow: '0 40px 80px rgba(255, 193, 7, 0.15)',
               }}
               style={{
-                background: '#fff', 
-                padding: '4rem 2rem', 
-                borderRadius: '40px', 
-                boxShadow: '0 20px 40px rgba(0,0,0,0.04)', 
+                background: '#fff',
+                padding: '4rem 2rem',
+                borderRadius: '40px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.04)',
                 position: 'relative',
                 overflow: 'hidden',
                 flex: '1 1 320px',
@@ -403,7 +403,7 @@ const ChildDevelopment = () => {
                 border: '1px solid rgba(0,0,0,0.03)'
               }}
             >
-              <div style={{ 
+              <div style={{
                 width: '100%', height: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 margin: '0 auto 2rem', position: 'relative'
               }}>
@@ -411,7 +411,7 @@ const ChildDevelopment = () => {
               </div>
               <h3 style={{ fontSize: '1.6rem', fontWeight: 800, marginBottom: '1.5rem', color: '#333' }}>{item.title}</h3>
               <div style={{ width: '40px', height: '4px', background: '#ffc107', margin: '0 auto', borderRadius: '2px' }}></div>
-              
+
               {/* Decorative corner */}
               <div style={{ position: 'absolute', bottom: 0, right: 0, width: '40px', height: '40px', background: item.color, opacity: 0.1, borderRadius: '40px 0 0 0' }}></div>
             </motion.div>
@@ -424,10 +424,10 @@ const ChildDevelopment = () => {
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <span style={{ color: '#ff5252', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px' }}>Our Network</span>
-            <h2 style={{ 
-              fontSize: isMobile ? '2.5rem' : '3.5rem', 
-              fontWeight: '900', 
-              color: '#1a1a1a', 
+            <h2 style={{
+              fontSize: isMobile ? '2.5rem' : '3.5rem',
+              fontWeight: '900',
+              color: '#1a1a1a',
               marginTop: '1rem',
               marginBottom: '1rem',
               textShadow: '2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.05)'
@@ -507,14 +507,14 @@ const ChildDevelopment = () => {
             }
           `}</style>
 
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))', 
-            gap: '2.5rem' 
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '2.5rem'
           }}>
             {schoolData.map((school, idx) => (
               <Interactive3DCard key={idx} intensity={10} scale={1.03}>
-                <a 
+                <a
                   href={school.link}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -534,18 +534,18 @@ const ChildDevelopment = () => {
       </section>
 
       {/* 4. WHY CHOOSE US & STATS */}
-      <section style={{ padding: '8rem 7%', background: '#fff' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6rem', alignItems: 'center' }}>
-          
+      <section style={{ padding: isMobile ? '4rem 5%' : '8rem 7%', background: '#fff' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '4rem' : '6rem', alignItems: 'center' }}>
+
           <div>
             <span style={{ color: '#ff5252', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px' }}>Advantage</span>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              style={{ 
-                fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-                fontWeight: 900, 
-                color: '#1a1a1a', 
+              style={{
+                fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+                fontWeight: 900,
+                color: '#1a1a1a',
                 margin: '1.5rem 0 4rem',
                 textShadow: '2px 2px 0px rgba(255,140,66,0.2), 4px 4px 0px rgba(0,0,0,0.05)',
                 lineHeight: 1.1
@@ -553,36 +553,36 @@ const ChildDevelopment = () => {
             >
               Why Choose Child Care
             </motion.h2>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }}>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: isMobile ? '2rem' : '4rem' }}>
               {[
                 { count: "1500+", label: "Happy Child" },
                 { count: "2000+", label: "Happy Customers" },
                 { count: "3000+", label: "Google Review" },
                 { count: "25+", label: "Office" }
               ].map((stat, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.05, translateZ: '20px' }}
                   style={{ borderLeft: '5px solid #ff8c42', paddingLeft: '1.5rem', transformStyle: 'preserve-3d' }}
                 >
-                  <h3 style={{ fontSize: '2.8rem', fontWeight: 900, color: '#1a1a1a', marginBottom: '0.5rem' }}>{stat.count}</h3>
-                  <p style={{ color: '#666', fontWeight: 700, fontSize: '1.1rem' }}>{stat.label}</p>
+                  <h3 style={{ fontSize: isMobile ? '2.2rem' : '2.8rem', fontWeight: 900, color: '#1a1a1a', marginBottom: '0.5rem' }}>{stat.count}</h3>
+                  <p style={{ color: '#666', fontWeight: 700, fontSize: isMobile ? '0.9rem' : '1.1rem' }}>{stat.label}</p>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          <div style={{ position: 'relative', perspective: '1500px' }}>
+          <div style={{ position: 'relative', perspective: '1500px', margin: isMobile ? '2rem auto 0' : '0', width: '100%', maxWidth: '500px' }}>
             {/* Main Image with 3D Tilt */}
-            <motion.div 
+            <motion.div
               whileHover={{ rotateY: -5, rotateX: 5, scale: 1.02 }}
-              style={{ 
-                borderRadius: '40px', 
-                overflow: 'hidden', 
+              style={{
+                borderRadius: '40px',
+                overflow: 'hidden',
                 boxShadow: '0 50px 100px rgba(0,0,0,0.12)',
                 transformStyle: 'preserve-3d',
                 transition: { type: 'spring', stiffness: 100 }
@@ -590,17 +590,17 @@ const ChildDevelopment = () => {
             >
               <img src="/child_camera.png" alt="Child Cam" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </motion.div>
-            
+
             {/* Floating Testimonial Cards with enhanced 3D depth */}
-            <motion.div 
+            <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.1, translateZ: '50px', zIndex: 10 }}
-              style={{ 
-                position: 'absolute', top: '5%', left: '-10%', 
-                background: '#fff', padding: '1.2rem 1.8rem', 
-                borderRadius: '20px', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', 
-                width: '280px', zIndex: 3,
+              style={{
+                position: 'absolute', top: isMobile ? '-10%' : '5%', left: isMobile ? '0' : '-10%',
+                background: '#fff', padding: '1.2rem 1.8rem',
+                borderRadius: '20px', boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
+                width: isMobile ? '240px' : '280px', zIndex: 3,
                 border: '1px solid rgba(0,0,0,0.05)'
               }}
             >
@@ -614,15 +614,15 @@ const ChildDevelopment = () => {
               <p style={{ fontSize: '0.85rem', color: '#444', fontStyle: 'italic', lineHeight: 1.5 }}>"The best care my child has ever received! Highly recommended."</p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               animate={{ y: [0, 15, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.1, translateZ: '50px', zIndex: 10 }}
-              style={{ 
-                position: 'absolute', bottom: '10%', right: '-8%', 
-                background: '#fff', padding: '1.2rem 1.8rem', 
-                borderRadius: '20px', boxShadow: '0 30px 60px rgba(0,0,0,0.15)', 
-                width: '280px', zIndex: 3,
+              style={{
+                position: 'absolute', bottom: isMobile ? '-10%' : '10%', right: isMobile ? '0' : '-8%',
+                background: '#fff', padding: '1.2rem 1.8rem',
+                borderRadius: '20px', boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
+                width: isMobile ? '240px' : '280px', zIndex: 3,
                 border: '1px solid rgba(0,0,0,0.05)'
               }}
             >
@@ -642,12 +642,12 @@ const ChildDevelopment = () => {
       {/* 5. CTA SECTION */}
       <section style={{ padding: '6rem 7%', background: '#c62828', color: '#fff', textAlign: 'center' }}>
         <h2 style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '2rem' }}>Ready to Give Your Child the Best?</h2>
-        <motion.button 
+        <motion.button
           whileHover={{ scale: 1.05, background: '#fff', color: '#c62828' }}
           whileTap={{ scale: 0.95 }}
-          style={{ 
-            background: 'transparent', color: '#fff', padding: '1.2rem 3rem', 
-            borderRadius: '50px', fontWeight: 700, border: '2px solid #fff', cursor: 'pointer' 
+          style={{
+            background: 'transparent', color: '#fff', padding: '1.2rem 3rem',
+            borderRadius: '50px', fontWeight: 700, border: '2px solid #fff', cursor: 'pointer'
           }}
         >
           Enroll Now

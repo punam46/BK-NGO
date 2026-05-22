@@ -375,11 +375,9 @@ const AgInnovation = () => {
               background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
               padding: '3rem 2rem',
               boxShadow: '0 40px 80px rgba(0,0,0,0.08)',
-              border: '1px solid rgba(0,0,0,0.05)',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '1rem'
+              border: '1px solid rgba(0,0,0,0.05)'
             }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4"
           >
             {pillars.map((pillar, idx) => (
               <div key={idx} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

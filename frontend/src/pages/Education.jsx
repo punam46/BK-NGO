@@ -72,6 +72,9 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setHasStarted(true);
+        } else {
+          setHasStarted(false);
+          setCount(0);
         }
       },
       { threshold: 0.1 }
@@ -461,6 +464,15 @@ const Education = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Auto-scroll for the Video Carousel
+  useEffect(() => {
+    if (activeVideo) return; // Pause auto-scroll if a video is playing in the modal
+    const interval = setInterval(() => {
+      setActiveVideoIdx((prev) => (prev + 1) % 5); // 5 is the number of video cards
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [activeVideo]);
+
 
   const [activeInitiative, setActiveInitiative] = useState(0);
 
@@ -651,7 +663,7 @@ const Education = () => {
       {/* Philosophy Section */}
       <section style={{ 
         height: '100vh',
-        minHeight: '800px',
+        minHeight: windowWidth < 768 ? '500px' : '800px',
         textAlign: 'center',
         position: 'relative',
         background: '#000',
@@ -700,14 +712,15 @@ const Education = () => {
             style={{ marginTop: '-5rem' }}
           >
             <h2 style={{ 
-                fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)', 
+                fontSize: windowWidth < 768 ? '1.8rem' : 'clamp(1.5rem, 3.5vw, 2.2rem)', 
                 fontWeight: '900', 
                 marginBottom: '1rem',
                 lineHeight: '1.2', 
                 color: '#fff',
                 textTransform: 'uppercase',
                 letterSpacing: '1px',
-                whiteSpace: 'nowrap',
+                whiteSpace: 'normal',
+                wordBreak: 'break-word',
                 textShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(255,193,7,0.3)'
               }}>
                 <span style={{ color: '#ff3b3b' }}>BK</span> <span style={{ color: '#fff' }}>EDUCATION AND WELFARE SOCIETY PHILOSOPHY</span>
@@ -724,7 +737,7 @@ const Education = () => {
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               borderRadius: '30px',
-              padding: '3rem 2rem',
+              padding: windowWidth < 768 ? '1.5rem 1rem' : '3rem 2rem',
               maxWidth: '800px',
               margin: '3rem auto 0',
               boxShadow: '0 30px 60px rgba(0,0,0,0.3)',
@@ -733,10 +746,10 @@ const Education = () => {
           >
             <Quote size={40} color="#ffc107" style={{ marginBottom: '1.5rem', opacity: 0.8 }} />
             <p style={{ 
-              fontSize: 'clamp(1.2rem, 3vw, 1.8rem)', 
+              fontSize: windowWidth < 768 ? '1.1rem' : 'clamp(1.2rem, 3vw, 1.8rem)', 
               fontWeight: '600', 
               fontStyle: 'italic',
-              lineHeight: '1.4',
+              lineHeight: '1.5',
               color: '#fff',
               textShadow: '0 2px 10px rgba(0,0,0,0.3)'
             }}>
@@ -814,11 +827,11 @@ const Education = () => {
               style={{ 
                 display: 'grid', 
                 gridTemplateColumns: windowWidth < 968 ? '1fr' : '1fr 1.2fr', 
-                gap: '4rem',
+                gap: windowWidth < 768 ? '2rem' : '4rem',
                 alignItems: 'center',
                 background: '#fcfcf0',
-                padding: '4rem',
-                borderRadius: '48px',
+                padding: windowWidth < 768 ? '2rem 1.5rem' : '4rem',
+                borderRadius: windowWidth < 768 ? '24px' : '48px',
                 border: '1px solid #f0f0f0',
                 boxShadow: '0 40px 100px rgba(0,0,0,0.05)'
               }}
@@ -848,9 +861,10 @@ const Education = () => {
                   <button 
                     onClick={() => navigate('/donate')}
                     style={{ 
-                      padding: '1.2rem 2.5rem', background: '#ffc107', color: '#1a1a1a', 
+                      padding: windowWidth < 768 ? '1rem 1.5rem' : '1.2rem 2.5rem', background: '#ffc107', color: '#1a1a1a', 
                       border: 'none', borderRadius: '16px', fontWeight: 800, cursor: 'pointer',
-                      boxShadow: '0 10px 20px rgba(255,193,7,0.2)', transition: 'all 0.3s ease'
+                      boxShadow: '0 10px 20px rgba(255,193,7,0.2)', transition: 'all 0.3s ease',
+                      width: windowWidth < 480 ? '100%' : 'auto'
                     }}
                   >
                     Support Project
@@ -858,10 +872,11 @@ const Education = () => {
                   <button 
                     onClick={() => setActiveVideo(educationalInitiatives[activeInitiative].videoUrl)}
                     style={{ 
-                      padding: '1.2rem 2.5rem', background: '#fff', color: '#1a1a1a', 
+                      padding: windowWidth < 768 ? '1rem 1.5rem' : '1.2rem 2.5rem', background: '#fff', color: '#1a1a1a', 
                       border: '1px solid #eee', borderRadius: '16px', fontWeight: 800, cursor: 'pointer',
-                      display: 'flex', alignItems: 'center', gap: '0.75rem',
-                      transition: 'all 0.3s ease'
+                      display: 'flex', alignItems: 'center', gap: '0.75rem', justifyContent: 'center',
+                      transition: 'all 0.3s ease',
+                      width: windowWidth < 480 ? '100%' : 'auto'
                     }}
                   >
                     <Play size={18} fill="#1a1a1a" /> Watch Impact
@@ -1026,7 +1041,7 @@ const Education = () => {
 
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: windowWidth < 1200 ? 'repeat(auto-fit, minmax(300px, 1fr))' : 'repeat(4, 1fr)', 
+            gridTemplateColumns: windowWidth < 768 ? '1fr' : windowWidth < 1200 ? 'repeat(auto-fit, minmax(300px, 1fr))' : 'repeat(4, 1fr)', 
             gap: '2rem' 
           }}>
             {schoolData.map((school, idx) => (
@@ -1133,7 +1148,7 @@ const Education = () => {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{ 
-            fontSize: '3rem', 
+            fontSize: windowWidth < 768 ? '2rem' : '3rem', 
             fontWeight: '900', 
             marginBottom: '1rem', 
             textTransform: 'uppercase', 
@@ -1149,7 +1164,7 @@ const Education = () => {
           }}>
             {renderText("Student Testimonials")}
           </h2>
-          <p style={{ fontSize: '1.1rem', color: '#666', marginBottom: '4rem', maxWidth: '700px', margin: '0 auto 4rem' }}>
+          <p style={{ fontSize: '1.1rem', color: '#666', marginBottom: windowWidth < 768 ? '2rem' : '4rem', maxWidth: '700px', margin: windowWidth < 768 ? '0 auto 2rem' : '0 auto 4rem', padding: '0 1rem' }}>
             Hear from the children and seniors whose lives have been transformed through our education initiatives.
           </p>
 
@@ -1219,8 +1234,8 @@ const Education = () => {
               };
 
               return (
-                <div style={{ position: 'relative', height: '620px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                  <div style={{ position: 'relative', width: '280px', height: '520px' }}>
+                <div style={{ position: 'relative', height: windowWidth < 768 ? '550px' : '620px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', width: windowWidth < 768 ? '240px' : '280px', height: windowWidth < 768 ? '450px' : '520px' }}>
                     {videoCards.map((card, idx) => {
                       const slot = getSlot(idx);
                       const style = slotStyle(slot);
@@ -1387,30 +1402,7 @@ const Education = () => {
                       );
                     })}
 
-                    {/* Navigation Controls */}
-                    <div style={{ position: 'absolute', bottom: '-80px', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '2rem', zIndex: 10 }}>
-                      <button
-                        onClick={() => setActiveVideoIdx((i) => (i - 1 + total) % total)}
-                        style={{ background: '#fff', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s ease', color: '#1a1a1a' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#ffc107'; e.currentTarget.style.color = '#fff'; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#1a1a1a'; }}
-                      >
-                        <ChevronLeft size={22} />
-                      </button>
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        {videoCards.map((_, i) => (
-                          <div key={i} onClick={() => setActiveVideoIdx(i)} style={{ width: i === activeVideoIdx ? '24px' : '8px', height: '8px', borderRadius: '4px', background: i === activeVideoIdx ? '#ff3b3b' : '#ddd', transition: 'all 0.3s ease', cursor: 'pointer' }} />
-                        ))}
-                      </div>
-                      <button
-                        onClick={() => setActiveVideoIdx((i) => (i + 1) % total)}
-                        style={{ background: '#fff', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s ease', color: '#1a1a1a' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#ffc107'; e.currentTarget.style.color = '#fff'; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#1a1a1a'; }}
-                      >
-                        <ChevronRight size={22} />
-                      </button>
-                    </div>
+
                   </div>
                 </div>
               );
@@ -1438,7 +1430,7 @@ const Education = () => {
 
       {/* Stats Section - Compact Stripe */}
       <section style={{ 
-        padding: '3.5rem 5%', 
+        padding: windowWidth < 768 ? '2rem 5%' : '3.5rem 5%', 
         background: '#0c121e', 
         color: '#fff',
         textAlign: 'center',
@@ -1450,7 +1442,7 @@ const Education = () => {
           display: 'flex', 
           justifyContent: 'center', 
           flexWrap: 'wrap', 
-          gap: '5rem',
+          gap: windowWidth < 768 ? '3rem' : '5rem',
           maxWidth: '1200px',
           margin: '0 auto'
         }}>
@@ -1488,7 +1480,7 @@ const Education = () => {
 
 
       {/* CTA Section */}
-      <section style={{ padding: '10rem 5%', textAlign: 'center', background: '#fff' }}>
+      <section style={{ padding: windowWidth < 768 ? '5rem 5%' : '10rem 5%', textAlign: 'center', background: '#fff' }}>
         <h2 style={{ 
           fontSize: 'clamp(2.5rem, 6vw, 5rem)', 
           fontWeight: '900', 
@@ -1506,7 +1498,7 @@ const Education = () => {
         }}>
           Help Us Shape <span style={{ color: '#ff3b3b' }}>The Future</span>
         </h2>
-        <p style={{ fontSize: '1.4rem', color: '#666', maxWidth: '800px', margin: '0 auto 4rem', lineHeight: '1.6' }}>
+        <p style={{ fontSize: windowWidth < 768 ? '1.1rem' : '1.4rem', color: '#666', maxWidth: '800px', margin: '0 auto 4rem', lineHeight: '1.6' }}>
           Your support can provide the books, tools, and teaching necessary to change a child's life forever. Every small contribution counts.
         </p>
         <button 
@@ -1514,8 +1506,8 @@ const Education = () => {
           style={{
             background: '#ffc107',
             color: '#1a1a1a',
-            padding: '1.5rem 4rem',
-            fontSize: '1.4rem',
+            padding: windowWidth < 768 ? '1.2rem 2.5rem' : '1.5rem 4rem',
+            fontSize: windowWidth < 768 ? '1.1rem' : '1.4rem',
             fontWeight: '900',
             border: 'none',
             borderRadius: '16px',

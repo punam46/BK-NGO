@@ -34,7 +34,7 @@ const TaRL = () => {
     {
       text: "Physical fitness and mental conditioning are the bedrock of a child's overall development. By integrating specialized training, we ensure that our students are not only academically proficient but also physically resilient and disciplined.",
       author: "Nandkishor Ghuge",
-      role: "Senior Fitness & Conditioning Coach",
+      role: "MPSC UPSC Aspirants & Gov Exams Specialist",
       img: "/ghuge_sir.jpeg",
       objectPosition: "top"
     }
@@ -53,10 +53,11 @@ const TaRL = () => {
       <section style={{ 
         position: 'relative', 
         width: '100%',
-        minHeight: '600px',
+        minHeight: '400px',
         background: 'linear-gradient(to right, #d34b07 30%, #f07030 100%)',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingBottom: '2rem'
       }}>
         {/* White Backing for Image to keep faces light */}
         <div style={{
@@ -87,7 +88,7 @@ const TaRL = () => {
         }}></div>
 
         <div className="container" style={{ maxWidth: '1200px', margin: '0 5%', display: 'flex', alignItems: 'center', height: '100%', color: '#fff', position: 'relative', zIndex: 10, padding: windowWidth < 768 ? '0 5%' : '0' }}>
-          <div style={{ maxWidth: '900px', textAlign: 'left', paddingTop: windowWidth < 768 ? '6rem' : '15rem', marginLeft: '0' }}>
+          <div style={{ maxWidth: '900px', textAlign: 'left', paddingTop: windowWidth < 768 ? '8rem' : '10rem', marginLeft: '0' }}>
             <h1 style={{ 
               fontSize: windowWidth < 768 ? '2.5rem' : '3.8rem', 
               fontWeight: '900', 
@@ -98,17 +99,34 @@ const TaRL = () => {
             }}>EDUCATIONAL SUPPORT</h1>
             <p style={{ fontSize: windowWidth < 768 ? '1.1rem' : '1.3rem', opacity: 0.9, marginBottom: '3rem', maxWidth: '800px', textAlign: 'justify', lineHeight: '1.6' }}>
               Formed with the foundational idea of "Education for all", focusing on foundational literacy and arithmetic skills for underprivileged children. We are dedicated to bridging the learning gap through innovative, community-driven models that ensure every child has the tools to unlock their full potential and build a brighter future.
-              <br /><br />
-              Our program implements the 'Teaching at the Right Level' (TaRL) methodology, which evaluates each child's current learning status rather than their grade level. By grouping children based on their actual abilities, we provide tailored instruction that accelerates progress in reading and mathematics, ensuring that no child is left behind in their educational journey.
             </p>
           </div>
         </div>
 
       </section>
 
+      {/* Intro Highlight Section */}
+      <section style={{ 
+        padding: '5rem 5%', 
+        background: '#fffdf5',
+        borderBottom: '1px solid #eee'
+      }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ 
+            fontSize: windowWidth < 768 ? '1.2rem' : '1.5rem', 
+            lineHeight: '1.8', 
+            color: '#444', 
+            fontWeight: '500',
+            fontStyle: 'italic' 
+          }}>
+            "Our program implements the <strong style={{ color: '#d34b07' }}>'Teaching at the Right Level' (TaRL)</strong> methodology, which evaluates each child's current learning status rather than their grade level. By grouping children based on their actual abilities, we provide tailored instruction that accelerates progress in reading and mathematics, ensuring that no child is left behind in their educational journey."
+          </p>
+        </div>
+      </section>
+
       {/* NEW: Foundational Learning Section */}
       <section style={{ 
-        padding: '6rem 5%', 
+        padding: '6rem 5% 2rem', 
         background: '#fff',
         position: 'relative',
         overflow: 'hidden'
@@ -156,7 +174,6 @@ const TaRL = () => {
             </p>
           </div>
 
-          {/* Image Content */}
           <div style={{ 
             flex: '1', 
             minWidth: windowWidth < 768 ? '100%' : '350px',
@@ -166,7 +183,7 @@ const TaRL = () => {
             height: windowWidth < 768 ? '300px' : '450px'
           }}>
             <img 
-              src="/educational_initiatives_bg_1776918506592.png" 
+              src="/education_card.png" 
               alt="Building Bright Futures" 
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
@@ -175,7 +192,7 @@ const TaRL = () => {
       </section>
 
       {/* Our Educational Philosophy (TaRL) Section */}
-      <section style={{ padding: '6rem 5%', background: '#fdfdfd' }}>
+      <section style={{ padding: '2rem 5% 6rem', background: '#fdfdfd' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'center' }}>
           <div style={{ flex: '1', minWidth: '350px' }}>
             <h2 style={{ 

@@ -27,6 +27,7 @@ import g52 from '../assets/G52.jpeg';
 import g54 from '../assets/G54.jpeg';
 import g55 from '../assets/G55.jpeg';
 import g56 from '../assets/G56.jpeg';
+import g62 from '../assets/G62.jpeg';
 import ghugeImg from '../assets/ghuge sir.jpeg';
 import nikaljeImg from '../assets/D1.jpeg';
 import p1 from '../assets/p1.jpeg';
@@ -138,6 +139,31 @@ const GetInvolved = () => {
       0% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
+    }
+    .testimonials-grid {
+      display: grid;
+      gap: 5rem;
+      min-height: 300px;
+      transition: opacity 0.5s ease;
+    }
+    .testimonial-card {
+      display: flex;
+      flex-direction: row;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    @media (max-width: 992px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr !important;
+        gap: 3rem;
+      }
+    }
+    @media (max-width: 768px) {
+      .testimonial-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+      }
     }
   `;
 
@@ -385,21 +411,14 @@ const GetInvolved = () => {
             </h2>
           </div>
           
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: currentReviews.length === 1 ? '1fr' : 'repeat(2, 1fr)', 
-            gap: '5rem',
-            minHeight: '300px',
-            transition: 'opacity 0.5s ease'
+          <div className="testimonials-grid" style={{ 
+            gridTemplateColumns: currentReviews.length === 1 ? '1fr' : 'repeat(2, 1fr)'
           }}>
             {currentReviews.map((review, idx) => (
               <div 
                 key={review.name}
+                className="testimonial-card"
                 style={{ 
-                  display: 'flex', 
-                  flexDirection: 'row', 
-                  gap: '2.5rem', 
-                  alignItems: 'center',
                   animation: `floatingReview ${3 + idx}s ease-in-out infinite`
                 }}
               >
@@ -463,7 +482,7 @@ const GetInvolved = () => {
               actImg5, actImg6, actImg7, 
               actImg9, g42, g43, g45, g46,
               g48, g49, g50, g51, g52,
-              g54, g55, g56
+              g54, g55, g56, g62
             ].map((imgSrc, idx) => (
               <div key={idx} style={{ 
                 position: 'relative', 
@@ -477,7 +496,12 @@ const GetInvolved = () => {
               onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                <img src={imgSrc} alt={`Volunteer Action ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={imgSrc} alt={`Volunteer Action ${idx + 1}`} style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'cover', 
+                  objectPosition: imgSrc === g62 ? 'top' : 'center' 
+                }} />
               </div>
             ))}
           </div>

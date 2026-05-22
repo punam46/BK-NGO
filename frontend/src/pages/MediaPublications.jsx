@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, X, Calendar, Tag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import r17 from '../assets/r17.jpeg';
+import r18 from '../assets/r18.jpeg';
+import r19 from '../assets/r19.jpeg';
+import r20 from '../assets/r20.jpeg';
 
 const MediaPublications = () => {
   const [activeFilter, setActiveFilter] = useState('ALL');
@@ -108,6 +112,38 @@ const MediaPublications = () => {
       title: 'Bridging the Learning Gap with Catch-up Programs', 
       date: 'May 2023',
       fullContent: 'Our "Catch-up" learning programs are designed for students who have fallen behind due to socioeconomic challenges, helping them return to their age-appropriate grade levels.'
+    },
+    { 
+      id: 12, 
+      src: r17, 
+      tag: 'EVENTS', 
+      title: 'Recent Initiatives and Outreach', 
+      date: 'August 2024',
+      fullContent: 'Continuing our commitment to community welfare, our recent initiatives have focused on widespread support and engagement across various regions.'
+    },
+    { 
+      id: 13, 
+      src: r18, 
+      tag: 'IMPACT', 
+      title: 'Community Development Program', 
+      date: 'September 2024',
+      fullContent: 'Our ongoing community development programs are creating lasting positive impacts in the lives of many through sustained dedication and collaborative efforts.'
+    },
+    { 
+      id: 14, 
+      src: r19, 
+      tag: 'WORKSHOPS', 
+      title: 'Empowerment and Skill Development', 
+      date: 'October 2024',
+      fullContent: 'Focused on long-term empowerment, our latest skill development workshop has equipped numerous individuals with the tools they need for a self-sufficient future.'
+    },
+    { 
+      id: 15, 
+      src: r20, 
+      tag: 'EDUCATION', 
+      title: 'Advancing Educational Opportunities', 
+      date: 'November 2024',
+      fullContent: 'Creating accessible learning environments continues to be a core mission, with our newest educational initiative reaching even more marginalized students.'
     },
   ];
 
@@ -392,45 +428,6 @@ const MediaPublications = () => {
         )}
       </AnimatePresence>
 
-      {/* Subscription Footer */}
-      <section style={{ 
-        margin: '6rem 5%', 
-        padding: '6rem 2rem', 
-        background: '#111', 
-        borderRadius: '40px', 
-        textAlign: 'center', 
-        color: '#fff' 
-      }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '1.5rem' }}>Stay Informed</h2>
-          <p style={{ fontSize: '1.1rem', opacity: 0.8, marginBottom: '2.5rem' }}>
-            Subscribe to our newsletter to receive the latest updates, reports, and impact stories directly in your inbox.
-          </p>
-          <div style={{ display: 'flex', gap: '10px', maxWidth: '450px', margin: '0 auto' }}>
-            <input 
-              type="email" 
-              placeholder="Your email address" 
-              style={{ 
-                flex: 1, 
-                padding: '1.1rem 1.8rem', 
-                borderRadius: '50px', 
-                border: 'none', 
-                fontSize: '1rem',
-                color: '#111'
-              }} 
-            />
-            <button style={{ 
-              padding: '1rem 2.5rem', 
-              background: '#e53935', 
-              color: '#fff', 
-              border: 'none', 
-              borderRadius: '50px', 
-              fontWeight: '800', 
-              cursor: 'pointer' 
-            }}>JOIN</button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

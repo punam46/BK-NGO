@@ -39,9 +39,14 @@ import G51 from '../assets/G51.jpeg';
 import G52 from '../assets/G52.jpeg';
 import G54 from '../assets/G54.jpeg';
 import G55 from '../assets/G55.jpeg';
-
-
-
+import G59 from '../assets/G59.jpeg';
+import G60 from '../assets/G60.jpeg';
+import G61 from '../assets/G61.jpeg';
+import G62 from '../assets/G62.jpeg';
+import G63 from '../assets/G63.jpeg';
+import G64 from '../assets/G64.jpeg';
+import G65 from '../assets/G65.jpeg';
+import G66 from '../assets/G66.jpeg';
 
 const PhotoGallery = () => {
   const [activeCategory, setActiveCategory] = useState('ALL');
@@ -298,8 +303,15 @@ const PhotoGallery = () => {
     { id: 39, src: G54, category: 'SOCIAL WELFARE', title: 'Social Progress Mission', date: 'June 2025', location: 'Local Area', objectFit: 'cover' },
     { id: 40, src: G55, category: 'SOCIAL WELFARE', title: 'Community Support Expansion', date: 'June 2025', location: 'New Impact Zone', objectFit: 'cover' },
     { id: 42, src: g5, category: 'EVENTS', title: 'Community Engagement Event', date: 'January 2025', location: 'Community Hall', objectFit: 'cover' },
+    { id: 43, src: G59, category: 'SOCIAL WELFARE', title: 'Community Support', date: 'July 2025', location: 'Local Area', objectFit: 'cover' },
+    { id: 44, src: G60, category: 'SOCIAL WELFARE', title: 'Welfare Initiative', date: 'July 2025', location: 'Local Area', objectFit: 'cover' },
+    { id: 45, src: G61, category: 'SOCIAL WELFARE', title: 'Community Engagement', date: 'July 2025', location: 'Local Area', objectFit: 'cover' },
+    { id: 46, src: G62, category: 'SOCIAL WELFARE', title: 'Support Drive', date: 'July 2025', location: 'Local Area', objectFit: 'cover' },
+    { id: 47, src: G63, category: 'SOCIAL WELFARE', title: 'Outreach Program', date: 'July 2025', location: 'Local Area', objectFit: 'cover' },
+    { id: 48, src: G64, category: 'SOCIAL WELFARE', title: 'Social Progress', date: 'July 2025', location: 'Local Area', objectFit: 'cover' },
+    { id: 49, src: G65, category: 'SOCIAL WELFARE', title: 'Community Support', date: 'August 2025', location: 'Local Area', objectFit: 'cover' },
+    { id: 50, src: G66, category: 'SOCIAL WELFARE', title: 'Welfare Initiative', date: 'August 2025', location: 'Local Area', objectFit: 'cover' },
   ];
-
   const photos = [...dynamicPhotos, ...staticPhotos];
 
 

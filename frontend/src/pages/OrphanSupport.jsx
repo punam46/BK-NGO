@@ -395,6 +395,13 @@ const OrphanSupport = () => {
   const containerRef = useRef(null);
   const [currentStory, setCurrentStory] = useState(0);
   const [sectionMousePos, setSectionMousePos] = useState({ x: 50, y: 50 });
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSectionMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -488,7 +495,7 @@ const OrphanSupport = () => {
         background: 'linear-gradient(135deg, #fffcf8 0%, #fff3e0 100%)',
         position: 'relative'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '4rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: windowWidth < 768 ? '2rem' : '4rem' }}>
           <div style={{ flex: '1.2', minWidth: '320px' }}>
             <motion.span
               initial={{ opacity: 0, y: 20 }}
@@ -536,7 +543,7 @@ const OrphanSupport = () => {
             {/* Nurturing Hope card removed */}
           </div>
 
-          <div style={{ flex: '1.2', minWidth: '320px', position: 'relative', height: '500px', marginTop: '6rem' }}>
+          <div style={{ flex: '1.2', minWidth: '320px', position: 'relative', height: windowWidth < 768 ? '350px' : '500px', marginTop: windowWidth < 768 ? '2rem' : '6rem' }}>
             {/* Background Image 1 */}
             <motion.div
               initial={{ x: 100, y: -100, opacity: 0, rotate: 15 }}
@@ -915,7 +922,7 @@ const OrphanSupport = () => {
 
       {/* ===== GET INVOLVED SECTION ===== */}
       <section style={{ 
-        padding: '8rem 5% 10rem', 
+        padding: '8rem 5% 4rem', 
         background: `
           radial-gradient(circle at 10% 20%, rgba(245, 124, 0, 0.05) 0%, transparent 40%),
           radial-gradient(circle at 90% 80%, rgba(25, 118, 210, 0.05) 0%, transparent 40%),
@@ -1069,7 +1076,7 @@ const OrphanSupport = () => {
       </section>
 
       {/* ===== FINAL QUOTE ===== */}
-      <section style={{ padding: '8rem 5%', background: '#fff9f2', textAlign: 'center' }}>
+      <section style={{ padding: '4rem 5%', background: '#fff9f2', textAlign: 'center' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <p style={{ fontSize: '2.2rem', fontWeight: 800, fontStyle: 'italic', lineHeight: 1.5, color: '#333', marginBottom: '3rem' }}>
             "There are no unwanted children, just unfound families. Every child deserves a place to call home and a hand to hold."
@@ -1157,7 +1164,7 @@ const OrphanSupport = () => {
                 transition={{ delay: i * 0.2 }}
                 style={{
                   flex: '1',
-                  minWidth: '450px',
+                  minWidth: windowWidth < 768 ? '100%' : '450px',
                   maxWidth: '650px',
                   background: '#fff', // White card background
                   borderRadius: '40px',
@@ -1168,7 +1175,7 @@ const OrphanSupport = () => {
               >
                 <div style={{
                   width: '100%',
-                  height: '520px',
+                  height: windowWidth < 768 ? '300px' : '520px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
@@ -1178,8 +1185,8 @@ const OrphanSupport = () => {
                   {/* Decorative Background Glow */}
                   <div style={{
                     position: 'absolute',
-                    width: '450px',
-                    height: '450px',
+                    width: windowWidth < 768 ? '300px' : '450px',
+                    height: windowWidth < 768 ? '300px' : '450px',
                     background: i === 0 ? 'rgba(255, 235, 59, 0.2)' : 'rgba(255, 87, 34, 0.2)',
                     borderRadius: '50%',
                     filter: 'blur(40px)',
@@ -1187,8 +1194,8 @@ const OrphanSupport = () => {
                   }} />
 
                   <div style={{
-                    width: '580px', // Increased width
-                    height: '450px', // Reverted height
+                    width: windowWidth < 768 ? '100%' : '580px', 
+                    height: windowWidth < 768 ? '100%' : '450px', 
                     position: 'relative',
                     zIndex: 1,
                     background: '#fff',

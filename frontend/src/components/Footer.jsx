@@ -58,11 +58,15 @@ const Footer = () => {
         <div className="footer-col links">
           <h4 className="footer-title">Our Programs</h4>
           <ul>
-            <li><Link to="/programs">Education Support</Link></li>
-            <li><Link to="/programs">Social Welfare</Link></li>
-            <li><Link to="/programs">Environmental Care</Link></li>
-            <li><Link to="/programs">Healthcare Initiatives</Link></li>
-            <li><Link to="/programs/yoga">Yoga & Wellness</Link></li>
+            <li><Link to="/programs/education">Education</Link></li>
+            <li><Link to="/programs/social-welfare">Social Welfare</Link></li>
+            <li><Link to="/programs/tribal-development">Tribal Development</Link></li>
+            <li><Link to="/programs/child-development">Child Development</Link></li>
+            <li><Link to="/programs/woman-empowerment">Woman Empowerment</Link></li>
+            <li><Link to="/programs/orphan-support">Orphan Support</Link></li>
+            <li><Link to="/programs/rural-development">Rural Development</Link></li>
+            <li><Link to="/programs/disability-affair">Disability Affairs</Link></li>
+            <li><Link to="/programs/yoga">Yoga</Link></li>
           </ul>
         </div>
 

@@ -321,7 +321,7 @@ const Programs = () => {
         color: '#fff',
         textAlign: 'center',
         position: 'relative',
-        padding: '14rem 0 4rem'
+        padding: '8rem 0 4rem'
       }}>
         <div className="container">
           <h1 style={{

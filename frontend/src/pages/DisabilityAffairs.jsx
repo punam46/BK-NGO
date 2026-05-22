@@ -11,6 +11,7 @@ import vocationalImg from '../assets/disability1.jpg';
 import visuallyImpairedImg from '../assets/visually_impaired_student_v2.png';
 import sunitaImg from '../assets/sunita_portrait.png';
 import rahulImg from '../assets/rahul_portrait.png';
+import newFemaleImg from '../assets/dis3.jpg';
 
 import { renderText } from './Education';
 import './DisabilityAffairs.css';
@@ -20,6 +21,13 @@ const DisabilityAffairs = () => {
   const containerRef = useRef(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [countersAnimated, setCountersAnimated] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const [floatingShapes] = useState(() => 
     Array.from({ length: 8 }, (_, i) => ({
       id: i,
@@ -86,24 +94,24 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
   const testimonials = [
     {
-      name: "Rajesh Kumar",
-      role: "Bank PO Officer (Visually Impaired)",
-      quote: "As a visually impaired student, the screen-reading software and specialized audio materials provided by BK Society were life-changing. They didn't just teach me; they gave me the confidence to compete with the world.",
-      image: visuallyImpairedImg,
+      name: "Arjun Patil",
+      role: "Student (Locomotor Disability)",
+      quote: "The accessible learning environment and specialized educational tools provided by BK Society helped me continue my studies without any barriers.",
+      image: disabilitySkillsImg,
       color: "#e53935"
     },
     {
       name: "Sunita Deshmukh",
       role: "PhD Scholar (Locomotor Disability)",
       quote: "Living in a rural village with a locomotor disability made education feel like a distant dream. BK Society provided me with a motorized wheelchair and mentored me through my entire doctoral application process.",
-      image: sunitaImg,
+      image: newFemaleImg,
       color: "#4caf50"
     },
     {
       name: "Rahul Mehta",
       role: "Accessibility Consultant",
       quote: "The vocational skill center taught me digital accessibility. I am now financially independent and working for a global firm, proving that with the right support, disability is never a barrier to excellence.",
-      image: rahulImg,
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
       color: "#ff9800"
     }
   ];
@@ -294,9 +302,9 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
           style={{
             flex: '1',
             position: 'relative',
-            minWidth: window.innerWidth < 768 ? '100%' : '550px',
-            height: '500px',
-            marginTop: window.innerWidth < 768 ? '4rem' : '0',
+            minWidth: windowWidth < 768 ? '100%' : '550px',
+            height: windowWidth < 768 ? '300px' : '500px',
+            marginTop: windowWidth < 768 ? '2rem' : '0',
             zIndex: 2,
             display: 'flex',
             alignItems: 'center',
@@ -310,9 +318,9 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
             transition={{ duration: 1, delay: 0.5 }}
             style={{
               position: 'absolute',
-              width: '60%',
+              width: windowWidth < 768 ? '70%' : '60%',
               aspectRatio: '1/1',
-              bottom: '25%',
+              bottom: windowWidth < 768 ? '5%' : '25%',
               right: '5%',
               borderRadius: '40px',
               overflow: 'hidden',
@@ -322,7 +330,7 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
               transform: 'rotate(0deg)'
             }}
           >
-            <img src={competitiveImg} alt="Disability Impact" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={newFemaleImg} alt="Disability Impact" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </motion.div>
 
           {/* Front Image Card - Circular */}
@@ -332,9 +340,9 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
             transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
             style={{
               position: 'absolute',
-              width: '48%',
+              width: windowWidth < 768 ? '55%' : '48%',
               aspectRatio: '1/1',
-              top: '32%',
+              top: windowWidth < 768 ? '5%' : '32%',
               left: '2%',
               borderRadius: '50%',
               overflow: 'hidden',
@@ -546,17 +554,17 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
       {/* Success Stories Carousel */}
       <section style={{
-        padding: '8rem 5%',
+        padding: '4rem 5%',
         background: 'linear-gradient(135deg, #fff5f5 0%, #ffebee 100%)',
         position: 'relative',
         zIndex: 1
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            style={{ textAlign: 'center', marginBottom: '4rem' }}
+            style={{ textAlign: 'center', marginBottom: '2rem' }}
           >
             <span style={{
               fontSize: '0.9rem', color: '#e53935',
@@ -565,12 +573,12 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
             }}>
               Success Stories
             </span>
-            <h2 style={{ fontSize: '2.8rem', fontWeight: 900, color: '#1a1a1a', marginBottom: '1.5rem' }}>
+            <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#1a1a1a', marginBottom: '1rem' }}>
               Voices of Empowerment
             </h2>
           </motion.div>
 
-          <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '30px' }}>
+          <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px' }}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentTestimonial}
@@ -580,53 +588,53 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
                 transition={{ duration: 0.5 }}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '1fr 1.5fr',
-                  gap: '4rem',
+                  gridTemplateColumns: '1fr 2fr',
+                  gap: '2rem',
                   alignItems: 'center',
                   background: '#fff',
-                  padding: '4rem',
-                  borderRadius: '30px',
-                  boxShadow: '0 30px 60px rgba(0,0,0,0.1)'
+                  padding: '2rem',
+                  borderRadius: '20px',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                 }}
               >
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    width: '180px', 
-                    height: '180px', 
+                    width: '120px', 
+                    height: '120px', 
                     borderRadius: '50%',
-                    margin: '0 auto 2rem',
+                    margin: '0 auto 1.5rem',
                     overflow: 'hidden',
                     border: `4px solid ${testimonials[currentTestimonial].color}`,
-                    boxShadow: `0 15px 30px rgba(0,0,0,0.1)`
+                    boxShadow: `0 10px 20px rgba(0,0,0,0.1)`
                   }}>
                     <img src={testimonials[currentTestimonial].image} alt={testimonials[currentTestimonial].name}
-                         style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                         style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
                   </div>
-                  <h4 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#1a1a1a', marginBottom: '0.5rem' }}>
+                  <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#1a1a1a', marginBottom: '0.3rem' }}>
                     {testimonials[currentTestimonial].name}
                   </h4>
-                  <span style={{ color: testimonials[currentTestimonial].color, fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.9rem', color: testimonials[currentTestimonial].color, fontWeight: 600 }}>
                     {testimonials[currentTestimonial].role}
                   </span>
                 </div>
                 <div>
                   <span style={{
-                    fontSize: '5rem', lineHeight: 1,
+                    fontSize: '3rem', lineHeight: 1,
                     color: testimonials[currentTestimonial].color,
-                    display: 'block', marginBottom: '-1rem'
+                    display: 'block', marginBottom: '-0.5rem'
                   }}>&ldquo;</span>
                   <p style={{
-                    fontSize: '1.4rem',
+                    fontSize: '1.1rem',
                     color: '#444',
-                    lineHeight: 1.7,
+                    lineHeight: 1.6,
                     fontStyle: 'italic',
-                    marginBottom: '2rem'
+                    marginBottom: '1rem'
                   }}>
                     {testimonials[currentTestimonial].quote}
                   </p>
-                  <div style={{ display: 'flex', gap: '1rem' }}>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={20} fill="#FFC107" color="#FFC107" />
+                      <Star key={i} size={16} fill="#FFC107" color="#FFC107" />
                     ))}
                   </div>
                 </div>

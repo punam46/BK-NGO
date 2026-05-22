@@ -62,6 +62,25 @@ const Contact = () => {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
+    .contact-section {
+      padding: 8rem 0;
+      background: #fff;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .contact-section {
+        padding: 4rem 0;
+      }
+    }
   `;
 
   return (
@@ -86,14 +105,10 @@ const Contact = () => {
       </section>
 
       {/* Main Contact Section */}
-      <section style={{ padding: '8rem 0', background: '#fff' }}>
-        <div className="container" style={{ 
+      <section className="contact-section">
+        <div className="container contact-grid" style={{ 
           maxWidth: '1600px', 
           margin: '0 auto', 
-          display: 'grid', 
-          gridTemplateColumns: '1.2fr 1fr', 
-          gap: '6rem', 
-          alignItems: 'start',
           padding: '0 4%'
         }}>
           

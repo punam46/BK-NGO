@@ -208,7 +208,7 @@ const WomanEmpowerment = () => {
       </section>
 
       {/* --- 3. BENTO GRID (ULTRA PREMIUM INITIATIVES) --- */}
-      <section style={{ padding: '10rem 5%', background: '#fafafa', position: 'relative' }}>
+      <section style={{ padding: isMobile ? '4rem 5%' : '10rem 5%', background: '#fafafa', position: 'relative' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           
           <div style={{ marginBottom: '4rem' }}>
@@ -278,7 +278,7 @@ const WomanEmpowerment = () => {
 
 
       {/* --- 4. KEY PILLARS OF EMPOWERMENT (NEW IMAGE SECTION) --- */}
-      <section style={{ padding: '8rem 5%', background: '#fff', position: 'relative' }}>
+      <section style={{ padding: isMobile ? '4rem 5%' : '8rem 5%', background: '#fff', position: 'relative' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
           
           {/* Left: Image */}
