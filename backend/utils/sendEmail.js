@@ -21,7 +21,9 @@ const sendEmail = async (options) => {
   if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
     const nodemailer = (await import('nodemailer')).default;
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: process.env.SMTP_HOST || 'smtp.gmail.com',
+      port: process.env.SMTP_PORT || 465,
+      secure: process.env.SMTP_PORT == 465, // true for port 465, false for other ports like 587
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -30,7 +32,7 @@ const sendEmail = async (options) => {
 
     const mailOptions = {
       from: `"BK NGO Portal" <${process.env.EMAIL_USER}>`,
-      to: process.env.NOTIFICATION_EMAIL || process.env.EMAIL_USER,
+      to: options.email || process.env.NOTIFICATION_EMAIL || process.env.EMAIL_USER,
       subject: options.subject,
       html: options.html,
     };

@@ -26,7 +26,7 @@ const Contact = () => {
       console.log('Response received:', response.status);
       if (response.ok) {
         alert('Thank you for contacting us! Your message has been sent successfully.');
-        setFormData({ name: '', email: '', subject: '', message: '', _subject: 'New Contact Form Submission' });
+        setFormData({ name: '', email: '', mobile: '', subject: '', message: '', _subject: 'New Contact Form Submission' });
       } else {
         const errorData = await response.json();
         console.error('Server error:', errorData);
