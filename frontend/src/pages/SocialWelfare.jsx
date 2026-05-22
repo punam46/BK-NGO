@@ -1003,7 +1003,7 @@ const SocialWelfare = () => {
                   border: '1px solid #f0f0f0'
                 }}>
                 {typeof allEvents[activeEvent]?.icon === 'string' && allEvents[activeEvent]?.icon.startsWith('http') ? (
-                  <img src={allEvents[activeEvent].icon} style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+                  <img alt="BK Education & Welfare Society"  src={allEvents[activeEvent].icon} style={{ width: '40px', height: '40px', objectFit: 'contain' }}  />
                 ) : (
                   allEvents[activeEvent]?.icon
                 )}

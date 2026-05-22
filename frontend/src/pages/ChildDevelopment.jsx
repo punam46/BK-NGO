@@ -15,6 +15,7 @@ import sanskarLogo from '../assets/sanskar.jpeg';
 import gurukulLogo from '../assets/gurukul.jpeg';
 import bkLogo from '../assets/logo.jpeg';
 import compataiveImg from '../assets/compataive.avif';
+import SEO from '../components/SEO';
 
 // 3D Card component for Schools
 const Interactive3DCard = ({ children, intensity = 15, scale = 1.05 }) => {
@@ -90,15 +91,19 @@ const ChildDevelopment = () => {
   ];
 
   const offerings = [
-    { title: "Education & Learning Support", icon: <img src={educationGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }} />, color: "#ffc107" },
-    { title: "Social Skills & Communication", icon: <img src={socialCommunicationGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }} />, color: "#ffc107" },
-    { title: "Creativity & Talent Enhancement", icon: <img src={creativityGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }} />, color: "#ffc107" },
-    { title: "Safety & Child Rights", icon: <img src={securityGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }} />, color: "#ffc107" },
-    { title: "Inclusive Support", icon: <img src={supportGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }} />, color: "#ffc107" }
+    { title: "Education & Learning Support", icon: <img alt="BK Education & Welfare Society"  src={educationGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }}  />, color: "#ffc107" },
+    { title: "Social Skills & Communication", icon: <img alt="BK Education & Welfare Society"  src={socialCommunicationGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }}  />, color: "#ffc107" },
+    { title: "Creativity & Talent Enhancement", icon: <img alt="BK Education & Welfare Society"  src={creativityGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }}  />, color: "#ffc107" },
+    { title: "Safety & Child Rights", icon: <img alt="BK Education & Welfare Society"  src={securityGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }}  />, color: "#ffc107" },
+    { title: "Inclusive Support", icon: <img alt="BK Education & Welfare Society"  src={supportGif} style={{ width: '220px', height: '220px', objectFit: 'contain' }}  />, color: "#ffc107" }
   ];
 
   return (
     <div style={{ background: '#fff', overflowX: 'hidden', fontFamily: "'Inter', sans-serif" }}>
+      <SEO 
+        title="Child Development & Education" 
+        description="Explore our innovative child development and educational programs. Empowering students with foundational learning, career guidance, and practical skills in rural Maharashtra." 
+      />
 
       {/* 1. HERO SECTION - Overhauled to match reference */}
       <section style={{
@@ -266,7 +271,7 @@ const ChildDevelopment = () => {
               transition={{ duration: 0.8 }}
               style={{ position: 'absolute', top: 0, left: '10%', width: isMobile ? '250px' : '350px', height: isMobile ? '250px' : '350px', borderRadius: '50%', border: isMobile ? '8px solid #fff' : '15px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 2 }}
             >
-              <img src={childCare1Jpg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img alt="BK Education & Welfare Society"  src={childCare1Jpg} style={{ width: '100%', height: '100%', objectFit: 'cover' }}  />
             </motion.div>
             <motion.div
               whileInView={{ scale: 1, opacity: 1 }}
@@ -275,7 +280,7 @@ const ChildDevelopment = () => {
               transition={{ duration: 0.8 }}
               style={{ position: 'absolute', bottom: isMobile ? '10%' : '10%', left: 0, width: isMobile ? '180px' : '250px', height: isMobile ? '180px' : '250px', borderRadius: '50%', border: isMobile ? '6px solid #fff' : '12px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 3 }}
             >
-              <img src={childCareJpg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img alt="BK Education & Welfare Society"  src={childCareJpg} style={{ width: '100%', height: '100%', objectFit: 'cover' }}  />
             </motion.div>
             <motion.div
               whileInView={{ y: 0, opacity: 1 }}
@@ -284,7 +289,7 @@ const ChildDevelopment = () => {
               transition={{ duration: 0.8 }}
               style={{ position: 'absolute', top: '45%', left: '45%', width: isMobile ? '150px' : '200px', height: isMobile ? '150px' : '200px', borderRadius: '50%', border: isMobile ? '5px solid #fff' : '10px solid #fff', boxShadow: '0 30px 60px rgba(0,0,0,0.1)', overflow: 'hidden', zIndex: 1 }}
             >
-              <img src="/child3.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img alt="BK Education & Welfare Society"  src="/child3.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }}  />
             </motion.div>
           </div>
 
@@ -605,7 +610,7 @@ const ChildDevelopment = () => {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '12px' }}>
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" style={{ width: '45px', height: '45px', borderRadius: '50%', border: '2px solid #ff8c42' }} />
+                <img alt="BK Education & Welfare Society"  src="https://randomuser.me/api/portraits/women/44.jpg" style={{ width: '45px', height: '45px', borderRadius: '50%', border: '2px solid #ff8c42' }}  />
                 <div>
                   <div style={{ fontWeight: 800, fontSize: '1rem' }}>Sarah Johnson</div>
                   <div style={{ fontSize: '0.75rem', color: '#ff8c42', fontWeight: 600 }}>Happy Mother</div>
@@ -627,7 +632,7 @@ const ChildDevelopment = () => {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '12px' }}>
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" style={{ width: '45px', height: '45px', borderRadius: '50%', border: '2px solid #ff8c42' }} />
+                <img alt="BK Education & Welfare Society"  src="https://randomuser.me/api/portraits/men/32.jpg" style={{ width: '45px', height: '45px', borderRadius: '50%', border: '2px solid #ff8c42' }}  />
                 <div>
                   <div style={{ fontWeight: 800, fontSize: '1rem' }}>Mike Peters</div>
                   <div style={{ fontSize: '0.75rem', color: '#ff8c42', fontWeight: 600 }}>Grateful Father</div>

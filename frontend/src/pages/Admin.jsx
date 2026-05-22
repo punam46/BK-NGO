@@ -270,7 +270,7 @@ const Admin = () => {
                     boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
                     border: '1px solid #eee'
                   }}>
-                    <img src={prog.image} style={{ width: '100%', height: '160px', objectFit: 'cover' }} />
+                    <img alt="BK Education & Welfare Society"  src={prog.image} style={{ width: '100%', height: '160px', objectFit: 'cover' }}  />
                     <div style={{ padding: '1.5rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                         <h3 style={{ fontSize: '1.2rem', fontWeight: '800' }}>{prog.title}</h3>
@@ -309,7 +309,7 @@ const Admin = () => {
                     boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
                     border: '1px solid #eee'
                   }}>
-                    <img src={event.image || '/sanskar.jpeg'} style={{ width: '100%', height: '160px', objectFit: 'cover' }} />
+                    <img alt="BK Education & Welfare Society"  src={event.image || '/sanskar.jpeg'} style={{ width: '100%', height: '160px', objectFit: 'cover' }}  />
                     <div style={{ padding: '1.5rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
                         <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#1a1a1a', margin: 0 }}>{event.title}</h3>
@@ -367,7 +367,7 @@ const Admin = () => {
                     boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
                     border: '1px solid #eee'
                   }}>
-                    <img src={prog.img} style={{ width: '100%', height: '160px', objectFit: 'cover' }} />
+                    <img alt="BK Education & Welfare Society"  src={prog.img} style={{ width: '100%', height: '160px', objectFit: 'cover' }}  />
                     <div style={{ padding: '1.5rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                         <h3 style={{ fontSize: '1.2rem', fontWeight: '800' }}>{prog.title}</h3>
@@ -406,7 +406,7 @@ const Admin = () => {
                     overflow: 'hidden', 
                     boxShadow: '0 4px 20px rgba(0,0,0,0.05)' 
                   }}>
-                    <img src={photo.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+                    <img alt="BK Education & Welfare Society"  src={photo.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}  />
                     <div style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <p style={{ fontWeight: '800', fontSize: '1.1rem', margin: 0 }}>{photo.category}</p>
                       <div style={{ display: 'flex', gap: '20px', marginTop: '8px' }}>
@@ -485,7 +485,7 @@ const Admin = () => {
                     borderRadius: '20px', 
                     boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
                   }}>
-                    <img src={pub.src} style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }} />
+                    <img alt="BK Education & Welfare Society"  src={pub.src} style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }}  />
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                         <div style={{ display: 'flex', gap: '10px' }}>
@@ -524,7 +524,7 @@ const Admin = () => {
                     overflow: 'hidden', 
                     boxShadow: '0 4px 20px rgba(0,0,0,0.05)' 
                   }}>
-                    <img src={image.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+                    <img alt="BK Education & Welfare Society"  src={image.src} style={{ width: '100%', height: '180px', objectFit: 'cover' }}  />
                     <div style={{ padding: '1.5rem', display: 'flex', justifyContent: 'flex-end', gap: '15px' }}>
                       <button onClick={() => handleDelete(image._id, 'volunteer-action-image')} style={{ color: '#e53935', border: 'none', background: 'transparent', cursor: 'pointer' }}><Trash2 size={24} /></button>
                     </div>
