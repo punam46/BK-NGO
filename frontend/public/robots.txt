@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /login
 
-Sitemap: https://www.yourdomain.com/sitemap.xml
+Sitemap: https://bkngo.in/sitemap.xml
