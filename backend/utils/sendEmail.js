@@ -1,4 +1,5 @@
 import axios from 'axios';
+import path from 'path';
 
 const sendEmail = async (options) => {
   // If FORMSPREE_ID is provided, use Formspree (easiest)
@@ -35,6 +36,18 @@ const sendEmail = async (options) => {
       to: options.email || process.env.NOTIFICATION_EMAIL || process.env.EMAIL_USER,
       subject: options.subject,
       html: options.html,
+      attachments: [
+        {
+          filename: 'Header.jpeg',
+          path: path.join(process.cwd(), '../frontend/src/assets/Header.jpeg'),
+          cid: 'headerImage'
+        },
+        {
+          filename: 'bk times logo.jpg',
+          path: path.join(process.cwd(), '../frontend/src/assets/bk times logo.jpg'),
+          cid: 'footerLogo'
+        }
+      ]
     };
 
     await transporter.sendMail(mailOptions);

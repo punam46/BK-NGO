@@ -36,55 +36,67 @@ export const submitContact = async (req, res) => {
           message: message
         },
         html: `
-          <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-            <!-- Header -->
-            <div style="background-color: #e53935; padding: 30px 20px; text-align: center; border-bottom: 4px solid #c62828;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: 1px;">BK Education & Welfare Society</h1>
-              <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">New Contact Request</p>
-            </div>
-            
-            <!-- Body Content -->
-            <div style="padding: 40px 30px; color: #333333;">
-              <p style="font-size: 16px; line-height: 1.6; margin-top: 0;">Hello Admin,</p>
-              <p style="font-size: 16px; line-height: 1.6; color: #555555;">A new message has been submitted through the Contact Us form on the website. Here are the details:</p>
+          <div style="background-color: #F8FAFC; font-family: 'Inter', 'Outfit', system-ui, sans-serif; padding: 44px 16px; margin: 0;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); border: 1px solid rgba(0,0,0,0.05);">
               
-              <div style="background-color: #f9f9f9; border-left: 4px solid #FFC107; padding: 20px; margin: 30px 0; border-radius: 0 4px 4px 0;">
-                <table style="width: 100%; border-collapse: collapse;">
-                  <tr>
-                    <td style="padding: 8px 0; width: 120px; color: #777777; font-weight: bold; font-size: 14px;">Name:</td>
-                    <td style="padding: 8px 0; color: #1a1a1a; font-weight: 600; font-size: 15px;">${name}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0; color: #777777; font-weight: bold; font-size: 14px;">Email:</td>
-                    <td style="padding: 8px 0; color: #e53935; font-size: 15px;"><a href="mailto:${email}" style="color: #e53935; text-decoration: none;">${email}</a></td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0; color: #777777; font-weight: bold; font-size: 14px;">Phone:</td>
-                    <td style="padding: 8px 0; color: #1a1a1a; font-size: 15px;">${phone || 'Not provided'}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0; color: #777777; font-weight: bold; font-size: 14px;">Subject:</td>
-                    <td style="padding: 8px 0; color: #1a1a1a; font-size: 15px;">
-                      <span style="background-color: #ffebee; color: #c62828; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 600;">${subject || 'General Inquiry'}</span>
-                    </td>
-                  </tr>
-                </table>
+              <!-- Cover Image -->
+              <div style="position: relative;">
+                <img src="cid:headerImage" alt="BK Times Cover" style="width: 100%; height: auto; display: block; border-bottom: 5px solid #D4AF37;" />
               </div>
 
-              <h3 style="color: #1a1a1a; font-size: 18px; border-bottom: 2px solid #eeeeee; padding-bottom: 10px; margin-top: 40px;">Sender's Message</h3>
-              <div style="background-color: #ffffff; border: 1px solid #e0e0e0; padding: 20px; border-radius: 6px; font-style: italic; color: #555555; line-height: 1.7; font-size: 15px;">
-                "${message}"
+              <!-- Content -->
+              <div style="padding: 48px 40px; text-align: center;">
+                <span style="font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.25em; color: #D4AF37; display: block; margin-bottom: 16px;">Journalistic Integrity & Security</span>
+                <div style="display: inline-block; background-color: #FBBC04; color: #000; padding: 4px 14px; border-radius: 4px; font-size: 13px; font-weight: bold; margin-bottom: 24px;">New Contact Request</div>
+                <h1 style="font-size: 36px; font-weight: 900; color: #020617; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;">Message Received</h1>
+                <p style="font-size: 16px; line-height: 1.6; color: #475569; margin-bottom: 32px;">
+                  Hello <strong>Admin</strong>,<br /><br />
+                  A new message has been submitted through the Contact Us form on the website. Here are the details.
+                </p>
               </div>
-              
-              <div style="text-align: center; margin-top: 40px;">
-                <a href="mailto:${email}" style="background-color: #e53935; color: #ffffff; text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; font-size: 14px; display: inline-block;">Reply to Sender</a>
+
+              <!-- Data Section -->
+              <div style="background-color: #f1f5f9; border-radius: 16px; padding: 30px; margin: 0 40px 48px; border: 2px solid #e2e8f0; text-align: left;">
+                <span style="font-size: 12px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; display: block;">Sender Details</span>
+                
+                <p style="margin: 0 0 12px 0; font-size: 15px; color: #020617;"><strong>Name:</strong> ${name}</p>
+                <p style="margin: 0 0 12px 0; font-size: 15px; color: #020617;"><strong>Email:</strong> <a href="mailto:${email}" style="color: #D4AF37; text-decoration: none;">${email}</a></p>
+                <p style="margin: 0 0 12px 0; font-size: 15px; color: #020617;"><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+                <p style="margin: 0 0 12px 0; font-size: 15px; color: #020617;"><strong>Subject:</strong> ${subject}</p>
+                
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                  <span style="font-size: 12px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; display: block;">Message</span>
+                  <p style="margin: 0; font-size: 15px; color: #475569; font-style: italic; line-height: 1.6;">"${message}"</p>
+                </div>
               </div>
-            </div>
-            
-            <!-- Footer -->
-            <div style="background-color: #f5f5f5; padding: 25px 20px; text-align: center; border-top: 1px solid #e0e0e0;">
-              <p style="margin: 0; color: #888888; font-size: 12px; line-height: 1.5;">This is an automated notification from the BK Education & Welfare Society platform.</p>
-              <p style="margin: 5px 0 0 0; color: #888888; font-size: 12px;">Please do not reply directly to this system address.</p>
+
+              <!-- Support Callout -->
+              <div style="padding: 0 40px 60px; text-align: center;">
+                <p style="font-size: 13px; color: #475569; line-height: 1.8; letter-spacing: 0.02em;">
+                  Want to get in touch with the sender? <br/>
+                  <a href="mailto:${email}" style="color: #FBBC04; text-decoration: none; font-weight: 700;">Reply to Sender &rarr;</a>
+                </p>
+              </div>
+
+              <!-- Noir Footer -->
+              <footer style="background-color: #020617; padding: 60px 40px; text-align: center;">
+                <div style="display: inline-block; background-color: #FFFFFF; padding: 10px 24px; border-radius: 10px; margin-bottom: 32px;">
+                  <img src="cid:footerLogo" alt="BK Times" style="height: 32px; display: block;" />
+                </div>
+
+                <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 40px;">
+                  <p style="font-size: 11px; color: #94A3B8; line-height: 1.8; letter-spacing: 0.02em; margin: 0;">
+                    &copy; ${new Date().getFullYear()} BK Times Media Group | A BK Group of Education Initiative<br />
+                    Digital HQ: Nashik, Maharashtra, India
+                  </p>
+                  <p style="font-size: 11px; color: #FFFFFF; opacity: 0.4; margin-top: 24px; line-height: 1.8; letter-spacing: 0.02em;">
+                    Building the future of rural journalism, one village at a time.
+                  </p>
+                  <p style="font-size: 11px; color: #94A3B8; margin-top: 32px; line-height: 1.8; letter-spacing: 0.02em;">
+                    <span style="color: #FBBC04; font-weight: 700;">Automated System Notification</span> • Do not reply directly
+                  </p>
+                </div>
+              </footer>
             </div>
           </div>
         `
