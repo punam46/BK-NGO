@@ -53,7 +53,7 @@ const UpcomingEvents = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/events')
+    fetch(`${import.meta.env.VITE_API_URL}/events`)
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {

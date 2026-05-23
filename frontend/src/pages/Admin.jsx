@@ -39,14 +39,14 @@ const Admin = () => {
     setLoading(true);
     try {
       const [res1, res2, res3, res4, res5, res6, res7, res8] = await Promise.all([
-        fetch('http://localhost:5000/api/photos'),
-        fetch('http://localhost:5000/api/certifications'),
-        fetch('http://localhost:5000/api/publications'),
-        fetch('http://localhost:5000/api/programs'),
-        fetch('http://localhost:5000/api/successful-programs'),
-        fetch('http://localhost:5000/api/volunteer-action-images'),
-        fetch('http://localhost:5000/api/volunteers'),
-        fetch('http://localhost:5000/api/events')
+        fetch(`${import.meta.env.VITE_API_URL}/photos`),
+        fetch(`${import.meta.env.VITE_API_URL}/certifications`),
+        fetch(`${import.meta.env.VITE_API_URL}/publications`),
+        fetch(`${import.meta.env.VITE_API_URL}/programs`),
+        fetch(`${import.meta.env.VITE_API_URL}/successful-programs`),
+        fetch(`${import.meta.env.VITE_API_URL}/volunteer-action-images`),
+        fetch(`${import.meta.env.VITE_API_URL}/volunteers`),
+        fetch(`${import.meta.env.VITE_API_URL}/events`)
       ]);
  
       const photos = await res1.json();
@@ -74,14 +74,14 @@ const Admin = () => {
     if (!window.confirm('Are you sure you want to delete this?')) return;
     
     let endpoint = '';
-    if (type === 'photo') endpoint = `http://localhost:5000/api/photos/${id}`;
-    if (type === 'cert') endpoint = `http://localhost:5000/api/certifications/${id}`;
-    if (type === 'pub') endpoint = `http://localhost:5000/api/publications/${id}`;
-    if (type === 'program') endpoint = `http://localhost:5000/api/programs/${id}`;
-    if (type === 'successful-program') endpoint = `http://localhost:5000/api/successful-programs/${id}`;
-    if (type === 'volunteer-action-image') endpoint = `http://localhost:5000/api/volunteer-action-images/${id}`;
-    if (type === 'volunteer') endpoint = `http://localhost:5000/api/volunteers/${id}`;
-    if (type === 'event') endpoint = `http://localhost:5000/api/events/${id}`;
+    if (type === 'photo') endpoint = `${import.meta.env.VITE_API_URL}/photos/${id}`;
+    if (type === 'cert') endpoint = `${import.meta.env.VITE_API_URL}/certifications/${id}`;
+    if (type === 'pub') endpoint = `${import.meta.env.VITE_API_URL}/publications/${id}`;
+    if (type === 'program') endpoint = `${import.meta.env.VITE_API_URL}/programs/${id}`;
+    if (type === 'successful-program') endpoint = `${import.meta.env.VITE_API_URL}/successful-programs/${id}`;
+    if (type === 'volunteer-action-image') endpoint = `${import.meta.env.VITE_API_URL}/volunteer-action-images/${id}`;
+    if (type === 'volunteer') endpoint = `${import.meta.env.VITE_API_URL}/volunteers/${id}`;
+    if (type === 'event') endpoint = `${import.meta.env.VITE_API_URL}/events/${id}`;
 
     try {
       const response = await fetch(endpoint, { method: 'DELETE' });
@@ -100,7 +100,7 @@ const Admin = () => {
  
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/upload', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/upload`, {
         method: 'POST',
         body: formData
       });
@@ -133,13 +133,13 @@ const Admin = () => {
   const handleAddData = async (e) => {
     e.preventDefault();
     let endpoint = '';
-    if (modalType === 'photo') endpoint = 'http://localhost:5000/api/photos';
-    if (modalType === 'cert') endpoint = 'http://localhost:5000/api/certifications';
-    if (modalType === 'pub') endpoint = 'http://localhost:5000/api/publications';
-    if (modalType === 'program') endpoint = 'http://localhost:5000/api/programs';
-    if (modalType === 'successful-program') endpoint = 'http://localhost:5000/api/successful-programs';
-    if (modalType === 'volunteer-action-image') endpoint = 'http://localhost:5000/api/volunteer-action-images';
-    if (modalType === 'event') endpoint = 'http://localhost:5000/api/events';
+    if (modalType === 'photo') endpoint = `${import.meta.env.VITE_API_URL}/photos`;
+    if (modalType === 'cert') endpoint = `${import.meta.env.VITE_API_URL}/certifications`;
+    if (modalType === 'pub') endpoint = `${import.meta.env.VITE_API_URL}/publications`;
+    if (modalType === 'program') endpoint = `${import.meta.env.VITE_API_URL}/programs`;
+    if (modalType === 'successful-program') endpoint = `${import.meta.env.VITE_API_URL}/successful-programs`;
+    if (modalType === 'volunteer-action-image') endpoint = `${import.meta.env.VITE_API_URL}/volunteer-action-images`;
+    if (modalType === 'event') endpoint = `${import.meta.env.VITE_API_URL}/events`;
 
     if (isEditing) {
       endpoint = `${endpoint}/${editId}`;

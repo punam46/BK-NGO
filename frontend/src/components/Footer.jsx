@@ -6,7 +6,7 @@ const Footer = () => {
   const [views, setViews] = React.useState(0);
 
   React.useEffect(() => {
-    fetch('http://localhost:5000/api/views')
+    fetch(`${import.meta.env.VITE_API_URL}/views`)
       .then(res => res.json())
       .then(data => setViews(data.count))
       .catch(err => console.error('Error fetching views:', err));

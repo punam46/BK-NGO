@@ -153,9 +153,9 @@ const SocialWelfare = () => {
     const fetchData = async () => {
       try {
         const [eventsRes, imagesRes, countRes] = await Promise.all([
-          fetch('http://localhost:5000/api/successful-programs'),
-          fetch('http://localhost:5000/api/volunteer-action-images'),
-          fetch('http://localhost:5000/api/volunteers/count')
+          fetch(`${import.meta.env.VITE_API_URL}/successful-programs`),
+          fetch(`${import.meta.env.VITE_API_URL}/volunteer-action-images`),
+          fetch(`${import.meta.env.VITE_API_URL}/volunteers/count`)
         ]);
 
         const eventsData = await eventsRes.json();

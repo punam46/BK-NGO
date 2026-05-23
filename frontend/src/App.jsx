@@ -39,7 +39,7 @@ import UpcomingEvents from './pages/UpcomingEvents';
 function App() {
   React.useEffect(() => {
     // Increment view count on mount (one per visit/refresh)
-    fetch('http://localhost:5000/api/views/increment', { method: 'POST' })
+    fetch(`${import.meta.env.VITE_API_URL}/views/increment`, { method: 'POST' })
       .catch(err => console.error('Error incrementing views:', err));
   }, []);
 

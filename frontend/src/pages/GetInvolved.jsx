@@ -94,7 +94,7 @@ const GetInvolved = () => {
   const [dbVolunteerCount, setDbVolunteerCount] = useState(0);
 
   React.useEffect(() => {
-    fetch('http://localhost:5000/api/volunteers/count')
+    fetch(`${import.meta.env.VITE_API_URL}/volunteers/count`)
       .then(res => res.json())
       .then(data => {
         if (data && typeof data.count === 'number') {
@@ -187,7 +187,7 @@ const GetInvolved = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/volunteers', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/volunteers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

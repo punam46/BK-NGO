@@ -18,7 +18,7 @@ const Certifications = () => {
   useEffect(() => {
     const fetchCerts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/certifications');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/certifications`);
         const data = await response.json();
         if (data && data.length > 0) setDynamicCerts(data);
       } catch (err) { console.error(err); }

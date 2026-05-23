@@ -55,7 +55,7 @@ const PhotoGallery = () => {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/photos');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/photos`);
         const data = await response.json();
         if (data && data.length > 0) {
           setDynamicPhotos(data);

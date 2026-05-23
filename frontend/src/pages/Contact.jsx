@@ -15,7 +15,7 @@ const Contact = () => {
     e.preventDefault();
     console.log('Form submission started...', formData);
     try {
-      const response = await fetch('http://localhost:5000/api/contacts', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
