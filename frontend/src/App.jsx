@@ -34,6 +34,7 @@ import Admin from './pages/Admin';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import UpcomingEvents from './pages/UpcomingEvents';
+import Trustees from './pages/Trustees';
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
             <Route path="/programs" element={<Programs />} />
             <Route path="/involved" element={<Involved />} />
             <Route path="/involved/upcoming-events" element={<UpcomingEvents />} />
+            <Route path="/trustees" element={<Trustees />} />
             <Route path="/media" element={<Media />} />
             <Route path="/programs/education" element={<Education />} />
             <Route path="/programs/social-welfare" element={<SocialWelfare />} />

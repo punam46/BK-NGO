@@ -45,64 +45,65 @@ const Header = () => {
 
   return (
     <>
-      <motion.header 
+      <motion.header
         className={`header ${scrolled ? 'scrolled' : ''}`}
         initial={{ y: -100, opacity: 0 }}
-        animate={{ 
-          y: scrolled ? 0 : 5, 
+        animate={{
+          y: scrolled ? 0 : 5,
           opacity: 1,
           scale: 1
         }}
-        transition={{ 
-          type: 'spring', 
-          stiffness: 260, 
-          damping: 20 
+        transition={{
+          type: 'spring',
+          stiffness: 260,
+          damping: 20
         }}
       >
         <div className="header-left">
-          <Link to="/" className="logo-link" onClick={closeMenu} style={{ 
+          <Link to="/" className="logo-link" onClick={closeMenu} style={{
             display: 'flex',
             alignItems: 'center',
             textDecoration: 'none',
             gap: isMobile ? '8px' : '20px'
           }}>
-            <motion.div 
+            <motion.div
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', position: 'relative' }}
               whileHover={{ rotateY: 15, rotateX: -5 }}
             >
-              <img src={logo} alt="BK Logo" style={{ 
-                width: isMobile ? '35px' : (scrolled ? '55px' : '70px'), 
-                height: isMobile ? '35px' : (scrolled ? '55px' : '70px'), 
-                objectFit: 'cover', 
+              <img src={logo} alt="BK Logo" style={{
+                width: isMobile ? '35px' : (scrolled ? '55px' : '70px'),
+                height: isMobile ? '35px' : (scrolled ? '55px' : '70px'),
+                objectFit: 'cover',
                 borderRadius: '12px',
                 boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
                 border: '1px solid #eee',
                 transition: 'all 0.3s ease'
               }} />
-              {!scrolled && !isMobile && (
-                <motion.span 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  style={{ 
-                    fontSize: '0.75rem', 
-                    fontWeight: '800', 
-                    color: '#666',
+              {(!scrolled || isMobile) && (
+                <span
+                  style={{
                     position: 'absolute',
-                    bottom: '-18px',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    marginTop: '2px',
+                    fontSize: isMobile ? '0.55rem' : '0.75rem',
+                    fontWeight: '800',
+                    color: '#666',
                     whiteSpace: 'nowrap'
                   }}
                 >
                   Reg No: <span style={{ color: '#f57c00' }}>F-12121</span>
-                </motion.span>
+                </span>
               )}
             </motion.div>
-            
+
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ 
-                fontSize: isMobile ? '0.85rem' : (scrolled ? '1.2rem' : '1.6rem'), 
-                fontWeight: '900', 
-                color: '#1a1a1a', 
-                letterSpacing: '-0.5px', 
+              <span style={{
+                fontSize: isMobile ? '0.85rem' : (scrolled ? '1.2rem' : '1.6rem'),
+                fontWeight: '900',
+                color: '#1a1a1a',
+                letterSpacing: '-0.5px',
                 lineHeight: '1.2',
                 transition: 'all 0.3s ease',
                 whiteSpace: 'nowrap' /* Keep title in one line */
@@ -119,7 +120,7 @@ const Header = () => {
 
         <nav className={`nav-menu ${isMenuOpen ? 'mobile-open' : ''}`}>
           <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={closeMenu}>Home</NavLink>
-          
+
           <div className={`nav-item-dropdown ${activeMobileSub === 'about' ? 'active-mobile' : ''}`}>
             <div className="nav-item-wrapper" onClick={() => setActiveMobileSub(activeMobileSub === 'about' ? null : 'about')}>
               <NavLink to="/about" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={() => closeMenu()}>
@@ -128,6 +129,7 @@ const Header = () => {
             </div>
             <div className="dropdown-menu">
               <Link to="/about/tarl" className="dropdown-item" onClick={closeMenu}>Teaching at Right Level</Link>
+              <Link to="/trustees" className="dropdown-item" onClick={closeMenu}>Trustees</Link>
             </div>
           </div>
 
@@ -177,7 +179,7 @@ const Header = () => {
 
         <div className="header-right desktop-only" style={{ display: 'flex', alignItems: 'center', gap: scrolled ? '1rem' : '1.5rem', flexShrink: 0 }}>
           <Link to="/donate" style={{ textDecoration: 'none' }}>
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.05, translateZ: 20 }}
               whileTap={{ scale: 0.95 }}
               style={{
