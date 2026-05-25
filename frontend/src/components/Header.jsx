@@ -67,7 +67,7 @@ const Header = () => {
             gap: isMobile ? '8px' : '20px'
           }}>
             <motion.div 
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', position: 'relative' }}
               whileHover={{ rotateY: 15, rotateX: -5 }}
             >
               <img src={logo} alt="BK Logo" style={{ 
@@ -83,7 +83,14 @@ const Header = () => {
                 <motion.span 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  style={{ fontSize: '0.75rem', fontWeight: '800', color: '#666' }}
+                  style={{ 
+                    fontSize: '0.75rem', 
+                    fontWeight: '800', 
+                    color: '#666',
+                    position: 'absolute',
+                    bottom: '-18px',
+                    whiteSpace: 'nowrap'
+                  }}
                 >
                   Reg No: <span style={{ color: '#f57c00' }}>F-12121</span>
                 </motion.span>
