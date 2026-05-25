@@ -86,6 +86,19 @@ body {
   align-items: center;
   transform-style: preserve-3d;
   flex-shrink: 0;
+  margin: 0 !important;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;        /* keep items horizontal */
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;                  /* remove the -2rem top margin */
+  padding: 0.5rem 2rem;
+  position: relative;
+  z-index: 999;
 }
 
 .header-left {
