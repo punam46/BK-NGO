@@ -38,14 +38,9 @@ const sendEmail = async (options) => {
       html: options.html,
       attachments: [
         {
-          filename: 'Header.jpeg',
-          path: path.join(process.cwd(), '../frontend/src/assets/Header.jpeg'),
+          filename: 'email.jpeg',
+          path: path.join(process.cwd(), '../frontend/src/assets/email.jpeg'),
           cid: 'headerImage'
-        },
-        {
-          filename: 'bk times logo.jpg',
-          path: path.join(process.cwd(), '../frontend/src/assets/bk times logo.jpg'),
-          cid: 'footerLogo'
         }
       ]
     };
