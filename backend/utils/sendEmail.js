@@ -1,5 +1,9 @@
 import axios from 'axios';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const sendEmail = async (options) => {
   // If FORMSPREE_ID is provided, use Formspree (easiest)
@@ -39,7 +43,7 @@ const sendEmail = async (options) => {
       attachments: [
         {
           filename: 'email.jpeg',
-          path: path.join(process.cwd(), '../frontend/src/assets/email.jpeg'),
+          path: path.join(__dirname, 'email.jpeg'),
           cid: 'headerImage'
         }
       ]

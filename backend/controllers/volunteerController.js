@@ -52,7 +52,7 @@ export const registerVolunteer = async (req, res) => {
                 <div style="display: inline-block; background-color: #e53935; color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; margin-bottom: 24px;">New Volunteer Registration</div>
                 <h1 style="font-size: 32px; font-weight: 800; color: #1a1a1a; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 20px;">Application Received</h1>
                 <p style="font-size: 16px; line-height: 1.6; color: #444; margin-bottom: 32px;">
-                  Hello <strong>Admin</strong>,<br /><br />
+                  Hello <strong>Dr. Adv. Er. Bhagwan Nivrutti Elmame</strong>,<br /><br />
                   A new volunteer has just submitted their application through the website. Here are the details of their submission.
                 </p>
               </div>
@@ -97,6 +97,40 @@ export const registerVolunteer = async (req, res) => {
       });
     } catch (err) {
       console.error('Email sending failed:', err);
+    }
+
+    // Send Auto-Reply to the Volunteer
+    try {
+      await sendEmail({
+        email: email,
+        subject: `Thank you for registering as a Volunteer!`,
+        message: `Hi ${name}, Thank you for registering with us. We will contact you very soon.`,
+        html: `
+          <div style="background-color: #F8FAFC; font-family: 'Inter', system-ui, sans-serif; padding: 40px 16px; margin: 0;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #FFFFFF; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); text-align: center;">
+              
+              <!-- Cover Image -->
+              <div style="position: relative;">
+                <img src="cid:headerImage" alt="BK Educational & Welfare Society" style="width: 100%; height: auto; display: block;" />
+              </div>
+
+              <div style="padding: 40px;">
+                <h2 style="color: #e53935; margin-bottom: 20px; font-size: 24px;">Thank You, ${name}!</h2>
+                <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 30px;">
+                  We have successfully received your volunteer registration.<br/>
+                  <strong>Thank you for contacting us, we will contact you very soon.</strong>
+                </p>
+                <p style="font-size: 14px; color: #666; border-top: 1px solid #eee; padding-top: 20px;">
+                  Best Regards,<br/>
+                  <strong>BK Educational & Welfare Society</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      });
+    } catch (err) {
+      console.error('Auto-reply email sending failed:', err);
     }
 
     res.status(201).json({

@@ -122,12 +122,12 @@ const ChildDevelopment = () => {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          style={{ position: 'absolute', top: isMobile ? '5%' : '15%', right: isMobile ? '5%' : '10%', width: isMobile ? '120px' : '180px', height: isMobile ? '120px' : '180px', zIndex: 1 }}
+          style={{ position: 'absolute', top: isMobile ? '15%' : '22%', right: isMobile ? '2%' : '8%', width: isMobile ? '100px' : '150px', height: isMobile ? '100px' : '150px', zIndex: 15 }}
         >
-          <div style={{ width: isMobile ? '60px' : '90px', height: isMobile ? '60px' : '90px', background: '#e65100', borderRadius: '50%', margin: isMobile ? '30px auto' : '45px auto', position: 'relative' }}>
+          <div style={{ width: isMobile ? '50px' : '70px', height: isMobile ? '50px' : '70px', background: '#e65100', borderRadius: '50%', margin: isMobile ? '25px auto' : '40px auto', position: 'relative' }}>
             {[...Array(12)].map((_, i) => (
               <div key={i} style={{
-                position: 'absolute', top: '50%', left: '50%', width: isMobile ? '90px' : '140px', height: isMobile ? '6px' : '10px',
+                position: 'absolute', top: '50%', left: '50%', width: isMobile ? '80px' : '120px', height: isMobile ? '5px' : '8px',
                 background: '#f57c00', borderRadius: '5px',
                 transform: `translate(-50%, -50%) rotate(${i * 30}deg)`
               }}></div>
@@ -164,20 +164,20 @@ const ChildDevelopment = () => {
         ))}
 
         {/* Rolling Hills */}
-        <div style={{ position: 'absolute', bottom: isMobile ? '-50px' : '-100px', left: '-10%', width: isMobile ? '120%' : '70%', height: isMobile ? '300px' : '400px', background: '#aed581', borderRadius: '50% 50% 0 0', zIndex: 2, opacity: 0.9 }}></div>
-        <div style={{ position: 'absolute', bottom: isMobile ? '-100px' : '-150px', left: isMobile ? '-10%' : '20%', width: '120%', height: isMobile ? '400px' : '500px', background: '#8bc34a', borderRadius: '50% 50% 0 0', zIndex: 1, opacity: 0.9 }}></div>
+        <div style={{ position: 'absolute', bottom: isMobile ? '-50px' : '-80px', left: '-10%', width: isMobile ? '120%' : '70%', height: isMobile ? '300px' : '250px', background: '#aed581', borderRadius: '50% 50% 0 0', zIndex: 2, opacity: 0.9 }}></div>
+        <div style={{ position: 'absolute', bottom: isMobile ? '-100px' : '-120px', left: isMobile ? '-10%' : '20%', width: '120%', height: isMobile ? '400px' : '350px', background: '#8bc34a', borderRadius: '50% 50% 0 0', zIndex: 1, opacity: 0.9 }}></div>
 
         <div style={{
-          maxWidth: '1400px',
+          maxWidth: '1280px',
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-          gap: isMobile ? '2rem' : '4rem',
+          gap: isMobile ? '2rem' : '2rem',
           alignItems: 'center',
           position: 'relative',
           zIndex: 10,
           textAlign: isMobile ? 'center' : 'left',
-          marginTop: isMobile ? '0' : '16vh'
+          marginTop: isMobile ? '0' : '10vh'
         }}>
           <motion.div
             initial={{ opacity: 0, y: isMobile ? 30 : 0, x: isMobile ? 0 : -50 }}
@@ -188,23 +188,23 @@ const ChildDevelopment = () => {
               Welcome To Our School
             </span>
             <h1 style={{
-              fontSize: isMobile ? '2.8rem' : 'clamp(3.5rem, 7vw, 5.5rem)',
+              fontSize: isMobile ? '2.5rem' : 'clamp(3rem, 4.5vw, 4.5rem)',
               fontWeight: 900,
               color: '#3e2723',
-              lineHeight: 1.05,
-              marginTop: '1.5rem',
-              marginBottom: '2rem',
+              lineHeight: 1.1,
+              marginTop: '1rem',
+              marginBottom: '1.5rem',
               textShadow: isMobile ? '2px 2px 0 rgba(0,0,0,0.1)' : '3px 3px 0px #fff, 6px 6px 0px rgba(0,0,0,0.05), 9px 9px 20px rgba(0,0,0,0.1)'
             }}>
               Make Your <span style={{ color: '#f4511e' }}>Children's</span><br />Life Special
             </h1>
             <p style={{
-              fontSize: isMobile ? '1.1rem' : '1.25rem',
+              fontSize: isMobile ? '1rem' : '1.15rem',
               color: '#5d4037',
-              lineHeight: 1.8,
-              marginBottom: isMobile ? '2.5rem' : '4rem',
-              maxWidth: '600px',
-              margin: isMobile ? '0 auto 2.5rem' : '0 0 4rem',
+              lineHeight: 1.6,
+              marginBottom: isMobile ? '2rem' : '2.5rem',
+              maxWidth: '500px',
+              margin: isMobile ? '0 auto 2.5rem' : '0 0 2.5rem',
               opacity: 0.9
             }}>
               The Universe is one great kindergarten for man. Everything that exists has brought with it its own peculiar lesson.
@@ -214,9 +214,9 @@ const ChildDevelopment = () => {
                 whileHover={{ scale: 1.05, boxShadow: '0 15px 30px rgba(244, 81, 30, 0.3)' }}
                 whileTap={{ scale: 0.95 }}
                 style={{
-                  background: '#f4511e', color: '#fff', padding: isMobile ? '1.2rem 2.5rem' : '1.5rem 3.5rem',
+                  background: '#f4511e', color: '#fff', padding: isMobile ? '1rem 2rem' : '1.2rem 2.5rem',
                   borderRadius: '50px', fontWeight: 800, border: 'none', cursor: 'pointer',
-                  fontSize: isMobile ? '1rem' : '1.1rem', transition: 'all 0.3s ease'
+                  fontSize: isMobile ? '0.9rem' : '1rem', transition: 'all 0.3s ease'
                 }}
                 onClick={() => window.open('https://www.bksanskar.in/', '_blank')}
               >
@@ -232,23 +232,22 @@ const ChildDevelopment = () => {
             style={{
               position: 'relative',
               textAlign: isMobile ? 'center' : 'right',
-              top: isMobile ? '0' : '40px',
+              top: isMobile ? '0' : '80px',
               marginTop: isMobile ? '2rem' : '0',
               zIndex: 10
             }}
           >
-            {/* We use giphyGif for the final high-fidelity look */}
             <img
               src={giphyGif}
               alt="School Children"
               style={{
-                width: isMobile ? '100%' : '160%',
-                maxWidth: isMobile ? '500px' : '1400px',
+                width: isMobile ? '100%' : '120%',
+                maxWidth: isMobile ? '500px' : '800px',
                 position: 'relative',
-                right: isMobile ? '0' : '30%',
+                right: isMobile ? '0' : '10%',
                 zIndex: 10,
-                maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
-                WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+                maskImage: 'radial-gradient(50% 100% at 50% 50%, black 50%, transparent 100%)',
+                WebkitMaskImage: 'radial-gradient(50% 100% at 50% 50%, black 50%, transparent 100%)',
                 mixBlendMode: 'multiply',
                 opacity: 1,
                 filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.1)) saturate(1.1) contrast(1.1) brightness(1.05)'

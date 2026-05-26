@@ -322,7 +322,7 @@ const SocialWelfare = () => {
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
-          gap: windowWidth < 768 ? '2rem' : '6rem'
+          gap: windowWidth < 768 ? '2rem' : '3rem'
         }}>
           <div style={{ flex: '0.8', minWidth: '320px' }}>
             <motion.span
@@ -336,7 +336,7 @@ const SocialWelfare = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, color: '#1a1a1a', lineHeight: 1, marginBottom: '2.5rem', letterSpacing: '-2px' }}
+              style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3.2rem)', fontWeight: 900, color: '#1a1a1a', lineHeight: 1.15, marginBottom: '1.2rem', letterSpacing: '-0.5px' }}
             >
               Upholding <br />
               <span style={{
@@ -349,7 +349,7 @@ const SocialWelfare = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              style={{ fontSize: '1.05rem', color: '#555', lineHeight: 1.7, marginBottom: '3rem', maxWidth: '500px' }}
+              style={{ fontSize: '0.95rem', color: '#555', lineHeight: 1.6, marginBottom: '2rem', maxWidth: '450px' }}
             >
               Dedicated to human rights, legal aid, and social welfare across India. We believe every citizen deserves a life of respect and security.
             </motion.p>
@@ -366,14 +366,14 @@ const SocialWelfare = () => {
                 style={{
                   background: 'linear-gradient(to bottom, #fb923c, #f97316)',
                   color: '#fff',
-                  padding: '1.2rem 2.8rem',
-                  borderRadius: '20px',
+                  padding: '0.9rem 2rem',
+                  borderRadius: '16px',
                   border: 'none',
                   fontWeight: 900,
                   cursor: 'pointer',
                   boxShadow: '0 8px 0 #c2410c, 0 15px 30px rgba(249,115,22,0.3)',
                   transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
-                  fontSize: '1.1rem',
+                  fontSize: '0.95rem',
                   letterSpacing: '0.5px',
                   position: 'relative'
                 }}
@@ -389,8 +389,8 @@ const SocialWelfare = () => {
                   background: '#fff',
                   border: '2px solid #f0f0f0',
                   color: '#1a1a1a',
-                  padding: '1.1rem 2.2rem',
-                  borderRadius: '20px',
+                  padding: '0.8rem 1.8rem',
+                  borderRadius: '16px',
                   fontWeight: 900,
                   cursor: 'pointer',
                   display: 'flex',
@@ -398,7 +398,7 @@ const SocialWelfare = () => {
                   gap: '12px',
                   boxShadow: '0 6px 0 #e5e5e5, 0 10px 20px rgba(0,0,0,0.03)',
                   transition: 'all 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
-                  fontSize: '1rem'
+                  fontSize: '0.9rem'
                 }}
               >
                 Learn More <ArrowRight size={20} color="#f97316" />
@@ -408,18 +408,19 @@ const SocialWelfare = () => {
           <div style={{
             flex: '1.2',
             position: 'relative',
-            height: windowWidth < 768 ? '450px' : '650px',
+            height: windowWidth < 768 ? '400px' : '520px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             perspective: '2000px',
             zIndex: 1,
-            marginTop: windowWidth < 768 ? '2rem' : '1rem',
-            width: '100%'
+            marginTop: windowWidth < 768 ? '2rem' : '4rem',
+            width: '100%',
+            margin: '0 auto'
           }}>
             <div style={{
-              width: windowWidth < 768 ? '100%' : '580px',
-              height: windowWidth < 768 ? '400px' : '480px',
+              width: windowWidth < 768 ? '100%' : '460px',
+              height: windowWidth < 768 ? '360px' : '400px',
               borderRadius: '40px',
               overflow: 'hidden',
               border: windowWidth < 768 ? '6px solid #fff' : '12px solid #fff',

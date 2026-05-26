@@ -157,7 +157,7 @@ const TribalDevelopment = () => {
         display: 'flex',
         alignItems: 'center',
         flexWrap: 'wrap',
-        gap: '4rem',
+        gap: '3rem',
         minHeight: '70vh'
       }}>
         <div style={{ flex: '1.2', minWidth: '350px' }}>
@@ -172,21 +172,21 @@ const TribalDevelopment = () => {
             {renderText("BK Education and Welfare Society")}
           </h2>
           <h1 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            fontSize: 'clamp(1.8rem, 3.5vw, 3.2rem)',
             fontWeight: '900',
             color: '#1a1a1a',
-            lineHeight: '1.1',
-            marginBottom: '2rem'
+            lineHeight: '1.15',
+            marginBottom: '1.5rem'
           }}>
             Preserving Heritage. <br />
             <span style={{ color: '#795548' }}>Empowering</span> Communities.
           </h1>
           <p style={{
-            fontSize: '1.2rem',
+            fontSize: '1.05rem',
             color: '#555',
             lineHeight: '1.6',
-            maxWidth: '600px',
-            marginBottom: '3rem'
+            maxWidth: '550px',
+            marginBottom: '2.5rem'
           }}>
             At BK Education and Welfare Society, we believe that education is the ultimate equalizer. We provide <strong>100% free education, residential facilities, and nutritional support</strong> to tribal students, ensuring they have the foundation to build a prosperous future.
           </p>

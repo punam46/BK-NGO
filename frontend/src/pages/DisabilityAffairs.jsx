@@ -304,7 +304,7 @@ const y2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
             position: 'relative',
             minWidth: windowWidth < 768 ? '100%' : '550px',
             height: windowWidth < 768 ? '300px' : '500px',
-            marginTop: windowWidth < 768 ? '2rem' : '0',
+            marginTop: windowWidth < 768 ? '2rem' : '-6rem',
             zIndex: 2,
             display: 'flex',
             alignItems: 'center',

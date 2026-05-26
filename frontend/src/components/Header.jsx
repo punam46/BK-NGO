@@ -87,8 +87,8 @@ const Header = () => {
                     left: '50%',
                     transform: 'translateX(-50%)',
                     marginTop: '2px',
-                    fontSize: isMobile ? '0.55rem' : '0.75rem',
-                    fontWeight: '800',
+                    fontSize: isMobile ? '0.45rem' : '0.6rem',
+                    fontWeight: '700',
                     color: '#666',
                     whiteSpace: 'nowrap'
                   }}
@@ -177,7 +177,7 @@ const Header = () => {
           <NavLink to="/contact" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={closeMenu}>Contact</NavLink>
         </nav>
 
-        <div className="header-right desktop-only" style={{ display: 'flex', alignItems: 'center', gap: scrolled ? '1rem' : '1.5rem', flexShrink: 0 }}>
+        <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: scrolled ? '1rem' : '1.5rem', flexShrink: 0 }}>
           <Link to="/donate" style={{ textDecoration: 'none' }}>
             <motion.button
               whileHover={{ scale: 1.05, translateZ: 20 }}

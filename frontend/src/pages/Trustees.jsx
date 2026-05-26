@@ -37,12 +37,12 @@ const itemVariants = {
 
 const Trustees = () => {
   return (
-    <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto" style={{ minHeight: '80vh', backgroundColor: '#f8fafc' }}>
+    <div className="pt-44 pb-20 px-6 max-w-7xl mx-auto" style={{ minHeight: '80vh', backgroundColor: '#f8fafc' }}>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-16"
+        className="text-center mb-10"
       >
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-main)' }}>
           Our <span style={{ color: '#e53935' }}>Journey & Leadership</span>
@@ -52,7 +52,7 @@ const Trustees = () => {
 
 
       {/* Trustees Section Header */}
-      <div className="text-center mb-10 mt-16">
+      <div className="text-center mb-10 mt-20">
         <h2 className="text-3xl font-bold text-gray-900 mb-2">Our <span style={{ color: '#e53935' }}>Trustees</span></h2>
         <p className="text-gray-600">Meet the dedicated individuals who lead and guide us.</p>
       </div>
