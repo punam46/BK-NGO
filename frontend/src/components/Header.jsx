@@ -106,7 +106,7 @@ const Header = () => {
                 letterSpacing: '-0.5px',
                 lineHeight: '1.2',
                 transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap' /* Keep title in one line */
+                whiteSpace: isMobile ? 'normal' : 'nowrap' /* Keep title in one line on desktop */
               }}>
                 <span style={{ color: '#e53935' }}>BK</span> Educational & Welfare Society
               </span>
@@ -177,7 +177,7 @@ const Header = () => {
           <NavLink to="/contact" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`} onClick={closeMenu}>Contact</NavLink>
         </nav>
 
-        <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: scrolled ? '1rem' : '1.5rem', flexShrink: 0 }}>
+        <div className="header-right" style={{ gap: scrolled ? '1rem' : '1.5rem', flexShrink: 0 }}>
           <Link to="/donate" style={{ textDecoration: 'none' }}>
             <motion.button
               whileHover={{ scale: 1.05, translateZ: 20 }}

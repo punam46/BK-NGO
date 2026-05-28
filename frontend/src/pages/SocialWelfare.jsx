@@ -311,7 +311,7 @@ const SocialWelfare = () => {
       {/* ===== Hero Section ===== */}
       {/* ===== Hero Section ===== */}
       <section style={{
-        padding: '2.5rem 5% 4rem',
+        padding: '8rem 5% 4rem',
         background: '#fff',
         position: 'relative',
         overflow: 'visible'
@@ -408,23 +408,19 @@ const SocialWelfare = () => {
           <div style={{
             flex: '1.2',
             position: 'relative',
-            height: windowWidth < 768 ? '400px' : '520px',
+            height: windowWidth < 768 ? '400px' : '460px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            perspective: '2000px',
             zIndex: 1,
-            marginTop: windowWidth < 768 ? '2rem' : '4rem',
-            width: '100%',
-            margin: '0 auto'
           }}>
             <div style={{
-              width: windowWidth < 768 ? '100%' : '460px',
+              width: windowWidth < 768 ? '100%' : '420px',
               height: windowWidth < 768 ? '360px' : '400px',
-              borderRadius: '40px',
+              borderRadius: '32px',
               overflow: 'hidden',
-              border: windowWidth < 768 ? '6px solid #fff' : '12px solid #fff',
-              boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
+              border: windowWidth < 768 ? '6px solid #fff' : '10px solid #fff',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.12)',
               position: 'relative',
               background: '#fff',
               margin: '0 auto'
@@ -444,7 +440,7 @@ const SocialWelfare = () => {
                     key={idx}
                     style={{
                       width: '100%',
-                      height: windowWidth < 768 ? '200px' : '320px', 
+                      height: windowWidth < 768 ? '180px' : '250px', 
                       flexShrink: 0,
                       borderRadius: '28px',
                       overflow: 'hidden',
